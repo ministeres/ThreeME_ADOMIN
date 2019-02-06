@@ -1,0 +1,1523 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Modification de l'equation de demande des véhicules: à integrer à la subroutine
+ (cf note GC)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta exp{}_{h,k,e}^{AUTO}= & \alpha^{AUTO}\left(\Delta km_{h,k}^{auto}-\eta^{MOB\_TRSP\_COL}.(1-\varphi^{AUTO}).\left(pch_{03}-pch_{14}\right)\right)\\
+ & +(1-\alpha^{AUTO})\Delta exp_{h,k}\\
+\\
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+effet sobrieté pour l'usage de la voiture+effet report modal dans les transports
+: :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ch\_22\_Auto\_eff=Auto\_eff+enr\_eff\_Auto+\eta.(pch_{22}-pch)-\eta(pch\_22-pch)+eta^{road\_rail}.pch_{14}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+modélisation fred
+\end_layout
+
+\begin_layout Standard
+effet substitution chauffage dans le logement:
+\begin_inset Formula 
+\begin{equation}
+bat\_eff+\eta\varphi(pch\_24-PCH\_23)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+modélisation fred: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER_{e,cl}=\eta\varphi(pch\_24-PCH\_23)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Une trop grande augmentation de la conso d'électricité vient du chauffage
+ électrique (substitution interne entre les types d'energie pour le chauffage)
+\end_layout
+
+\begin_layout Subsection*
+Spécification Investissement: (v6.76)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta ia_{a}=\eta^{0}\Delta ia_{a,t-1}+\eta^{1}\Delta y_{a,t}^{e}+\eta^{2}(k_{a,t-1}^{n}-k_{a,t-1})+\eta^{3}\Delta SUBST\_K_{a,t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta y_{a,t}^{e}=\lambda^{1}\Delta y_{a,t-1}^{e}+(1-\lambda^{1})\Delta y_{a,t-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Probleme d'equilibre du compte central a cause des at elem sur les demande
+ de facteur qui sont exprimé en valeur alors qu'il faudrait les prendre
+ en volume.
+ des lors qu'il y'a une substitution il faut regarder cette question.
+\end_layout
+
+\begin_layout Section*
+Question de la subvention par les entreprises des véhicules privés
+\end_layout
+
+\begin_layout Standard
+Une partie de la flotte automobile ainsi que du carburant utilisés par les
+ ménages est directement imputée comme consommation intérmediaire des entreprise
+s (CI_03 et CI_22).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+E
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula 
+\begin{equation}
+ci_{22,a}=y_{a}+\eta(P_{22}^{E}-P_{oth})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+CI_{22,a}=CI_{22}^{VP}+CI_{22,a}^{OTH}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+ci_{22,a}=\Bigg(1-\frac{CI_{22}^{VP}}{\sum CI_{22,a}}\Bigg).y_{a}+\eta(P_{22}^{E}-P^{OTH})+\frac{CI_{22}^{VP}}{\sum CI_{22,a}}.(c_{22\_03})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+avec C_22_03 qui est la consommation de pétrole pour l'usage de véhicule.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+CI_{22\_03}=\sum_{k}C_{22\_03,k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Sur les données
+\end_layout
+
+\begin_layout Standard
+Revoir la répartition des consommation intérmédiaires entre les secteurs
+ 23 et 24.
+ La répartition provient du fichier 
+\begin_inset Quotes eld
+\end_inset
+
+Import_table_calculation
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Il faudra revoir cette répartition afin qu'elle soit compatible avec les
+ données DGEC
+\end_layout
+
+\begin_layout Section*
+Level II:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Equation a changer dans le fichier Full_description par celle de dessous
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Notional demand in energy c by activity a
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta e_{c,a} & =\Delta e_{a}+\Delta SUBST\_E_{c,a}\\
+\Delta SUBST\_E_{c,a,t}^{n} & =-\sum_{c'=21}^{24}\eta_{cc'}\varphi_{c',a,t-1}\Delta\left(\frac{P_{c,a,t-1}^{TEP}}{P_{c',a,t-1}^{TEP}}.p_{c,a,t}^{E}-\frac{P_{c',a,t-1}^{TEP}}{P_{c,a,t-1}^{TEP}}.p_{c',a,t}^{E}\right)\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Ajout des équations de CSPE:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE=CSPE\_elec+CSPE\_heat+CSPE\_biocarb
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_elec_{a}=\left(CU_{a}-CU_{23\_foss}\right).Y_{a}\;\; for\; a={2305,2306,2307,2308}>0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+CSPE\_elec & = & CSPE\_elec_{2305}+CSPE\_elec_{2306}+\\
+\\
+ &  & CSPE\_elec_{2307}.\frac{Q\_Mtep_{2307,t}-Q\_Mtep_{2307,0}}{Q\_Mtep_{2307,t}}+CSPE\_elec_{2308}
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_heat_{a}=\left(CU_{a}-CU_{2401}\right).Y_{a}\;\; for\; a={2402,2403,2404,2405,2406}>0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+CSPE\_heat & = & CSPE\_heat_{2402}.\left(\frac{Q\_Mtep_{2302,t}-Q\_Mtep_{2302,0}}{Q\_Mtep_{2302,t}}\right)+\\
+\\
+ &  & CSPE\_heat_{2403}+CSPE\_heat_{2404}+CSPE\_heat_{2405}+CSPE\_heat_{2406}
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CU_{23}^{foss}=\frac{\sum_{a}CU_{a}.Y_{a}}{\sum_{a}Y_{a}}\;\; for\; a={2301,2302,2303,2304}>bat\_eff+\eta\varphi(pch\_24-PCH\_23)0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_biocarb=\left(CU_{2202}-CU_{2201}\right).Y_{2202}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Equation faisant intervenir la CSPE dans le modèle version 04.61.12
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CO^{VAL}=1000000.\frac{REC\_TCO+CIDD+BONUS+MALUS+CSPE}{EMS.PCH}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Household's Consumption in Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_H_{e,h}=\Delta ener\_buil_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_H{}_{e}=\sum_{h}Q\_Mtep\_H{}_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_H=\sum_{e}Q\_Mtep\_H{}_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_TRSP_{e,h}=\Delta ener\_auto_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_TRSP{}_{e}=\sum_{h}Q\_Mtep\_TRSP{}_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_TRSP=\sum_{e}Q\_Mtep\_TRSP{}_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Production in Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep_{e,a}=\Delta e_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{e}=\sum_{a}Q\_Mtep_{e,a}+Q\_Mtep\_TRSP_{e}+Q\_Mtep\_H_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic consumption of automobile by household:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_autoparc_{e,h}=\Delta ener\_auto{}_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_AUTOPARC{}_{e}=\sum_{h}Q\_Mtep\_AUTOPARC_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_AUTOPARC=\sum Q\_Mtep\_AUTOPARC_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Intermediary consumption in the energetic activities:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ED_{ena}=\sum_{e}ED_{ena,e}\qquad for\quad ena\in a={21,2201,\ldots,2406}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+EM_{ena}=\sum_{e}EM_{ena,e}\qquad for\quad ena\in a={21,2201,\ldots,2406}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+E{}_{ena}=EM_{ena}+ED_{ena}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{ena,e}=\varphi_{ena,e}^{Y}.(Q\_Mtep\_H_{e}+Q\_Mtep\_TRSP_{e}+Q\_Mtep_{e,a})\qquad for\quad e={22,23,24}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Conversion between primary energy and final energy:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{ena}^{EP}=\zeta_{ena}^{ENE}.Q\_Mtep_{ena}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep^{EP}=\sum_{ena}Q\_Mtep_{ena}^{EP}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+PM: j'ai mis ici sous sa forme générale alors que dans les équations de
+ Gael cela ne concerne que le nucléaire mais il suffira de calibrer le facteur
+ égale à 1 pour retrouver les résultats pour les autres types d'énérgie.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{e}=Q\_Mtep\_H_{e}+\sum_{a}Q\_Mtep_{e,a}+Q\_Mtep\_H\_TRSP_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep=Q\_Mtep_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Modification de l'équation des élec et de bonus elec
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Modification de l'equation des bagnoles elec et de bonus elec
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccccc}
+EXP_{h,t}{}^{AUTO\_elec} & = & EXP_{h,t-1}{}^{AUTO\_elec}.(1+\Delta exp_{h}).T^{gth\_elec}\\
+\\
+ &  & +\eta^{AUTO\_elec}.\varphi_{t-1}^{EXP\_AUTO_{22}}.\Delta\left(pexp_{22}-pexp_{23}\right)\\
+\\
+ &  & +\eta^{BONUS\_elec}.\varphi_{t-1}^{EXP_{03}}.\Delta pi_{03}^{eff}.T^{BONUS\_elec} &  & \;\; if\;\left(EXP_{h,03}^{eff}-EXP_{h,03}^{elec}\right)>0\\
+\\
+EXP_{h,t}{}^{AUTO\_elec} & = & EXP_{h,t-1}{}^{AUTO\_elec} &  & \;\; if\;\left(EXP_{h,03}^{eff}-EXP_{h,03}^{elec}\right)\leqslant0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+BONUS\_ELEC_{h}=\Delta\left(EXP_{h}^{AUTO\_elec}.PI_{03}^{eff}\right).T^{BONUS\_ELEC}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\SpecialChar \ldots{}
+
+\begin_inset Formula 
+\begin{equation}
+EXP_{h,03}^{eff}=\sum_{k=A}^{C}EXP_{h,k}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Unitary energy prices in euro per Mtep :
+\begin_inset Formula 
+\begin{equation}
+PE_{e}^{TEP}.Q\_Mtep_{a,e}=PE_{e}.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ici on ne prend en compte que le logement dans le calibrage du prix de l'énergie
+ pour les ménages.
+ On peut prendre EXP_ener qui est l'ensemble des dépenses d'énergie de la
+ part des ménages (en volume compta nat).
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+PEXP_{e}^{TEP}.Q\_Mtep\_H_{,e}=PENER\_BUIL_{e}.ENER\_BUIL_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXP_{e}^{TEP}.Q\_Mtep\_H_{,e}=PEXP{}_{e}.EXP{}_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Rajouter prix a 36 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+PEXP\_TRSP_{e}^{TEP}.Q\_Mtep\_TRSP_{,h,e}=PEXP_{03}\sum_{k}EXP\_AUTO_{h,k,e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXP{}_{e}^{TEP}.Q\_Mtep\_H_{e}=\sum_{k}PENER\_BUIL_{k,e}.PE_{e}.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Introduction des écarts de prix relatifs en volume dans les équations de
+ substitutions inter-énergie des ménages :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta exp\_buil_{h,k,22} & = & \Delta ener\_buil_{h,k,22}+\Delta standard\_BUIL+\eta^{EXP_{h,k,22}}.(\Delta pexp_{22}-\Delta pexp)\\
+\\
+ &  & +\eta^{Buil_{h,k,24\_22}}.\left(\frac{PEXP_{24,t-1}^{TEP}}{PEXP_{22,t-1}^{TEP}}.\Delta pexp_{24}-\frac{PEXP_{22,t-1}^{TEP}}{PEXP_{24,t-1}^{TEP}}.\Delta pexp_{22}\right)\\
+\\
+ &  & .\frac{EXP_{24\_BUIL\_eff,t-1}}{EXP_{22\_BUIL\_eff,_{t-1}}+EXP_{24\_BUIL\_eff,t-1}}\qquad if\; ener\_buil_{h,k,22}>0\\
+\\
+\Delta exp\_buil_{h,k,22} & = & \Delta ener\_buil_{h,k,22}+\Delta standard\_BUIL\;\; if\; ener\_buil_{h,k,22}\eqslantless0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta exp\_buil_{h,k,23} & = & \Delta ener\_buil_{h,k,23}+\Delta standard\_BUIL+\eta^{EXP_{h,k,23}}.(\Delta pexp_{23}-\Delta pexp)\\
+\\
+ &  & +\eta^{Buil_{h,k,24\_23}}.\left(\frac{PEXP_{24,t-1}^{TEP}}{PEXP_{22,t-1}^{TEP}}.\Delta pexp_{24}-\frac{PEXP_{23,t-1}^{TEP}}{PEXP_{23,t-1}^{TEP}}.\Delta pexp_{23}\right)\\
+\\
+ &  & .\frac{EXP_{24\_BUIL\_eff,t-1}}{EXP_{23\_BUIL\_eff,_{t-1}}+EXP_{24\_BUIL\_eff,t-1}}\qquad if\; ener\_buil_{h,k,23}>0\\
+\\
+\Delta exp\_buil_{h,k,23} & = & \Delta ener\_buil_{h,k,23}+\Delta standard\_BUIL\;\; if\; ener\_buil_{h,k,23}\eqslantless0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta exp\_buil_{h,k,24} &  & \Delta ener\_buil_{h,k,24}+\Delta standard\_BUIL+\eta^{EXP_{h,k,24}}.(\Delta pexp_{24}-\Delta pexp)\\
+\\
+ &  & +\eta^{Buil_{h,k,22\_24}}.\left(\frac{PEXP_{22,t-1}^{TEP}}{PEXP_{24,t-1}^{TEP}}.\Delta pexp_{22}-\frac{PEXP_{24,t-1}^{TEP}}{PEXP_{22,t-1}^{TEP}}.\Delta pexp_{24}\right)\\
+\\
+ &  & .\frac{EXP_{22\_BUIL\_eff,t-1}}{EXP_{22\_BUIL\_eff,_{t-1}}+EXP_{24\_BUIL\_eff,t-1}}\\
+\\
+ &  & +\eta^{Buil_{h,k,23\_24}}.\left(\frac{PEXP_{23,t-1}^{TEP}}{PEXP_{24,t-1}^{TEP}}.\Delta pexp_{23}-\frac{PEXP_{24,t-1}^{TEP}}{PEXP_{23,t-1}^{TEP}}.\Delta pexp_{24}\right)\\
+\\
+ &  & .\frac{EXP_{23\_BUIL\_eff,t-1}}{EXP_{22\_BUIL\_eff,_{t-1}}+EXP_{24\_BUIL\_eff,t-1}}\qquad if\; ener\_buil_{h,k,23}>0\\
+\\
+\Delta exp\_buil_{h,k,24} & = & \Delta ener\_buil_{h,k,24}+\Delta standard\_BUIL\;\; if\; ener\_buil_{h,k,24}\eqslantless0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Introduction des écarts de prix relatifs en volume dans les équations de
+ substitutions inter-énergie des entreprises :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+Cf equation 78 dans le level II du producteur.
+ Ca semble être les mêmes que exposées dans cette partie 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Endogenous variables
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ED_{ena,e}$
+\end_inset
+
+ Energy 
+\begin_inset Formula $e$
+\end_inset
+
+ domestically produced and consumed by the energetic sector 
+\begin_inset Formula $ena$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ED_{ena}$
+\end_inset
+
+ Total of Energy domestically produced and consumed by the energetic sector
+ 
+\begin_inset Formula $ena$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EM_{ena,e}$
+\end_inset
+
+ Energy 
+\begin_inset Formula $e$
+\end_inset
+
+ imported and consumed by the energetic sector 
+\begin_inset Formula $ena$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EM_{ena}$
+\end_inset
+
+ Total of energy imported and consumed by the energetic sector 
+\begin_inset Formula $ena$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\zeta_{e}^{ENE}$
+\end_inset
+
+ conversion factor between primary and final energy production by type of
+ energy 
+\begin_inset Formula $e$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta_{h,k,e}^{BUIL\_i,i'}$
+\end_inset
+
+ Inter-energy Elasticity of substitution for each household 
+\begin_inset Formula $h$
+\end_inset
+
+ and by type of energy 
+\begin_inset Formula $e$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PE_{e}^{TEP}$
+\end_inset
+
+ Unitary energy production in euro per Mtep by type of energy 
+\begin_inset Formula $e$
+\end_inset
+
+ for productive use
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PEXP_{e}^{TEP}$
+\end_inset
+
+ Unitary energy production in euro per Mtep by type of energy 
+\begin_inset Formula $e$
+\end_inset
+
+ for domestic use
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $P\_TRSP_{e}^{TEP}$
+\end_inset
+
+ Unitary energy production in euro per Mtep by type of energy 
+\begin_inset Formula $e$
+\end_inset
+
+ for transportation use
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $STANDARD\_BUIL$
+\end_inset
+
+ norme thermique
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BONUS\_ELEC_{h}$
+\end_inset
+
+ Bonus received by the household h for buying an electric car
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PEXP_{03}^{eff}$
+\end_inset
+
+ Expenditures Price in an efficient automobile 
+\begin_inset Formula ${k=A,B,C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{gth\_elec}$
+\end_inset
+
+ Penetration rate of the electric automobile
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{BONUS\_elec}$
+\end_inset
+
+ Rate of bonus accorded for the buying of an electric car
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EXP_{h,03}^{elec}$
+\end_inset
+
+ Expenditures of the household 
+\begin_inset Formula $h$
+\end_inset
+
+ in electric car
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{BONUS\_elec}$
+\end_inset
+
+ R
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{AUTO\_elec}$
+\end_inset
+
+ r
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{BUIL_{h,k,e}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\alpha^{AUTO}$
+\end_inset
+
+ Rate of bonus accorded for the buying of an electric car
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{MOB\_TRSP\_COL}$
+\end_inset
+
+ Elasticity of substitution between the automobile and the collective transports
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi^{AUTO}$
+\end_inset
+
+ Share of the auto in the transports
+\end_layout
+
+\begin_layout Subsection*
+Endogenous variables
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PEXP_{03}^{eff}$
+\end_inset
+
+ Expenditures Price in an efficient automobile 
+\begin_inset Formula ${k=A,B,C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PEXP_{03}^{eff}$
+\end_inset
+
+ Expenditures Price in an efficient automobile 
+\begin_inset Formula ${k=A,B,C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EXP_{h,03}^{elec}$
+\end_inset
+
+ Expenditures of the household 
+\begin_inset Formula $h$
+\end_inset
+
+ in electric car
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{BUIL_{h,k,e}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\alpha^{AUTO}$
+\end_inset
+
+ Rate of bonus accorded for the buying of an electric car
+\end_layout
+
+\end_body
+\end_document

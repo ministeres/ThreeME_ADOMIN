@@ -1,0 +1,786 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Dynamic properties of Three-ME model: testing the impact of alternative
+ scenarios
+\end_layout
+
+\begin_layout Date
+15/09/2012
+\end_layout
+
+\begin_layout Standard
+\align center
+Gaël CALLONNEC
+\begin_inset Formula $^{2}$
+\end_inset
+
+, Gissela LANDA
+\begin_inset Formula $^{1}$
+\end_inset
+
+, Paul MALLIET
+\begin_inset Formula $^{1}$
+\end_inset
+
+ and Frédéric REYNÈS
+\begin_inset Formula $^{1\:3}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $^{1}$
+\end_inset
+
+ OFCE - French Economic Observatory 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $^{2}$
+\end_inset
+
+ ADEME - French Environment and Energy Management Agency 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $^{\text{3}}$
+\end_inset
+
+ TNO - Netherlands Organization for Applied Scientific Research
+\end_layout
+
+\begin_layout Abstract
+Since 2008, the ADEME and the OFCE are involved in a research convention
+ to develop the model Three-ME.
+ This document provides a full description of new version of the model.
+ Three-ME is a new model of the French economy especially designed to evaluate
+ the medium and long term impact of environmental and energy policies at
+ the macroeconomic and sector levels.
+ To do so Three-ME combines two important features.
+ Firstly, it has the main characteristics of neo-Keynesian models by assuming
+ a slow adjustment of effective quantities and prices to their notional
+ level.
+ Compared to standard multi-sector CGEM, this has the advantage to allow
+ for the existence of under-optimum equilibria such as the presence of involunta
+ry unemployment.
+ Secondly, Three-ME is a hybrid model in the sense that it combines the
+ top-down approach of general equilibrium macroeconomic models with elements
+ of bottom-up models of energy models developed by engineers.
+ As in bottom-up models, the amount of energy consumed is related to their
+ use, that is the number of buildings or cars, and the energy class to which
+ they belong.
+ This hypothesis is more realistic compared to the assumption made in the
+ the majority of top-down models where energy consumption is usually directly
+ related to income through a nested structure of utility function.
+\end_layout
+
+\begin_layout Abstract
+Key word: neo-Keynesian model, hybrid modeling, macroeconomic modeling,
+ energy and environmental policy modeling
+\end_layout
+
+\begin_layout Abstract
+JEL code: E12, E17, E27, E37, E47, D57, D58
+\end_layout
+
+\begin_layout Abstract
+Acknowledgments: The authors acknowledge the financial support of the ADEME.
+ 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Section 11 looks at the dynamic properties of the model by simulating the
+ macroeconomic and sectoral impact of various shocks such a positive demand
+ shock via the increase in public spending, a positive supply shock via
+ the decrease in the employer social security rate, and the increase in
+ the oil price and in the labor participation rate.
+\end_layout
+
+\begin_layout Section
+Analytical scenarios
+\end_layout
+
+\begin_layout Standard
+In this section, we conduct several analytical scenarios in order to test
+ the properties of the model.
+ In particular we look how the main macroeconomic and sectoral indicators
+ react after standard shocks such as an expansionary policy, a tax decrease
+ or an increase in the oil price.
+ Analytical scenarios are sometimes referred by modeler as “naive” scenarios
+ in the sense that they do not integrate the most realistic feature of the
+ model.
+ Typically here, we assume a reference scenario where all variables grow
+ at a constant rate at every period which implies some constraint that may
+ not be realistic.
+ For instance, the share of oil into the final consumption is assumed stable
+ over time which is in contradiction with empirical fact: in reality, the
+ share of energy consumption tends to decrease with economic development
+ since energy is generally a necessity good.
+ With this hypothesis, the model tends to exaggerate the increase in GHG
+ emissions of any policy that increases the revenue of households.
+ Avoiding this problem is particularly important when one wants to evaluate
+ for instance the impact of a carbon tax.
+ This requires the use of a “realistic scenario” that assumes that the elasticit
+y between oil consumption and revenue is lower than one.
+ Another necessary constraint to have a stationary reference scenario from
+ the base year onwards is the assumption that the unemployment rate is at
+ its equilibrium level at the base year (above 8% in 2006).
+ The interpretation of any analytical scenario should keep in mind such
+ hypothesis.
+ If there are good reasons to believe that the equilibrium rate of unemployment
+ is below 8%, this simulation tends to exaggerate the inflationary pressure
+ of any policy that reduces the unemployment rate.
+ Despite this caveat, analytical scenarios provide useful information on
+ the long term and dynamic properties of the model.
+ In particular, they allow for testing the dynamic stability of the model
+ after a given shock and to control if the specification of the model insures
+ the convergence to the long term equilibrium.
+ In general, after a shock all the variables converge towards their long
+ term value following a damped cyclical dynamic.
+ The second cycle is generally very close to the long term values.
+ This cyclical dynamic comes mainly from the interaction between the Keynesian
+ multipliers (in particular of investment due to the specification of the
+ equation of capital accumulation) and the inflation dynamic.
+ In a first phase, the investment multiplier accentuates the effect of any
+ favorable shock.
+ This tends to decrease the unemployment rate below its equilibrium level.
+ The subsequent increase in inflation reduces the internal and external
+ demand bringing back the economy below its long term trend.
+ This brings the unemployment rate above its equilibrium value.
+ When inflation is low enough, the favorable phase of the cycle starts again.
+ The length of the cycle is determined by the delay in the adjustment process
+ of the effective prices and quantities toward their notional values.
+ Because all the adjustment process follows a geometric adjustment process,
+ effective values reach their notional values only asymptotically.
+ To measure how fast, this adjustment process is, is it useful to define
+ the adjustment delay as the length time it takes to reach a 90% adjustment.
+ Under this definition, the calibrated adjustment delays are 3 years for
+ the production prices and wages, 4 years for the production factors, 2
+ years for consumption, and 2 years for energy
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Still true???
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Expansionary policy: one GDP point-increase of public spending
+\end_layout
+
+\begin_layout Standard
+We first simulate the medium and long term impact of an expantionary policy:
+ a one GDP point-increase of public spending.
+ Since, governement spending at the base year accounts for about one quarter
+ of the GDP, this shock correponds to an increase of 4% of public expenditure.
+ The proportion of this impulse in terms of products is proportional to
+ the base year public consumption:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:public consumption"
+
+\end_inset
+
+ Structure of public consumption by product in 2006 (base year)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename public consumption by product.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock EXP-trend naive"
+
+\end_inset
+
+ Sectoral effect of one GDP point increase of public spending (naive scenarios)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_EXPG_trend naive.png
+	lyxscale 80
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock EXP-trend realist"
+
+\end_inset
+
+ Sectoral effect of one GDP point increase of public spending (realist scenarios
+)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_EXPG_trend_realiste 0.1.png
+	lyxscale 80
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock EXPG-trend sector naive"
+
+\end_inset
+
+ Sectoral effect of one GDP point increase of public spending (naive scenarios)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_EXPG_trend-sector naive.png
+	lyxscale 80
+	scale 49
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock EXPG-trend sector realist"
+
+\end_inset
+
+ Sectoral effect of one GDP point increase of public spending (realist scenarios
+)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_EXPG_trend-sector realiste 0.1.png
+	lyxscale 80
+	scale 49
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Expansionary policy: decrease in the employer social security rate
+\end_layout
+
+\begin_layout Standard
+The decline in employers' social contributions is one another example of
+ an expansionist policy through the reduction of the labor cost.
+ We simulate a decrease in the employer social contribution of 1 point of
+ GDP which matches a decrease of 7.35% uniform rate apparent for all industries.
+ 
+\end_layout
+
+\begin_layout Standard
+The lower cost of labor induced by this shock will play on two levels.First
+ on the price level by decreasing the cost of production which leads to
+ an increase in the household's real disposable income and thus consumption.
+ In the very short run the disinflationary impact and the substitution mechanism
+s keep constant investment.
+ To this effect combines a lower level of unemployment of 0.1 points in 2010
+ year and 1.1 points in 2015 years.
+ This is due to the effect of stimulus on demand and from improvement of
+ the competitiveness relatively to the rest of the world but also to changes
+ in relative prices between inputs resulting in a substitution toward labor.
+\end_layout
+
+\begin_layout Standard
+Effects on activity are therefore positive.
+ The lower cost of labor and thus production improves competitiveness.
+ This results in an improvement in the terms of trade.
+ Indeed, the fall in prices led to an increase in exports greater than the
+ increase in imports resulting from the increased activity.
+ the early imports fall because of improved competitiveness.
+ In the medium term, the income effect prevails and imports increase.
+ While improving the competitiveness leads to an improvement in the trade
+ balance volume , the trade balance in value decreases due to the decrease
+ in producer prices: France sells more but cheaper.
+\end_layout
+
+\begin_layout Standard
+On the long run, the decline in the unemployment rate generates an inflationary
+ effect and therefore a degradation term competitiveness.
+ So that long-term positive effect on employment measures fades.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock CSE"
+
+\end_inset
+
+ Macroeconomic effect of a one GDP point decrease of the employer social
+ security 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_CSE.png
+	lyxscale 80
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock CSE-1"
+
+\end_inset
+
+ Sectoral effect of a one GDP point decrease of the employer social security
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_CSE-sector.png
+	lyxscale 80
+	scale 49
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+A 50% increase of the oil price
+\end_layout
+
+\begin_layout Standard
+A 50% increase in the oil price is a pure supply shock and has a negative
+ impact on the GDP through a reduction of all the component of the demand.
+ The reduction of the real disposable income affects the consumption and
+ thus the GDP.
+ The change in the relative price induces for the producers to switch from
+ a more energy-intensive technology toward a more capital-intensive technology.
+ We observe that this slight increase in the first years of the investment
+ which is due to a substitution effect from the energy input toward the
+ capital is offset by the negative effect on the activity and thus is negative
+ four periods after the shock.
+ Besides this effect on the demand, the oil shock degrades french exports
+ by increasing the export prices.
+ We can point out that we have a 
+\begin_inset Quotes eld
+\end_inset
+
+naive
+\begin_inset Quotes erd
+\end_inset
+
+ view on this shock, since in our framework the world prices are exogenous
+ and so unimpacted by the oil price shock.
+ This leads to an overestimation of the impact on the commercial balance,
+ considering that only the France will face a rising in the oil price.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock PP"
+
+\end_inset
+
+ Macroeconomic effect of a 50% increase of the oil price
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_PP.png
+	lyxscale 80
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Not surprisingly, all the sectors are negatively impacted.
+ In the energy sectors, the oil is naturally the most impacted activity
+ but the over ones, especially the gas production sectors, benefit from
+ a inter-energy substitution effect and observe an increase in their demand.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock PP-1"
+
+\end_inset
+
+ Sectoral effect of a 50% increase of the oil price
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_PP-sector.png
+	lyxscale 80
+	scale 49
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+A increase of one point of the labor participation ratio
+\end_layout
+
+\begin_layout Standard
+An exogenous increase in the labor participation ratio consecutive for instance
+ of an increase in the legal retirement age has a positive impact on the
+ activity since it increases the potential output of the economy.
+ However, as the adjustment process is slow, the unemployment rate increases.
+ The subsequent decrease in inflation is favorable for the economic activity
+ and thus decreases unemployment: the improvement of the external position
+ leads to an increase of the exports, and the decrease of the interest rate
+ is favorable to investment.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock PARTR"
+
+\end_inset
+
+ Macroeconomic effect of a one point of the labor participation ratio
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_PARTR_trend.png
+	lyxscale 80
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shock PARTR 1"
+
+\end_inset
+
+ Sectoral effect of a one point of the labor participation ratio
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename 3MESHOCK_PARTR_trend-sector.png
+	lyxscale 80
+	scale 49
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,20 @@
+# Ventilate the solver-computed stock trend across commodities, both imported and domestic
+
+#DS_trend = DS_base_trend + DS_add
+
+#@over DSD[c] = DS_trend * @elem(DSD[c], %baseyear) / @elem(DSD + DSM, %baseyear)
+
+##DSD[c]= DSD[c]{-1} * ( 1 + @elem(dlog(POP_tot) + dlog(PROG_L),%baseyear)) + DS_ADD*DSD[c]{-1}/ DSD{-1}
+
+GR_GDP = GDP/GDP{-1}-1
+
+#
+## Export modification
+#@over d(log(X[cm])) = d(log(WD[cm] + X_add * X[cm] / X_other)) + d(SUBST_X[cm]) if X[cm] <> 0
+#
+#X|O|_other = sum(X|O|[cm] if X|O|[cm] <> 0 on cm) 
+#
+#X_other  = XD_other + XM_other 
+#
+## Government expenditures 
+#@over d(log(EXPG)) = ADJUST(69,1)*(d(log(EXPG_trend + EXPG_trend_add)) - STEADYSTATE(62,1)*(DP_G_VAL - DP_G_VAL_n)*PGDP{-1}*GDP{-1} / (PG{-1}*EXPG{-1})) + (1-ADJUST(69,1))*d(log(EXPG{-1}))

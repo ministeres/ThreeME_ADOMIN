@@ -1,0 +1,9503 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Part*
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Appendix D
+\begin_inset space \quad{}
+\end_inset
+
+ Glossary of terms used
+\end_layout
+
+\begin_layout Subsection*
+Sets
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $a\in A$
+\end_inset
+
+ Activities
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $c\in C$
+\end_inset
+
+ Commodities
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ena\in ENA$
+\end_inset
+
+ Energetic activities 
+\begin_inset Formula $ENA\subset A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $m\in M$
+\end_inset
+
+ Margins 
+\begin_inset Formula $M\subset A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $h,h'\in H$
+\end_inset
+
+ Households
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $k,k'\in K$
+\end_inset
+
+ Energetic Class
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $e,e'\in E$
+\end_inset
+
+ Energetic commodities 
+\begin_inset Formula $E\subset C$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Endogenous variables
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $AIC\_MEN$
+\end_inset
+
+ Taxes on capital (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $AF\_net\_MEN$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $AUTR\_Val$
+\end_inset
+
+	 Aggregate others taxes 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $AUTR{}_{c}$
+\end_inset
+
+	 Others taxes on the commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BF\_APU$
+\end_inset
+
+ Public deficit (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BF\_SEC$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Bonus$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Bonus\_elec$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BUIL{}_{t}$
+\end_inset
+
+	 Total building stock
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BUIL{}_{t}^{EFF}$
+\end_inset
+
+	 Stock of efficient building 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BUIL{}_{t}^{OTH}$
+\end_inset
+
+	 Stock of non-efficient building 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BUIL{}_{t}^{FUEL}$
+\end_inset
+
+	 Stock of building with a fuel heating system
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BUIL{}_{t}^{OTH\_RENOV}$
+\end_inset
+
+	 Stock of non-efficient building 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BUIL{}_{t}^{PASS}$
+\end_inset
+
+	 Stock of passive building 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C{}_{c}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{03}^{eff}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{03}^{eff\_fuel}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{03}^{oth}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CM_{03}^{eff}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CM_{03}^{oth}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{03}^{elec}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{21}^{buil\_oth}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{21}^{buil\_eff}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{22}^{buil\_oth}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{22}^{buil\_eff}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{22\_C03}^{oth}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{22\_C03}^{eff}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{23}^{buil}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{23}^{buil\_oth}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{23}^{buil\_eff}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{23\_C03}^{elec}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{24}^{buil}$
+\end_inset
+
+	 Households'consumption of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{24}^{buil\_oth}$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C_{24}^{buil\_eff}$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C^{E\_BUIL}$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CC$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $C^{d}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CD_{c}$
+\end_inset
+
+ Households' consumption of domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CM_{c}$
+\end_inset
+
+	 Households' consumption of imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CF\_MEN$
+\end_inset
+
+ Households aggregate saving
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CI{}_{c}$
+\end_inset
+
+	 Intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CI{}_{c,a}$
+\end_inset
+
+	 Intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CI_{c}^{des}$
+\end_inset
+
+	 Desirated intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CI_{c,a}^{des}$
+\end_inset
+
+	 Desirated intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+ by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CID_{c}$
+\end_inset
+
+	 Domestically produced intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CID_{c,a}$
+\end_inset
+
+	 Domestically produced intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+ by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CIM_{c}$
+\end_inset
+
+	 Imported intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+ by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CIM_{c,a}$
+\end_inset
+
+	 Imported intermediary raw material 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $COST\_Hous\_eff$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSE$
+\end_inset
+
+	 Aggregated Employeur Social cotisations
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSE_{a}$
+\end_inset
+
+	 Aggregated Employeur Social cotisations by activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSE\_ROW$
+\end_inset
+
+	 Total Employeur Social cotisations from the Rest Of the World
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSS$
+\end_inset
+
+	 Aggregated Salary Social cotisations 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE$
+\end_inset
+
+	 Aggregated Employeur Social cotisations
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{biocarb}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{elec}$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{elec\_2305}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{elec\_2306}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{elec\_2307}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{elec\_2308}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{heat}$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{heat\_2402}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{heat\_2403}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{heat\_2404}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{heat\_2405}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE^{heat\_2406}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSS$
+\end_inset
+
+	 Aggregated Salary Social cotisations 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DC$
+\end_inset
+
+	 Commercial balance
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DEBT_{a,t}$
+\end_inset
+
+	 Debt of the sector 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DEBT_{a,t}^{Reimb}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DEBT_{a,t}^{Reimb\_SEC}$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET$
+\end_inset
+
+ Public debt
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DEP$
+\end_inset
+
+	 Public spendings
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_BUIL$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_C03^{eff}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_C03^{oth}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_HOUS^{eff}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_HOUS^{oth}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_MEN$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_REIMB$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DET\_SEC$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $RD$
+\end_inset
+
+	 Total net disposable income (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DP\_G\_VAL$
+\end_inset
+
+	 Public deficit ratio
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $E{}_{c,\sum a}$
+\end_inset
+
+	 Aggregate energy 
+\begin_inset Formula $c$
+\end_inset
+
+ for all the sectors 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $E{}_{c,a}$
+\end_inset
+
+	 Aggregate energy 
+\begin_inset Formula $c$
+\end_inset
+
+ produced by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $E_{a}^{des}$
+\end_inset
+
+	 Desirated aggregate energy 
+\begin_inset Formula $c$
+\end_inset
+
+ produced by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $E_{c,a}^{des}$
+\end_inset
+
+	 Desirated aggregate energy 
+\begin_inset Formula $c$
+\end_inset
+
+ produced by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $E_{ena}$
+\end_inset
+
+	 Energy produced by the activity 
+\begin_inset Formula $ener$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $E^{Vol}$
+\end_inset
+
+	 Energy consumed by the non-energetic sectors 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $E_{c,a}^{des}$
+\end_inset
+
+	 Expected energy 
+\begin_inset Formula $c$
+\end_inset
+
+ produced by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ED_{e,a}$
+\end_inset
+
+ Energy 
+\begin_inset Formula $e$
+\end_inset
+
+ domestically produced and consumed by the sector 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EM_{e,a}$
+\end_inset
+
+ Energy 
+\begin_inset Formula $e$
+\end_inset
+
+ imported and consumed by the sector 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EBE_{a}$
+\end_inset
+
+	 Gross Operating Profit of the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EBE\_SEC$
+\end_inset
+
+	 Aggregate Gross Operating Profit
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS_{e}$
+\end_inset
+
+	 Amount of emissions from source 
+\begin_inset Formula $e$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS_{e,a}$
+\end_inset
+
+	 Amount of emissions from source 
+\begin_inset Formula $e$
+\end_inset
+
+ of the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_CH$
+\end_inset
+
+	 Amount of emissions from coal source 
+\begin_inset Formula $ $
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_GZ$
+\end_inset
+
+	 Amount of emissions from gaz source 
+\begin_inset Formula $e$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_PR$
+\end_inset
+
+	 Amount of emissions from oil source 
+\begin_inset Formula $e$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_H$
+\end_inset
+
+	 Amount of emissions from household consumption
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_H\_21$
+\end_inset
+
+	 Amount of emissions from household coal consumption
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_H\_22\_BUIL$
+\end_inset
+
+	 Amount of emissions from household oil consumption dedicated to building
+ heating
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_H\_22\_C\_03$
+\end_inset
+
+	 Amount of emissions from household automobile gasoline consumption
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_H\_24$
+\end_inset
+
+	 Amount of emissions from household electricity uses
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_S$
+\end_inset
+
+	 Total Amount of emissions from the economic sectors
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EMS\_DEC_{a}$
+\end_inset
+
+	 Amount of emissions from decarbonation processes in the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EN\_BUIL\_h$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EN\_BUIL\_eff$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EN\_BUIL\_oth$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EN\_C\_03\_eff$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EN\_C\_03\_oth$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EXP\_h$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EXPD$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $FISC$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $G$
+\end_inset
+
+	 Public expenditures 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $G\_Val$
+\end_inset
+
+	 Public expenditures 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $G{}_{c}$
+\end_inset
+
+	 Public expenditures in the public good 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $GD_{c}$
+\end_inset
+
+	 Public expenditures in the domestic public good 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $GM_{c}$
+\end_inset
+
+	 Public expenditures of the imported public good 
+\begin_inset Formula $c$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $HOUS$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $HOUS^{d}$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_03\_eff$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_03\_oth$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ID\_03\_eff$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ID\_03\_oth$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IM\_03\_eff$
+\end_inset
+
+	 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IM\_03\_oth$
+\end_inset
+
+	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_APU{}_{c}$
+\end_inset
+
+ Commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ investement from public sector 
+\begin_inset Formula $(a=20)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ID\_APU{}_{c}$
+\end_inset
+
+ Domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ investement from public sector 
+\begin_inset Formula $(a=20)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IM\_APU{}_{c}$
+\end_inset
+
+ Imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ investement from public sector 
+\begin_inset Formula $(a=20)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_APU$
+\end_inset
+
+ Investement from public sector 
+\begin_inset Formula $(a=20)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_BUIL$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_HOUS\_eff$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_HOUS\_oth$
+\end_inset
+
+		
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $I\_SEC_{c,a}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ID\_SEC_{c,a}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $ID\_SEC_{c,\sum mt}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IM\_SEC_{c,a}$
+\end_inset
+
+ Imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ investement in private activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\begin_inset Formula $(a\neq20)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $INV_{a}$
+\end_inset
+
+	 Aggregate Investment in the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $INV$
+\end_inset
+
+ Total Investement 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $INV\_M\_ENR$
+\end_inset
+
+ Total Investement 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $INV\_SEC$
+\end_inset
+
+ Investement from the private sector 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\begin_inset Formula $(a\neq20)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $INV\_SEC\_Val$
+\end_inset
+
+ Investement from the private sector 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\begin_inset Formula $(a\neq20)$
+\end_inset
+
+ (in Value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IAD_{c,a}$
+\end_inset
+
+	 Aggregate Investment in the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ in domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IAM_{c,a}$
+\end_inset
+
+	 Aggregate Investment in the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ in imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Infl\_FR$
+\end_inset
+
+	 Inflation in France
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Infl\_HFR$
+\end_inset
+
+	 Inflation outside France
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Infl\_ZE$
+\end_inset
+
+	 Inflation in the Euro Zone
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IR$
+\end_inset
+
+	 Aggregate tax on income
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IS$
+\end_inset
+
+ Aggregate tax on benefits
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IY$
+\end_inset
+
+ Aggregate tax on activities
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $IY_{a}$
+\end_inset
+
+ Tax on activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $K_{a}$
+\end_inset
+
+ Capital stock in the actvity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $K\_SEC$
+\end_inset
+
+ Total Capital stock 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $K_{a}^{d}$
+\end_inset
+
+ desirated capital stock in the actvity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Km^{C\_03}$
+\end_inset
+
+ Household's automobile kilometers traveled 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $L$
+\end_inset
+
+ Total employment
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $L_{a}$
+\end_inset
+
+ Total employment in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $L_{a}^{d}$
+\end_inset
+
+ desired level of employment in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $L\_person$
+\end_inset
+
+ Total employment
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $M$
+\end_inset
+
+	 Imported commodities
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $M_{c}$
+\end_inset
+
+	 Imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Malus$
+\end_inset
+
+	 Malus linked to automobile purchases
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Marg\_sec$
+\end_inset
+
+	 Imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MCD$
+\end_inset
+
+	 Agregate ommercial margins on the domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MCD_{c,a}$
+\end_inset
+
+	 Commercial margins on the domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+
+\begin_inset Formula $(a=19)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MCM$
+\end_inset
+
+ Aggregate commercial margins on the imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MCM_{c,a}$
+\end_inset
+
+	 The commercial margins on the imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+
+\begin_inset Formula $(a=19)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MM$
+\end_inset
+
+	 Aggregate importation
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MM{}_{c}$
+\end_inset
+
+	 Importation of commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MRD$
+\end_inset
+
+	 Margin Rate in the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MRM$
+\end_inset
+
+	 Margin Rate in the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+vérifier la signifiaction de MRD et MRM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MTD$
+\end_inset
+
+	 Total of Transport margins on domestic products
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MTD_{c,a}$
+\end_inset
+
+	 Transport margins on the domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+
+\begin_inset Formula $(a=14,15,16,17,18)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MTM$
+\end_inset
+
+	 Total of Transport margins on imported products
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $MTM_{c,a}$
+\end_inset
+
+	 Transport margins on the imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+
+\begin_inset Formula $(a=14,15,16,17,18)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $NOMINALTREND$
+\end_inset
+
+	 Nominal growth rate of the economy at the steadystate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PF\_net\_SEC$
+\end_inset
+
+ Total labor force
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PIB$
+\end_inset
+
+ Gross domestic product (product definition)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PIB\_Q$
+\end_inset
+
+ Gross domestic product (product definition)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PIB\_Vol$
+\end_inset
+
+ Gross domestic product (value-added definition)	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PIB\_Vol\_Mar$
+\end_inset
+
+ Gross domestic product of the private sector (value-added definition)	
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $POP$
+\end_inset
+
+	 Total population
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $POP\_ACT$
+\end_inset
+
+ Total labor force
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PRES\_SOC\_U$
+\end_inset
+
+ Unemployment social prestations 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PRES\_SOC\_OTH$
+\end_inset
+
+ Other social prestations
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PRES\_SOC$
+\end_inset
+
+ Agregate social prestations
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PRESOC\_ROW\_VAL$
+\end_inset
+
+ Agregate social prestations for the rest of the world
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Q$
+\end_inset
+
+	 Domestically produced commodities 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Q{}_{c}$
+\end_inset
+
+	 Domestically produced commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $REALTREND$
+\end_inset
+
+ Growth rate of the GDP at the steadystate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R$
+\end_inset
+
+	 Interest rate 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{a}$
+\end_inset
+
+	 Interest rate in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{k}^{CASh\_auto}$
+\end_inset
+
+	 Share of investement in automobile paid cash 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{h,k}^{LOAN}$
+\end_inset
+
+	 Household's 
+\begin_inset Formula $h$
+\end_inset
+
+ share of investment in building paid with a loan in energy class 
+\begin_inset Formula $k$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{h,k}^{LOAN\_REHAB}$
+\end_inset
+
+	 Household's 
+\begin_inset Formula $h$
+\end_inset
+
+ share of investment in building rehabilitation paid with a loan in energy
+ class 
+\begin_inset Formula $k$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{h,k}^{REHAB\_DEBT}$
+\end_inset
+
+ Household's 
+\begin_inset Formula $h$
+\end_inset
+
+ share of debt in building rehabilitation 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $REHAB$
+\end_inset
+
+ Total building rehabilitation (in m2)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $REHAB_{h}$
+\end_inset
+
+ Household's 
+\begin_inset Formula $h$
+\end_inset
+
+ building rehabilitation (in m2)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $REHAB_{h,k}$
+\end_inset
+
+ Household's 
+\begin_inset Formula $h$
+\end_inset
+
+ building rehabilitation in energy class 
+\begin_inset Formula $k$
+\end_inset
+
+ (in m2)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $REHAB_{h,k,k'}$
+\end_inset
+
+ household's 
+\begin_inset Formula $h$
+\end_inset
+
+ building rehabilitation from energy class 
+\begin_inset Formula $k'$
+\end_inset
+
+ to energy class 
+\begin_inset Formula $k$
+\end_inset
+
+ (in m2)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{k}^{LOAN\_auto}$
+\end_inset
+
+	 Share of investement in automobile paid with a loan
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R\_DIR$
+\end_inset
+
+	 Central Bank Interest rate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R\_MEN$
+\end_inset
+
+	 Interest rate for the household
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R\_SEC$
+\end_inset
+
+	 Interest rate for the private sector
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{k}^{RMBS}$
+\end_inset
+
+	 Rate of reimbursement of the debt
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{k}^{RMBS\_auto}$
+\end_inset
+
+	 Rate of reimbursement of the automobile debt
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{k}^{SUB}$
+\end_inset
+
+	 Rate of subsidies on investement in energy efficiency
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R_{k}^{SUB\_auto}$
+\end_inset
+
+	 Rate of subsidies on investement in automobile 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R\_Dir$
+\end_inset
+
+	 Interest rate by the taylor rule 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R^{e}$
+\end_inset
+
+	 Expected interest rate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R\_APU$
+\end_inset
+
+ Interest rate for the public sector
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $R^{N}$
+\end_inset
+
+ Notional interest rate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $REC\_VAL$
+\end_inset
+
+ Public receipts 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $RTCO_{h}$
+\end_inset
+
+	 Carbon tax redistributed to household 
+\begin_inset Formula $h$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $RTCO_{E}$
+\end_inset
+
+	 Carbon tax redistributed to the economic activities
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $S{}_{c}$
+\end_inset
+
+	 Stock variation in the commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SD_{c}$
+\end_inset
+
+	 Stock variation in the domestically produced commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SM_{c}$
+\end_inset
+
+	 Stock variation of the imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SD_{c}$
+\end_inset
+
+ Domectic stock/inventories for commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SD_{c}^{e}$
+\end_inset
+
+ Domestic expected stock/inventories for commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SD_{c}^{n}$
+\end_inset
+
+ Domestic notional stock/inventories for commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SM_{c}$
+\end_inset
+
+ Imported stock/inventories for commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SM_{c}^{e}$
+\end_inset
+
+ Imported expected stock/inventories for commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SM_{c}^{n}$
+\end_inset
+
+ Imported notional stock/inventories for commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $STANDARD\_BUIL$
+\end_inset
+
+ buildings norms
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUB\_VOL$
+\end_inset
+
+	 Aggregate subvention 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUB{}_{c}$
+\end_inset
+
+	 Subvention on the commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_CHD_{c}$
+\end_inset
+
+	 Factor of substitution of domestic household consumption in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_CHD_{c}^{n}$
+\end_inset
+
+	 Factor of substitution of domestic household consumption in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+ (notional) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_CHM_{c}$
+\end_inset
+
+	 Factor of substitution of imported household consumption in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_CHM_{c}^{n}$
+\end_inset
+
+	 Factor of substitution of imported household consumption in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+ (notional) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_E_{a}^{n}$
+\end_inset
+
+	 Factor of substitution of energy(notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_E_{a}$
+\end_inset
+
+	 Factor of substitution of energy
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_E\_n_{c,a}$
+\end_inset
+
+	 Factor of substitution between energy sources (c=21...24) (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_E_{c,a}$
+\end_inset
+
+	 Factor of substitution between energy sources (c=21...24) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_ED_{c,a}$
+\end_inset
+
+	 Factor of substitution for domestic energy 
+\begin_inset Formula $c$
+\end_inset
+
+ in activity 
+\begin_inset Formula $a$
+\end_inset
+
+ (c=21...24) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_ED_{c,a}^{n}$
+\end_inset
+
+	 Factor of substitution for domestic energy 
+\begin_inset Formula $c$
+\end_inset
+
+ in activity 
+\begin_inset Formula $a$
+\end_inset
+
+ (c=21...24) (notional) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_EM_{c,a}$
+\end_inset
+
+	 Factor of substitution for imported energy 
+\begin_inset Formula $c$
+\end_inset
+
+ in activity 
+\begin_inset Formula $a$
+\end_inset
+
+ (c=21...24) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_EM_{c,a}^{n}$
+\end_inset
+
+	 Factor of substitution for imported energy 
+\begin_inset Formula $c$
+\end_inset
+
+ in activity 
+\begin_inset Formula $a$
+\end_inset
+
+ (c=21...24) (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_GD_{c}^{n}$
+\end_inset
+
+	 Factor of substitution for domestic government consumption in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+ (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_GD_{c}$
+\end_inset
+
+	 Factor of substitution for domestic government consumption in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_GM_{c}$
+\end_inset
+
+	 Factor of substitution for imported government consumption in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_IAD_{c,a}$
+\end_inset
+
+	 Factor of substitution for domestic investment in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ (c=14...18)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_IAD_{c,a}^{n}$
+\end_inset
+
+	 Factor of substitution for domestic investment in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ (c=14...18) (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_IAM_{c,a}$
+\end_inset
+
+	 Factor of substitution for imported investment in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ (c=14...18)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_K_{a}^{n}$
+\end_inset
+
+	 Factor of substitution of capital (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_K_{a}$
+\end_inset
+
+	 Factor of substitution of capital
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_L_{a}^{n}$
+\end_inset
+
+	 Factor of substitution of labor (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_L_{a}$
+\end_inset
+
+	 Factor of substitution of labor 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MAT_{a}$
+\end_inset
+
+	 Factor of substitution of material
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MAT_{c,a}^{n}$
+\end_inset
+
+ Factor of substitution between transport of intermediary consumption (c=14...18)
+ (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MAT{}_{c,a}$
+\end_inset
+
+ Factor of substitution between transport of intermediary consumption (c=14...18)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MAT_{a}^{n}$
+\end_inset
+
+	 Factor of substitution of material (notional) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MATD_{c,a}^{n}$
+\end_inset
+
+ Factor of substitution between domestic transport of material raw (c=14...18)
+ (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MATD{}_{c,a}$
+\end_inset
+
+ Factor of substitution between transport of intermediary consumption (c=14...18)
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MATM_{c,a}^{n}$
+\end_inset
+
+ Factor of substitution between foreign, transport of intermediary consumption
+ (c=14...18) (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MATM{}_{c,a}$
+\end_inset
+
+	 Factor of substitution between transport of intermediary consumption (c=14...18)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MTD_{c,a}^{n}$
+\end_inset
+
+ Factor of substitution between domestic transports (c=14...18) (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MTD_{c,a}$
+\end_inset
+
+ Factor of substitution between domestic transports (c=14...18) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MTM_{c,a}^{n}$
+\end_inset
+
+ Factor of substitution between foreign transports (c=14...18) (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_MTM_{c,a}$
+\end_inset
+
+ Factor of substitution between foreign transports (c=14...18)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_X_{c}$
+\end_inset
+
+ Factor of substitution for exportation in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_X_{c}^{n}$
+\end_inset
+
+ Factor of substitution for exportation in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_XD_{c}$
+\end_inset
+
+ Factor of substitution for exportation of domestic products in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_XD_{c}^{n}$
+\end_inset
+
+ Factor of substitution for exportation of domestic products in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+ (notional)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SUBST\_XM_{c}$
+\end_inset
+
+ Factor of substitution for exportation of imported products in commodity
+ 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\sum\varphi_{h,k}^{REHAB}$
+\end_inset
+
+ sum of household's 
+\begin_inset Formula $h$
+\end_inset
+
+ renovation share of class 
+\begin_inset Formula $k$
+\end_inset
+
+ building 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SY$
+\end_inset
+
+ Agregate subvention on activities
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SY_{a}$
+\end_inset
+
+ Subvention on activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\tau_{h,k}^{REHAB}$
+\end_inset
+
+ Household's 
+\begin_inset Formula $h$
+\end_inset
+
+ proportion of buildings rehabilitated in energy class 
+\begin_inset Formula $k$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\tau_{h,k}^{REHAB\_n}$
+\end_inset
+
+ Household's 
+\begin_inset Formula $h$
+\end_inset
+
+ notional proportion of buildings rehabilitated in energy class 
+\begin_inset Formula $k$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TAX$
+\end_inset
+
+	 Aggregate Tax on domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TAX{}_{c}$
+\end_inset
+
+	 Tax on domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TCO_{c}\_VAL$
+\end_inset
+
+ Carbon tax on commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TCOD_{c}\_VAL$
+\end_inset
+
+	 Carbon tax on domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TMD_{a}$
+\end_inset
+
+	 Mark-up in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\color red
+\begin_inset Formula $TICC$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Taxes on the energetic products derived from coal
+\begin_inset Formula $ $
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\color red
+\begin_inset Formula $TIPP$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Taxes on the energetic products derived from oil
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\color red
+\begin_inset Formula $TICE$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Taxes on the energetic products derived from gas
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\color red
+\begin_inset Formula $TICGN$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ Taxes on the electricity
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\color red
+\begin_inset Formula $RD\_ADJUST$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ Exogenous part in the households income
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $U\_HFR$
+\end_inset
+
+ Unemployment rate in the other countries
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $U$
+\end_inset
+
+ Total unemployment rate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $U\_ZE$
+\end_inset
+
+ European unemployment rate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $VA_{a}$
+\end_inset
+
+ Value-added in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $VA\_SEC$
+\end_inset
+
+ Agregate value-added 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $VA\_SEC\_Val$
+\end_inset
+
+ Agregate value-added in value
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TVA\_Val$
+\end_inset
+
+	 Value Added Tax on domestic commodities (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TVA\_Vol$
+\end_inset
+
+	 Value Added Tax on domestic commodities (in volume)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TVA{}_{c}$
+\end_inset
+
+	 Value Added Tax on domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TVAD_{c}$
+\end_inset
+
+	 Value Added T)ax on domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TVAM_{c}$
+\end_inset
+
+	 Value Added Tax on imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $W$
+\end_inset
+
+	 Agregate wage
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $W\_S$
+\end_inset
+
+ Agregate wage of salaries 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $W\_S_{a}$
+\end_inset
+
+ Wage of salaries in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $W\_S_{a}^{e}$
+\end_inset
+
+ Expected wage of salaries in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $W\_S_{a}^{n}$
+\end_inset
+
+ Notional wage of salaries in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $W\_SE$
+\end_inset
+
+ Agregate wage of self employment
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $W\_SE_{a}$
+\end_inset
+
+ Wage of self employment in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $X$
+\end_inset
+
+	 Exportations of the commodities 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $X_{c}$
+\end_inset
+
+	 Exportations of the commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $XD$
+\end_inset
+
+	 Aggregate exportations of the domestically produced commodities 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $XD_{c}$
+\end_inset
+
+	 Exportations of the domestically produced commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $XM$
+\end_inset
+
+	 Aggregate re-exported importations of the commodities 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $XM_{c}$
+\end_inset
+
+	 Re-exported importations of the commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Y$
+\end_inset
+
+	 Aggregate production
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Y_{a}$
+\end_inset
+
+	 Production in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Y\_ant_{a}$
+\end_inset
+
+	 Anticipated production in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $Y_{c,a}$
+\end_inset
+
+ Production of the commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $YOPT_{a}$
+\end_inset
+
+ Potential production in activity 
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $YQ$
+\end_inset
+
+	 Aggregate production
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $YQ{}_{c}$
+\end_inset
+
+	 Production in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $YQbis_{c}$
+\end_inset
+
+	 Production in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ (verification)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $YQS_{c}$
+\end_inset
+
+	 The volume of the production in commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ expressed at market price before VAT
+\end_layout
+
+\begin_layout Subsection*
+Exogenous variables
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $BF\_G\_VAL\_ajust$
+\end_inset
+
+ Public deficit adjustment(in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSS\_ROW$
+\end_inset
+
+ Social salary cotisations paid by the Rest Of the World
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSS\_SE$
+\end_inset
+
+ Social salary cotisations paid by the Self-employed workers 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DEBT_{20}$
+\end_inset
+
+	 Debt in the activity 20 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DIV_{a}^{BK}\_VAL$
+\end_inset
+
+ Dividends paid to the Bank by the sector 
+\begin_inset Formula $a$
+\end_inset
+
+ (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DIV_{a}^{GOV}\_VAL$
+\end_inset
+
+ Dividends paid to the governement by the sector 
+\begin_inset Formula $a$
+\end_inset
+
+ (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DIV_{a}^{HH}\_VAL$
+\end_inset
+
+ Dividends paid to the household by the sector 
+\begin_inset Formula $a$
+\end_inset
+
+ (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DIV_{a}^{ROW}\_VAL$
+\end_inset
+
+ Dividends paid to the rest of the world by the sector 
+\begin_inset Formula $a$
+\end_inset
+
+ (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DNAIRU$
+\end_inset
+
+ Non-Accelerating Inflation Rate of Unemployment
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DP\_G^{n}\_VAL$
+\end_inset
+
+ Notional public deficit expressed in percentage of GDP
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DSD_{c}$
+\end_inset
+
+ Stock variation of the domestic commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $DSM_{c}$
+\end_inset
+
+ Stock variation of the imported commodity 
+\begin_inset Formula $c$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $EXPG\_TREND$
+\end_inset
+
+ Total public spendings
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $GR\_PROG_{a}^{E}$
+\end_inset
+
+ Growth rate of technical Progress for energy in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $GR\_PROG_{a}^{K}$
+\end_inset
+
+ Growth rate of technical Progress for energy in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $GR\_PROG_{a}^{L}$
+\end_inset
+
+ Growth rate of technical Progress for energy in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $INFL\_ZE\_TARGET$
+\end_inset
+
+ Target inflation of europe zone 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $INT\_VAL$
+\end_inset
+
+ Total interest for household (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $LD_{k}$
+\end_inset
+
+	 Duration of the loan
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $LD_{k}^{auto}$
+\end_inset
+
+	 Duration of the automobile loan
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $POP_{sex,age}$
+\end_inset
+
+ Population by sex and age
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $POP^{TOT}$
+\end_inset
+
+ Total population
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PRESOC\_ROW\_VAL$
+\end_inset
+
+ Social prestation to the benefit of the Rest Of the World (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PROG_{a}^{j}$
+\end_inset
+
+ Index of Autonomous Technical Progress coefficient for input 
+\begin_inset Formula $j$
+\end_inset
+
+ = {K,L,E,M} in activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Il serait judicieux de changer le nom des trend de progrès technique (
+\begin_inset Formula $PROG^{L},PROG^{K},PROG^{E}$
+\end_inset
+
+) dans la programmation.
+ Plutot que d'avoir 3 noms différents (risque de confusion).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $PWD_{c}$
+\end_inset
+
+ World price for commodity c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $SB\_ROW$
+\end_inset
+
+ foreign salary base
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{AIC}$
+\end_inset
+
+ Rate of tax capital hold by the households
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TC$
+\end_inset
+
+ euro currency change rate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{BONUS\_elec}$
+\end_inset
+
+ Rate of bonus granting for the buying of an electric car
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{TCO}$
+\end_inset
+
+ Rate of carbon tax
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{a}^{CSS}$
+\end_inset
+
+ Employe social contribution rate by activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{CSS\_ROW}$
+\end_inset
+
+ Employe social contribution rate paid by the rest of the world
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{CSS\_SE}$
+\end_inset
+
+ Employe social contribution rate paid by self-employed
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{ENERTD}$
+\end_inset
+
+ Energy tax rate on domestic produced commodity c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{ENERTM}$
+\end_inset
+
+ Energy tax rate on imported commodity c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{gth\_elec}$
+\end_inset
+
+ Penetration rate of the electric automobile
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T^{IR}$
+\end_inset
+
+ Rate of tax on household's income
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{a}^{IS}$
+\end_inset
+
+ Rate of tax on benefits
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{a}^{IYN}$
+\end_inset
+
+ Rate of tax on activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{OTHD}$
+\end_inset
+
+ Rate of other tax on domestically produced commodity c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{OTHM}$
+\end_inset
+
+ Rate of other tax on imported commodity c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $TR\_ROW\_VAL$
+\end_inset
+
+ Transferts toward the rest of the world (in value)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{SUB}$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+Subvention rate on 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+domestically produced commodity c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{a}^{SYN}$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+Subvention rate for activities a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{VATD}$
+\end_inset
+
+ VAT rate on domestic produced households consumption c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{VATM}$
+\end_inset
+
+ VAT rate on imported households consumption c
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{VATDOTH}$
+\end_inset
+
+ VAT rate on domestic produced commodity c (applied on intermediary consumption,
+ investments and government consumption)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $T_{c}^{VATMOTH}$
+\end_inset
+
+ VAT rate on domestic produced commodity c (applied on intermediary consumption,
+ investments and government consumption)
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $WD_{c}$
+\end_inset
+
+ World demand for the product c 
+\end_layout
+
+\begin_layout Subsection*
+Greek symbols (parameters) 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\alpha^{AUTO}$
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+a remplir
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\alpha_{a}^{S}$
+\end_inset
+
+ Share of the annual production this stocked by activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\alpha^{TCO}$
+\end_inset
+
+	 Share of the carbon tax receipts redistributed toward the households
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\beta_{sex,age}^{EMP}$
+\end_inset
+
+	 Participation rate to the labor market for each population of age 
+\begin_inset Formula $age$
+\end_inset
+
+ and sex 
+\begin_inset Formula $sex$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{h,k}^{NewBUIL}$
+\end_inset
+
+	 Share of the new building contructed with a class k label
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\delta_{h,k}^{BUIL}$
+\end_inset
+
+	 Depreciation rate from class k to k'
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\delta_{a}$
+\end_inset
+
+ Depreciation rate of the capital in sector a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\tau_{h,k}^{REHAB}$
+\end_inset
+
+	 Proportion of the building of categoriy k is rehabilitated
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{h,k',k}^{REHAB}$
+\end_inset
+
+	 share of the renovation of class k' building that are rehabilitated toward
+ class k
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{h,k}^{NewAUTO}$
+\end_inset
+
+	 Share of the new automobile contructed with a class k label
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\delta_{h,k}^{AUTO}$
+\end_inset
+
+	 Automobile depreciation rate
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{a}^{K}$
+\end_inset
+
+ Share (in value) of capital into the production of activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{a}^{L}$
+\end_inset
+
+ Share (in value) of labor into the production of activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{a}^{E}$
+\end_inset
+
+ Share (in value) of energy into the production of activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{a}^{M}$
+\end_inset
+
+ Share (in value) of material into the production of activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{h}^{TCO}$
+\end_inset
+
+ Share of the household carbon tax receipt redistributed toward the household
+ 
+\begin_inset Formula $h$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{c,a}^{Y}$
+\end_inset
+
+ Share of the commodity 
+\begin_inset Formula $c$
+\end_inset
+
+ produced by the activity 
+\begin_inset Formula $a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi_{ena}^{MTEP}$
+\end_inset
+
+ Share of the energetic production in Mtep produced by the energetic sector
+ 
+\begin_inset Formula $ena$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\varphi^{AUTO}$
+\end_inset
+
+ Share of the auto in the transports
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta_{a}^{j,j'}$
+\end_inset
+
+ Elasticity of substitution in activity a between the production factors
+ j = {K,L,E,M} and j' = {K,L,E,M} for 
+\begin_inset Formula $j\neq j'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta_{h,k,e}^{BUIL\_i,i'}$
+\end_inset
+
+ Inter-energy Elasticity of substitution for each household 
+\begin_inset Formula $h$
+\end_inset
+
+ and by type of energy 
+\begin_inset Formula $e$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{BONUS\_elec}$
+\end_inset
+
+ Elasticity between the demand in electric car and the level of the electric
+ bonus
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{AUTO\_elec}$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+Elasticity between the demand in electric car and the relative price of
+ fuel energy
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{prest}$
+\end_inset
+
+	 Elasticity of the other social prestations to the level of unemployment
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{cd,cm}$
+\end_inset
+
+	 Armington's elasticity between the domestic good 
+\begin_inset Formula $cd$
+\end_inset
+
+ and the imported one 
+\begin_inset Formula $cm$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{LES\_CES}$
+\end_inset
+
+ Elasticity of the L.E.S consumption function
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\eta^{MOB\_TRSP\_COL}$
+\end_inset
+
+ Elasticity of substitution between the automobile and the collective transports
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\phi_{c,h}^{EXP}$
+\end_inset
+
+ Share of the expenditure c on the comsumption
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\alpha_{a}^{TMD}$
+\end_inset
+
+ Elasticity of mark-up with production in activity a
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\zeta_{e}^{ENE}$
+\end_inset
+
+ conversion factor between primary and final energy production by type of
+ energy 
+\begin_inset Formula $e$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\lambda_{i}^{X}$
+\end_inset
+
+ Ajustement parameter i = {1,..,5} for variable X (see Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Adjust Notional"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Adjust Expect"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Adjust Substi"
+
+\end_inset
+
+) 
+\end_layout
+
+\end_body
+\end_document

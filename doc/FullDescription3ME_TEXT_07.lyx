@@ -1,0 +1,6987 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+A full description of the Three-ME model: Multi-sector Macroeconomic Model
+ for the Evaluation of Environmental and Energy policy
+\end_layout
+
+\begin_layout Date
+15/09/2012
+\end_layout
+
+\begin_layout Standard
+\align center
+Gaël CALLONNEC
+\begin_inset Formula $^{2}$
+\end_inset
+
+, Gissela LANDA
+\begin_inset Formula $^{1}$
+\end_inset
+
+, Paul MALLIET
+\begin_inset Formula $^{1}$
+\end_inset
+
+, Frédéric REYNÈS
+\begin_inset Formula $^{1\:3}$
+\end_inset
+
+and Yasser YEDDIR-TAMSAMANI
+\begin_inset Formula $^{1}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $^{1}$
+\end_inset
+
+ OFCE - French Economic Observatory 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $^{2}$
+\end_inset
+
+ ADEME - French Environment and Energy Management Agency 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $^{\text{3}}$
+\end_inset
+
+ TNO - Netherlands Organization for Applied Scientific Research
+\end_layout
+
+\begin_layout Abstract
+Since 2008, the ADEME and the OFCE are involved in a research convention
+ to develop the model Three-ME.
+ This document provides a full description of new version of the model.
+ Three-ME is a new model of the French economy especially designed to evaluate
+ the medium and long term impact of environmental and energy policies at
+ the macroeconomic and sector levels.
+ To do so Three-ME combines two important features.
+ Firstly, it has the main characteristics of neo-Keynesian models by assuming
+ a slow adjustment of effective quantities and prices to their notional
+ level, an endogenous money supply, a Taylor rule and a Philips curve.
+ Compared to standard multi-sector CGEM, this has the advantage to allow
+ for the existence of under-optimum equilibria such as the presence of involunta
+ry unemployment.
+ Secondly, Three-ME is a hybrid model in the sense that it combines the
+ top-down approach of general equilibrium macroeconomic models with elements
+ of bottom-up models of energy models developed by engineers.
+ As in bottom-up models, the amount of energy consumed is related to their
+ use, that is the number of buildings or cars, and the energy class to which
+ they belong.
+ This hypothesis is more realistic compared to the assumption made in the
+ majority of top-down models where energy consumption is usually directly
+ related to income through a nested structure of utility function.
+\end_layout
+
+\begin_layout Abstract
+Key word: neo-Keynesian model, hybrid modeling, macroeconomic modeling,
+ energy and environmental policy modeling
+\end_layout
+
+\begin_layout Abstract
+JEL code: E12, E17, E27, E37, E47, D57, D58
+\end_layout
+
+\begin_layout Abstract
+Acknowledgments: The authors acknowledge the financial support of the ADEME.
+ 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Top-down Computable General Equilibrium Models (CGEM) are often used to
+ evaluate a wide range of economic problems.
+ They have the advantage to combine tractability with a high level of detail,
+ being able to distinguish different countries, goods, type of consumer,
+ etc
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+For a survey on CGEM see 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Brecard:2006uq,Bohringer:2006zr"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ .
+ Particularly important for the analysis of the economic impact of environmental
+ and energy policy, they often account for an important number of sectors:
+ e.g.
+ GREEN has 11 sectors 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Burniaux:1992zr"
+
+\end_inset
+
+, GEMINI-E3 has 18 sectors of which 5 energy sectors 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BernardVielle2008"
+
+\end_inset
+
+, GEM-E3 has 14 sectors 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Georgakopoulos:1997fk"
+
+\end_inset
+
+, IMACLIM-S has 10 sectors 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "GhersiThubin2009_IMACLIM"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+, GTAP has ? sectors (?)
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+But CGEM have two important drawbacks.
+ First, they rely on very restrictive assumptions relative to the functioning
+ of the economy especially in the short and medium run.
+ CGEM are supply models where the hypothesis of perfect price flexibility
+ and money neutrality often insures the full and optimal use of production
+ factors and thus rule out permanent or transitory under-optimum equilibrium
+ such as the presence of involuntary unemployment.
+ They neglect, the dynamic effects of the demand side, and especially the
+ multiplier effect of the public investment, by assuming a total eviction
+ between private and public spendings.
+ This result is due to the hypothesis that the interest rate insures the
+ equilibrium betwen investment and savings, in a framework where the money
+ supply is exogenous.
+ Neo-Keynesian macroeconomic models, also called Aggregate Demand-Aggregate
+ Supply (AS-AD) models, try to give a more realistic representation of the
+ actual functioning of the economy taking explicitly into account slow adjustmen
+ts of prices and quantities, an endogenous money supply, thus allowing for
+ permanent or transitory under-optimum equilibrium.
+ This effort seems to have a cost in terms of the disaggregation level which
+ is often limited.
+ This is typically the case for currently running macroeconomic models for
+ the French economy: e.g.
+ MESANGE of the French ministry of Economy has three sectors 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "MESANGE:2002"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Reactualiser ref, prendre celle de 2010 (où variante)
+\end_layout
+
+\end_inset
+
+, E-Mod of the OFCE 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Chauvin:2002uq"
+
+\end_inset
+
+ and MASCOTTE of the French central bank 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Baghli:2004bh"
+
+\end_inset
+
+ have only one.
+ However, earlier versions of these models in the 1980’s and 1990’s had
+ a higher level of disaggregation, between 6 and 8 products (see Economie
+ et Prévision, 1998)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Rajouter Réf a la base
+\end_layout
+
+\end_inset
+
+.
+ But still, neo-Keynesian macroeconomic models generally do not distinguish
+ between the different types of energy or of transport which are particularly
+ important for the assessment of environmental and energy policy
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+NEMESIS is an exception with 30 sectors covering 16 European countries
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Brecard:2006uq"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ They are thus likely to neglect the effect of activity transfers in terms
+ of growth and employment from high to low intensive energy sectors.
+\end_layout
+
+\begin_layout Standard
+A second limit particularly important for the analysis of the economic impact
+ of environmental and energy policy is that CGEM provide an insufficient
+ representation of endogenous energy efficiency phenomena
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This limit explains partially why existing models have trouble to represent
+ and model realistically energy and environmental issues as recently acknowledge
+ by a recent FP7 research proposal (ENV.2012.6.1-2) on the “Development of
+ advanced techno-economic modeling tools for assessing costs and impacts
+ of mitigation policies” that states: “Currently available [techno-economic
+ modeling] tools have relevant limitations such as the difficulty to represent
+ pervasive technological developments, the difficulty to represent non-lineariti
+es, thresholds and irreversibility, and the insufficiently developed representat
+ion of economic sectors with a significant potential for mitigation and
+ resource efficiency.”
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In the case of Firms,...
+ to be introduced when we endogenise this!!
+\end_layout
+
+\end_inset
+
+For instance, households consumption behaviors are generally represented
+ through a nested structure of utility function which defines a simple correlati
+on between the level of consumption of each goods and the revenue.
+ This link is often log-linear, that is linear in relative terms: a 1% increase
+ in the real revenue leads to a 1% increase in the consumption of each goods.
+ To account for non-linearities, it is usual to introduce a Linear Expenditure
+ System (LES) utility function 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Reference!!
+\end_layout
+
+\end_inset
+
+.
+ A LES specification assumes that a share of the base year consumption is
+ incompressible and therefore the relation between income and consumption
+ is not linear anymore.
+ This specification allows for the distinction between consumption of necessity
+ and luxurious goods.
+\end_layout
+
+\begin_layout Standard
+Although the LES utility function improves the realism of the modeling of
+ consumption behavior, it still rely on the theoretical representation that
+ each good provides a direct utility to households.
+ This is not a realistic assumption for certain goods such as energy.
+ As formalized theoretically by Lancaster 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Lancaster:1966uq"
+
+\end_inset
+
+(1971)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+rajouter ref lancaster 1971
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Biblio!!
+\end_layout
+
+\end_inset
+
+ and applied certain hybrid models 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Laitner:2006kx"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Biblio!!
+\end_layout
+
+\end_inset
+
+, households do not consume energy for their direct utility but rather for
+ the service they provide when combined with a capital goods such as a car
+ or a house.
+ There is no point buying gasoline if one does not have a car.
+ A more realistic theoretical representation is therefore to assume that
+ energy is an input used in combination with different types of capital
+ in a households production function.
+ This representation accounts for the fact that in reality certain services
+ are not always externally purchased by households but rather directly produced
+ by them.
+ This is typically the case for transports.
+ Households can directly purchase a transportation service produced by an
+ activity such as public transport.
+ Alternatively, they can invest in a capital by purchasing a car and buy
+ the necessary amount of gasoline that fulfills their needs.
+ 
+\end_layout
+
+\begin_layout Standard
+Compared to the assumption made in standard top-down representation, there
+ is hardly any direct utility from energy alone.
+ This is of course different for other goods, although many commodities
+ have similar properties to energy.
+ For instance, a big share of water consumption is related to the use of
+ appliances.
+ The number of appliances generally depends on the number of houses.
+ The amount construction material used is closely related to the size of
+ the house.
+ Relating the consumption of these goods directly to the revenue, as assumed
+ in the standard top-down representation, may therefore lead to unrealistic
+ results, where the consumptions expressed in physical units exceed their
+ saturation levels.
+ Indeed, it is unlikely that an household will ever decide to buy 6 cars,
+ 10 washing machines or to heat its house at 35°C even if it becomes richer
+ in the future.
+ Because of their monetary representation, one cannot exclude that standard
+ top-down CG models produce such unrealistic development in the long run
+ due to the general increase of the standard of living.
+ Only a physical (along with a monetary) representation allows for the inclusion
+ of realistic floor and ceiling in the consumption of certain goods.
+ 
+\end_layout
+
+\begin_layout Standard
+Three-ME (Multi-sector Macroeconomic Model for the Evaluation of Environmental
+ and Energy policy) is a new model of the French economy developed by the
+ ADEME, OFCE and TNO.
+ Its main purpose is to evaluate the impact of environmental and energy
+ policy measures on the economy at the macroeconomic and sectoral levels.
+ Moreover it has the ambition to overcome the two limitation of standard
+ top-down CGEM pointed above by introducing neo-Keynesian features such
+ as inertia in price and quantities and bottom-up features in the modeling
+ of consumption behavior.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Introduce a small literarure revue saying that no other model combines this
+ 2 features.
+ And quote the model introducing each feature separatly.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Having the general structure of neo-Keynesian macroeconomic models, Three-ME
+ seems more realistic than the standard CGEM for describing the actual dynamic
+ of the economy at least in the short and medium run.
+ In the long run, the model is neo-classical in the sense of Solow 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Solow:1956tg"
+
+\end_inset
+
+ since it converges toward a steady states where all variables grow at a
+ constant rate.
+ Disaggregated in 37 sectors with an explicit distinction between 13 types
+ of energy sources and five types of transports, it allows for the neo-Keynesian
+ short/medium term macroeconomic modeling approach to catch-up with the
+ most advanced CGEM in terms of sectoral analysis.
+ In addition, its hybrid structure regarding the specification of the behavior
+ of households overcomes the restrictions imposed by nested utility approach
+ assumed in standard CGEM.
+\end_layout
+
+\begin_layout Standard
+Compare to the previous version of the model (Callonnec et al., 2011; Reynès
+ et al.
+ 2011)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ref!! Revue OFCE + Doc travail 
+\end_layout
+
+\end_inset
+
+, the following important improvements were made:
+\end_layout
+
+\begin_layout Itemize
+The 4 energy sectors of the previous version (coal, petroleum, electricity
+ and gas) have been subdivided into 13 sectors in order to better account
+ for the impact of renewable energy.
+\end_layout
+
+\begin_layout Itemize
+The model distinghishes now commodities from activities: the number of activitie
+s is not equal to the number of commodities and each activity can potentially
+ produce any commodity.
+ This is typically the case for energy sectors that may produce the same
+ commodity.
+ For instance, the commodity electricity is produced by several activities:
+ nuclear, wind, solar, etc.
+ Another exemple is the activity agriculture that produces several commodities:
+ agricultural product, food, biofuel and biogas.
+\end_layout
+
+\begin_layout Itemize
+Because of access restriction to National account investment data, investment
+ decisions were modeled for the all the private sector.
+ We now use detailed investment data disaggregated by sector and therefore
+ identify a specific investment pattern for each activity.
+ 
+\end_layout
+
+\begin_layout Itemize
+The modeling of households' behaviors has been improved.
+ The number of households has increases from 1 to 5, classified by quintile
+ of revenue.
+ In the previous version, only 2 energy classes (efficient and other) for
+ buildings and cars were distinguished.
+ The new version includes 7 energy classes for buildings and cars that follows
+ the standard A to G classification.
+ The link between energy consumption and stock was rather 
+\shape italic
+ad hoc
+\shape default
+ since we assumed a loglinear negative correlation between energy consumption
+ and the share of the efficient stock.
+ The level of energy consumption (and thus of CO2 emissions) is directly
+ related to the type of buildings or cars and is also expressed in physical
+ units.
+ Finally, the arbitrage between the different classes of investments is
+ not directly a function of price of energy but of the relative user cost
+ of each investment which includes the expected energy related costs.
+ 
+\end_layout
+
+\begin_layout Standard
+Section 2 presents a non technical overview of the model by summarizing
+ its main characteristics.
+ Section 3 describes the demand and supply equilibrium and the way adjustment
+ processes are specified.
+ Section 4 describes the supply side.
+ Section 5 and 6 presents respectively the household and the labor market
+ equations.
+ In each sectors, the wage equation is an augmented Phillips curve including
+ possible hysteresis phenomena.
+ Under the assumption of full hysteresis, this specification has the same
+ properties as a Wage Setting (WS) curve in level.
+ Section 7 presents the external trade equations.
+ Section 8 describes the price structure and how firms in each sector determine
+ their production price.
+ The behavior of the European Central Bank (ECB) about the determination
+ of the interest rate is also presented.
+ Section 9 treats the public administrations equation block.
+ Section 10 describes the way GreenHouse Gases (GHG) emissions are modeled.
+ Appendix A describes the long term properties of the model.
+ Appendix B derives the optimality program of the producer and the consumer
+ assuming a generalized CES (GCES) production and utility function.
+ Appendix C provides all the equations of the model and Appendix D provides
+ a glossary of the terms used.
+ 
+\end_layout
+
+\begin_layout Section
+Overview of the model
+\end_layout
+
+\begin_layout Standard
+The overall structure of the model is schematized in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Structure3ME"
+
+\end_inset
+
+.
+ In the short term, Three-ME has the main characteristics of a standard
+ neo-Keynesian macroeconomic AS-AD model in an open economy.
+ An important one is that demand determines supply.
+ The demand is composed of (intermediate and final) consumption, investment
+ and export whereas the supply comes from imports and the domestic production.
+ As a feed-back with eventually some lags, the supply affects the demand
+ through several mechanisms.
+ The level of production determines the quantity of inputs used by the firms
+ and thus the quantity of their intermediate consumptions and investment
+ which are two components of the demand.
+ It determines the level of employment as well and consequently the households’
+ final consumption.
+ Another effect of employment on demand goes through the wage setting via
+ the unemployment rate which is also determined by the active population.
+ The active population is mainly determined by exogenous factors such as
+ demography but also by endogenous factors: because of discouraged worker
+ effects, the unemployment rate may affect the labor participation rate
+ and thus the active population.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Fig1.Structure3ME.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Structure3ME"
+
+\end_inset
+
+ Overall structure of Three-ME 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The unemployment rate is an important determinant of the wages dynamic which
+ is defined by a Phillips curve.
+ The inflationary property of the model is determined by the feedbacks between
+ wages, production cost and prices.
+ Prices are assumed to adjust slowly to their optimum level that corresponds
+ to a mark-up over marginal costs.
+ In the short term, the mark-up accounts for the tensions between production
+ capacities (supply) and demand , which is a classical market property.
+ Consequently, wages, which affect production costs, affect directly prices.
+ Prices have in return an impact on wages because they are indexed on the
+ consumer price inflation.
+ Production costs are also directly affected by prices via the cost of intermedi
+ate consumptions and of investment.
+ 
+\end_layout
+
+\begin_layout Standard
+This dynamic between wages, cost and prices affects the demand through several
+ canals.
+ Wages affect the household consumption because they are an important part
+ of their income.
+ Prices and cost affect profits and thus sectors’ debts level.
+ But they affect the households’ consumption and investment too because
+ they finance a part of the private debt of the economy.
+ 
+\end_layout
+
+\begin_layout Standard
+Another canal is the monetary policy which is defined by a Taylor rule.
+ The European central bank determines the interest rate level based on the
+ European inflation and unemployment.
+ This has an effect on the demand via the negative effect of the real interest
+ rate on consumption and investment.
+ Thus, in this model, interest rate is not directly determined by the equilibriu
+m between investment and saving as generally assumed in the CGEM Models
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "see e.g. "
+key "ShovenWhalley1992"
+
+\end_inset
+
+.
+ This is an important feature because the optimum cannot automatically be
+ reached if this hypothesis does not prevail.
+ In most CGE models, all incomes are spent, since all the savings finances
+ instantly invesment.
+ Therefore the supply value is always equal to the demand value.
+ Combined with the hypothesis of a perfect prices flexibility, this assessment
+ ensure that there is no outlet constraint and that all the production factors
+ are used (that is why there is no unvoluntary unemployment, unless there
+ are some exogenous rigidities on the labor market).
+ In the neo-keynesian model, the equality between investment and savings
+ is not ensured by the interest rate flexibility anymore.
+ Therefore, the investment is not determined by the amount of savings.
+ It depends on both the demand and the price of capital.
+ The savings level adjusts to the investment amount, thanks to the fluctuations
+ of activity.
+ In that case, investment is implicitly financed by monetary creation, that
+ is to say by the credits offered by the banks.
+ Therefore the money is endogenous since investment depends on demand.
+ By this fact, in a context of prices rigidities and unvoluntary unemployment,
+ a demand shock may have a positiv effect on the production level in the
+ short and middle terms since it influences the investment level, and therefore
+ the amount of available capital factor.
+ Money is not neutral any more.
+ The eviction effect of the public spendings is not total, since the global
+ amount of investment is not fixed by a exogenous propensity to save.
+ Nevertheless, there is always a modest eviction effect because investment
+ entails inflation and unemployment reduction, which lead to an increase
+ in interest rate.
+ In the long term, the public spending has a permanent and positive effect
+ on the production level, if the direct and indirect incomes generated by
+ the public investments are superior to the debt reimbursment and interest
+ charges (that is to say the money destruction).
+ In that case, one can concieve that the strike against climate change may
+ provide some long term benefits, if the Net Present Value of the induced
+ investments is positiv and if the global variation of investment is positive
+ or compensated by a reduction of the trade deficit or an increase in consumptio
+n due to a better labor intensity.
+\end_layout
+
+\begin_layout Standard
+The dynamic of prices is the driver of the substitution mechanisms of the
+ model.
+ The evolution of relative prices between imported and domestic goods defines
+ the repartition between imported and domestic products to satisfy the internal
+ (consumption and investments) and external (export) demand.
+ The evolution of relative prices between types of goods and services defines
+ the structure of consumption of the economy.
+ Importantly for the analysis of environmental and energy policies, it defines
+ the share of each energy and transport into (intermediate and final) consumptio
+ns.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Sectors"
+
+\end_inset
+
+ Sectoral disaggregation in Three-ME
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Table1.SectorList.png
+	scale 55
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Three-ME accounts for 5 types of households ranked according to their revenue
+ decile.
+ It also explicitly distinguishes between five types of transports and four
+ types of energy (resp.
+ red and yellow lines in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Sectors"
+
+\end_inset
+
+).
+ Energy intensity was the main criterion for the selection of the 24 sectors.
+ In order to better account for the impact of renewable energy, the 4 energy
+ sectors (coal, petroleum, electricity and gas) have been subdivided into
+ 13 sub-sectors.
+ This relatively high level of disaggregation is important to capture the
+ complexity of the substitution mechanisms involved after a change in the
+ relative price between energies.
+ For instance, an increase in the oil price tends to lead to substitution
+ from oil to the other energy in several ways.
+ In addition to direct substitutions by producer and consumer, indirect
+ effects occur via the increase of the production price of oil intensive
+ sectors.
+ This leads to intermediate and final consumptions structure less oil intensive.
+ The decrease of the use of transport by road would be the most typical
+ example.
+ 
+\end_layout
+
+\begin_layout Standard
+Three-ME accounts also for endogenous energy efficiency and sobriety effects.
+ In contrast with the substitution mechanisms, the reduction of a given
+ energy consumption does not imply the increase of the use of another energy.
+ Sobriety consists in refraining from consuming energy by for instance staying
+ home during the weekend instead of taking the car or by lowering the heating
+ temperature in the house.
+ In general, sobriety leads to a decrease in the welfare of the consumer.
+ In contrast, in the case of efficiency, the same welfare is achieved with
+ a lower quantity of energy.
+ Energy efficiency implies an investment in a more efficient technology
+ by for instance switching from a high to a low oil consumption car or by
+ using more efficient insulation techniques for the house.
+ In the model, endogenous efficiency phenomena are introduced through an
+ explicit distinction between several types of housing and automobile investment
+s, classified according to their energy consumption.
+\end_layout
+
+\begin_layout Standard
+In Three-ME, efficiency and sobriety phenomenas decrease the consumer price
+ since the share of energy into consumption decreases (see Section 5).
+ This allows for directly capturing the so-called “rebound effect” in consumptio
+n behavior often observed at the micro level (
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Bentzen:2004uq"
+
+\end_inset
+
+; 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Sorrell:2009hc"
+
+\end_inset
+
+).
+ There is a rebound effect when the effective energy saving from an investment
+ in energy efficiency is less than the energy saving expected ex ante because
+ the consumer uses a part of the reduction of her energy bill to increase
+ her energy consumption.
+ A typical example is the case of certain poor households who live in badly
+ insulated houses and set a low heating temperature to reduce their energy
+ bill.
+ After an insulation investment, they will have the tendency to increase
+ the heating temperature of their house keeping their energy bill more or
+ less constant.
+ This effect is explicitly taken into account in the model: an energy efficiency
+ investment decreases the consumer price and thus increases the real income
+ which leads to a higher level of (energy) consumption.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+Moreover, Three-ME is a hybrid model in the sense that it combines the top-down
+ approach of general equilibrium macroeconomic models with elements of bottom-up
+ models of energy "engineer" models.
+ The top-down structure presented above gives the macroeconomic consistency
+ and allows for taking into account the feedback between price and quantity
+ that are generally absent in the bottom-up models where prices are exogenous.
+ As in bottom-up models, the amount of energy consumed households is related
+ to their use, that is to say the number of buildings or cars, and the energy
+ class to which they belong.
+ There are limits on the number of vehicles or housing per households, energy
+ consumption per vehicle or per housing which avoid to simulate unrealistic
+ rebound or wealth effects.
+ This framework differs from the majority of top-down models where energy
+ consumption is usually directly related to income through a nested structure
+ of utility function and not expressed in physical units which may lead
+ to unrealistic representation of the future (e.g.
+ heating temperature to 35 º C in the house, 5 cars per person).
+ We therefore believe that this hybrid setting is particularly important
+ for the analysis of environmental policy where the time horizon is long.
+ 
+\end_layout
+
+\begin_layout Standard
+The short and medium run dynamic is largely driven by the demand side through
+ multiplier and accelerator mechanisms.
+ Because of the slow adjustment of price and quantity to their optimal value,
+ the allocation of production factors is sub-optimal in the short and medium
+ run.
+ The long term is driven by the supply constrain.
+ All adjustment processes are achieved: there is no error of anticipation
+ and the effective quantities coincide with the optimal ones.
+ The prices are fully adjusted and all markets are in equilibrium.
+ The unemployment reaches its structural level.
+ The economy thus converges toward a stable equilibrium growth path à la
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Solow:1956tg"
+
+\end_inset
+
+ where all real variables grow at the same rate defined as the sum of the
+ growth rate of the technical progress and of the population.
+ Per capita real variables grow thus at the same rate as the technical progress.
+ All pfor rices grow at the rate of inflation which is defined by the exogenous
+ rate of inflation in the rest of the world.
+ The endogenous dynamic of the model is determined by capital accumulation
+ of households and firms, the specification of the anticipation and of the
+ adjustment dynamic.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+Three-ME aims also to overcome the restriction imposed by nested Constant
+ Elasticity of Substitution (CES) functions by assuming a more flexible
+ form of the production function.
+ This is a clear difference with most CGEM where the technology is generally
+ represented by a series of nested CES production function (e.g.
+ 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "BernardVielle2008"
+
+\end_inset
+
+; 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "Burniaux:1992zr"
+
+\end_inset
+
+).
+ Nested CES functions proposed by 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "Sato:1967kl"
+
+\end_inset
+
+ have the advantage to allow for different elasticities of substitutions
+ between production factors that are not in the same nested structure.
+ But within the same CES, the elasticity of substitution is common to all
+ factors.
+ For instance, if several energy inputs are represented within the same
+ CES, the elasticity of substitution is the same between all these energy
+ inputs.
+ This may be a very strong assumption in some cases.
+ Three-ME does not impose this restriction by assuming a flexible function
+ where the elasticity of substitution is not necessary common between all
+ the inputs of the same nested structure.
+ This allows changing easily the hypotheses about the value of elasticity
+ of substitutions without having to change the structure of the nest.
+ 
+\end_layout
+
+\begin_layout Standard
+Three-ME model is programmed on the E-views 7 package software and simulated
+ with the Broyden algorithm.
+ 
+\color black
+Two version of the model can be simulated.
+ The "analytic" version uses the standard Linear Expenditure System (LES)
+ utility function to model the consumption of every commodities (including,
+ cars, transport and housing investments).
+ This gives a benchmark particularly useful to test the consistency of the
+ model and its basic properties.
+ In particular, this version allows for testing the consistency of the data,
+ of the calibration of parameters and variables and of the model specification
+ with the standard assumption of stable equilibrium growth path à la Solow
+ (1956).
+ Indeed, with a LES hypothesis, and in the absence of error of parametrization
+ and specification, the model can simulate a stable equilibrium growth path
+ from the first period onward (see Appendix A).
+ Implementing standard shock allows to see if the dynamic is consistent
+ with a stable path.
+ In the hybrid version, the modeling of the household include bottom-up
+ elements for the consumption of car, transport, housing and energy.
+ The other commodities are still model using the LES hypothesis.
+\end_layout
+
+\begin_layout Section
+Demand and supply equilibrium and adjustment processes
+\end_layout
+
+\begin_layout Standard
+The demand and supply equilibrium simply models the national account equilibrium.
+ The base year 2006 has been calibrated on the input-output tables and resources
+ and uses tables of the French national accounts (available on www.insee.fr).
+ In order to derive price indexes, each variables (GDP, consumption, investment,
+ etc.) are defined in value and in volume (see Appendix C-1).
+ For calibration convenience, each prices are calibrated to unity.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Expliquer le calcul des taxes pour lever la critiques de Gaël sur le "prix"
+ de la taxe.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Compared to standard walrasian CG model, the equality between supply and
+ demand is not achieved through the perfect flexibility of prices and quantities.
+ In coherence with a neo-keynesian framework, prices and quantities are
+ sticky and supply is determined by demand.
+ Although we assume, for simplicity, that producer are always able to match
+ the demand, supply shortages are taken into account by assuming that they
+ increase the production price.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ameliorer.
+ Bien expliquer avec un input (L devient Input).
+ Montrer que ce modelè simple emgoble beaucoup de cas.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For quantity and prices, the adjustment process and expectations are specified
+ according to the following equations: 
+\begin_inset Formula 
+\begin{equation}
+ln(X_{t})=\lambda_{0}^{X}.ln(X_{t}^{n})+(1-\lambda_{0}^{X})(ln(X_{t-1})+\Delta ln(X_{t}^{e}))\label{eq:Adjust Notional}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\Delta ln(X_{t}^{e})=\lambda_{1}^{X}.\Delta ln(X_{t-1}^{e})+\lambda_{2}^{X}.\Delta ln(X_{t-1})+\lambda_{3}^{X}.\Delta ln(X_{t}^{n})+\lambda_{4}^{X}.\Delta ln(X_{t+1})\label{eq:Adjust Expect}
+\end{equation}
+
+\end_inset
+
+Where 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ is the effective value of a given variable (e.g.
+ the production price, labor, capital, etc), 
+\begin_inset Formula $X_{t}^{n}$
+\end_inset
+
+ its notional (or desired) level, 
+\begin_inset Formula $X_{t}^{e}$
+\end_inset
+
+ its expected (anticipated) value at period 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ The first equation assumes a geometric adjustment process.
+ The taking into account of the anticipation warrants that in the long run
+ the effective variable converge to their desired levels.
+ The second equation assumes a general specification for expectation that
+ combines backward-looking and forward-looking expectation.
+ We assume further that in the long run expectations are accurate: 
+\begin_inset Formula ${\scriptscriptstyle {\displaystyle \sum_{i=1}^{4}\lambda_{i}^{X}=1}}$
+\end_inset
+
+.
+ The above specification is simple and relatively general since it can be
+ calibrated to match other usual specification such as Error Correction
+ Model (ECM).
+ We also assume that substitution effect adjust slowly: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+SUBST\_X_{t}=\lambda_{5}^{X}.SUBST\_X_{t}^{n}+(1-\lambda_{5}^{X}).SUBST\_X_{t-1}\label{eq:Adjust Substi}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The above 3 equations allows for a rich set of adjustment processes since
+ they introduce different types of rigidity, i.e.
+ on price and quantity, on expectations, and on substitution mechanisms.
+ To illustrate, let us describe more specifically the case of labor by introduci
+ng the notional labor demand and notional substitution effects:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta l_{a,t}^{n} & =\Delta y_{a,t}-\Delta prog_{a,t}^{L}+\Delta SUBST\_L_{a,t}\\
+\Delta SUBST\_L_{a,t}^{n} & =-\eta_{a}^{KL}\varphi_{a,t-1}^{K}\Delta(c_{a,t}^{L}-c_{a,t}^{K})-\eta_{a}^{LE}\varphi_{a,t-1}^{E}\Delta(c_{a,t}^{L}-p_{a,t}^{E})\nonumber \\
+ & \qquad-\eta_{j}^{LM}\varphi_{a,t-1}^{Mat}\Delta(c_{a,t}^{L}-p_{a,t}^{Mat})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These notional value are those the producer would like to reach immediately
+ if there were no adjustment constraint.
+ Because of adjustment costs, we assume that this process takes time.
+ We introduce inertia in substitution mechanisms to account for the fact
+ that the impact of substitution is generally slower than the impact of
+ production on the demand for inputs.
+ Assuming that the adjustment process is defined according to Equations
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Adjust Notional"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Adjust Expect"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Adjust Substi"
+
+\end_inset
+
+, the full dynamic for labor is defined by the three following additional
+ relations: 
+\begin_inset Formula 
+\begin{align*}
+ln(L_{a,t}) & =\lambda_{0}^{L}.ln(L{}_{a,t}^{n})+(1-\lambda_{0}^{L})ln(L_{a,t-1}+\Delta ln(L_{a,t}^{e}))\\
+\Delta ln(L_{a,t}^{e}) & =\lambda_{1}^{L}.\Delta ln(L_{a,t-1}^{e})+\lambda_{2}^{L}.\Delta ln(L_{a,t-1})+\lambda_{3}^{L}.\Delta ln(L_{a,t}^{n})+\lambda_{4}^{L}.\Delta ln(L_{a,t+1})\\
+SUBST\_L_{a,t} & =\lambda_{5}^{L}.SUBST\_L{}_{a,t}^{n}+(1-\lambda_{5}^{L}).SUBST\_L{}_{a,t-1}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the sake of concision, the representation of adjustment dynamic [Equations
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Adjust Notional"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Adjust Expect"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Adjust Substi"
+
+\end_inset
+
+] is not reproduced for each variable.
+ Only notional variables are presented in the rest of the document.
+\end_layout
+
+\begin_layout Section
+The producer
+\end_layout
+
+\begin_layout Subsection
+Domestic production
+\end_layout
+
+\begin_layout Standard
+Three-ME assumes that each activities (or sectors) may produce more than
+ one commodities.
+ For instance the commodity electricity is produced by several sector (nuclear,
+ wing, etc.).
+ Therefore the production of commodity c by activity a is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y{}_{c,a}=\varphi_{c,a}YQ{}_{c}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $YQ{}_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi_{c,a}$
+\end_inset
+
+ are respectively the aggregate (domestic) production of commodity c and
+ the share of commodity c produced by activity a.
+ Therefore the aggregate production of activity a is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y{}_{a}=\sum_{a}Y{}_{c,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Demand for production factors
+\end_layout
+
+\begin_layout Standard
+As shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:productionstructure"
+
+\end_inset
+
+, the production structure is decomposed in 3 levels.
+ The first level assumes a technology with four production factors (or inputs)
+ sometimes referred as a KLEM (Capital, Labor, Energy, Material) technology,
+ thus splitting intermediary consumptions into energy and material.
+ Compared to most existing models, we do not necessarily assume a Constant
+ Elasticity of Substitution (CES) between these factors.
+ For instance the elasticity of substitution between capital and labor may
+ differ from the one between capital and energy.
+ To do so we use a generalized CES (GCES) function
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Link with the OFCE working paper where it is defined as VOE-Cobb-Douglas
+\end_layout
+
+\end_inset
+
+.
+ We added a fifth element in level one: the transport and commercial margins.
+ Stricto sensus, they cannot be considered as production factors since they
+ intervene after the production process.
+ Thus they are not substitutable with the production factor.
+ But they are closely related to the level of production since once a good
+ has been processed, it has to be transported and commercialized.
+ At the second level, the investment, energy, material and margins aggregates
+ are further decomposed.
+ The investment level is determined by the capital stock assuming a constant
+ depreciation ratio.
+ At the third level, the demand for each factor or margin is either imported
+ or produced domestically.
+ The generalized CES function is also used to capture substitutions effect
+ at the level 2 and 3.
+ Moreover, we assume at each level a degree 1 homogenous function that a
+ constant return-to-scale technology.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename productionstructure.png
+	lyxscale 70
+	scale 60
+	clip
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:productionstructure"
+
+\end_inset
+
+ Production structure of Three-Me 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Appendix B shows that the cost minimizing program of the firm in the case
+ of a constant return-to-scale GCES technology leads to the following notional
+ production factors (or) demand (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Input demand"
+
+\end_inset
+
+):
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Notation incoherente avec le lyx.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta I_{j,a}^{Input\_n} & =\Delta y_{a}-\Delta prog_{j,a}^{Input}+\Delta SUBST\_i_{j,a}^{Input}\\
+\Delta SUBST\_I_{j,a,t}^{nput\_n} & =-\sum_{\frac{j'=1}{j'\neq j}}^{J}\eta_{j,j'}\varphi_{j',a,t-1}\Delta(p{}_{j,a,t}^{Input}-p_{j',a,t}^{Input})\,\qquad\,\label{eq:10 old}\\
+ & with\hspace{1em}\varphi_{a}^{j}=\frac{P_{j,a}^{Input}.I_{j,a}^{Input}}{\sum_{j}P_{a,j}^{Input}.I_{j,a}^{Input}}\begin{array}{ccccc}
+and &  & j=\{K,L,E,M\}\end{array}\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where
+\begin_inset Formula $I_{j,a}^{nput}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{j,a}^{nput\_n}$
+\end_inset
+
+ is the effective and notional demand of input h (KLEM) in sector a, 
+\begin_inset Formula $\eta_{j,a}$
+\end_inset
+
+ the elasticity of substitution between the production factors j and j'
+ in sector a, 
+\begin_inset Formula $P_{j,a}^{rog}$
+\end_inset
+
+ the technical progress of input h in sector a, 
+\begin_inset Formula $\varphi_{j',a}^{val}$
+\end_inset
+
+ the value share of input j into the production of sector a.
+ The superscript n refers to the adjective “notional” as opposed to “effective”
+ as defined by neo-Keynesian disequilibrium theory (e.g.
+ see 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "Benassy:1975fk"
+
+\end_inset
+
+).
+ The notional demand is the optimal demand of the firm derived from its
+ maximization program.
+ We may also use the adjective “desired” since it would be the demand the
+ firm would like to achieve immediately if there were no constrains such
+ as adjustment costs.
+ 
+\end_layout
+
+\begin_layout Standard
+The above input demand is replicated for the four KLEM production factors:
+ 
+\begin_inset Formula $I_{j,a}^{nput}=[K_{a};L_{a};E_{a};M_{a}^{at}]$
+\end_inset
+
+, referring respectively to capital, labor, energy and material.
+ In the case of material, relation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:10 old"
+
+\end_inset
+
+ can be interpreted as the equation of the Leontief technical coefficients
+ which corresponds to the input to production ratio 
+\begin_inset Formula $I_{j,a}^{nput\_n}/Y_{a}$
+\end_inset
+
+.
+ Unlike the Leontief model, they may here vary over time because of substitution
+ mechanisms between inputs and of the technical progress.
+\end_layout
+
+\begin_layout Standard
+The investment in sector a 
+\begin_inset Formula $(IA_{a,t})$
+\end_inset
+
+ is calculated by inverting the capital accumulation equation assuming a
+ constant depreciation rate 
+\begin_inset Formula $(\delta_{a,t})$
+\end_inset
+
+ of capital:
+\begin_inset Formula 
+\begin{align}
+IA_{a,t}\text{=} & K_{a,t}+(1-\delta_{a}).K_{a,t-1}\label{eq:14 old}\\
+\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The depreciation rate is calibrated on national account data by inverting
+ Equation [
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:14 old"
+
+\end_inset
+
+], using the net fixed capital stock data for capital and the gross fixed
+ capital formation data for investment.
+ 
+\end_layout
+
+\begin_layout Standard
+Because of access restriction to National account investment data, investment
+ decisions were modeled for the all the private sector.
+ We now use detailed investment data disaggregated by sector and therefore
+ identify a specific investment pattern for each activity.
+ The commodity type c investment in activity a is specified by assuming
+ that all type of investments are complementary:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta ia_{c,a}=\Delta ia_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Labor is assuming homogenous inside each sector, and is thus not disaggregated
+ further.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+On the contrary, the JULIEN model 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Laffargue:1996dq"
+
+\end_inset
+
+ applied to the French economy distinguishes two types of worker qualification.
+ As suggested by econometric studies (e.g.
+ Shadman-Mehta and Sneessens, 1995), this would allow to reproduce more
+ accurately the recent evolution in the industry sector by accounting for
+ different substitution pattern between each kind of labor and capital,
+ and biased technical progress in favor of less qualified labor.
+\end_layout
+
+\end_inset
+
+ On the contrary, the aggregate of energy and material inputs are disaggregated
+ in a second level of production structure assuming a GCES function.
+ The notional demand for energy c and material c are respectively:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta e_{c,a} & =\Delta e_{a}+\Delta SUBST\_E_{c,a}\label{eq:18old}\\
+\Delta SUBST\_E_{c,a,t}^{n} & =-\sum_{i'=21}^{24}\eta_{c,c'}\varphi_{c'a,t-1}^{val}\Delta(p_{c,a,t}^{E}-p_{c',a,t}^{E})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta mat{}_{c,a} & =\Delta mat_{c,a}+\Delta SUBST\_MAT_{c,a}\label{eq:19old}\\
+\Delta SUBST\_MAT_{c,a,t}^{n} & =-\sum_{i'=1}^{20}\eta_{c,c'}\varphi_{c',a,t-1}\Delta(p_{c,a,t}^{Mat}-p_{c,'a,t}^{Mat})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In both cases, the demand for each type of energy and material is the function
+ of the aggregates defined in the first level and of the relative prices
+ between type of energy and material.
+ Finally, in the third level, each type of investment products, energy and
+ material can be domestically produced or imported.
+ As in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Armington:1969ve"
+
+\end_inset
+
+, a CES function is used to describe the possibilities of substitution between
+ imported and domestic goods.
+ For instance, in the case of the demand for imported and domestic energy
+ c of the sector a, the specification is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta em_{c,a,t} & =\Delta e_{c,a,t}+\Delta SUBST\_EM_{c,a,t}\\
+\Delta SUBST\_EM_{c,a,t}^{n} & =-\eta_{cd,cm}\varphi_{c,a,t-1}^{EM}\Delta(p_{c,t}^{EM}-p_{c,t}^{ED})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta ed_{c,a} & =\Delta e_{c,a}+\Delta SUBST\_ED_{c,a}\\
+\Delta SUBST\_ED_{c,a,t}^{n} & =-\eta_{cd,cm}\varphi_{c,a,t-1}^{ED}\Delta(p_{c,t}^{ED}-p_{c,t}^{EM})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The energy production 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+à préciser
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename FigTabNRJ.png
+	height 10cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Energy production by source
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The production functions of the energetic subsectors are the same as the
+ others, but the market share of each energy source is exogenous.
+\end_layout
+
+\begin_layout Standard
+This assumption is realistic for the electricity production sector, since
+ the government delivers the authorizations for installing a power plant,
+ as well for the nuclear or the conventional ones.
+\end_layout
+
+\begin_layout Standard
+We assume that the objectives given for the various renewable energy sources
+ are reached thanks to a policy of guaranteed purchases tariffs, financed
+ by a tax on energy consumption.
+ This policy has already been enforced in France.
+ Thus, the renewable energy producers are insured to receive a public subvention
+ per KWh equal to the difference between the energy market price and the
+ tariff, which is fixed above their unitary cost of production.
+ The tariffs are designed for equalizing the profit unitary margins of all
+ the sectors.
+ Hence the investment choices in energy sectors do not obey to the same
+ market rules than others.
+ There are almost determined by the public policy.
+\end_layout
+
+\begin_layout Standard
+The propensities to import the consumption or export the production depend
+ on both, their previous amounts and the distortions between international
+ and domestic prices.
+\end_layout
+
+\begin_layout Standard
+Some technical progress has been introduced in the production functions.
+ It may be positive when the factors productivity is increasing thanks to
+ innovations (that is still the case in most renewable energy production
+ sectors), or negative, when the unitary costs of production increase due
+ to improvement of security rules, like in the nuclear power plant.
+ (The production cost of the third generation is much more important than
+ those of the second one).
+ This effect is decreasing with time.
+\end_layout
+
+\begin_layout Standard
+The energetic mix in the base year has been parameterized with the data
+ from Department of Energy
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Ministère de l’économie des finances et de l’industrie, « l’énergie en France,
+ repères », col.
+ Chiffres clés, ed.
+ 2006, 40 p
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Mettre en biblio en non en note
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Ministère de l’économie des finances et de l’industrie, « Bilan énergétique
+ de l’année 2006 de la France »,DGEMP, Observatoire de l’Energie, 2007,
+ 25 p.
+\end_layout
+
+\end_inset
+
+ .
+ For each subsectors, the shares of labor, capital, intermediary consumption,
+ and fuel consumption, in the unitary production costs have been parameterized
+ with data from Department of Energy
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Ministère de l’économie des finances et de l’industrie, « Coût de référence
+ de la production électrique » décembre 2003, 163 p.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Mettre en biblio en non en note
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ and the French Environment and Energy Management Agency
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+In Numeri, « marchés, emplois et enjeu énergétique des activités liées à
+ l’amélioration de l’efficacité énergétique et aux énergies renouvelables,
+ situation 2008-2009 – perspectives 2010 », ADEME, SEP, octobre 2010, 379
+ p.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Mettre en biblio en non en note
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ (ADEME) 
+\end_layout
+
+\begin_layout Subsection
+Debt in the private sector
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+à préciser
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dynamic of the debt in the private sector
+\begin_inset Formula $(D_{t}^{s})$
+\end_inset
+
+ is determined by the accumulation equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:20old"
+
+\end_inset
+
+, which depends on the gap between the private investment spending and the
+ Gross Operating Surplus 
+\begin_inset Formula $(GOS_{t})$
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+D_{t}^{s}=D_{t-1}^{s}(1+R_{t}^{s})+P_{t}^{inv}I^{s}-GOS_{jt}^{s}+FP_{t}^{tax}\label{eq:20old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+GOS_{t}^{s}=P_{t}^{va}VA_{t}+SY_{t}-IY_{t}-L_{t}W_{t}(1+T_{t}^{CSE})\label{eq:21old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $SY_{t}$
+\end_inset
+
+ and 
+\begin_inset Formula $IY_{t}$
+\end_inset
+
+ are respectively the subvention and tax on production.
+ 
+\begin_inset Formula $W_{t}$
+\end_inset
+
+ is the gross wage and 
+\begin_inset Formula $(R_{t}^{s})$
+\end_inset
+
+ the interest rate paid by the private sector.
+\begin_inset Formula $FP_{t}^{tax}$
+\end_inset
+
+ is the total firms profit tax,
+\begin_inset Formula $T_{t}^{CSE}$
+\end_inset
+
+ the apparent rate of employer social security contribution.
+\end_layout
+
+\begin_layout Section
+An hybrid modeling of households'behaviour
+\end_layout
+
+\begin_layout Standard
+The standard representation of the consumer maximization behavior used in
+ most top-down CGEM assumes that energy sources provide utility on their
+ one.
+ Therefore their consumption is more or less proportional to their revenue
+ because of the hypothesis of nested utility function.
+ But in reality energy has no use in itself.
+ Households buy energy to fulfill certain services such as housing (heating
+ and the functioning of equipments) or transport.
+ Therefore the quantity of energy consumed for heating purposes is more
+ related to the size of the house than directly to the revenue of households.
+ Of course, rich households generally have bigger houses and therefore their
+ energy consumption will generally be higher.
+ At the same time, one can expect that the energy consumption per square
+ meters will be lower for poor households since they are generally more
+ careful in trying to limit their energy bill.
+ Indeed, micro data suggest that the poor households tend to lower heating
+ temperature in their houses.
+ The energy consumption per m² tends to increase with the income decile
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Reference, laquelle? INSEE, enquête budget des familles, 2006 
+\end_layout
+
+\end_inset
+
+ but within limit since energy is more a necessity good than a luxury good.
+ And hardly no one wants a heating temperature in their house of 35 °C even
+ very rich people.
+ 
+\end_layout
+
+\begin_layout Standard
+One way to model this is to assume that the production of certain services
+ such housing and mobility is directly produced by households rather than
+ purchase externally.
+ Therefore we specify explicitly a household’s production function for the
+ services of housing and mobility (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:householdstructure "
+
+\end_inset
+
+).
+ The block has two main components: housing, transport.
+ We assume further that the expenses related to this production function
+ is priority.
+ For the other expenditures, we use a standard LES which allows to model
+ in a simple way the distinction between necessity/luxury goods.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename household structure.png
+	lyxscale 40
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:householdstructure "
+
+\end_inset
+
+ Household's structure of expenditures 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Building stock dynamic
+\end_layout
+
+\begin_layout Standard
+We differentiate buildings according to their energy efficiency class, k
+ = {1,…,K}.
+ We assume that the building stock of class k expressed in m² is driven
+ by the following dynamic:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta BUIL_{h,k,t} & = & \varphi_{h,k}^{NewBUIL}(\Delta BUIL_{h,t}+BUIL_{h,0,t})\label{eq:Buildings-1}\\
+ &  & +\sum_{k'=0}^{k-1}REHAB_{h,k',k}-\sum_{k'=k+1}^{K}REHAB_{h,k,k'}\nonumber \\
+ &  & -\sum_{k'=0}^{k-1}\delta_{h,k,k'}^{BUIL}BUIL_{h,k,t-1}+\sum_{k'=k+1}^{K}\delta_{h,k',k}^{BUIL}BUIL_{h,k',t-1}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+BUIL_{h,0,t}=\sum_{k}\delta_{h,k,0}^{BUIL}BUIL_{h,k,t-1}\label{eq:Buildings0}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where, for household h, 
+\begin_inset Formula $BUIL_{h,k,t}$
+\end_inset
+
+ is building stock of class k, 
+\begin_inset Formula $BUIL_{h,t}$
+\end_inset
+
+ the total building stock, 
+\begin_inset Formula $BUIL_{h,0,t}$
+\end_inset
+
+ the stock of buildings destroyed in the previous period and reconstructed
+ in the current period.
+ 
+\begin_inset Formula $\varphi_{h,k}^{NewBUIL}$
+\end_inset
+
+ is the share of the new buildings constructed with a class k label (
+\begin_inset Formula $\underset{k}{\sum}\varphi_{h,k}^{NewBUIL}=1$
+\end_inset
+
+ ).
+ 
+\begin_inset Formula $REHAB_{h,k,k'}$
+\end_inset
+
+ is the number of m² rehabilitated from class k to class k' (with 
+\begin_inset Formula $k<k'$
+\end_inset
+
+ and 
+\begin_inset Formula $REHAB_{h,k,k}=0$
+\end_inset
+
+), 
+\begin_inset Formula $\delta_{h,k',k}^{BUIL}$
+\end_inset
+
+ the depreciation (or downgrading) rate from class k' to class k(with 
+\begin_inset Formula $k'>k$
+\end_inset
+
+ ).
+ 
+\end_layout
+
+\begin_layout Standard
+Equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Buildings-1"
+
+\end_inset
+
+) assumes that at each period t, the stock of buildings of class k: 
+\end_layout
+
+\begin_layout Standard
+- Increases by the share of the new buildings constructed according to class
+ k standards: 
+\begin_inset Formula $\varphi_{h,k}^{NewBUIL}(\triangle BUIL_{h,t}+BUIL_{h,0,t})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+- Increases by the amount of rehabilitated buildings to class k from lower
+ class: 
+\begin_inset Formula $\underset{k'=0}{\overset{k-1}{\sum}}REHAB_{h,k',k}$
+\end_inset
+
+ .
+ 
+\end_layout
+
+\begin_layout Standard
+- Increase by the downgraded buildings from class k-1 to lower class:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\underset{k'=k+1}{\overset{K}{\sum}}\delta_{h,k',k}^{BUIL}BUIL_{h,k,t-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+- Decreases by the amount of rehabilitated buildings from class k to a higher
+ class: 
+\begin_inset Formula $\underset{k'=k+1}{\overset{K}{\sum}}REHAB_{h,k,k'}$
+\end_inset
+
+ .
+ 
+\end_layout
+
+\begin_layout Standard
+- Decreases by the downgraded buildings from class k to lower class:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\underset{k'=0}{\overset{k-1}{\sum}}\delta_{h,k',k}^{BUIL}BUIL_{h,k,t-1}$
+\end_inset
+
+ where “class 0” refers to destroyed building.
+\end_layout
+
+\begin_layout Standard
+We assume for simplicity that the number of buildings are related to the
+ size of the population:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta BUIL=\Delta pop+\Delta M2percapita
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Total number of buildings and by class are: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+BUIL_{k}=\sum_{h}BUIL_{h,k}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+BUIL=\sum_{h}BUIL_{h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that Equations (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Buildings-1"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Buildings0"
+
+\end_inset
+
+) imply that 
+\begin_inset Formula $\overset{K}{\underset{k=1}{\sum}}BUIL_{h,k,t}=BUIL_{h,t}$
+\end_inset
+
+ (provided this is verified for the initial period).
+ We can therefore cheek the consistency of the model by introducing the
+ following verifications:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+BUIL\_VERIF_{h}=\sum_{k}BUIL_{h,k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+BUIL\_VERIF=\sum_{h}BUIL\_VERIF_{h}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+VERIF\_BUIL=\sum_{h}(BUIL\_VERIF_{h}-BUIL_{h})=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To provide a better intuition, the stock dynamic is charted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:BuildingsDynamic"
+
+\end_inset
+
+.
+ Blue arrows represent the depreciation mechanism.
+ As time goes along, high energy classes loses efficiency and gets downgraded
+ until they gets eventually destructed (pool 
+\begin_inset Formula $BUIL_{h,0,t}$
+\end_inset
+
+).
+ As in the model, this chart presents the general case where the downgrading
+ is possible to any lower class.
+ In reality, this process is generally gradual and buildings of high classes
+ will go successively to lower classes instead of been directly destructed.
+ Orange arrows represent the rehabilitation mechanism: by investing in renovatio
+n, households have the possibility to increase the energy efficiency of
+ their house.
+ Here too various transitions are possible, e.g.
+ from class 1 to 2, then from 2 to 3 or directly from class 1 to 4.
+ Naturally, the strongest the rehabilitation, the higher the cost.
+ Finally, black arrows represent the (re)-construction process.
+ There are new buildings because the total housing park increases (
+\begin_inset Formula $\triangle BUIL$
+\end_inset
+
+) and because destroyed buildings (
+\begin_inset Formula $BUIL_{h,0,t}$
+\end_inset
+
+) are reconstructed.
+ Here as well, although new buildings are possible in any category, in practice,
+ new construction follows high energy efficiency standards.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Fig.BUIL.png
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:BuildingsDynamic"
+
+\end_inset
+
+ Overall structure of Three-ME 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At each period, a proportion of the buildings of category k is rehabilitated:
+ 
+\begin_inset Formula $\tau_{h,k}^{REHAB}=\underset{k'}{\sum}REHAB_{h,k,k'}/BUIL_{h,k}$
+\end_inset
+
+.
+ This proportion may not be constant over time.
+ For instance, it may increase as the energy price increases because this
+ gives an incentive toward more energy efficiency renovation.
+ This can be modeled by assuming that 
+\begin_inset Formula $\tau_{h,k}^{REHAB}$
+\end_inset
+
+ is endogenous and depends on the user cost of the building.
+ Variation in that 
+\begin_inset Formula $\tau_{h,k}^{REHAB}$
+\end_inset
+
+ may also be exogenous due to the imposition of stricter energy efficiency
+ requirements embodied in 
+\begin_inset Formula $\tau_{h,k}^{REHAB*}$
+\end_inset
+
+.
+ Naturally, the proportion of the buildings that are renovated cannot exceed
+ 1.
+ But it appears logical to assume that it has also a lower bound (
+\begin_inset Formula $\tau_{h,k}^{REHAB\_l}$
+\end_inset
+
+ ) to account for irreversibility phenomena: even if the energy price starts
+ to go down, it is possible that households will not lower their investment
+ in energy efficiency.
+ These considerations lead to the following specification:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\tau_{h,k}^{REHAB} & = & \tau_{h,k}^{REHAB*}+\eta_{h,k}\frac{UC_{h,k}^{REHAB}}{UC_{h,k}}\nonumber \\
+0\leqslant\tau_{h,k}^{REHAB\_l}\leqslant & \tau_{h,k}^{REHAB} & \leqslant\tau_{h,k}^{REHAB\_h}\leqslant1\label{eq:8}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $UC_{h,k}$
+\end_inset
+
+ is the user cost of buildings of type k and 
+\begin_inset Formula $UC_{h,k}^{REHAB}$
+\end_inset
+
+ is the user cost of the investment in the renovation of building k.
+\end_layout
+
+\begin_layout Standard
+As explained previously, the rehabilitation of a building of a given class
+ k can be done to different higher classes.
+ It would be logical to assume that the choice between the higher classes
+ is endogenous and depends on the relative cost of each option of renovation.
+ However, because of the lack of data, it is difficult to model and calibrate
+ such arbitrage.
+ Moreover, this choice may be strongly determined by technical renovation
+ standards with a small influence of relative prices.
+ Therefore, we assume that this choice is exogenous, that is the share of
+ class k buildings rehabilitated to class k' (
+\begin_inset Formula $\varphi_{k,k'}^{REHAB}$
+\end_inset
+
+ ) is exogenous: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+REHAB_{h,k,k'} & = & \varphi_{h,k,k'}^{REHAB}.\tau_{h,k}^{REHAB}BUIL_{h,k,t-1}\\
+\nonumber \\
+\sum_{k'}\varphi_{h,k,k'}^{REHAB} & = & 1
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:8"
+
+\end_inset
+
+), we assume that the proportion of the buildings of category k to be rehabilita
+ted depends on the user cost of buildings.
+ We assume that the latter corresponds to the annual cost of the investment
+ which consists of two components: (1) the annual cost of the investment
+ itself including eventual interests, (2) annual energy cost.
+ This leads to the following relation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{REHAB} & = & UC_{h,k}^{K\_REHAB}+UC_{h,k}^{E\_REHAB}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{E\_REHAB} & = & \sum_{k'=k+1}^{K}\varphi_{h,k,k'}^{REHAB}.UC_{h,k'}^{E}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Regarding the decision of rehabilitating the house to a higher class, the
+ above user cost is compared to the user cost of a building remaining in
+ class k: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k} & = & UC_{h,k}^{K}+UC_{h,k}^{E}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{K\_REHAB} & = & P_{h,k}^{REHAB\_\delta^{BUIL}}(R_{h,k}^{CASH\_REHAB}+\frac{R_{h,k}^{LOAN\_REHAB}R_{h,k,t-1}^{I\_REHAB}LD_{h,k}^{REHAB}}{1-(1+R_{h,k,t-1}^{BUIL\_REHAB})^{-LD_{h,k}^{REHAB}}})\\
+R_{h,k}^{LOAN\_REHAB} & = & 1-R_{h,k}^{CASH\_REHAB}\\
+LD_{h,k}^{REHAB} & \leqq & 1/\delta_{h,k}^{REHAB}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{K} & = & P_{h,k,k}^{REHAB}\delta_{h,k}^{BUIL}(R_{h,k}^{CASH}+\frac{R_{h,k}^{LOAN}R_{h,k,t-1}^{I\_BUIL}LD_{h,k}}{1-(1+R_{h,k,t-1}^{I\_BUIL})^{-LD_{h,k}}})\\
+R_{h,k}^{LOAN} & = & 1-R_{h,k}^{CASH}\\
+LD_{h,k} & \leqq & 1/\delta_{h,k}^{BUIL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\delta_{h,k}^{REHAB}=\sum_{k'=k+1}^{K}\varphi_{h,k,k'}^{REHAB}\delta_{h,k'}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\delta_{h,k}^{BUIL}=\sum_{k'=0}^{k-1}\delta_{h,k,k'}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{E} & = & \frac{\left(1+\overset{\bullet}{P}_{h,k}^{Ener\_m\text{²\_e}}\right)^{1/\delta_{h,k}^{BUIL}}-1}{\overset{\bullet}{P}_{h,k}^{Ener\_m\text{²}\_e}/\delta_{h,k}^{BUIL}}.P_{h,k}^{Ener\_m^{2}}\\
+P_{h,k}^{Ener\_m\text{²}}.BUIL_{h,k} & = & PENER^{BUIL}.ENER_{h,k}\\
+\overset{\bullet}{P}_{h,k,t}^{Ener\_m\text{²}\_e} & = & \lambda_{0}^{Ener\_BUIL}\overset{\bullet}{P}_{h,k,t-1}^{Ener\_m\text{²}\_e}+\lambda_{1}^{Ener\_BUIL}\overset{\bullet}{P}_{h,k,t-1}^{Ener\_m\text{²}}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $R_{h,k}^{CASH}$
+\end_inset
+
+ is the share of investment that is paid cash, 
+\begin_inset Formula $R_{h,k}^{LOAN}$
+\end_inset
+
+ share of investment that is paid with a loan, 
+\begin_inset Formula $R_{h,k}^{I}$
+\end_inset
+
+ the interest rate, 
+\begin_inset Formula $LD_{h,k}$
+\end_inset
+
+ the duration of the loan, 
+\begin_inset Formula $\dot{P}_{h,k}^{Ener\_BUIL}$
+\end_inset
+
+ the average energy price paid in type k buildings, 
+\begin_inset Formula $\overset{\bullet}{P}_{h,k}^{Ener\_BUIL\_e}$
+\end_inset
+
+ its expected growth rate increase and 
+\begin_inset Formula $PENER_{h,k}.ENER_{h,k}$
+\end_inset
+
+ the energy consumption in buildings k.
+ Note that 
+\begin_inset Formula $1/\delta_{h,k}^{BUIL}$
+\end_inset
+
+ is the average duration of the investment.
+ 
+\begin_inset Formula $P_{h,k}^{REHAB}$
+\end_inset
+
+ is the average price of the investment in renovation calculated as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+P_{h,k}^{REHAB\_\delta^{BUIL}}.REHAB_{h,k} & = & \sum_{k'=k+1}^{K}\left(1-R_{h,k,k'}^{SUB}\right)P_{h,k,k'}^{REHAB}.REHAB_{h,k,k'}.\delta_{h,k'}^{BUIL}\\
+REHAB_{h,k} & = & \sum_{k'=k+1}^{K}REHAB_{h,k,k'}\nonumber \\
+\nonumber \\
+P_{h,k}^{REHAB\_\delta^{BUIL}\_bis} & = & \sum_{k'=k+1}^{K}\left(1-R_{h,k,k'}^{SUB}\right)\varphi_{h,k,k'}^{REHAB}P_{h,k,k'}^{REHAB}\delta_{h,k'}^{BUIL}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $R_{h,k}^{SUB}$
+\end_inset
+
+is the eventual rate of subsidies on the investment in energy efficiency.
+ The expenditures related to housing for buildings k at a given period therefore
+ includes the expenses related to the debt (interest and reimbursement),
+ the investment paid in cash and the cost of energy.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_HOUSING_{h,k}^{VAL} & = & DEBT_{h,k,t-1}^{REHAB\_VAL}(R_{h,k,t-1}^{I\_REHAB}+R_{h,k,t-1}^{RMBS\_REHAB})\\
+ &  & +R_{h,k,t}^{CASH\_REHAB}P_{h,k}^{REHAB}REHAB_{h,k}\nonumber \\
+\nonumber \\
+ &  & +DEBT_{h,k,t-1}^{NewBUIL\_VAL}(R_{h,k,t-1}^{I\_NewBUIL}+R_{h,k,t-1}^{RMBS\_NewBUIL})\nonumber \\
+ &  & +R_{h,k,t}^{CASH\_NewBUIL}.P_{h,k}^{NewBUIL}.NewBUIL{}_{h,k}\nonumber \\
+\nonumber \\
+ &  & +PENER_{h,k}.ENER_{h,k}\nonumber \\
+\nonumber \\
+DEBT_{h,k,t}^{REHAB\_VAL} & = & DEBT_{h,k,t-1}^{REHAB\_VAL}(1-R_{h,k,t-1}^{RMBS\_REHAB})\\
+ &  & +R_{h,k,t}^{LOAN\_REHAB}.P_{h,k}^{REHAB}.REHAB_{h,k}\nonumber \\
+\nonumber \\
+DEBT_{h,k,t}^{NewBUIL\_VAL} & = & DEBT_{h,k,t-1}^{NewBUIL\_VAL}(1-R_{h,k,t-1}^{RMBS\_NewBUIL})\\
+ &  & +R_{h,k,t}^{LOAN\_REHAB}.P_{h,k}^{NewBUIL}.NewBUIL{}_{h,k}\nonumber \\
+\nonumber \\
+R_{h,k}^{RMBS\_X} & = & 1/LD_{h,k}^{X}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\triangle lnP_{h,k,k'}^{REHAB} & = & \triangle lnPCH_{13}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\triangle lnP_{h,k}^{NewBUIL} & = & \triangle lnPCH_{13}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+R_{h,k}^{REHAB\_DEBT} & = & P_{h,k}^{REHAB}.REHAB_{h,k}/DEBT_{h,k}^{REHAB\_DEBT}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+REHAB_{h,k} & = & \sum_{k'}.REHAB_{h,k,k'}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+REHAB_{h} & = & \sum_{k}.REHAB_{h,k}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+REHAB & = & \sum_{h}.REHAB_{h}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+P_{h,k}^{REHAB}.REHAB_{h,k} & = & \sum_{k'}P_{h,k,k'}^{REHAB}.REHAB_{h,k,k'}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+EXP\_HOUSING_{h}^{VAL} & = & \sum_{k}EXP\_HOUSING{}_{h,k}^{VAL}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+EXP\_HOUSING^{VAL} & = & \sum_{k}EXP\_HOUSING{}_{h}^{VAL}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{13,h}^{OTH\_VAL}=PEXP_{13,h}.EXP_{13,h}-(P_{h}^{REHAB}.REHAB_{h}+P_{h}^{NEWBUIL}.NEWBUIL_{h})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+NEWBUIL_{h}=\sum_{k}NEWBUIL_{h,k}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+NEWBUIL=\sum_{h}NEWBUIL_{h}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+EXP_{13}^{OTH\_VAL} & = & \sum_{h}EXP_{13,h}^{OTH\_VAL}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta log(EXP_{13}^{OTH\_VAL}) & = & \Delta log(EXP_{13,h})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NEWBUIL_{h,k} & = & \varphi_{h,k}^{NewBUIL}(\Delta BUIL_{h}+BUIL_{h,0})\label{eq:NewBuildings}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+P_{h}^{EXPH}.EXPH_{h} & = & \sum_{k}P_{h,k}^{EXPH}.EXPH_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $R_{h,k}^{RMBS}$
+\end_inset
+
+ is the rate of reimbursement of the debt.
+ The evolution of the debt is standard: it increases from the investment
+ paid with a loan and decreases with reimbursements).
+ It is worth noticing that in the particular case where the building stock
+ is integrally pay with a loan (
+\begin_inset Formula $R_{h,k}^{CASH}$
+\end_inset
+
+=0 ), the rate of reimbursement of the debt is equal to the depreciation
+ ratio, (and the energy costs are omitted), then debt is always equal to
+ the value of the building stock and the above equation collapse in the
+ standard equation of the user cost of capital: 
+\begin_inset Formula $P_{h,k}^{REHAB}(R_{h,k,t-1}^{I}+\delta_{k}^{BUIL})$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Automobile and Transport
+\end_layout
+
+\begin_layout Subsubsection
+Automobile
+\end_layout
+
+\begin_layout Standard
+The logic behind the automobile stock per energy class is very similar to
+ the one of housing.
+ However, it differs in two main respects.
+ There is no energy efficiency renovation.
+ An automobile is assumed to remain in its energy class during all its life
+ duration.
+ Hence the downgrading goes directly to destruction.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta AUTO_{h,k,t} & = & \varphi_{h,k}^{NewAuto}(\Delta AUTO_{h,t}+AUTO_{h,0,t})\\
+\nonumber \\
+ &  & -\delta_{h,k}^{AUTO}AUTO_{h,k,t-1}\nonumber \\
+\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+AUTO_{h,0,t}=\sum_{k}\delta_{h,k}^{AUTO}AUTO_{h,k,t-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NewAUTO{}_{h,k} & = & \varphi_{h,k}^{NewAUTO}(\Delta AUTO{}_{h}+AUTO{}_{h,0})\label{eq:NewAUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta ln(P_{h,k}^{NewAUTO}) & = & \Delta(ln(PCH_{03})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Otherwise the modeling is similar that the investment in housing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h,k}^{AUTO\_VAL} & = & DEBT_{h,k,t}^{AUTO\_VAL}(R_{h,k,t-1}^{I}+R_{h,k,t-1}^{RMBS\_AUTO})\\
+\nonumber \\
+ &  & +R_{h,k,t}^{CASH\_AUTO}P^{NewAUTO}.NewAUTO_{h,k}(1-R_{h,k}^{SUB\_AUTO})\nonumber \\
+\nonumber \\
+ &  & +PEXP_{h}^{22}.EXP{}_{h,k}^{AUTO}\nonumber \\
+\nonumber \\
+\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{auto} & = & P_{h,k}^{REHAB}\delta_{h,k}^{BUIL}\left(R_{h,k}^{CASH\_AUTO}+\frac{R_{h,k}^{LOAN}R_{h,k,t-1}^{I}LD_{h,k}}{1-(1+R_{h,k,t-1}^{I})^{-LD_{h,k}}}\right)\\
+\nonumber \\
+ &  & +\frac{\left(1+\dot{P}_{k}^{Ener\_auto\_e}\right)^{1/\delta_{k}^{auto}}-1}{\dot{P}_{k}^{Ener\_auto\_e}/\delta_{k}^{auto}}.\dot{P}_{k}^{Ener\_auto}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DEBT_{h,k,t}^{AUTO\_VAL}=DEBT_{h,k,t-1}^{AUTO\_VAL}(1-R_{h,k,t-1}^{RMBS\_AUTO})+R_{h,k,t}^{LOAN\_AUTO}P_{h,k}^{NewAUTO}.NewAUTO_{h,k}(1-R_{h,k}^{SUB\_AUTO})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h,k}^{NewAUTO\_VAL} & = & P_{h,k}^{NewAuto}.NewAUTO_{h,k}(1-R_{h,k}^{SUB})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{h}^{traveler} & = & \Delta pop^{TOT}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{h}^{traveler\_auto} & = & \Delta km_{h}^{traveler}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{h}^{AUTO} & = & \Delta km_{h}^{traveler\_auto}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{h}^{auto} & = & \Delta km_{h}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NewAuto_{h} & = & \underset{k}{\sum}NewAuto_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+Km_{h,k}^{AUTO} & = & Km_{h}^{AUTO}.\frac{AUTO_{h,k}}{auto_{h}}\underset{}{}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta EXP_{h,k,e}^{AUTO} & = & \Delta km_{h,k}^{auto}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\phi_{03bis,h}^{EXP} & =\frac{EXP_{h}^{NewAUTO\_VAL}}{EXP^{NewAUTO\_VAL}}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & \Delta exp{}_{03,h}^{OTH\_VAL}=\Delta dispinc{}_{h}^{VAL}.(1-MPS_{h}^{HH})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & EXP_{03,h}= & P_{h,k}^{NewAuto}.NewAUTO_{h,k}+\frac{EXP_{03}^{OTH\_VAL}}{PEXP_{03,h}}\begin{array}{ccccc}
+ & \begin{array}{ccccccc}
+ &  &  & P & _{h,k}^{NewAuto} & fixed & at\end{array} & base & year & fixed\end{array}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{VAL} & = & EXP\_MOB_{h}^{AUTObis\_VAL}-(EXP\_MOB_{h}^{AUTO\_VAL}+EXP_{03,h}^{OTH\_VAL})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{AUTObis\_VAL} & = & PEXP_{03,h}.EXP_{03,h}+PENER_{h,k}^{AUTO}.ENER_{h,k}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{03}^{OTH\_VAL} & = & PEXP_{03}.EXP_{03}-EXP^{NewAUTO\_VAL}\begin{array}{ccccc}
+ &  & for & base & year\end{array}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{03,h}^{OTH\_VAL} & = & \phi_{03bis,h}^{EXP}.EXP_{03}^{OTH\_VAL}\begin{array}{ccccc}
+ &  & for & base & year\end{array}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Aggregation of automobile expenditure
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h,k}^{AUTO} & = & \sum_{e}EXP_{h,k,e}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h}^{AUTO} & = & \sum_{k}EXP_{h,k}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h,e}^{AUTO} & = & \sum_{k}EXP_{h,k,e}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{k,e}^{AUTO} & = & \sum_{h}EXP_{h,k,e}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP^{AUTO} & = & \sum_{h}EXP_{h}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Aggregation of automobile
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+AUTO_{k}=\sum_{h}AUTO_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+AUTO=\sum_{k}AUTO_{k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NewAUTO_{h} & = & \underset{k}{\sum}NewAUTO_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+P_{h}^{NewAUTO}.NewAUTO_{h} & = & \underset{k}{\sum}P_{h,k}^{NewAUTO}.NewAUTO{}_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h}^{NewAUTO\_VAL} & = & \sum EXP_{h,k}^{NewAUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+EXP^{NewAUTO\_VAL} & = & \sum EXP_{h}^{NewAUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{AUTO\_VAL} & = & \sum EXP\_MOB_{h,k}^{AUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB^{AUTO\_VAL} & = & \sum EXP\_MOB_{h}^{AUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & EXP_{03}^{OTH\_VAL}= & \underset{h}{\sum}EXP_{03,h}^{OTH\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & EXP_{03}= & \underset{h}{\sum}EXP_{03,h}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Verificaion of automobile
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{AUTOver\_VAL} & = & EXP\_MOB_{h}^{AUTObis\_VAL}-(EXP\_MOB_{h}^{AUTO\_VAL}+EXP_{03,h}^{OTH\_VAL)}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB^{AUTOver\_VAL} & = & EXP\_MOB^{AUTObis\_VAL}-(EXP\_MOB^{AUTO\_VAL}+EXP_{03,h}^{OTH\_VAL})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Other transport
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{OTH\_VAL} & = & \sum(PEXP_{c,h}.EXP_{c,h})\begin{array}{cc}
+\begin{array}{cccc}
+\end{array} & c=14,15,16,17,18\end{array}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{c,h}^{traveler} & = & \Delta km_{h}^{traveler}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta exp_{c,h} & = & \Delta km_{c,h}^{traveler}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & EXP_{c}= & \underset{h}{\sum}EXP_{c,h}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Total Mobility
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{VAL} & = & EXP\_MOB_{h}^{AUTO\_VAL}+EXP\_MOB_{h}^{OTH\_VAL}+EXP_{03,h}^{OTH\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Energy Consumption 
+\end_layout
+
+\begin_layout Subsubsection
+ENERGIE DANS LE BATIMENT
+\end_layout
+
+\begin_layout Standard
+Prix en million d'euro du kwH par type d'énergie
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+ENER_{h,k,e}^{BUIL}=ENER_{h,k,e}^{perM2}.BUIL_{h,k}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta ener_{h,k,e}^{per\_M2}=0\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta exp_{h,k,}^{BUIL}=\Delta ener_{h,k,e}^{BUIL}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+PENER_{h,k,e}^{BUIL}.ENER{}_{h,k,e}^{BUIL}=PEXP_{e,h}.EXP{}_{h,k,e}^{BUIL}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Aggregation Energy consumption in building
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}=\sum_{e}(PENER_{h,k,e}^{BUIL}.ENER_{h,k,e}^{BUIL})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER_{h,k}^{BUIL}=\sum_{e}ENER_{h,k,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{h}^{BUIL}.ENER_{h}^{BUIL}=\sum_{k}PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER_{h}^{BUIL}=\sum_{k}ENER_{h,k}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{h,e}^{BUIL}.ENER_{h,e}^{BUIL}=\sum_{k}PENER_{h,k,e}^{BUIL}.ENER_{h,k,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+ENER_{h,e}^{BUIL}=\sum_{k}ENER_{h,k,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{e}^{BUIL}.ENER_{e}^{BUIL}=\sum_{h}PENER_{h,e}^{BUIL}.ENER_{h,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+ENER_{e}^{BUIL}=\sum_{h}ENER_{h,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER^{BUIL}.ENER^{BUIL}=\sum_{h}PENER_{h}^{BUIL}.ENER_{h}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+ENER^{BUIL}=\sum_{h}ENER_{h}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Agregation of total energie expenditure (automobile + building)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+ENER_{h,k}=PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}+EXP_{h,k}^{AUTO}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+PENER_{h,k}.ENERh_{h,k}=PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}\end{array}+PEXP_{03,h}.EXP_{h,k}^{AUTO}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+ENER_{h}=PENER_{h}^{BUIL}.ENER_{h}^{BUIL}+EXP_{h}^{AUTO}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+PENER_{h}.ENER_{h}=PENER_{h}^{BUIL}.ENER_{h}^{BUIL}\end{array}+PEXP_{03,h}.EXP_{h}^{AUTO}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{c}
+EXP_{h,e}=PENER_{h,e}^{BUIL}.ENER_{h,e}^{BUIL}+EXP_{h,e}^{AUTO}\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+EXP_{e}=\sum_{h}EXP_{h,e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta ener_{h,k}=\Delta buil_{h,k}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The energy consumption related to the use of automobile follows the same
+ approach.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER_{e,t}^{AUTO}=C_{e,t}^{PerKM}.KM_{k}.AUTO_{k}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+il faudrait integrer par la suite dans la programmation les differents énergies
+ pour l'automobile 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER{}_{h,k,e}=ENER{}_{h,k,e}^{PerM2}BUIL_{h,k}+{\color{red}ENER{}_{h,k,e}^{Perkm}AUTO_{h,k}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The energy consumption of households are directly related to the characteristics
+ of stock of buildings and cars and of the households that possess them.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+ENER\_HEAT_{h,k,e}=ENER\_HEAT{}_{h,k,e}^{PerM2}BUIL_{h,k}
+\]
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Pas integré car donné non dissocié
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $ENER\_HEAT_{h,k,e}$
+\end_inset
+
+ is the energy e consumption in buildings k for heating, 
+\begin_inset Formula $C_{h,k,e}^{PerM2\_HEAT}$
+\end_inset
+
+ is the energy e consumption per m² in buildings k.
+ The index e refers to the different type of energy.
+\end_layout
+
+\begin_layout Standard
+We assume that the energy consumption for others uses is also proportional
+ to the number of m² of buildings (since it is proportional to the number
+ of apparatus and equipments which are themselves proportional to the number
+ of m² of buildings):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+ENER\_OTH_{h,k,e}=ENER\_OTH_{h,e}^{PerM2}BUIL_{h,k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $C_{h,e}^{PerM2\_OTH}$
+\end_inset
+
+ is the energy e consumption per m² in buildings k for others uses than
+ heating.
+ In the 2 equations above, the energy consumption is expressed in physical
+ units.
+ Applying relevant coefficient of conversation, this allows for expressing
+ the aggregate energy consumption in tone petroleum equivalent (TPE).
+ 
+\end_layout
+
+\begin_layout Standard
+Aggregated the value and volume of energy consumption are: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+PENER_{h,k}.ENER_{h,k}=\sum_{e}PENER_{e}ENER{}_{h,k,e}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{c}
+ENER_{h,k,e}=ENER\_HEAT_{h,k,e}+ENER\_OTH{}_{h,k,e}\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The energy consumption per km, the number of km per year varies between
+ households since it is generally higher for the highest decile.
+ So it is logical to assume that these variables are related to the level
+ of revenue.
+ At the same time, given that housing is a necessity “commodity” for household,
+ it is logical to assume a lower and a higher bound.
+ To impose high and low boundaries, we assume the following logistic function
+ specification:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+X(\alpha)=\left[1-\phi(\alpha)\right]X^{l}+\phi(\alpha)X^{h}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\phi(\alpha)=\left[1+exp(\tau-\sigma.\alpha)\right]^{-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $X^{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $X^{h}$
+\end_inset
+
+ are the two bounds (e.g.
+ low and high) or regimes.
+ 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ the switching speed between the two regimes (when 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ increases), 
+\begin_inset Formula $\tau/\sigma$
+\end_inset
+
+ the value of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ when the regime switching arises.
+ It is easy to verify that 
+\begin_inset Formula $\phi(-\text{∞})=0;\phi(+\text{∞})=1$
+\end_inset
+
+ .
+ 
+\end_layout
+
+\begin_layout Standard
+Assuming that of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is the revenue, this function can be calibrated for each households to
+ endogenize relevant parameters (such as energy consumption per m²) and
+ making them a function of the revenue.
+ For a low and higher bound of respectively 0 and 1 and a change of regime
+ at 
+\begin_inset Formula $\alpha=2$
+\end_inset
+
+ , Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:logisticcurve"
+
+\end_inset
+
+ shows that the logistic function can be used to model small to high correlation
+ between a relevant parameter (Y-axis) and the revenue (X-axis).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Fig.Logistic.png
+	lyxscale 70
+	scale 70
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:logisticcurve"
+
+\end_inset
+
+ Logistic curve 
+\begin_inset Formula $X^{l}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $X^{h}=1$
+\end_inset
+
+ and 
+\begin_inset Formula $Tau/Sigma=2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Other goods: LES function 
+\end_layout
+
+\begin_layout Standard
+Once the household has chosen the level of housing and mobility expenditures,
+ it spends the rest of its desired level of expenditure in other goods.
+ We assume a LES function in order to capture the “necessity” or “luxury”
+ character of a given commodity:
+\begin_inset Formula 
+\begin{eqnarray}
+PC_{c}.C_{i,c} & = & PC_{c}.CMIN_{i,c}+\alpha_{i,c}^{H}.\\
+\nonumber \\
+ &  & (PEXP_{i}.EXP_{i}-PEXPHM.EXPHM\nonumber \\
+\nonumber \\
+ &  & -\sum PC_{c}.CMIN_{i,c})\nonumber \\
+\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXPHM_{c}.EXPHM_{c}=PEXPH{}_{c}.EXPH_{c}+PEXPM_{c}.EXPM_{c}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sum_{c}\alpha_{i,c}^{H}=1
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $CMIN_{i,c}$
+\end_inset
+
+ is the minimum consumption level.
+ If it is equal to zero, the results are similar as those with a Cobb-Douglas
+ function.
+ The constraint 
+\begin_inset Formula $\underset{c}{\sum}\alpha_{i,c}^{H}=1$
+\end_inset
+
+ ensures that households spend all their revenue (minus their desired level
+ of savings).
+ For the time being, we assume the stability of the 
+\begin_inset Formula $\alpha_{i,c}^{H}$
+\end_inset
+
+which imposes a unit elasticity between commodities.
+ Other levels of elasticity may be taken into wwwwwaccount by making the
+ 
+\begin_inset Formula $\alpha_{i,c}^{H}$
+\end_inset
+
+a function of relative prices.
+ 
+\end_layout
+
+\begin_layout Section
+The labor market
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Coherence des notation avec Appendix C
+\end_layout
+
+\begin_layout Plain Layout
+DEFINITION chomage passage emploi compta nat (L) au BIT (EMP)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We assume that the average gross wage (that is including employee social
+ security contributions) in activity a, 
+\begin_inset Formula $W_{a}$
+\end_inset
+
+, is determined by a Phillips curve.
+ Wages may be indexed on the consumer price inflation 
+\begin_inset Formula $(\rho_{2,a}>0)$
+\end_inset
+
+ and on productivity gains of the sector j 
+\begin_inset Formula $(\rho_{3,a}>0)$
+\end_inset
+
+ .
+ Trade unions may accept lower wage increases in case of a degradation of
+ the terms of trade, that is in case of competitiveness losses 
+\begin_inset Formula $(\rho_{4,a}>0)$
+\end_inset
+
+ .
+ In addition to the level of unemployment 
+\begin_inset Formula $(U_{t})$
+\end_inset
+
+ , the variation of unemployment may influence the Phillips curve 
+\begin_inset Formula $(\rho_{6,a}>0)$
+\end_inset
+
+ , because wages can be affected not only by the level but also by the evolution
+ of employment (
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Phillips:1958uq"
+
+\end_inset
+
+; 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Lipsey:1960nx"
+
+\end_inset
+
+) or due to hysteresis phenomena
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Hysteresis occurs when the long-term unemployed workers exert no influence
+ on wage-setting 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Blanchard:1986ys"
+
+\end_inset
+
+; 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Lindbeck:1993"
+
+\end_inset
+
+).
+ However, some authors contest the use of the term hysteresis to describe
+ this phenomenon (Cross, 1995).
+\end_layout
+
+\end_inset
+
+ .
+ Finally, it is possible that the wage dynamic differs across sectors because
+ of differences in employment situation 
+\begin_inset Formula $(\rho_{7,a}>0)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta w_{a,t}^{n}=\rho_{1,a}+\rho_{2,a}\Delta p_{t}+\rho_{3}\Delta p_{a,t}^{rog}-\rho_{4,a}\Delta(p_{a,t}^{m}-p_{a,t}^{y})-\rho_{5}U_{t}-\rho_{6}\Delta U_{t}+\rho_{7}\Delta(l_{a,t}-l_{t})\label{eq:55old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The parameter 
+\begin_inset Formula $(\rho_{1,a}>0)$
+\end_inset
+
+ reflects the labor market tensions and the bargaining power of trade unions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L_{t}$
+\end_inset
+
+ is the aggregated employment: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L_{t}=\sum_{a}L_{a}\label{eq:56old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It can be shown that the WS curve in level is a particular case of the Phillips
+ curve 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:55old"
+
+\end_inset
+
+: the case of full hysteresis 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Reynes:2010tg"
+
+\end_inset
+
+ that is the case where the level of unemployment does not have any effect
+ on the wage setting
+\begin_inset Formula $(\rho_{5j}=0)$
+\end_inset
+
+.
+ Moreover, we assume a slow adjustment of wages: the effective wage growth
+ adjusts to its notional level defined in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:55old"
+
+\end_inset
+
+ according to the adjustment process presented in Section 3.
+\end_layout
+
+\begin_layout Standard
+In order to capture heterogeneity on the labor market, the population is
+ segmented according to age and sex categories.The unemployment rate for
+ each type of population based on their age and sex, is calculated according
+ to its conventional definition: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+U{}_{sex,age}=(LF{}_{sex,age}-EMPL{}_{sex,age})/LF{}_{sex,age}\label{eq:57old}\\
+LF_{sex,age}=PARTR{}_{sex,age}.POP{}_{sex,age}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $LF{}_{sex,age}$
+\end_inset
+
+ is the active population which is by definition the product between the
+ labor participation ratio
+\begin_inset Formula $PARTR{}_{sex,age}$
+\end_inset
+
+ and the total population 
+\begin_inset Formula $POP{}_{sex,age}$
+\end_inset
+
+ assumed to be exogenous.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Flextab2.png
+	scale 55
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:FlexTab"
+
+\end_inset
+
+ Estimation of the flexion effect by age and sex 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the seminal works of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Strand:1964ij"
+
+\end_inset
+
+ and Dernburg and Strand (1966)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Réf a ajouter a la base
+\end_layout
+
+\end_inset
+
+, several studies have observed that the labor force participation depends
+ on the labor market situation in particular because of a discouraged-worker
+ effect.
+ Thus, the labor participation ratio may be endogenous and depend negatively
+ on the unemployment rate: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta PARTR{}_{sex,age}^{n}=\Delta PARTR{}_{sex,age}^{Trend}+\beta_{sex,age}\Delta U
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The calibration of the sensitivity of the labor participation ratio to the
+ unemployment rate, 
+\begin_inset Formula $\beta_{sex,age}$
+\end_inset
+
+, is based on work of Filatriau and Reynès (2011)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ref a rajouter a la base
+\end_layout
+
+\end_inset
+
+ wh estimate this parameter for 12 sex and age cohorts (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:FlexTab"
+
+\end_inset
+
+).
+ This studies find that the OECD labor participation of certain categories
+ is particularly sensitive to the labor market situation.
+ Typically for the youngest and the eldest, a discouraged-worker effect
+ generally appears: their participation decreases when the situation on
+ the labor market deteriorates.
+ For France and other Continental European countries, an additional worker
+ effect dominates for women between 25 and 55 years old.
+ Accounting for an endogenous labor participation ratio seems empirically
+ consistent and therefore allows for a more precise measure of the unemployment
+ variation for each population and at the aggregate level.
+\end_layout
+
+\begin_layout Section
+External Trade
+\end_layout
+
+\begin_layout Standard
+The external trade in Three-ME is treated with a relatively high level of
+ detail.
+ On the one hand, import behaviors are specific for each economic actor
+ and each product.
+ On the other hand, the model integrates explicit external demand functions
+ of both the domestic production and the importations with a constant price
+ elasticity.
+\end_layout
+
+\begin_layout Subsection
+Imports
+\end_layout
+
+\begin_layout Standard
+Following the 
+\begin_inset CommandInset citation
+LatexCommand citeauthor
+key "Armington:1969ve"
+
+\end_inset
+
+’s (1969) approach, the international trade is justified by the differentiation
+ of products between regions of the world.
+ This explanation assumes implicitly the imperfect substitutability between
+ domestic and imported products.
+ To determine the volume of imports by product, each economic actor minimizes
+ the purchasing costs under the constraint of a predetermined absorption
+ level and a CES substitution pattern.
+ This can be formulated as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Changer ces notations! Pas coherente avec annexe.
+ q au lie de d, etc.
+ a est normalement rérserver à activité.
+ Je ne comprends pas le deuxième ligne.
+\end_layout
+
+\begin_layout Plain Layout
+Paul: j'ai modifié l'equation 127.
+ Pour l'equation 128, je n'y ai pas touché.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\min\{PA_{c}.A_{c}=PAM_{c}.AM_{c}+PAD_{c}.ADQ_{c}\}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+st\qquad Z_{c}.\Bigg[\varphi_{c}^{vol}.(AM_{c})^{(1-\eta_{c})\eta_{c}}+(1-\varphi_{c}^{vol}).(AD_{c})^{(1-\eta_{c})\eta_{c}}\Bigg]^{\eta_{c}(1-\eta_{c})}\label{eq:59old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{multline*}
+with\,\enskip A,a=MAT_{c},E{}_{c,}IA_{c},X_{c,}.CH_{c},G_{c};\qquad c=1...24
+\end{multline*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $A_{c}$
+\end_inset
+
+ represents the demand of each composite product by each Armington agent
+ and 
+\begin_inset Formula $PA_{c}$
+\end_inset
+
+ its price, 
+\begin_inset Formula $AM_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $AD_{c}$
+\end_inset
+
+ are the import and domestic product quantities demanded by agent A, and
+ 
+\begin_inset Formula $PAM_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $PAD_{c}$
+\end_inset
+
+ their respective prices.
+ These prices are different between products but common between agents except
+ for households who have to pay the value-added tax.
+ 
+\begin_inset Formula $Z_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi_{c}^{vol}$
+\end_inset
+
+ are the scale and absorption parameters.
+ 
+\begin_inset Formula $\eta_{c}$
+\end_inset
+
+ is the Armington elasticity of substitution between domestic and foreign
+ goods and services.
+ The import bloc is quite flexible since the elasticity of substitution
+ can potentially be different for each type of use of a given product (such
+ as intermediary consumption, investment, consumption, public spending,
+ export, etc).
+ The solution of the optimization program 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:59old"
+
+\end_inset
+
+ gives the optimal demand for domestic and imported goods: 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+voir la coherence de eq.
+ 2 avec l'annexe 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+m_{c}^{a^{n}}=a_{c}-\eta_{c}.(p_{c}^{m}-p_{c,t})\label{eq:60old}\\
+q_{c}^{a^{n}}=a_{c}-\eta_{c}.(p_{c}^{q}-p_{c,t})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Exports
+\end_layout
+
+\begin_layout Standard
+In the same logic, exports are determined by the external demand for domestic
+ products and the ratio between the export and world prices assuming a constant
+ price elasticity.
+ In other words, under the hypothesis of a "small open economy", the external
+ demand and the export price are negatively related for a given world price
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+An alternative approach which is using frequently in CGEM, but less realistic,
+ consists in assuming an infinite price elasticity between exports and the
+ production of foreign competitors and that domestic producers do not have
+ any difficulty to sell their products on the foreign market as long as
+ the domestic price does not differ from the international price.
+ In this case, the volume of exports is limited by supply 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ShovenWhalley1992"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ .
+ The functional form for the export demand 
+\begin_inset Formula $(x{}_{c})$
+\end_inset
+
+ for each product in Three-ME is a logarithm transformation of the one derived
+ by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Willcoxen:1988"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta x_{c,t} & =\Delta wd_{c,t}+\Delta SUBST\_X_{c,t}\\
+\Delta SUBST\_X_{c,t}^{n} & =-\eta^{x}\Delta(p_{c,t}^{X}-tc.p_{c,t}^{W})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $wd{}_{c}$
+\end_inset
+
+ is the world demand and 
+\begin_inset Formula $p_{c}^{W}$
+\end_inset
+
+ its price expressed in national currency.
+ 
+\begin_inset Formula $p_{c}^{X}$
+\end_inset
+
+ is the exports price that depends on the production cost and reflects the
+ price competitiveness of domestic products.
+ Finally, 
+\begin_inset Formula $\eta^{x}$
+\end_inset
+
+ is (the absolute value of) the price elasticity assumed constant.
+ The unit elasticity between export and the world demand guarantees the
+ long run stability the export market shares.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+révoir l'explication de Xc 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Three-ME, part of the exports comes from imported products (re-exports).
+ The repartition between domestic and imported products results from the
+ minimization by foreign clients of the value of their imports from France
+ (i.e.
+ of French export)
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The optimization program is 
+\begin_inset Formula $\begin{array}{c}
+\min P_{c}^{x}.X_{c}^{x}=P_{c}^{q}.X_{c}^{q}+P_{c}^{m}.X_{c}^{m}\\
+Subject\quad to\qquad X_{c}=CES(X_{c}^{d},X_{c}^{m})
+\end{array}$
+\end_inset
+
+:
+\end_layout
+
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta xd_{c,t} & =\Delta x_{c,t}+\Delta SUBST\_XD_{c,t}\\
+\Delta SUBST\_XD_{c,t} & =-\eta^{xd}\varphi_{c,t-1}^{XM}\Delta(p_{c,t}^{XD}-p_{c,t}^{XM})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta xm_{c,t} & =\Delta x_{c,t}+\Delta SUBST\_XM_{c,t}\\
+\Delta SUBST\_XM_{c,t}^{n} & =-\eta^{xd}\varphi_{c,t-1}^{XD}\Delta(p_{c,t}^{XM}-p_{c,t}^{XD})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $xd_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $xm_{c}$
+\end_inset
+
+ are the optimal level of domestic and import products that are exported.
+ 
+\begin_inset Formula $\eta^{xd}$
+\end_inset
+
+ is the elasticity of substitution between domestic and imported products.
+ As the exchange rate is exogenous in the model, the external balance may
+ differ from zero:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DC\_VAL_{a}=\sum_{c}PX_{c}.X_{c}-\sum_{c}PM_{c}.M_{c}\label{eq:63old-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+with 
+\begin_inset Formula $PM_{c}$
+\end_inset
+
+ as the import product price.
+ 
+\end_layout
+
+\begin_layout Section
+Prices Structure
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Section à améliorer.
+ Ici il s'agit de bien décrire le processus d'agrégation du prix du producteur
+ au prix du marché.
+ Avec une figure pour illustrer.
+ Inutile de faire pour tout (puisque les eq sont en annexe).
+ C'est la logique qui est la plus importante.
+ Donc par ex.
+ on illustre avec des équations que pour le passage de production domestique
+ à consommation.
+ Production price, commodity price, + tax +marge, puis + TVA, puis agregation
+ avec import pour avoir l'agrégat.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The prices in THREE-ME follow a bottom-up structure.
+ The production price is defined at the lowest level as a mark-up over the
+ production cost (labor, capital, energy and other intermediary raw consumptions
+).
+ The domestic price for commodities includes, in addition to the production
+ price, commercial and transport margins, and taxes on products net from
+ subsidies.
+ Combined with the import price, we get a price for each commodity.
+ Depending on the destination of the product, the price may vary since certain
+ taxes or subsidies do not apply uniformaly to every clients.
+ For instance, VAT affects primary consumers but not exports and subsidies
+ affect only the domestic price.
+ As a feedback, final demand prices affect the production price through
+ several canals.
+ The agregate consumer price defines inflation which is (at least partially)
+ repercuted into wage and thus costs.
+ Inflation also increases the real interest rate and therefore the cost
+ of capital because of the monetary policy of the central bank.
+ Final demand prices affect also production costs via the price of intermediaty
+ consumption and of investment.
+ These interactions and feedbacks between prices, wages, and production
+ costs are schematized in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:pricestructure"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Production prices
+\end_layout
+
+\begin_layout Standard
+In order to describe as clearly as possible the construction of prices in
+ Three-ME, we begin with the production prices fixed by firms.
+ With the import prices, the system of production prices is the key element
+ in the price structure since all other prices are derived from them by
+ adding taxes or/and deducting subsidies according to the destination of
+ each product.
+ In the case of imperfect competition, firms choose the price that maximizes
+ their profit as a mark-up 
+\begin_inset Formula $TMD_{a,t}$
+\end_inset
+
+ over the unit cost of production: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PY_{a,t}^{n}=NCU{}_{a,t}.(1+TMD_{a,t})\label{eq:PY_n}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $PY_{a,t}^{n}$
+\end_inset
+
+ is the optimal (or desired or notional) production price.
+ 
+\begin_inset Formula $NCU_{a,t}$
+\end_inset
+
+ is the net unit cost of production calculated by adding over the gross
+ level all taxes on production and deducting operating subsidies.
+ The mark-up rate is calibrated by inverting Equation [
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:PY_n"
+
+\end_inset
+
+] at the base state.
+ 
+\end_layout
+
+\begin_layout Standard
+The effective price adjusts slowly to the desired level according to the
+ geometric law of adjustment described in Section 3:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+ln(PY_{a,t})=\lambda_{0}^{X}.ln(PY_{a,t}^{n})+(1-\lambda_{0}^{X})ln(PY_{a,t-1}+\Delta ln(PY_{a,t}^{e}))\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta ln(PY_{a,t}^{e}) & = & \lambda_{1}^{X}.\Delta ln(PY_{a,t-1}^{e})+\lambda_{2}^{X}.\Delta ln(PY_{a,t-1})\\
+ &  & +\lambda_{3}^{X}.\Delta ln(PY_{a,t}^{n})+\lambda_{4}^{X}.\Delta ln(PY_{a,t+1})\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Price structure.pdf
+	lyxscale 90
+	scale 80
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:pricestructure"
+
+\end_inset
+
+ Prices structure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The steps that lead to the calculation of the gross unit cost 
+\begin_inset Formula $GUC_{a,t}$
+\end_inset
+
+ are described in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:pricestructure"
+
+\end_inset
+
+.
+ It follows a bottom-up approach starting from the most disaggregated price
+ levels to reach the most aggregated one by determining the prices of composite
+ factors in intermediate steps.
+ At the bottom of the price structure, the composite prices for each energy
+ and material in each sector depends on the product's geographic origin:
+ 
+\begin_inset Formula 
+\begin{align}
+PMAT{}_{c,a}.MAT{}_{c,a}= & PMATD{}_{c}.MATD{}_{c,a}+PMATM{}_{c}.MATM{}_{c,a}\\
+ & for\: i=\{1,...,20\}\nonumber \\
+PE{}_{c,a}.E{}_{c,a}= & PED{}_{c}.ED{}_{c,a}+PEM{}_{c}.EM_{c,a}\\
+ & for\: i=\{21,...,24\}\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At the upper level, we calculate the prices for each composite factor in
+ each sector:
+\end_layout
+
+\begin_layout Standard
+The composite materiel price in sector a: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $PMAT{}_{a}.MAT_{a}=\sum_{a=1}^{20}PMAT{}_{c,a}.MAT_{c,a}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The composite energy price in sector a: 
+\begin_inset Formula $PE_{a}.E_{a}=\sum_{a=21}^{2406}PE{}_{c,a}.E_{c,a}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The user capital cost per unity produced in sector a:
+\end_layout
+
+\begin_layout Standard
+\align left
+\begin_inset Formula $CK_{a,t}=PI_{a,t}K_{a,t-1}(\delta_{a}+\varphi_{a}^{autof}\dot{K}_{a,t})+PDEBT_{a,t-1}DEBT_{a,t-1.}r_{a,t-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where:
+\end_layout
+
+\begin_layout Standard
+-
+\begin_inset Formula $PI_{a,t}$
+\end_inset
+
+: the investment price for all sector
+\end_layout
+
+\begin_layout Standard
+-
+\begin_inset Formula $r_{a}$
+\end_inset
+
+: The long-run nominal interest rate.
+\end_layout
+
+\begin_layout Standard
+The unit labor cost in sector a is: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $CL{}_{a}=W_{a}(1+T_{a}^{CSE})/P_{a}^{rog}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+where:
+\end_layout
+
+\begin_layout Standard
+-
+\begin_inset Formula $W_{a,t}$
+\end_inset
+
+: the average gross wage
+\end_layout
+
+\begin_layout Standard
+-
+\begin_inset Formula $T_{a,t}^{CSE}$
+\end_inset
+
+: The employer social security contributions per activity
+\end_layout
+
+\begin_layout Standard
+Finally, the unit cost of production before taxes net from subsidies in
+ actvity a is equal to :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CU{}_{a}.Y_{a}=CK_{a}K_{a}+CL{}_{a}L_{a}PROG_{a}+PE_{a}E_{a}+PMAT{}_{a}MAT{}_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Commodity price 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Introduire passage du prix de l'activité à celui de la commodité
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the model distinghishes commodities from activities, the price a commodity
+ is weighted average of the prices of activities that produce this commodities:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PYQ{}_{c}=\sum_{c}\varphi_{c,a}PY{}_{a}
+\end{equation}
+
+\end_inset
+
+Where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $PYQ{}_{c}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ is the price of commodity c (at basic price), 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $PY{}_{a}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ the price of activity a.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\varphi_{c,a}$
+\end_inset
+
+,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ the share of commodity c produced by activity a, may not be constant.
+ They typically vary for energy sectors to account for the increasing impact
+ of the production from renewable energy.
+ 
+\end_layout
+
+\begin_layout Subsection
+Domestic and import price
+\end_layout
+
+\begin_layout Standard
+The selling price of each commodity 
+\begin_inset Formula $(PYQS{}_{c})$
+\end_inset
+
+ domestically produced includes, in addition to the price of commodity at
+ basic price 
+\begin_inset Formula $(PYQ{}_{c}),$
+\end_inset
+
+ tax and subsidies on product, and transportation and commercial margins:
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+PYQS{}_{c}.YQS{}_{c} & =PYQ{}_{c}.YQ{}_{c}.(1+T_{c}^{ENERTD}+T_{c}^{OTHD}+T_{c}^{SUB})\\
+ & +PMTD_{c}.MTD_{c}+PMCD_{c}.MCD\nonumber \\
+ & _{c}\quad if\: c\neq\left\{ 14,...,19\right\} \nonumber \\
+PYQS{}_{c}.YQS{}_{c} & =PYQ{}_{c}.YQ{}_{c}.(1+T_{c}^{ENERTD}+T_{c}^{OTHD}+T_{c}^{SUB})\nonumber \\
+ & \quad if\: c=\left\{ 14,...,19\right\} 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta yqs_{c}=\Delta yq{}_{c}\label{eq:YQS-2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The same logic applies for the import price (see Appendix C).
+ Notice that 
+\begin_inset Formula $YQS{}_{c}$
+\end_inset
+
+ is the volume of the production expressed at market price before VAT.
+ It should not be seen as a composite of several "goods": production at
+ base price and margins.
+ Indeed, its does not increase when the volume of the commercial and transport
+ margins increase.
+ The price does instead.
+ Its specification is 
+\begin_inset Formula $YQS{}_{c,t}=YQ{}_{c,t}\left(1+T_{c,0}^{ENERT}+T_{c,0}^{OTHD}+T_{c,0}^{SUB}+\frac{MTD_{c,0}}{YQ{}_{c,0}}+\frac{MCD_{c,0}}{YQ{}_{c,0}}\right)$
+\end_inset
+
+ which is equivalent to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:YQS-2"
+
+\end_inset
+
+, that is to assuming that 
+\begin_inset Formula $YQS{}_{c}$
+\end_inset
+
+ is always proportional to 
+\begin_inset Formula $YQ{}_{c}$
+\end_inset
+
+.
+ Writing it following the specification composite of several goods, 
+\begin_inset Formula $YQS{}_{c,t}=YQ{}_{c,t}\left(1+T_{c,0}^{ENERT}+T_{c,0}^{OTHD}+T_{c,0}^{SUB}\right)+MTD_{c,t}+MCD_{c,t}$
+\end_inset
+
+, would lead to inaccurate results since a decrease in the quantity of transport
+ used per unit of production would not lead to a decrease of the selling
+ price.
+ 
+\end_layout
+
+\begin_layout Subsection
+Price for final demand
+\end_layout
+
+\begin_layout Standard
+The price for final demand varies according to the destination depending
+ if VAT applies or not.
+ We provide below the specification for the final price of commodities produced
+ domestically.
+ The specification for imported goods is provided in Appendix C.
+ We assume that no VAT applies on export or for the valorisation of inventories.
+ Therefore, the final price for export and for the change in inventories
+ is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PXD{}_{c}=PDSD{}_{c}=PYQS{}_{c}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In theory, VAT applies only on households'final consumption and should therefore
+ be paid only by consumers.
+ In practice, desagregated data by commodity show that sectors pay also
+ a small amount of VAT since (a) VAT is paid on product not consumed by
+ households and (b) the apparent rate on several products would exceed the
+ legal rate if the VAT was exclusively paid by households.
+ Therefore, we distinguish 2 VAT rate: one paid on consumption and another
+ one paid on intermediary consumption, sectoral investment and public spending:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PIAD_{c,t}=PMATD{}_{c,t}=PED{}_{c,t}=PGD{}_{c,t}=PYQS{}_{c,t}\frac{\left(1+T_{c,t}^{VATD_{oth}}\right)}{\left(1+T_{c,0}^{VATD_{oth}}\right)}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PCHD{}_{c,t.}=PYQS{}_{c,t}\frac{\left(1+T_{c,t}^{VATD}\right)}{\left(1+T_{c,0}^{VATD}\right)}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The above differentiation of the final price by destination is a substantial
+ improvement compare to the assumption made in most CGE models that assume
+ that VAT is proportional to production.
+ In these models, an increase in export would lead to an increase in VAT
+ receipts, which is not true in reality.
+\end_layout
+
+\begin_layout Subsection
+Consumer price index
+\end_layout
+
+\begin_layout Standard
+The consumer price index is defined as a weighted average of prices of all
+ total expenditure household components: Each commodity price is itself
+ a weighted average between domestic and import commodities prices.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PCH.CH=\sum_{c}PCH{}_{c}.CH_{c}\label{eq:PCH-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Interest rate
+\end_layout
+
+\begin_layout Standard
+In Three-ME, money supply is endogenous.
+ The interest rate is determined at the euro area (EA) level according to
+ a reaction function à la Taylor.
+ We assume that the European Central Bank (ECB) sets the short-term interest
+ rate taking into account inflation and the situation on the labor market
+ in the euro area:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+R^{Dir}=\theta_{0}+\theta_{1}\Delta.(\dot{P_{t}^{ea}}-\dot{P^{ea}}_{t}^{*})-\theta_{2}.\Delta(\dot{U_{t}^{ea}}-\dot{U^{ea}}_{t}^{*})\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\dot{P_{t}^{ea}}=\sum_{e=1}^{E}\sigma_{e}\dot{P_{t}^{e}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+U_{t}^{ea}=\sum_{e=1}^{E}\sigma_{e}U_{t}^{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $R_{t}^{Dir}$
+\end_inset
+
+is the nominal short run interest rate, 
+\begin_inset Formula $\dot{P_{t}^{ea}}$
+\end_inset
+
+ the inflation rate within the EA, 
+\begin_inset Formula $\dot{P_{t}^{ea}}^{*}$
+\end_inset
+
+the ECB inflation target, 
+\begin_inset Formula $U_{t}^{ea}$
+\end_inset
+
+, the unemployment rate in the EA and 
+\begin_inset Formula $U_{t}^{ea}{}^{*},$
+\end_inset
+
+ the unemployment rate target.
+\begin_inset Formula $\dot{P_{t}^{e}}$
+\end_inset
+
+ ,
+\begin_inset Formula $U_{t}^{e}$
+\end_inset
+
+ and 
+\begin_inset Formula $\sigma_{e}$
+\end_inset
+
+ are respectively the inflation rate, the unemployment rate and the GDP
+ weight of country 
+\begin_inset Formula $e$
+\end_inset
+
+ in the EA.
+ We assume further that the long-term interest rate adjusts slowly to the
+ short-term interest rate as described in Section 3.
+\end_layout
+
+\begin_layout Section
+The government
+\end_layout
+
+\begin_layout Standard
+According to the French national accounts, public administrations refer
+ to the central and regional government services and social security administrat
+ion.
+ In Three-ME, we have aggregated these three components in order to focus
+ on transfers between public administrations, household and sectors.
+ These transfers are accounted for in the government’s resources 
+\begin_inset Formula $(REC\_VAL)$
+\end_inset
+
+ and expenditures 
+\begin_inset Formula $(DEP\_VAL)$
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+REC\_VAL & = & PY_{20}.Y_{20,t}+PTAX.TAX+PIY.IY+PIS.IS_{t}+IR\_VAL\label{eq:74old}\\
+ &  & +AIC\_VAL+PCSE^{TOT}.CSE^{TOT}+PCSS^{TOT}.CSS^{TOT}+DIV^{GOV\_VAL}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+with:
+\end_layout
+
+\begin_layout Itemize
+The marketed part of public administrations production is evaluated at its
+ net production cost:
+\begin_inset Formula $(Y_{20}.PY_{20})$
+\end_inset
+
+ ;
+\end_layout
+
+\begin_layout Itemize
+The composite 
+\begin_inset Formula $PTAX.TAX$
+\end_inset
+
+ index which embodies the Value-added tax, the taxes on energies (TIPP,
+ etc) and the others taxes on commodities
+\end_layout
+
+\begin_layout Itemize
+The aggregate tax on activities: 
+\begin_inset Formula $PIY.IY=\underset{a,a\neq20}{\sum}TIYN_{a}.PY_{a}.Y_{a}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The aggregate subvention on activities: 
+\begin_inset Formula $PSY.SY=\underset{a,a\neq20}{\sum}TSYN_{a}.PY_{a}.Y_{a}$
+\end_inset
+
+;
+\begin_inset Formula 
+\begin{align}
+\Delta x_{c,t} & =\Delta wd_{c,t}+\Delta SUBST\_X_{c,t}\\
+\Delta SUBST\_X_{c,t}^{n} & =-\eta^{x}\Delta(p_{c,t}^{X}-tc.p_{c,t}^{W})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The total firm profit tax 
+\begin_inset Formula $PIS.IS=\underset{a}{\sum}T_{t}^{IS}.PEBE{}_{a,t-1}.EBE_{a,t-1}$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+The taxes on household's financial wealth 
+\begin_inset Formula $AIC\_VAL=\overset{5}{\underset{h}{\sum}}T^{AIC}.DISPINC\_VAL_{h}^{AI}$
+\end_inset
+
+ which includes the sum of the social contribution from the activity sectors
+ and from self-employed workers.
+\end_layout
+
+\begin_layout Itemize
+The income tax 
+\begin_inset Formula $IR\_VAL=\overset{5}{\underset{h=1}{\sum}}T^{IR}.DISPINC_{h}^{AI}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The total employer social contribution 
+\begin_inset Formula $PCSE^{TOT}.CSE^{TOT}=\underset{a}{\sum}T_{a}^{CSE}.L\_S.W\_S_{a}+T_{a}^{CSE^{ROW}}.SB^{ROW}$
+\end_inset
+
+ which includes the sum of the social contribution from the activity sectors
+ and from the rest of the world.
+ 
+\end_layout
+
+\begin_layout Itemize
+The total salary social contribution 
+\begin_inset Formula $PCSS^{TOT}.CSS^{TOT}=\underset{a}{\sum}T^{CSS}.L_{a}.W\_S_{a}+T^{CSS\_SE}.L\_SE.W\_SE_{19}+PCSS.CSS^{ROW}$
+\end_inset
+
+ which includes the sum of the social contribution from the activity sectors
+ and from self-employed workers.
+\end_layout
+
+\begin_layout Itemize
+The financial transfers from the others institutions
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Erreur de formule?Vérifier que GOV est pertinent.
+ Pas coherent ci- dessus.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+DIV\_VAL_{b}^{GO}\,\enskip for\,\enskip b & = & HH,ROW,BK\\
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Public subventions to sectors consist of subventions on production and products.
+ Both types are applied on volume which means that changes in price caused
+ by a shock do not affect the amount of subsidies:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+DEP\_VAL= & (NCU\_20*Y\_20)+PRESOC\_VAL+PG*G\label{eq:75old}\\
+ & +R\_G_{t-1}*DEBT\_G\_VAL_{t-1}-PSUB*SUB\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+with:
+\end_layout
+
+\begin_layout Itemize
+The net cost per unit of production in public activity: 
+\begin_inset Formula 
+\begin{align}
+NCU_{20}.Y_{20}= & CU{}_{20}.Y_{20}+PIY_{20}IY_{20}+PIS_{20}IS_{20}-PSY_{20}SY_{20}\\
+ & +DIV\_HH\_VAL_{20}+DIV\_GOV\_VAL_{20}\nonumber \\
+ & +DIV\_ROW\_VAL_{20}+DIV\_BK\_VAL_{20}\nonumber 
+\end{align}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+The total public expenditures: 
+\begin_inset Formula $P*PG$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+The social benefits: 
+\begin_inset Formula $PRESOC\_VAL$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Domestic and imported government consumption are specified as follow:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta gd{}_{c,t} & =\Delta expg{}_{c,t}+\Delta SUBST\_GD{}_{c,t}\\
+\Delta SUBST\_GD{}_{c,t}^{n} & =\eta_{chd,chm}\varphi_{chm,c}\Delta(p^{GD}-p^{GM})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta gm{}_{c,t} & =\Delta expg{}_{c,t}+\Delta SUBST\_GM{}_{c,t}\\
+\Delta SUBST\_GM{}_{c,t}^{n} & =\eta_{chd,chm}\varphi_{chd,c}\Delta(p_{c}^{GM}-p_{c}^{GD})\nonumber 
+\end{align}
+
+\end_inset
+
+Public subsidies consist of subsidies on production and products.
+ We assume that subsidies on production are ad valorem and are therefore
+ automatically indexed on the production price:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PSY_{a}.SY_{a}=TSYN_{a,t}.PY_{a}.Y_{a}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+SY_{a}=TSYN_{a,0}.Y_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On the contrary, we assume that subsidies on products are applied on volume
+ which means that changes in price caused by a shock do not affect the amount
+ of subsidies:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PSUB_{c,t}.SUB_{c,t}=T_{c,t}^{SUB}.YQ{}_{c,t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+SUB_{c,t}=T_{c,0}^{SUB}.YQ{}_{c,t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The public deficit and debt accumulation equations are written as follows:
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+BF\_G\_VAL=DEP\_VAL-REC\_VAL\label{eq:76old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DEBT\_G\_VAL=DEBT\_G\_VAL_{t-1}+BF\_G\_VAL\label{eq:77old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Greenhouse gases emissions
+\end_layout
+
+\begin_layout Standard
+In France, the anthropogenic CO2 emissions represent about 70% of the total
+ gross greenhouse gases (GHG).
+ They come from the burning of fossil fuels and decarbonation process.
+ The modeling of the demand for fossil energy in Three-ME is detailed by
+ economic agent, by kind of fossil energy and by emission process.
+ This allows for a precise estimation of the variation in the national CO2
+ emissions.
+ The calculation of emissions level consists in multiplying the fossil energy
+ demand by the corresponding emission coefficients.
+ These coefficients are specific for each economic actor, each sector and
+ each energy sources depending on their carbon intensity.
+ 
+\end_layout
+
+\begin_layout Standard
+The CO2 emissions due to the combustion of fossil energy by sectors and
+ households are proportional to the quantity of fossil fuel energy consumed.
+ They are therefore calculated according to the following equations:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta ems_{e,a}=\Delta e_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta ems_{e,h}=\Delta(ch_{e,h})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+CO2 emissions from decarbonation during the production process for the non
+ mineral metallic products, asthe glass or ceramic sectors; is assumed proportio
+nal to the quantity of intermediate raw material used in the production
+ process:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta ems\_dc_{a}=\Delta mat_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "Bibliographie_3ME"
+options "plainnat"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Appendix A
+\begin_inset space \quad{}
+\end_inset
+
+Long term of the model
+\end_layout
+
+\begin_layout Standard
+The long term steady state of the model is generally defined as a state
+ where all variables grow at a constant rate.
+ This state is coherent with the representation of a stable economy able
+ to maintain a given configuration forever.
+ This implies that rates such as the unemployment or labor participation
+ ratios, tax rates are constant in the long run.
+ This is coherent with the fact that these ratios lie by definition between
+ 0 and 100% and thus cannot be affected by a trend forever.
+ 
+\end_layout
+
+\begin_layout Standard
+Most shares should also be constant.
+ For instance, the shares of investment or of consumption into GDP should
+ be constant.
+ Otherwise the effect of one of these two determinants of the GDP vanishes
+ over time.
+ The same argument holds for the share of one sector in the total in terms
+ of labor or production: we expect an economy where all sectors remains
+ in the long run, which implies that some economic mechanisms guaranty stable
+ share for each sectors.
+\end_layout
+
+\begin_layout Standard
+Some exceptions are possible.
+ As empirically observed, it seems realistic that the share of labor into
+ the GDP decreases over time because of the technical progress.
+ But the share of the efficient labor, that is including the technical progress,
+ remains constant.
+ Because of the globalization of the economy, the ratio between export and
+ production may also increase permanently in the long run.
+ But in the long run this effect is expected to be compensated by the increase
+ in the ratio between import and production so that the share of the external
+ balance into production remains constant.
+\end_layout
+
+\begin_layout Standard
+In the long run, all relative prices are expected to be constant.
+ This implies that all prices grow at the same rate.
+ This guaranty that the economy is not affected by substitution mechanisms
+ in the long run: firms do not want to change the share of each production
+ factors into production and consumers are satisfied with share of each
+ good into their aggregate consumption.
+ It implies also that each agent is satisfied with their share of the global
+ revenue: firms do not want to change the growth rate of their price whereas
+ employees do not want to change the growth rate of their wage.
+ 
+\end_layout
+
+\begin_layout Standard
+Assuming that 
+\begin_inset Formula $\nu,\tau,\mu,\pi$
+\end_inset
+
+ and
+\begin_inset Formula $\omega$
+\end_inset
+
+ are the growth rates of the population, of the technical progress, of the
+ real economy (i.e.
+ of the GDP), of prices (i.e.
+ inflation), and of wages, the long run value of these rate cannot be chosen
+ independently.
+ First, the growth rate of the real economy should be equal to the sum of
+ the growth rate of the population and of the technical progress:
+\begin_inset Formula $\mu=\nu+\tau$
+\end_inset
+
+.
+ This condition is a direct consequence of the hypothesis of constant return
+ to scales (homogeneous of degree 1) of the production function.
+ In the long run, relative price are constant and the labor demand [12]
+ implies that production grows at the sum of the growth rates of labor and
+ technical progress
+\begin_inset Formula $\Delta y_{jt}=\Delta l_{jt}+\Delta p_{jt}^{rog}$
+\end_inset
+
+.
+ In addition, the stability of unemployment rate implies that labor grows
+ at the same rate as the population (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:57old"
+
+\end_inset
+
+).
+ In the long run, the price equation implies that the growth rate of wages
+ should be equal to the sum of inflation and of the growth rate of the technical
+ progress.
+ This holds only if some economic mechanisms imply that the unemployment
+ rate converge to the NAIRU.
+ The latter depends on the parameter of the Phillips curve 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:55old"
+
+\end_inset
+
+: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+U_{\infty}=\bigg(\rho_{1}-(1-\rho_{2})\pi-(1-\rho_{3})\tau/\rho_{5}\bigg)\label{eq:80old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the model several stabilizing equation guaranty that the economy return
+ to stationary path after a shock.
+ Inflationary shocks degrade the external position of France by decreasing
+ export and increasing imports.
+ In addition, the Taylor rule combined with the negative impact of the real
+ interest rate on the demand prevents inflationary shock to lead to an explosive
+ inflation dynamic.
+ The negative impact of the real interest rate on the activity has several
+ possible canals:
+\end_layout
+
+\begin_layout Itemize
+Consumption: in coherence with a life-cycle model and the possibility of
+ an intertemporal allocation of their resource, households may increase
+ their savings when the real interest rate increases and thus reduces their
+ consumptions.
+ They may also have Ricardian behavior in the long run by internalizing
+ the government and firms' budget constraints.
+ They may thus adjust their consumption in such way that the ratio between
+ their savings and the national debt is constant in order to insure the
+ sustainability of the debt.
+\end_layout
+
+\begin_layout Itemize
+Investment: firms may choose their investment level that is coherent with
+ the stability of their debt into the value-added.
+ 
+\end_layout
+
+\begin_layout Itemize
+Tax and public spending: the government is expected to choose the tax rate
+ and public spending levels that are coherent with a stable debt into the
+ GDP.
+\end_layout
+
+\begin_layout Standard
+The consistency of a dynamic model with a stationary equilibrium requires
+ long term constraints which depend on the type of mathematical equation.
+ We briefly detailed the main cases that are encountered in Three-ME and
+ how the model can be calibrated in order to be at the stationary state
+ from the first period of the simulation onward.
+ It should be noted that this assumption is made to verify the coherence
+ of the data calibration and of the dynamic properties of the model.
+ Some of the constraints needed to guaranty a permanent stationary state
+ are quite restrictive.
+ For instance, it implies a strict relation between stock and flow values
+ (e.g.
+ capital and investment, see below) which may not be satisfied at the base
+ year.
+ Also, the growth rates of population, and of technical progress should
+ always be constant, which is not verify empirically.
+ For this reason, we simulate also realistic baseline scenarios where the
+ model is fully calibrated on empirical data and on realistic projections
+ for the exogenous variables.
+\end_layout
+
+\begin_layout Section*
+A-1
+\begin_inset space \quad{}
+\end_inset
+
+Additive equations
+\end_layout
+
+\begin_layout Standard
+In the model, many relations enter in an additive form: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=\sum_{i=1}^{I}X_{it}\label{eq:81old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These are in general definitions such as the GDP decomposition or income,
+ etc.
+ In case of an additive equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:81old"
+
+\end_inset
+
+, the variable Y grows at the rate 
+\begin_inset Formula $\mu$
+\end_inset
+
+ from the first period onward if all its components X grow also at that
+ rate: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=\Bigg(\sum_{i=1}^{I}X_{i,0}\Bigg)(1+\mu)^{t}=Y_{\text{0}}(1+\mu)^{t}\label{eq:82old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Moreover in that case all ratios between variables 
+\begin_inset Formula $(\frac{X_{i}}{Y}$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{Xi}{Xj}$
+\end_inset
+
+) are constant over time.
+ In the case of the GDP equation this seems a realistic long run property.
+ Otherwise the share of each component in the GDP is not stable over time
+ and the long run growth rate of the GDP corresponds to the component’s
+ highest growth rate.
+ Indeed, if the X-variables do not grow at the same rate, the growth rate
+ of 
+\begin_inset Formula $Y(\mu)$
+\end_inset
+
+ converges to the highest X-variable growth rate.
+ And the share of the X-variable with a lower growth rate tends toward zero.
+ This mathematical property may imply unrealistic constraint on the model
+ if one wants to be at the steady states at the first period of the simulation.
+ This is particularly true if one wishes to calibrate the model on real
+ data.
+ We can give 2 examples: For instance, it is unrealistic to assume that
+ a negative inventory change will decrease indefinitely because the level
+ of inventories becomes at some point negative.
+ One possibility is to amend the calibration in order to impose a zero-inventory
+ change at the base years.
+\end_layout
+
+\begin_layout Standard
+In the real world, most countries’ imports and exports do not grow at the
+ rate of the GDP but at a higher rate because of the trade globalization.
+ In fact Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:81old"
+
+\end_inset
+
+ allows that several X-variables grow at a different rate than Y in the
+ long run as long their sum grows at the same rate as Y.
+ Consequently, imports and exports may grow faster that the GDP forever
+ as long as their effect cancel out, that is as long as the foreign trade
+ balance grows at the rate of the GDP.
+ If the long run foreign trade balance is zero, imports and exports grow
+ at the same rate.
+ If not, they grow at the same rate asymptotically, the smallest (in absolute
+ value) growing faster.
+ This implies mechanism that imposes import and export to grow consistently.
+ 
+\end_layout
+
+\begin_layout Standard
+The most common way is to assume that the exchange rate adjusts in order
+ to reach the external balance objective.
+ 
+\end_layout
+
+\begin_layout Section*
+A-2
+\begin_inset space \quad{}
+\end_inset
+
+Unit elasticity logarithm equations
+\end_layout
+
+\begin_layout Standard
+Many relations in the model impose a unit-elasticity specified in logarithm
+ form:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\ln(Y_{t})=\ln(X_{t})+\alpha\label{eq:83old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This specification is used for all production factor demand since we systematica
+lly assume a constant return-to-scale technology.
+ If the coefficient 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is calibrated in the initial period as a simple inversion of equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:83old"
+
+\end_inset
+
+ and constant over time, this specification implies that Y always grows
+ at the same rate as X.
+\end_layout
+
+\begin_layout Standard
+In the production factors demand, 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ depends on the relative prices and thus may vary over time in case of shock
+ or if they are not in equilibrium in the initial period.
+ In that case, the growth rate of Y and X differs over time but they tend
+ to converge toward each other provided that mechanisms in the price equation
+ guaranty the long run stability of relative prices.
+\end_layout
+
+\begin_layout Section*
+A-3
+\begin_inset space \quad{}
+\end_inset
+
+Accumulation equations
+\end_layout
+
+\begin_layout Standard
+The model contains several accumulation equations: capital stock dynamic,
+ public and private debt, household savings.
+ All can be represented with the following equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=Y_{t-1}(1+\beta)+X_{t}\label{eq:84old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the case of capital accumulation, 
+\begin_inset Formula $\beta$
+\end_inset
+
+ is the depreciation rate and is negative.
+ In the case of debt or saving equation,
+\begin_inset Formula $\beta$
+\end_inset
+
+ is the interest rate and is thus positive.
+ Dividing both sides by 
+\begin_inset Formula $Y_{t-1}$
+\end_inset
+
+ give the growth rate of the stock variable: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\dot{Y}_{t}=\beta+X_{t}/Y_{t-1}\label{eq:85old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At the steady states, X should grow at the same rate as Y which is defined
+ by Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:85old"
+
+\end_inset
+
+.
+ Consequently, being at the stationary states from the first period onward
+ implies that X cannot be calibrated on real data.
+ At the stationary state, X is calibrated as an inversion of Equation
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:84old"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y=\Bigg(\frac{\mu-\beta}{1+\mu}\Bigg)^{-1}X\label{eq:86old}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Appendix B
+\begin_inset space \quad{}
+\end_inset
+
+Generalized CES function and factors demand
+\end_layout
+
+\begin_layout Standard
+This appendix derives the optimality program of the producer and the consumer
+ assuming a generalized CES (GCES) production and utility function.
+ We show that the GCES function can be approximated in the neighborhood
+ of the optimal stationary state by a Cobb-Douglas function for which the
+ technical coefficients vary with the relative prices.
+ This result greatly facilitates the deduction of linear demands functions
+ for input and goods.
+\end_layout
+
+\begin_layout Section*
+B-1
+\begin_inset space \quad{}
+\end_inset
+
+GCES production function and factors demand
+\end_layout
+
+\begin_layout Standard
+Let us define a GCES production function as a 
+\begin_inset Formula $H$
+\end_inset
+
+ inputs-production function with different elasticities of substitution
+ between each pair of input.
+ We still assume a constant elasticity of substitution between 2 inputs
+ along the isoquant.
+ Let us assume that technology may be represented by a continuous and twice
+ differentiable function, linearly homogeneous, strictly increasing 
+\begin_inset Formula $(Q'(x_{ht})>0)$
+\end_inset
+
+ and concave 
+\begin_inset Formula $(Q''(x_{ht})<0)$
+\end_inset
+
+ reflecting the law of diminishing marginal returns: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q_{t}=Q(X_{ht})\label{eq: production function}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $X_{ht}$
+\end_inset
+
+ is the quantity of input (or production factor) 
+\begin_inset Formula $h=[1;H]$
+\end_inset
+
+ used to produce the quantity of production (or output) 
+\begin_inset Formula $Q_{t}$
+\end_inset
+
+ .
+ For algebraic simplicity, we assume a technology with constant returns
+ to scale (i.e.
+ the production function 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: production function"
+
+\end_inset
+
+ is homogeneous of degree 1) and the absence of technical progress.
+ We shall relax these constraints latter.
+ Driven by maximizing profit behaviour, the producer chooses her demand
+ for each input by minimizing her production cost 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: Cost function"
+
+\end_inset
+
+ subject to the technical constraint
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: production function"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+C_{t}=\sum_{h=1}^{H}P_{ht}^{X}X_{ht}\label{eq: Cost function}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $P_{ht}^{X}$
+\end_inset
+
+ is the price of input 
+\begin_inset Formula $h$
+\end_inset
+
+.
+ The Lagrangian to this problem is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L_{t}=C_{t}-\lambda(Q_{t}-Q_{t}(X_{ht})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The necessary first order conditions are 
+\begin_inset Formula $L'(X_{ht})=0$
+\end_inset
+
+ for all h and 
+\begin_inset Formula $L'(\lambda)=0$
+\end_inset
+
+.
+ The second order conditions ensure that the optimum is a minimum is always
+ verified because of the convexity of the cost function 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: Cost function"
+
+\end_inset
+
+ and strict convexity of the isoquants formed by the production function
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: Cost function"
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+According to the technological constraint 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: production function"
+
+\end_inset
+
+, the strict convexity of the isoquant 
+\begin_inset Formula $(X_{ht}''(X_{ht})>0)$
+\end_inset
+
+ implies that 
+\begin_inset Formula $Q''(X_{ht})<2Q'(X_{ht})$
+\end_inset
+
+.
+ This condition is always verified since by assumption the left-hand side
+ is negative 
+\begin_inset Formula $(Q''(x_{ht})<0)$
+\end_inset
+
+ while the right-hand side is positive 
+\begin_inset Formula $(Q'(x_{ht})>0)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ .
+ The well-known first order condition says that at the optimum, the ratio
+ between marginal productivities of two inputs equals the one between their
+ prices:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{Q'(X_{ht})}{Q'(X_{h't})}=\frac{P_{ht}^{X}}{P_{h't}^{X}}\label{eq:FOC}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The production function 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: production function"
+
+\end_inset
+
+ can be linearized with the following first-order Taylor expansion:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\dot{Q_{t}}=\sum_{h=1}^{H}\frac{Q'(X_{ht}).X_{ht}}{Q(X_{ht})}\dot{X_{ht}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Euler’s Theorem states that a function which is homogeneous of degree 1
+ can be express as the sum of its arguments weighted by their first partial
+ derivatives: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q(X_{ht})=\sum_{h=1}^{H}Q'(X_{ht}).X_{ht}\label{eq:Rem of prod factors}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The fact that in equilibrium, the remuneration of the production factors
+ must be equal to the value of the production provides another useful relation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sum_{h=1}^{H}P_{ht}^{X}X_{ht}=P_{t}^{Q}Q_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The combination of equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:FOC"
+
+\end_inset
+
+ to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Rem of prod factors"
+
+\end_inset
+
+ gives at the neighbourhood of the stationary state a linear specification
+ of the production function:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat}{1}
+\dot{Q_{t}} & =\sum_{h=1}^{H}\varphi_{ht}\dot{X}_{ht}\Leftrightarrow q_{t}=\sum_{h=1}^{H}\varphi_{ht}x_{ht}\label{eq:Prod function bis}
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\varphi_{ht}$
+\end_inset
+
+ is the share (in value) of input 
+\begin_inset Formula $h$
+\end_inset
+
+ in the production sometimes called Leontief technical coefficient
+\begin_inset Formula 
+\begin{alignat}{1}
+ & \varphi_{ht}=\frac{P_{ht}^{X}X_{ht}}{P_{ht}^{Q}Q_{ht}}\label{eq:value share}
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have just shown that at the neighbourhood of the optimum any linearly
+ homogeneous, twice differentiable, strictly increasing and concave production
+ function can be approximated by a Cobb-Douglas with technical coefficients
+ that varies over time.
+ Moreover these technical coefficients correspond to the input share into
+ production.
+ They are stable in the long run because the specification of Three-ME guarantie
+s the stability of ratios between prices and of input to production ratios.
+ Suppose further that the direct elasticity of substitution – in the sense
+ of Hicks (1932) and Robinson (1933) – between inputs 
+\begin_inset Formula $h$
+\end_inset
+
+ and
+\begin_inset Formula $h'$
+\end_inset
+
+ 
+\begin_inset Formula $\eta_{hh'}$
+\end_inset
+
+ is not necessarily the same between each couple of production factors.
+ This elasticity measures the change in the ratio between two factors of
+ production due to a change in their relative marginal productivity, i.e.
+ in the marginal rate of substitution (in the slope of the iso-production
+ curve): 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat}{1}
+-\eta_{hh'} & =\frac{\partial\ln(X_{ht}/X_{h't})}{\partial\ln(Q'(X_{ht})/Q'(X_{h't})}\Leftrightarrow\partial\ln(X_{ht}/X_{h't})=\eta_{hh'}\partial\ln(Q'(X_{ht})/Q'(X_{h't}))\label{eq:direct elasticity of subst}
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Integrating 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:direct elasticity of subst"
+
+\end_inset
+
+ with respect to time and then combining it with the optimality condition
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:FOC"
+
+\end_inset
+
+ gives:
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+h
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula 
+\begin{alignat}{1}
+ & \frac{X_{ht}}{X_{h't}}=\xi_{hh'}\Bigg(\frac{P_{ht}^{X}}{P_{h't}^{X}}\Bigg)^{-\eta_{hh'}}\label{eq:input share}
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\xi_{hh'}$
+\end_inset
+
+ is the constant of integration which we calibrate to one for algebraic
+ simplicity.
+ Rewriting 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:input share"
+
+\end_inset
+
+ in terms of input share, 
+\begin_inset Formula $\varphi_{ht}/\varphi_{h't}=\xi_{hh'}(P_{ht}^{X}/P_{h't}^{X})^{1-\eta_{hh'}}$
+\end_inset
+
+ , gives the well-known result that the inputs share is constant over time
+ only in case of unit elasticity of substitution between all factors of
+ production (Cobb-Douglas technology).
+\end_layout
+
+\begin_layout Standard
+The first order conditions
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:input share"
+
+\end_inset
+
+ and the production function 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Prod function bis"
+
+\end_inset
+
+ constitute a system of 
+\begin_inset Formula $H$
+\end_inset
+
+ linearly independent equations and 
+\begin_inset Formula $H$
+\end_inset
+
+ unknowns.
+ Its resolution give the demand for each factor as a positive function of
+ output and negative function of relative prices between production factors:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat}{1}
+x_{ht}=\sum_{h=1,h\neq h'}^{H}\eta_{hh'}\varphi_{h't}(p_{ht}^{X}-p_{h't}^{X})\label{eq:demand of factors}
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The introduction of technical progress and non constant return-to-scale
+ is straightforward and does not alter the results.
+ In the first case one can simply define 
+\begin_inset Formula $X{}_{ht}=I_{ht}^{nput}P_{ht}^{rog}$
+\end_inset
+
+ as the efficient input, which includes the technical progress 
+\begin_inset Formula $P_{ht}^{rog}$
+\end_inset
+
+ ,
+\begin_inset Formula $I_{ht}^{nput}$
+\end_inset
+
+ being the effective input.
+ In the second case, one can simply define production as an homogenous function
+ of 
+\begin_inset Formula $Q$
+\end_inset
+
+ of degree 
+\begin_inset Formula $\theta:Y_{t}=Q_{t}^{\theta}$
+\end_inset
+
+ In case of a technology with increasing (resp.
+ decreasing) return-to-scale, 
+\begin_inset Formula $\theta>1$
+\end_inset
+
+ (resp.
+ 
+\begin_inset Formula $<1$
+\end_inset
+
+ ).
+ Integrating technical progress and non constant return-to-scale leads to
+ the following input demand: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat}{1}
+I_{ht}^{nput}=\theta^{-1}y_{t}-p_{ht}^{rog}-\sum_{h=1,h\neq h'}^{H}\eta_{hh'}\varphi_{h't}(p_{ht}^{X}-p_{h't}^{X})\label{eq:Input demand}
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assuming constant return to scale, this log-linear specification has been
+ recently estimated for the Euro area by Lemoine et al.
+ (2010) using the Kalman filter to extract the trend of technical progress.
+\end_layout
+
+\begin_layout Section*
+B-2
+\begin_inset space \quad{}
+\end_inset
+
+GCES consumer utility function and demand for goods
+\end_layout
+
+\begin_layout Standard
+In Three-ME, the demand for goods is treated in a similar way as the demand
+ for input.
+ Let us assume that at a first stage the consumer divides (eventually via
+ an intertemporal maximization program) her revenue between expenditures
+ and savings.
+ For a given level desired volume of expenditure 
+\begin_inset Formula $Q$
+\end_inset
+
+ , the consumer is then assumed to minimize the cost of this expenditure.
+ The substitutability between the different consumption goods (or expenditures),
+ 
+\begin_inset Formula $X_{h}$
+\end_inset
+
+ , is measured through a 
+\begin_inset Formula $J$
+\end_inset
+
+ goods-utility function having the same property as the production function
+ defined in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: production function"
+
+\end_inset
+
+.
+ Formally the optimization program is the same as the one of the producer.
+ It consists in minimizing the cost of expenditure
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: Cost function"
+
+\end_inset
+
+ subject to the utility function constraint 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: production function"
+
+\end_inset
+
+.
+ The demand for goods is thus 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:demand of factors"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Notice that minimizing the cost of expenditure subject to a utility function
+ constraint give the same result as the standard approach which consists
+ in maximizing the utility 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq: production function"
+
+\end_inset
+
+ subject to a budget constraint 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:budget constraint"
+
+\end_inset
+
+: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sum_{h=1}^{H}P_{ht}^{X}X_{ht}=P_{t}^{Q}Q_{t}\label{eq:budget constraint}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Lagrangian to this problem is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L_{t}=Q_{t}-\lambda\bigg(\sum_{h=1}^{H}P_{ht}^{X}X_{ht}-P_{t}^{Q}Q_{t}\bigg)\label{Lagrangian}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The necessary first order conditions (
+\begin_inset Formula $L'(X_{ht})=0$
+\end_inset
+
+ for all 
+\begin_inset Formula $h$
+\end_inset
+
+ and 
+\begin_inset Formula $L'(\lambda)=0)$
+\end_inset
+
+ are the well-know conditions that the ratio between marginal utilities
+ of two goods equals the one between their prices (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:FOC"
+
+\end_inset
+
+ and thus
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:input share"
+
+\end_inset
+
+) and the budget constraint (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:budget constraint"
+
+\end_inset
+
+).
+ Using a first-order Taylor expansion on Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:budget constraint"
+
+\end_inset
+
+ (divided by
+\begin_inset Formula $P^{Q}$
+\end_inset
+
+) in the neighbourhood of the stationary equilibrium characterized by the
+ stability of price ratios ( 
+\begin_inset Formula $P_{h}^{X}/P_{h'}^{X}$
+\end_inset
+
+,
+\begin_inset Formula $P_{h}^{X}/P^{Q}$
+\end_inset
+
+ ), allows for rewriting the budget constraint as
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Prod function bis"
+
+\end_inset
+
+.
+ As we have now the same system to solve as in the producer case (Equations
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:input share"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Prod function bis"
+
+\end_inset
+
+), the demand for good is thus 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:demand of factors"
+
+\end_inset
+
+.
+ Notice that the particular case of a CES function 
+\begin_inset Formula $(\eta_{hh'}/P_{h'}^{X})$
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:demand of factors"
+
+\end_inset
+
+ simplifies.
+ To see this, let us first use a first-order Taylor expansion on Equation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:budget constraint"
+
+\end_inset
+
+ (divided by 
+\begin_inset Formula $Q_{t}$
+\end_inset
+
+) in the neighbourhood of the stationary equilibrium characterized by the
+ stability of ratios between volumes 
+\begin_inset Formula $(X_{h}/X_{h'}X_{h}/Q)$
+\end_inset
+
+,.
+ This conveniently allows expressing the consumer price as a weighted average
+ of the prices of goods, the weight being the share into consumption (Equation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:value share"
+
+\end_inset
+
+): 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{alignat}{1}
+\dot{P_{t}^{Q}} & =\sum_{h=1}^{H}\varphi_{ht}\dot{P}_{ht}^{X}\Leftrightarrow p_{t}^{Q}=\sum_{h=1}^{H}\varphi_{ht}p_{ht}^{X}\label{eq:Consumer price function}
+\end{alignat}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assuming a constant elasticity of substitution 
+\begin_inset Formula $(\eta_{hh'}=\eta)$
+\end_inset
+
+ between goods and combining the price equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Consumer price function"
+
+\end_inset
+
+ to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:demand of factors"
+
+\end_inset
+
+, the demand for goods simplifies and depends only on the relative price
+ between the price of goods and the consumer price:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+x_{t}=q_{t}-\eta(p_{ht}^{X}-p_{t}^{Q})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Not surprisingly this relation is the same as the one deduced from a direct
+ maximization of CES utility function subject to a budget constraint (see
+ Blanchard and Fischer, 1989; Blanchard and Kiyotaki, 1987; Dixit and Stiglitz,
+ 1977).
+ The only difference is that the consumer price index
+\begin_inset Formula $(P_{t}^{Q})$
+\end_inset
+
+ is a linear approximation of the Dixit-Stiglitz index which is a CES function
+ of the price of goods.
+ As demonstrated by Arrow et al.
+ (1961), Leontief and Cobb-Douglas functions are particular cases of a CES
+ function where 
+\begin_inset Formula $\eta$
+\end_inset
+
+ tends to 0 and 1 respectively.
+\end_layout
+
+\begin_layout Part*
+Appendix C
+\begin_inset space \quad{}
+\end_inset
+
+Equations of the model
+\end_layout
+
+\end_body
+\end_document

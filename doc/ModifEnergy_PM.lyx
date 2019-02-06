@@ -1,0 +1,932 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section*
+Ajout des équations de CSPE:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE=CSPE\_elec+CSPE\_heat+CSPE\_biocarb
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_elec_{a}=\left(CU_{a}-CU_{23\_foss}\right).Y_{a}\;\; for\; a={2305,2306,2307,2308}>0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_elec=CSPE\_elec_{2305}+CSPE\_elec_{2306}+CSPE\_elec_{2307}.\frac{Q\_Mtep_{2307,t}-Q\_Mtep_{2307,0}}{Q\_Mtep_{2307,t}}+CSPE\_elec_{2308}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_heat_{a}=\left(CU_{a}-CU_{2401}\right).Y_{a}\;\; for\; a={2402,2403,2404,2405,2406}>0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_heat=CSPE\_heat_{2402}.\left(\frac{Q\_Mtep_{2302,t}-Q\_Mtep_{2302,0}}{Q\_Mtep_{2302,t}}\right)+CSPE\_heat_{2403}+CSPE\_heat_{2404}+CSPE\_heat_{2405}+CSPE\_heat_{2406}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CU_{23}^{foss}=\frac{\sum_{a}CU_{a}.Y_{a}}{\sum_{a}Y_{a}}\;\; for\; a={2301,2302,2303,2304}>0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CSPE\_biocarb=\left(CU_{2202}-CU_{2201}\right).Y_{2202}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Household's Consumption in Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_H_{e,h}=\Delta(ENER\_BUIL_{e,h})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_TRSP_{e,h}=\Delta(ENER\_AUTO_{e,h})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_H_{e}=\sum_{h}Q\_Mtep\_H_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_TRSP_{e}=\sum_{h}Q\_Mtep\_TRSP_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Production in Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep_{c}=\Delta(q_{c}+m_{c}-x_{c})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep_{e,a}=\Delta e_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{e}=Q\_Mtep\_TRSP_{e}+Q\_Mtep\_H_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic consumption of automobile by household:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_autoparc_{h}=\Delta ch_{03,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Production in Mtep by subsectors:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_autoparc,h=\Delta ch_{03,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{22}=\varphi_{22subsec}^{Y}.(Q\_Mtep\_H_{22}+Q\_Mtep\_TRSP_{22}+Q\_Mtep_{22,a})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{23}=\varphi_{23subsec}^{Y}.(Q\_Mtep\_H_{23}+Q\_Mtep_{23,a})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{24}=\varphi_{24subsec}^{Y}.(Q\_Mtep\_H_{24}+Q\_Mtep_{24,a})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Conversion between primary energy and final energy:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{e}^{EP}=\zeta_{e}^{ENE}.Q\_Mtep_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+PM: j'ai mis ici sous sa forme générale alors que dans les équations de
+ Gael cela ne concerne que le nucléaire mais il suffira de calibrer le facteur
+ égale à 1 pour retrouver les résultats pour les autres types d'énérgie.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep=\sum_{subsec}Q\_Mtep_{subsec}+\sum_{a}Q\_Mtep_{a}+\sum_{e}Q\_Mtep\_H\_TRSP_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep^{EP}=\sum_{e}\zeta_{e}^{ENE}.Q\_Mtep_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Unitary energy prices in euro per Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PE_{e}^{TEP}.Q\_Mtep_{a,e}=PE_{e}.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PCH_{e}^{TEP}.Q\_Mtep\_H_{e}=\sum_{k}PENER\_BUIL_{k,e}.PE_{e}e.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PCH\_TRSP_{e}^{TEP}.Q\_Mtep\_H_{e}=\sum_{k}PENER\_AUTO_{k,e}.PE_{e}e.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Household's Consumption in Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_H_{e,h}=\Delta(ENER\_BUIL_{e,h})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_TRSP_{e,h}=\Delta(ENER\_AUTO_{e,h})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_H_{e}=\sum_{h}Q\_Mtep\_H_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep\_TRSP_{e}=\sum_{h}Q\_Mtep\_TRSP_{e,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Production in Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep_{c}=\Delta(q_{c}+m_{c}-x_{c})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep_{e,a}=\Delta e_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{e}=Q\_Mtep\_TRSP_{e}+Q\_Mtep\_H_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic consumption of automobile by household:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_autoparc_{h}=\Delta ch_{03,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Energetic Production in Mtep by subsectors:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta q\_Mtep\_autoparc,h=\Delta ch_{03,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{22}=\varphi_{22subsec}^{Y}.(Q\_Mtep\_H_{22}+Q\_Mtep\_TRSP_{22}+Q\_Mtep_{22,a})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{23}=\varphi_{23subsec}^{Y}.(Q\_Mtep\_H_{23}+Q\_Mtep_{23,a})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{24}=\varphi_{24subsec}^{Y}.(Q\_Mtep\_H_{24}+Q\_Mtep_{24,a})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Conversion between primary energy and final energy:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep_{e}^{EP}=\zeta_{e}^{ENE}.Q\_Mtep_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+PM: j'ai mis ici sous sa forme générale alors que dans les équations de
+ Gael cela ne concerne que le nucléaire mais il suffira de calibrer le facteur
+ égale à 1 pour retrouver les résultats pour les autres types d'énérgie.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep=\sum_{subsec}Q\_Mtep_{subsec}+\sum_{a}Q\_Mtep_{a}+\sum_{e}Q\_Mtep\_H\_TRSP_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q\_Mtep^{EP}=\sum_{e}\zeta_{e}^{ENE}.Q\_Mtep_{e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Unitary energy prices in euro per Mtep :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PE_{e}^{TEP}.Q\_Mtep_{a,e}=PE_{e}.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PCH_{e}^{TEP}.Q\_Mtep\_H_{e}=\sum_{k}PENER\_BUIL_{k,e}.PE_{e}e.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PCH\_TRSP_{e}^{TEP}.Q\_Mtep\_H_{e}=\sum_{k}PENER\_AUTO_{k,e}.PE_{e}e.E_{e,a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Introduction des écarts de prix relatifs en volume dans les équations de
+ substitutions inter-énergie des ménages :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta c_{22\_BUIL^{eff}}= & \Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{22\_Buil^{eff}}}.(\Delta pc_{22}-\Delta ph)\\
+ & +\eta^{C_{Buil^{eff}\_22\_24}}.\left(\frac{PC_{24,t-1}^{TEP}}{PC_{22,t-1}^{TEP}}.\Delta pc_{24}-\frac{PC_{22,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{22}\right)\frac{C_{24\_BUIL\_eff,t-1}}{C_{22\_BUIL\_eff,_{t-1}}+C_{24\_BUIL\_eff,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta c_{22\_BUIL^{eff}}=\Delta buil\_fuel+\Delta standard\_BUIL\; if\; BUIL\_fuel\eqslantless0\\
+\\
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta c_{23\_BUIL^{eff}}= & \Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{23\_Buil^{eff}}}.(\Delta pc_{23}-\Delta ph)\\
+ & +\eta^{C_{Buil^{eff}\_24\_23}}.\left(\frac{PC_{24,t-1}^{TEP}}{PC_{23,t-1}^{TEP}}.\Delta pc_{24}-\frac{PC_{23,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{23}\right)\frac{C_{24\_BUIL\_eff,t-1}}{C_{23\_BUIL\_eff,_{t-1}}+C_{24\_BUIL\_eff,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta c_{23\_BUIL^{eff}}=\Delta buil\_fuel+\Delta standard\_BUIL\; if\; BUIL\_fuel\eqslantless0\\
+\\
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta c_{24\_BUIL^{eff}}= & \Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{243\_Buil^{eff}}}.(\Delta pc_{24}-\Delta ph)\\
+ & +\eta^{C_{Buil^{eff}\_22\_24}}.\left(\frac{PC_{22,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{22}-\frac{PC_{24,t-1}^{TEP}}{PC_{22,t-1}^{TEP}}.\Delta pc_{22}\right)\frac{C_{22\_BUIL\_eff,t-1}}{C_{23\_BUIL\_eff,_{t-1}}+C_{24\_BUIL\_eff,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{cc}
+\Delta c_{24\_BUIL^{eff}}=\Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{243\_Buil^{eff}}}.(\Delta pc_{24}-\Delta ph)\\
++\eta^{C_{Buil^{eff}\_22\_24}}.\left(\frac{PC_{22,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{22}-\frac{PC_{24,t-1}^{TEP}}{PC_{22,t-1}^{TEP}}.\Delta pc_{22}\right)\frac{C_{22\_BUIL\_eff,t-1}}{C_{23\_BUIL\_eff,_{t-1}}+C_{24\_BUIL\_eff,t-1}}\\
++\eta^{C_{Buil^{eff}\_24\_23}}.\left(\frac{PC_{23,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{23}-\frac{PC_{24,t-1}^{TEP}}{PC_{23,t-1}^{TEP}}.\Delta pc_{24}\right)\frac{C_{23\_BUIL\_eff,t-1}}{C_{23\_BUIL\_eff,_{t-1}}+C_{24\_BUIL\_eff,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta c_{24\_BUIL^{eff}}=\Delta buil\_fuel+\Delta standard\_BUIL\; if\; BUIL\_fuel\eqslantless0\\
+\\
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta c_{22\_BUIL^{oth}}= & \Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{22\_Buil^{oth}}}.(\Delta pc_{22}-\Delta ph)\\
+ & +\eta^{C_{Buil^{oth}\_22\_24}}.\left(\frac{PC_{24,t-1}^{TEP}}{PC_{22,t-1}^{TEP}}.\Delta pc_{24}-\frac{PC_{22,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{22}\right)\frac{C_{24\_BUIL\_oth,t-1}}{C_{22\_BUIL\_oth,_{t-1}}+C_{24\_BUIL\_oth,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta c_{22\_BUIL^{oth}}=\Delta buil\_fuel+\Delta standard\_BUIL\; if\; BUIL\_fuel\eqslantless0\\
+\\
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta c_{23\_BUIL^{oth}}= & \Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{23\_Buil^{oth}}}.(\Delta pc_{23}-\Delta ph)\\
+ & +\eta^{C_{Buil^{oth}\_24\_23}}.\left(\frac{PC_{24,t-1}^{TEP}}{PC_{23,t-1}^{TEP}}.\Delta pc_{24}-\frac{PC_{23,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{23}\right)\frac{C_{24\_BUIL\_oth,t-1}}{C_{23\_BUIL\_oth,_{t-1}}+C_{24\_BUIL\_oth,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta2c_{23\_BUIL^{eff}}=\Delta buil\_fuel+\Delta standard\_BUIL\; if\; BUIL\_fuel\eqslantless0\\
+\\
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{ccc}
+\Delta c_{24\_BUIL^{oth}}= & \Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{243\_Buil^{oth}}}.(\Delta pc_{24}-\Delta ph)\\
+ & +\eta^{C_{Buil^{oth}\_22\_24}}.\left(\frac{PC_{22,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{22}-\frac{PC_{24,t-1}^{TEP}}{PC_{22,t-1}^{TEP}}.\Delta pc_{22}\right)\frac{C_{22\_BUIL\_oth,t-1}}{C_{23\_BUIL\_oth,_{t-1}}+C_{24\_BUIL\_oth,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{cc}
+\Delta c_{24\_BUIL^{oth}}=\Delta buil\_fuel+\Delta standard\_BUIL+\eta^{C_{243\_Buil^{oth}}}.(\Delta pc_{24}-\Delta ph)\\
++\eta^{C_{Buil^{oth}\_22\_24}}.\left(\frac{PC_{22,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{22}-\frac{PC_{24,t-1}^{TEP}}{PC_{22,t-1}^{TEP}}.\Delta pc_{22}\right)\frac{C_{22\_BUIL\_oth,t-1}}{C_{23\_BUIL\_oth,_{t-1}}+C_{24\_BUIL\_oth,t-1}}\\
++\eta^{C_{Buil^{oth}\_24\_23}}.\left(\frac{PC_{23,t-1}^{TEP}}{PC_{24,t-1}^{TEP}}.\Delta pc_{23}-\frac{PC_{24,t-1}^{TEP}}{PC_{23,t-1}^{TEP}}.\Delta pc_{24}\right)\frac{C_{23\_BUIL\_oth,t-1}}{C_{23\_BUIL\_oth,_{t-1}}+C_{24\_BUIL\_oth,t-1}} & if\; BUIL\_fuel>0
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta c_{24\_BUIL^{oth}}=\Delta buil\_fuel+\Delta standard\_BUIL\; if\; BUIL\_fuel\eqslantless0\\
+\\
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Introduction des écarts de prix relatifs en volume dans les équations de
+ substitutions inter-énergie des entreprises :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+Cf equation 78 dans le level II du producteur.
+ Ca semble être les mêmes que exposées dans cette partie 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Endogenous variables
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE$
+\end_inset
+
+ Contribution to the electric public services
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE\_heat$
+\end_inset
+
+ Contribution to the electric public services for heating use
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE\_elec$
+\end_inset
+
+	 Contribution to the electric public services for electric use
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.000000000000000
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $CSPE\_biocarb$
+\end_inset
+
+	 Total automobile stock
+\end_layout
+
+\end_body
+\end_document

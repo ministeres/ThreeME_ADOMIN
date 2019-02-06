@@ -1,0 +1,1886 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+The households
+\end_layout
+
+\begin_layout Subsection
+The households (LES)
+\end_layout
+
+\begin_layout Subsection*
+Average wage:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+W\_S.L\_S=\sum_{a}W\_S_{a}.L\_S_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+W\_SE.L\_SE=\sum_{a}W\_SE_{a}.L\_SE_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+W.L=W\_S.L\_S+W\_SE.L\_SE
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L=L\_S+L\_SE
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Decomposition of Financial Wealth:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DIV^{HH}\_VAL=\sum_{a}DIV_{a}^{HH}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+FW\_VAL=DIV^{HH}\_VAL+INT^{HH}\_VAL
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Total disposable income before taxes:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DISPINC^{AI}\_VAL=(W\_S.L\_S+SB^{ROW})(1-TCSS)+W\_SE.L\_SE*(1-TCSS\_SE)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+PRESOC^{DOM}\_VAL+FW\_VAL+TR^{ROW}\_VAL
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Disposable income before taxes for household h:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DISPINC_{h}^{AI}\_VAL=\varphi_{h}^{DISPINC}.DISPINC^{AI}\_VAL
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In a future version, we may assume that 
+\begin_inset Formula $\varphi$
+\end_inset
+
+ varies according the the components of the disposable income.
+\end_layout
+
+\begin_layout Subsection*
+Net Disposable income for household h:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DISPINC\_VAL{}_{h}=DISPINC_{h}^{AI}\_VAL-IR_{h}\_VAL-AIC_{h}\_VAL
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Household h's total expenditures (value & volume):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXP_{h}.EXP_{h}=\sum_{c}PEXP_{c,h}.EXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+EXP_{h}=\sum_{c}.EXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Marginal propension to save:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta MPS_{h}=\beta_{1}\Delta(R_{h}-\dot{P_{t}})+\beta_{2}\Delta((D_{t}^{s}-D_{t}^{g})/FW_{t}^{net\_h})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Savings equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+S_{t}^{h}=DISPINC_{h}\_VAL-PEXP_{h}.EXP_{h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+TS_{t}^{h}=\frac{S_{t}^{h}}{DISPINC_{h}\_VAL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Notional household h's expenditures in commodity c:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+EXP_{c,h}^{n}.PEXP_{c,h}=PEXP_{c,h}.NEXP_{c,h}+\beta_{c,h}^{EXP}(DISPINC{}_{h}.(1-MPS_{h})-PNEXP_{h}.NEXP_{h})
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula $\beta_{c,h,0}^{EXP}=(PEXP_{c,h,0}.EXP_{c,h,0}-PEXP_{c,h,0}.NEXP_{c,h,0})/(PEXP_{h,0}EXP_{h,0}-PNEXP_{h,0}.NEXP_{h,0})$
+\end_inset
+
+ is calibrated by inversing the above equation at the base year.
+\end_layout
+
+\begin_layout Subsection*
+Household h's marginal propension to spend in commodity c:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta\beta_{c,h}^{EXP}=(1-\eta^{LES\_CES}).\Delta\frac{PEXP_{c,h}}{PEXP_{h}^{CES}}
+\end{equation}
+
+\end_inset
+
+T
+\color black
+he marginal propension to spend in commodity c is assumed constant.
+ 
+\color inherit
+In a future version, 
+\color black
+it may depend on the relative price to account for substitution effects.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXP_{h}^{CES}=\left[\sum_{c}\beta_{c,h,0}^{EXP}.PEXP_{c,h}{}^{(1-\eta^{LES\_CES})}\right]^{\frac{1}{1-\eta^{LES\_CES}}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Household h's total necessary expenditures (value & volume):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PNEXP_{h}.NEXP_{h}=\sum_{c}PEXP_{c,h}.NEXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+NEXP_{h}=\sum_{c}NEXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Total expenditure by product c:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXP_{c}.EXP_{c}=\sum_{h}PEXP_{c,h}.EXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+EXP_{c}=\sum_{h}EXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Household h's expenditures price c:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXP_{c,h}=PCH{}_{c}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Total household consumption in commodity c
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CH{}_{c}=\sum_{h}EXP{}_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Domestique et imported household consumption in commodity c:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta chd{}_{c,t} & =\Delta ch{}_{c,t}+\Delta SUBST\_CHD{}_{c,t}\\
+\Delta SUBST\_CHD{}_{c,t}^{n} & =\eta_{chd,chm}\varphi_{chm,c}\Delta(p^{CHD}-p^{CHM})\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\Delta chm{}_{c,t} & =\Delta ch{}_{c,t}+\Delta SUBST\_CHM{}_{c,t}\\
+\Delta SUBST\_CHM{}_{c,t}^{n} & =\eta_{chd,chm}\varphi_{chd,c}\Delta(p_{c}^{CHM}-p_{c}^{CHD}\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Household Hybrid
+\end_layout
+
+\begin_layout Subsection*
+Average wage:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+W\_S.L\_S=\sum_{a}W\_S_{a}.L\_S_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+W\_SE.L\_SE=\sum_{a}W\_SE_{a}.L\_SE_{a}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+W.L=W\_S.L\_S+W\_SE.L\_SE
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L=L\_S+L\_SE
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Decomposition of Financial Wealth:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DIV^{HH}\_VAL=\sum_{a}DIV_{a}^{HH}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+FW\_VAL=DIV^{HH}\_VAL+INT^{HH}\_VAL
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Total disposable income before taxes:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DISPINC^{AI}\_VAL=(W\_S.L\_S+SB^{ROW})(1-TCSS)+W\_SE.L\_SE*(1-TCSS\_SE)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+PRESOC^{DOM}\_VAL+FW\_VAL+TR^{ROW}\_VAL
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Disposable income before taxes for household h:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DISPINC_{h}^{AI}\_VAL=\varphi_{h}^{DISPINC}.DISPINC^{AI}\_VAL
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In a future version, we may assume that 
+\begin_inset Formula $\varphi$
+\end_inset
+
+ varies according the the components of the disposable income.
+\end_layout
+
+\begin_layout Subsection*
+Net Disposable income for household h:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DISPINC\_VAL{}_{h}=DISPINC_{h}^{AI}\_VAL-IR_{h}\_VAL-AIC_{h}\_VAL
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Household h's total expenditures (value & volume):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PEXP_{h}.EXP_{h}=\sum_{c}PEXP_{c,h}.EXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+EXP_{h}=\sum_{c}.EXP_{c,h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Marginal propension to save:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta MPS_{h}=\beta_{1}\Delta(R_{h}-\dot{P_{t}})+\beta_{2}\Delta((D_{t}^{s}-D_{t}^{g})/FW_{t}^{net\_h})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Savings equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+S_{t}^{h}=DISPINC_{h}\_VAL-PEXP_{h}.EXP_{h}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+TS_{t}^{h}=\frac{S_{t}^{h}}{DISPINC_{h}\_VAL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Building stock 
+\end_layout
+
+\begin_layout Subsection*
+Building stock dynamic
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta BUIL_{h,k,t} & = & \varphi_{h,k}^{NewBUIL}(\Delta BUIL_{h,t}+BUIL_{h,0,t})\label{eq:Buildings-1}\\
+ &  & +\sum_{k'=0}^{k-1}REHAB_{h,k',k}-\sum_{k'=k+1}^{K}REHAB_{h,k,k'}\nonumber \\
+ &  & -\sum_{k'=0}^{k-1}\delta_{h,k,k'}^{BUIL}BUIL_{h,k,t-1}+\sum_{k'=k+1}^{K}\delta_{h,k',k}^{BUIL}BUIL_{h,k',t-1}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+BUIL_{h,0,t}=\sum_{k}\delta_{h,k,0}^{BUIL}BUIL_{h,k,t-1}\label{eq:Buildings0}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta BUIL=\Delta pop+\Delta M2percapita
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Agregation of building stock
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+BUIL_{k}=\sum_{h}BUIL_{h,k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+BUIL=\sum_{h}BUIL_{h}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Verification for the initial period
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+BUIL\_VERIF_{h}=\sum_{k}BUIL_{h,k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+BUIL\_VERIF=\sum_{h}BUIL\_VERIF_{h}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset Formula 
+\[
+VERIF\_BUIL=\sum_{h}(BUIL\_VERIF_{h}-BUIL_{h})=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Proportion of the building rehabilitated of the category K
+\begin_inset Formula 
+\begin{eqnarray}
+\tau_{h,k}^{REHAB} & = & \tau_{h,k}^{REHAB*}+\eta_{h,k}\frac{UC_{h,k}^{REHAB}}{UC_{h,k}}\nonumber \\
+0\leqslant\tau_{h,k}^{REHAB\_l}\leqslant & \tau_{h,k}^{REHAB} & \leqslant\tau_{h,k}^{REHAB\_h}\leqslant1\label{eq:8}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Rehabilitation of building
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+REHAB_{h,k,k'} & = & \varphi_{h,k,k'}^{REHAB}.\tau_{h,k}^{REHAB}BUIL_{h,k,t-1}\\
+\nonumber \\
+\sum_{k'}\varphi_{h,k,k'}^{REHAB} & = & 1
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+The user cost of building rehabilitation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{REHAB} & = & UC_{h,k}^{K\_REHAB}+UC_{h,k}^{E\_REHAB}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{E\_REHAB} & = & \sum_{k'=k+1}^{K}\varphi_{h,k,k'}^{REHAB}.UC_{h,k'}^{E}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k} & = & UC_{h,k}^{K}+UC_{h,k}^{E}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{K\_REHAB} & = & P_{h,k}^{REHAB\_\delta^{BUIL}}(R_{h,k}^{CASH\_REHAB}+\frac{R_{h,k}^{LOAN\_REHAB}R_{h,k,t-1}^{I\_REHAB}LD_{h,k}^{REHAB}}{1-(1+R_{h,k,t-1}^{BUIL\_REHAB})^{-LD_{h,k}^{REHAB}}})\\
+R_{h,k}^{LOAN\_REHAB} & = & 1-R_{h,k}^{CASH\_REHAB}\\
+LD_{h,k}^{REHAB} & \leqq & 1/\delta_{h,k}^{REHAB}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{K} & = & P_{h,k,k}^{REHAB}\delta_{h,k}^{BUIL}(R_{h,k}^{CASH}+\frac{R_{h,k}^{LOAN}R_{h,k,t-1}^{I\_BUIL}LD_{h,k}}{1-(1+R_{h,k,t-1}^{I\_BUIL})^{-LD_{h,k}}})\\
+R_{h,k}^{LOAN} & = & 1-R_{h,k}^{CASH}\\
+LD_{h,k} & \leqq & 1/\delta_{h,k}^{BUIL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\delta_{h,k}^{REHAB}=\sum_{k'=k+1}^{K}\varphi_{h,k,k'}^{REHAB}\delta_{h,k'}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\delta_{h,k}^{BUIL}=\sum_{k'=0}^{k-1}\delta_{h,k,k'}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{E} & = & \frac{\left(1+\overset{\bullet}{P}_{h,k}^{Ener\_m\text{²\_e}}\right)^{1/\delta_{h,k}^{BUIL}}-1}{\overset{\bullet}{P}_{h,k}^{Ener\_m\text{²}\_e}/\delta_{h,k}^{BUIL}}.P_{h,k}^{Ener\_m^{2}}\\
+P_{h,k}^{Ener\_m\text{²}}.BUIL_{h,k} & = & PENER^{BUIL}.ENER_{h,k}\\
+\overset{\bullet}{P}_{h,k,t}^{Ener\_m\text{²}\_e} & = & \lambda_{0}^{Ener\_BUIL}\overset{\bullet}{P}_{h,k,t-1}^{Ener\_m\text{²}\_e}+\lambda_{1}^{Ener\_BUIL}\overset{\bullet}{P}_{h,k,t-1}^{Ener\_m\text{²}}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+The average price of the investement in renovation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+P_{h,k}^{REHAB\_\delta^{BUIL}}.REHAB_{h,k} & = & \sum_{k'=k+1}^{K}\left(1-R_{h,k,k'}^{SUB}\right)P_{h,k,k'}^{REHAB}.REHAB_{h,k,k'}.\delta_{h,k'}^{BUIL}\\
+REHAB_{h,k} & = & \sum_{k'=k+1}^{K}REHAB_{h,k,k'}\nonumber \\
+\nonumber \\
+P_{h,k}^{REHAB\_\delta^{BUIL}\_bis} & = & \sum_{k'=k+1}^{K}\left(1-R_{h,k,k'}^{SUB}\right)\varphi_{h,k,k'}^{REHAB}P_{h,k,k'}^{REHAB}\delta_{h,k'}^{BUIL}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+The expenditure related to housing for building K
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_HOUSING_{h,k}^{VAL} & = & DEBT_{h,k,t-1}^{REHAB\_VAL}(R_{h,k,t-1}^{I\_REHAB}+R_{h,k,t-1}^{RMBS\_REHAB})\\
+ &  & +R_{h,k,t}^{CASH\_REHAB}P_{h,k}^{REHAB}REHAB_{h,k}\nonumber \\
+\nonumber \\
+ &  & +DEBT_{h,k,t-1}^{NewBUIL\_VAL}(R_{h,k,t-1}^{I\_NewBUIL}+R_{h,k,t-1}^{RMBS\_NewBUIL})\nonumber \\
+ &  & +R_{h,k,t}^{CASH\_NewBUIL}.P_{h,k}^{NewBUIL}.NewBUIL{}_{h,k}\nonumber \\
+\nonumber \\
+ &  & +PENER_{h,k}.ENER_{h,k}\nonumber \\
+\nonumber \\
+DEBT_{h,k,t}^{REHAB\_VAL} & = & DEBT_{h,k,t-1}^{REHAB\_VAL}(1-R_{h,k,t-1}^{RMBS\_REHAB})\\
+ &  & +R_{h,k,t}^{LOAN\_REHAB}.P_{h,k}^{REHAB}.REHAB_{h,k}\nonumber \\
+\nonumber \\
+DEBT_{h,k,t}^{NewBUIL\_VAL} & = & DEBT_{h,k,t-1}^{NewBUIL\_VAL}(1-R_{h,k,t-1}^{RMBS\_NewBUIL})\\
+ &  & +R_{h,k,t}^{LOAN\_REHAB}.P_{h,k}^{NewBUIL}.NewBUIL{}_{h,k}\nonumber \\
+\nonumber \\
+R_{h,k}^{RMBS\_X} & = & 1/LD_{h,k}^{X}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\triangle lnP_{h,k,k'}^{REHAB} & = & \triangle lnPCH_{13}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\triangle lnP_{h,k}^{NewBUIL} & = & \triangle lnPCH_{13}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+R_{h,k}^{REHAB\_DEBT} & = & P_{h,k}^{REHAB}.REHAB_{h,k}/DEBT_{h,k}^{REHAB\_DEBT}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+REHAB_{h,k} & = & \sum_{k'}.REHAB_{h,k,k'}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+REHAB_{h} & = & \sum_{k}.REHAB_{h,k}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+REHAB & = & \sum_{h}.REHAB_{h}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+P_{h,k}^{REHAB}.REHAB_{h,k} & = & \sum_{k'}P_{h,k,k'}^{REHAB}.REHAB_{h,k,k'}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+EXP\_HOUSING_{h}^{VAL} & = & \sum_{k}EXP\_HOUSING{}_{h,k}^{VAL}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+EXP\_HOUSING^{VAL} & = & \sum_{k}EXP\_HOUSING{}_{h}^{VAL}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{13,h}^{OTH\_VAL}=PEXP_{13,h}.EXP_{13,h}-(P_{h}^{REHAB}.REHAB_{h}+P_{h}^{NEWBUIL}.NEWBUIL_{h})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+NEWBUIL_{h}=\sum_{k}NEWBUIL_{h,k}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+NEWBUIL=\sum_{h}NEWBUIL_{h}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+EXP_{13}^{OTH\_VAL} & = & \sum_{h}EXP_{13,h}^{OTH\_VAL}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta log(EXP_{13}^{OTH\_VAL}) & = & \Delta log(EXP_{13,h})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NEWBUIL_{h,k} & = & \varphi_{h,k}^{NewBUIL}(\Delta BUIL_{h}+BUIL_{h,0})\label{eq:NewBuildings}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+P_{h}^{EXPH}.EXPH_{h} & = & \sum_{k}P_{h,k}^{EXPH}.EXPH_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Automobile and transport
+\end_layout
+
+\begin_layout Subsubsection
+Automobile
+\end_layout
+
+\begin_layout Subsubsection*
+Automobile stock dynamique
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta AUTO_{h,k,t} & = & \varphi_{h,k}^{NewAuto}(\Delta AUTO_{h,t}+AUTO_{h,0,t})\\
+\nonumber \\
+ &  & -\delta_{h,k}^{AUTO}AUTO_{h,k,t-1}\nonumber \\
+\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+AUTO_{h,0,t}=\sum_{k}\delta_{h,k}^{AUTO}AUTO_{h,k,t-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NewAUTO{}_{h,k} & = & \varphi_{h,k}^{NewAUTO}(\Delta AUTO{}_{h}+AUTO{}_{h,0})\label{eq:NewAUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta ln(P_{h,k}^{NewAUTO}) & = & \Delta(ln(PCH_{03})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+The expenditure related to automobile 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h,k}^{AUTO\_VAL} & = & DEBT_{h,k,t}^{AUTO\_VAL}(R_{h,k,t-1}^{I}+R_{h,k,t-1}^{RMBS\_AUTO})\\
+\nonumber \\
+ &  & +R_{h,k,t}^{CASH\_AUTO}P^{NewAUTO}.NewAUTO_{h,k}(1-R_{h,k}^{SUB\_AUTO})\nonumber \\
+\nonumber \\
+ &  & +PEXP_{h}^{22}.EXP{}_{h,k}^{AUTO}\nonumber \\
+\nonumber \\
+\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+UC_{h,k}^{auto} & = & P_{h,k}^{REHAB}\delta_{h,k}^{BUIL}\left(R_{h,k}^{CASH\_AUTO}+\frac{R_{h,k}^{LOAN}R_{h,k,t-1}^{I}LD_{h,k}}{1-(1+R_{h,k,t-1}^{I})^{-LD_{h,k}}}\right)\\
+\nonumber \\
+ &  & +\frac{\left(1+\dot{P}_{k}^{Ener\_auto\_e}\right)^{1/\delta_{k}^{auto}}-1}{\dot{P}_{k}^{Ener\_auto\_e}/\delta_{k}^{auto}}.\dot{P}_{k}^{Ener\_auto}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+DEBT_{h,k,t}^{AUTO\_VAL}=DEBT_{h,k,t-1}^{AUTO\_VAL}(1-R_{h,k,t-1}^{RMBS\_AUTO})+R_{h,k,t}^{LOAN\_AUTO}P_{h,k}^{NewAUTO}.NewAUTO_{h,k}(1-R_{h,k}^{SUB\_AUTO})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h,k}^{NewAUTO\_VAL} & = & P_{h,k}^{NewAuto}.NewAUTO_{h,k}(1-R_{h,k}^{SUB})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{h}^{traveler} & = & \Delta pop^{TOT}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{h}^{traveler\_auto} & = & \Delta km_{h}^{traveler}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{h}^{AUTO} & = & \Delta km_{h}^{traveler\_auto}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta AUTO_{h} & = & \Delta km_{h}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NewAuto_{h} & = & \underset{k}{\sum}NewAuto_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+Km_{h,k}^{AUTO} & = & Km_{h}^{AUTO}.\frac{AUTO_{h,k}}{auto_{h}}\underset{}{}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta EXP_{h,k,e}^{AUTO} & = & \Delta km_{h,k}^{auto}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\phi_{03bis,h}^{EXP} & =\frac{EXP_{h}^{NewAUTO\_VAL}}{EXP^{NewAUTO\_VAL}}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & \Delta exp{}_{03,h}^{OTH\_VAL}=\Delta dispinc{}_{h}^{VAL}.(1-MPS_{h}^{HH})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{03,h} & = & P_{h,k}^{NewAuto}.NewAUTO_{h,k}+\frac{EXP_{03}^{OTH\_VAL}}{PEXP_{03,h}}\\
+\nonumber \\
+ &  & \begin{array}{ccccc}
+ & \begin{array}{ccccccc}
+ &  &  & P & _{h,k}^{NewAuto} & fixed & at\end{array} & base & year\end{array}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{VAL} & = & EXP\_MOB_{h}^{AUTObis\_VAL}-(EXP\_MOB_{h}^{AUTO\_VAL}+EXP_{03,h}^{OTH\_VAL})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{AUTObis\_VAL} & = & PEXP_{03,h}.EXP_{03,h}+PENER_{h,k}^{AUTO}.ENER_{h,k}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{03}^{OTH\_VAL} & = & PEXP_{03}.EXP_{03}-EXP^{NewAUTO\_VAL}\begin{array}{ccccc}
+ &  & for & base & year\end{array}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{03,h}^{OTH\_VAL} & = & \phi_{03bis,h}^{EXP}.EXP_{03}^{OTH\_VAL}\begin{array}{ccccc}
+ &  & for & base & year\end{array}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Aggregation of automobile expenditure
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h,k}^{AUTO} & = & \sum_{e}EXP_{h,k,e}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h}^{AUTO} & = & \sum_{k}EXP_{h,k}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h,e}^{AUTO} & = & \sum_{k}EXP_{h,k,e}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{k,e}^{AUTO} & = & \sum_{h}EXP_{h,k,e}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP^{AUTO} & = & \sum_{h}EXP_{h}^{AUTO}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Aggregation of automobile
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+AUTO_{k}=\sum_{h}AUTO_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+AUTO=\sum_{k}AUTO_{k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+NewAUTO_{h} & = & \underset{k}{\sum}NewAUTO_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+P_{h}^{NewAUTO}.NewAUTO_{h} & = & \underset{k}{\sum}P_{h,k}^{NewAUTO}.NewAUTO{}_{h,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h}^{NewAUTO\_VAL} & = & \sum EXP_{h,k}^{NewAUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+EXP^{NewAUTO\_VAL} & = & \sum EXP_{h}^{NewAUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{AUTO\_VAL} & = & \sum EXP\_MOB_{h,k}^{AUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB^{AUTO\_VAL} & = & \sum EXP\_MOB_{h}^{AUTO\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & EXP_{03}^{OTH\_VAL}= & \underset{h}{\sum}EXP_{03,h}^{OTH\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & EXP_{03}= & \underset{h}{\sum}EXP_{03,h}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Verificaion of automobile
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{AUTOver\_VAL} & = & EXP\_MOB_{h}^{AUTObis\_VAL}-(EXP\_MOB_{h}^{AUTO\_VAL}+EXP_{03,h}^{OTH\_VAL})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB^{AUTOver\_VAL} & = & EXP\_MOB^{AUTObis\_VAL}-(EXP\_MOB^{AUTO\_VAL}+EXP_{03,h}^{OTH\_VAL})
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Other transport
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{OTH\_VAL} & = & \sum PEXP_{c,h}.EXP_{c,h}\begin{array}{cc}
+\begin{array}{cccc}
+\end{array} & c=14,15,16,17,18\end{array}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta km_{c,h}^{traveler} & = & \Delta km_{h}^{traveler}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta exp_{c,h} & = & \Delta km_{c,h}^{traveler}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ & EXP_{c}= & \underset{h}{\sum}EXP_{c,h}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Total Mobility
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP\_MOB_{h}^{VAL} & = & EXP\_MOB_{h}^{AUTO\_VAL}+EXP\_MOB_{h}^{OTH\_VAL}+EXP_{03,h}^{OTH\_VAL}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Energy Consumption 
+\end_layout
+
+\begin_layout Subsubsection
+Energy of building
+\end_layout
+
+\begin_layout Standard
+Prix en million d'euro du kwH par type d'énergie
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+ENER_{h,k,e}^{BUIL}=ENER_{h,k,e}^{perM2}.BUIL_{h,k}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta ener_{h,k,e}^{per\_M2}=0\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+\Delta exp_{h,k,}^{BUIL}=\Delta ener_{h,k,e}^{BUIL}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+PENER_{h,k,e}^{BUIL}.ENER{}_{h,k,e}^{BUIL}=PEXP_{e,h}.EXP{}_{h,k,e}^{BUIL}\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Aggregation Energy consumption in building
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}=\sum_{e}(PENER_{h,k,e}^{BUIL}.ENER_{h,k,e}^{BUIL})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER_{h,k}^{BUIL}=\sum_{e}ENER_{h,k,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{h}^{BUIL}.ENER_{h}^{BUIL}=\sum_{k}PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER_{h}^{BUIL}=\sum_{k}ENER_{h,k}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{h,e}^{BUIL}.ENER_{h,e}^{BUIL}=\sum_{k}PENER_{h,k,e}^{BUIL}.ENER_{h,k,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+ENER_{h,e}^{BUIL}=\sum_{k}ENER_{h,k,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER_{e}^{BUIL}.ENER_{e}^{BUIL}=\sum_{h}PENER_{h,e}^{BUIL}.ENER_{h,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+ENER_{e}^{BUIL}=\sum_{h}ENER_{h,e}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+PENER^{BUIL}.ENER^{BUIL}=\sum_{h}PENER_{h}^{BUIL}.ENER_{h}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+ENER^{BUIL}=\sum_{h}ENER_{h}^{BUIL}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Agregation of total energie expenditure (automobile + building)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ENER_{h,k} & = & PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}+EXP_{h,k}^{AUTO}\\
+\nonumber \\
+ &  & \begin{array}{ccccc}
+ & \begin{array}{ccccccc}
+ &  &  & PENER & _{h,k}^{BUIL} & fixed & at\end{array} & base & year\end{array}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+PENER_{h,k}.ENERh_{h,k}=PENER_{h,k}^{BUIL}.ENER_{h,k}^{BUIL}\end{array}+PEXP_{03,h}.EXP_{h,k}^{AUTO}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+ENER_{h} & = & PENER_{h}^{BUIL}.ENER_{h}^{BUIL}+EXP_{h}^{AUTO}\\
+\nonumber \\
+ &  & \begin{array}{ccccc}
+ & \begin{array}{ccccccc}
+ &  &  & PENER & _{h}^{BUIL} & fixed & at\end{array} & base & year\end{array}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+PENER_{h}.ENER_{h}=PENER_{h}^{BUIL}.ENER_{h}^{BUIL}\end{array}+PEXP_{03,h}.EXP_{h}^{AUTO}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+EXP_{h,e} & = & PENER_{h,e}^{BUIL}.ENER_{h,e}^{BUIL}+EXP_{h,e}^{AUTO}\\
+\nonumber \\
+ &  & \begin{array}{ccccc}
+ & \begin{array}{ccccccc}
+ &  &  & PENER & _{h,e}^{BUIL} & fixed & at\end{array} & base & year\end{array}\nonumber 
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+EXP_{e}=\sum_{h}EXP_{h,e}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,110 @@
+%list_sec = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 2201 2202 2301 2302 2303 2304 2305 2306 2307 2308 2401 2402 2403 2404 2405 2406" '[s]
+%list_sec := 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 2201 2202 2301 2302 2303 2304 2305 2306 2307 2308 2401 2402 2403 2404 2405 2406 #[s]
+
+
+%list_com_E_CO2 = "21 22 24" '[ce2]
+%list_com_E_CO2 := 21 22 24 #[ce2]
+
+%list_household = "H01" '' H02 H03 H04 H05" '[h]
+%list_household := H01 # H02 H03 H04 H05 #[h]
+
+
+
+  !step_1=0
+  For %sec  {%list_sec}
+    !step_2=0
+    For %ems  {%list_com_E_CO2}
+      call create_series("EMS_SEC_"+%ems+"_"+%sec,STEADYSTATE(2,1),EMS_SEC(1+!step_1,1+!step_2))
+
+      !step_2=!step_2+1
+    next
+    !step_1=!step_1+1
+  next
+
+
+
+  !step_1=0
+  For %sec {%list_sec}
+    call create_series("EMS_DC_"+%sec,STEADYSTATE(2,1),EMS_DC(1+!step_1,3))
+    !step_1=!step_1+1
+  next
+
+
+
+  !step_1=0
+  For %hh {%list_household}
+    !step_2=0
+    For %ems  {%list_com_E_CO2}
+      call create_series("EMS_HH_"+%ems+"_"+%hh,STEADYSTATE(2,1),EMS_HH(71+!step_2,1+!step_1))
+
+      !step_2=!step_2+1
+    next
+    !step_1=!step_1+1
+  next
+
+
+
+# ***AGREGATION OF CO2 EMISSIONS***
+# equation 6.4: CO2 emissions per sector
+  EMS_SEC[s] = sum(EMS[ce2,s] if EMS[ce2,s] <> 0 on ce2)
+
+# equation 6.5: CO2 emissions of all sectors
+  EMS_SEC = sum(EMS[s] if EMS[s] <> 0 on s)
+
+# equation 6.6: CO2 emissions from decarbonation of all sectors   
+  EMS_DC = sum(EMS_DC[s] if EMS_DC[s] <> 0 on s)  
+
+# equation 6.7: CO2 emissions per source
+  EMS_SOU[ce2] = sum(EMS[ce2,s] if EMS[ce2,s] <> 0 on s)
+ 
+# equation 6.8: CO2 emissions of all sectors
+  EMS_SOU = sum(EMS_|V| if EMS_|V| <> 0 on V in ce2)  
+  Verif_EMS = EMS_SEC - EMS_SOU
+  
+# equation 6.9: CO2 emissions all households per source
+  EMS_HH[ce2] = sum(EMS_HH[ce2, h] on h)
+
+# equation 6.10: CO2 emissions all households
+  EMS_HH = sum(EMS_HH[ce2] on ce2)
+
+# equation 6.11: Total CO2 emissions 
+  EMS_TOT = EMS_SEC + EMS_DC + EMS_HH
+
+******************************************************
+include ..\model\lists
+
+# ***CO2 SECTORS EMISSIONS***
+# equation 6.1: CO2 emissions per sector and source
+  d(log(EMS[ce2,s])) = d(log(E[ce2,s])) + IC[ce2,s]  if EMS[ce2,s] <> 0
+
+# equation 6.2: CO2 emissions from decarbonation per sector 
+  d(log(EMS_DC[s])) = d(log(MAT[s])) if EMS_DC[s] <> 0
+
+# equation 6.3: CO2 emissions per household and source  
+  d(log(EMS_HH[ce2,h])) = d(log(EXP[ce2,h])) + IC_HH[ce2,h]  if EMS_HH[ce2,h] <> 0
+
+# ***AGREGATION OF CO2 EMISSIONS***
+# equation 6.4: CO2 emissions per sector
+  EMS_SEC[s] = sum(EMS_|V|[s] if EMS_|V|[s] <> 0 on V in ce2)
+
+# equation 6.5: CO2 emissions of all sectors
+  EMS_SEC = sum(EMS[s] if EMS[s] <> 0 on s)
+
+# equation 6.6: CO2 emissions from decarbonation of all sectors   
+  EMS_DC = sum(EMS_DC[s] if EMS_DC[s] <> 0 on s)  
+
+# equation 6.7: CO2 emissions per source
+  EMS_SOU_|V| = sum(EMS_|V|[s] if EMS_|V|[s] <> 0 on s) where V in ce2
+ 
+# equation 6.8: CO2 emissions of all sectors
+  EMS_SOU = sum(EMS_|V| if EMS_|V| <> 0 on V in ce2)  
+  Verif_EMS = EMS_SEC - EMS_SOU
+  
+# equation 6.9: CO2 emissions all households per source
+  EMS_HH[ce2] = sum(EMS_HH[ce2, h] on h)
+
+# equation 6.10: CO2 emissions all households
+  EMS_HH = sum(EMS_HH[ce2] on ce2)
+
+# equation 6.11: Total CO2 emissions 
+  EMS_TOT = EMS_SEC + EMS_DC + EMS_HH

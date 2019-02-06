@@ -1,0 +1,231 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+effet sobrieté pour l'usage de la voiture+effet report modal dans les transports
+: :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ch\_22\_Auto\_eff=Auto\_eff+enr\_eff\_Auto+\eta.(pch_{22}-pch)-\eta(pch\_22-pch)+eta^{road\_rail}.pch_{14}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+modélisation fred
+\end_layout
+
+\begin_layout Standard
+effet substitution chauffage dans le logement:
+\begin_inset Formula 
+\begin{equation}
+bat\_eff+\eta\varphi(pch\_24-PCH\_23)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+modélisation fred: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ENER_{e,cl}=\eta\varphi(pch\_24-PCH\_23)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Une trop grande augmentation de la conso d'électricité vient du chauffage
+ électrique (substitution interne entre les types d'energie pour le chauffage)
+\end_layout
+
+\begin_layout Subsection*
+Spécification Investissement: (v6.76)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta ia_{a}=\eta^{0}\Delta ia_{a,t-1}+\eta^{1}\Delta y_{a,t}^{e}+\eta^{2}(k_{a,t-1}^{n}-k_{a,t-1})+\eta^{3}\Delta SUBST\_K_{a,t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta y_{a,t}^{e}=\lambda^{1}\Delta y_{a,t-1}^{e}+(1-\lambda^{1})\Delta y_{a,t-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Probleme d'equilibre du compte central a cause des at elem sur les demande
+ de facteur qui sont exprimé en valeur alors qu'il faudrait les prendre
+ en volume.
+ des lors qu'il y'a une substitution il faut regarder cette question.
+\end_layout
+
+\begin_layout Section*
+Question de la subvention par les entreprises des véhicules privés
+\end_layout
+
+\begin_layout Standard
+Une partie de la flotte automobile ainsi que du carburant utilisés par les
+ ménages est directement imputée comme consommation intérmediaire des entreprise
+s (CI_03 et CI_22).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+ci_{22,a}=y_{a}+\eta(P_{22}^{E}-P_{oth})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+CI_{22,a}=CI_{22}^{VP}+CI_{22,a}^{OTH}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+ci_{22,a}=\Bigg(1-\frac{CI_{22}^{VP}}{\sum CI_{22,a}}\Bigg).y_{a}+\eta(P_{22}^{E}-P^{OTH})+\frac{CI_{22}^{VP}}{\sum CI_{22,a}}.(c_{22\_03})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+avec C_22_03 qui est la consommation de pétrole pour l'usage de véhicule.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+CI_{22\_03}=\sum_{k}C_{22\_03,k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Sur les données
+\end_layout
+
+\begin_layout Standard
+Revoir la répartition des consommation intérmédiaires entre les secteurs
+ 23 et 24.
+ La répartition provient du fichier 
+\begin_inset Quotes eld
+\end_inset
+
+Import_table_calculation
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Il faudra revoir cette répartition afin qu'elle soit compatible avec les
+ données DGEC
+\end_layout
+
+\end_body
+\end_document

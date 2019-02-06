@@ -1,0 +1,16 @@
+# Create stock series for every commodities, both domestic and imported
+
+#@over DS_base_trend := sum(DS|O|[c] on c, O in D M)
+
+DS_add := 0
+
+#@over DS_trend := DS_base_trend + DS_add
+
+GR_GDP := GDP/GDP{-1}-1
+
+#X_add := 0
+#EXPG_trend_add := 0
+#
+#X|O|_other := sum(X|O|[cm] on cm) 
+#
+#X_other := XD_other + XM_other
