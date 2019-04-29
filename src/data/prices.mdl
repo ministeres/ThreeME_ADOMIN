@@ -44,6 +44,8 @@ RK[s] := r[s]
 
 PE_sec*E_sec := sum(PE[s]*E[s] on s)
 
+PEner[s] := PE[s]
+
 E_sec := sum(E[s] on s)
 
 PM_n[c] := P       
@@ -54,4 +56,11 @@ PXD_n[c] := P
 
 PXD_e[c] := P
 
+PYQS_BTCO[c] := P
+
+PMS_BTCO[c] := P
+
+PED[ce,s] := P
+
+PEM[ce,s] := P
  

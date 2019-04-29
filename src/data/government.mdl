@@ -33,3 +33,7 @@ Tvat|O|[c] := (VAT|O|_HSH[c] / (CH|O|[c] - VAT|O|_HSH[c]+0.00000000000000000001)
 EXO_ETS := 0 
 EXO_NETS := 0 
 TQETS[ce2,s] := Ttco_vol[ce2] * (1 - EXO[ce2, s]) 
+
+TTICD[c] * YQ[c] := PENERTD[c] * ENERTD[c]            #modifié ADEME
+
+TTICM[c] * M[c] :=  PENERTM[c] * ENERTM[c]            #modifié ADEME

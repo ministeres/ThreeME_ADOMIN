@@ -22,7 +22,7 @@ NCU[s]*Y[s] = CU[s]*Y[s] + PIY[s]*IY[s] + PSY[s]*SY[s] + PIS[s]*IS[s] if Y[s] > 
 
 # equation 5.3
 
-CU[s]*Y[s] = CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PE[s]*E[s] + PMAT[s]*MAT[s] if Y[s] > 0
+CU[s]*Y[s] = CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] if Y[s] > 0
 
 # equation 5.4
 
@@ -76,7 +76,9 @@ PMAT[s]*MAT[s] = sum(PMAT[cm, s]*MAT[cm, s] if MAT[cm, s] <> 0 on cm) if MAT[s] 
 
 # equation 5.12: Energy cost in activity a
 
-PE[s]*E[s] = sum(PE[ce, s]*E[ce, s] if E[ce, s] <> 0 on ce) if E[s] <> 0
+PEner[s]*Ener[s] = sum(PE[ce, s]*E[ce, s] if E[ce, s] <> 0 on ce) if E[s] <> 0         #modifié Gaël
+
+PE[s] = PEner[s]                                                                       #modifié Gaël
 
 # equation 5.14
 
@@ -84,11 +86,11 @@ PMAT[cm, s]*MAT[cm, s] = PMATD[cm]*MATD[cm, s] + PMATM[cm]*MATM[cm, s] if MAT[cm
 
 # equation 5.15
 
-PE[ce,s]*E[ce,s] = PED[ce]*ED[ce, s] + PEM[ce]*EM[ce, s] + TCO_VAL[ce, s] if E[ce,s] <> 0
+PE[ce,s]*E[ce,s] = PED[ce,s]*ED[ce,s] + PEM[ce,s]*EM[ce,s]  if E[ce,s] <> 0       #modifié Gaël
 
-PE_sec*E_sec = sum(PE[s]*E[s] on s)
+PE_sec*E_sec = sum(PEner[s]*Ener[s] on s)
 
-E_sec = sum(E[s] on s)
+E_sec = sum(Ener[s] on s)
 
 # equation 5.16
 
@@ -100,11 +102,11 @@ PIA[s]*IA[s] = sum(PIA[c, s]*IA[c, s] if IA[c, s] <> 0 on c) if IA[s] <> 0
 
 # equation 5.18
 
-PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1 + TothtD[c]) + YQ[c]*(TenertD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2
+PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1 + TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2         
 
-PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TenertD[c] + TsubD[c]) if YQS[c] > 0 where c in %list_trsp_services
+PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) if YQS[c] > 0 where c in %list_trsp_services
 
-PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TenertD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2
+PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2     #modifié Gaël
 
 # equation 5.19
 
@@ -112,11 +114,23 @@ d(log(YQS[c])) = d(log(YQ[c])) if YQS[c] > 0
 
 # equation 5.20
 
-PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TenertM[c] + TsubM[c]) + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2
+PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TTICM[c] + TsubM[c]) + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2
 
-PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TenertM[c] + TsubM[c]) if MS[c] > 0 where c in %list_trsp_services
+PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TTICM[c] + TsubM[c]) if MS[c] > 0 where c in %list_trsp_services
 
-PMS[ce2]*MS[ce2] = PM[ce2]*M[ce2]*(1 + TothtM[ce2]) + M[ce2]*(TenertM[ce2] + TsubM[ce2]) + PMTM[ce2]*MTM[ce2] + PMCM[ce2]*MCM[ce2] if MS[ce2] > 0
+PMS[ce2]*MS[ce2] = PM[ce2]*M[ce2]*(1 + TothtM[ce2]) + M[ce2]*(TTICM[ce2] + TsubM[ce2]) + PMTM[ce2]*MTM[ce2] + PMCM[ce2]*MCM[ce2] if MS[ce2] > 0        #modifié Gaël
+
+# Production pric ebefore carbon tax. #modifié Gaël
+
+PYQS_BTCO[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TenertD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2
+
+PMS_BTCO[c]*MS[c] = PM[ce]*M[c]*(1 + TothtM[c]) + M[c]*(TenertM[c] + TsubM[c]) + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0   where c in %list_com_E_CO2
+
+# Energy consumption price after carbon tax   #modifié Gaël
+
+PED[ce,s] * ED[ce,s] = (PYQS_BTCO[ce] * ED[ce,s] +TCO_VALD[ce,s]) * (1 + TvatDoth[ce]) / (1 + @elem(TvatDoth[ce], %baseyear))   if ED[ce,s] > 0
+
+PEM[ce,s] * EM[ce,s] = (PMS_BTCO[ce] * EM[ce,s] + TCO_VALM[ce,s]) * (1 + TvatMoth[ce]) / (1 + @elem(TvatMoth[ce], %baseyear))    if EM[ce,s] > 0
 
 # equation 5.21
 
@@ -128,22 +142,17 @@ PMAT|O|[cm] = P|V|S[cm] * (1 + Tvat|O|oth[cm]) / (1 + @elem(Tvat|O|oth[cm], %bas
 
 # equation 5.23 & 5.25
 
-PE|O|[ce] = P|V|S[ce] * (1 + Tvat|O|oth[ce]) / (1 + @elem(Tvat|O|oth[ce], %baseyear)) if CI|O|[ce] <> 0 where (O, V) in (D M, YQ M)
+PE|O|[ce] = P|V|S[ce] * (1 + Tvat|O|oth[ce]) / (1 + @elem(Tvat|O|oth[ce], %baseyear)) if CI|O|[ce] <> 0 where (O, V) in (D M, YQ M)           
 
 # equation 5.26 & 5.27
 
 PCH|O|[c] = P|V|S[c]*(1 + Tvat|O|[c]) / (1 + @elem(Tvat|O|[c], %baseyear)) if CH|O|[c] <> 0 where c in %list_com \ %list_com_E_CO2, (O, V) in (D M, YQ M)
 
 
-PCH|O|[ce2] = P|V|S[ce2]*(1 + Tvat|O|[ce2]) / (1 + @elem(Tvat|O|[ce2], %baseyear)) + Ttco[ce2]*EMS_HH[ce2]/EXP[ce2] _ 
-              if CH|O|[ce2] <> 0 where (O, V) in (D M, YQ M)                                                                # à corriger ? voir ci dessous
+PCH|O|[ce2] = P|V|S[ce2]*(1 + Tvat|O|[ce2]) / (1 + @elem(Tvat|O|[ce2], %baseyear))  _ 
+              if CH|O|[ce2] <> 0 where (O, V) in (D M, YQ M)                                 #modifié Gaël                                                           
 
 
-#@over PCHD[ce2] * CHD[ce2] = PYQS[ce2]* CHD[ce2]*(1 + TvatD[ce2]) / (1 + @elem(TvatD[ce2], %baseyear)) + Ttco[ce2]*EMS_HH[ce2]*CHD[ce2]/(CHD[ce2]+CHM[ce2]) _ 
-              #if CHD[ce2] <> 0                                                                
-#
-#@over PCHM[ce2] * CHM[ce2] = PMS[ce2]* CHM[ce2]*(1 + TvatM[ce2]) / (1 + @elem(TvatM[ce2], %baseyear)) + Ttco[ce2]*EMS_HH[ce2]*CHM[ce2]/(CHD[ce2]+CHM[ce2]) _ 
-                  #if CHM[ce2] <> 0
 
 # equation 5.28 & 5.29
 

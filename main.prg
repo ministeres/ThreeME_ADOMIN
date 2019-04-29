@@ -14,7 +14,8 @@ include .\configuration.prg
 ' Utility procedures
 include .\src\utils\subroutines
 include .\src\utils\results_outputs
-
+include .\src\utils\tes
+ 
 ' Addin: External compiler
 include .\src\addin\model_addin.prg
 include .\src\addin\export.prg
@@ -30,7 +31,7 @@ include .\src\data\standard_shocks
 include .\src\model\tracker.prg
 include .\src\model\solve
 include .\src\model\run
-
+ 
 
 ' ***********
 ' Model run
@@ -42,4 +43,8 @@ For %DC {%calibrations}
 
     call run(%data_calibration,%data_shocks)
 
+    call export_TES
+    
 Next
+
+

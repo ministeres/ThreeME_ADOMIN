@@ -487,15 +487,11 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
     
     # E_indus[s]: energy carrier used within sector s for non-energy purposes (ex: petrochemical feedstock)
     
-    d(log(E_indus_n[s])) = d(log(Y[s])) + d(SUBST_E[s]) - d(log(PROG_E_indus[s])) if E_indus_n[s] <> 0     #modifié
+    d(log(E_indus_n[s])) = d(log(Y[s])) + d(SUBST_E[s]) - d(log(PROG_E_indus[s])) if E_indus_n[s] <> 0     #modifié 
     
     # Ajustment of E_oth[s] and E_indus[s]
     
     log(|V|[s]) = ADJUST(2 + $V, 1) * log(|V|_n[s]) + (1 - ADJUST(2 + $V, 1)) * (log(|V|[s]{-1}) + d(log(|V|_e[s]))) if |V|[s] <> 0 where V in E_oth E_indus, s in %list_sec
-    
-    # E_oth[s] = sum( E_oth[ce, s] on ce )
-    
-    # E_indus[s] = sum( E_indus[ce, s] on ce )
     
     d(log(|V|_e[s])) = ADJUST(2 + $V, 2) * d(log(|V|_e[s]{-1})) + ADJUST(2 +$V, 3) * d(log(|V|[s]{-1})) + ADJUST(2 + $V, 4) * d(log(|V|_n[s])) if |V|[s] <> 0 where V in E_oth E_indus
     
@@ -504,6 +500,10 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
     d(log(E_indus[ce, s])) = d(log(E_indus[s])) + d(SUBST_E[ce, s]) if E_indus[ce, s] <> 0
     
     d(log(E_oth[ce, s])) = d(log(E_oth[s])) + d(SUBST_E[ce, s]) if E_oth[ce, s] <> 0
+    
+    @over E_n[s] = E_indus_n[s] + E_oth_n[s] 
+    
+    Ener[s] = sum(E[ce,s] on ce)
     
     E_indus_SOU[ce] = sum( E_indus[ce, s] on s )
     
@@ -517,11 +517,15 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
     
     E_oth_SOU_non_ener[ce] = sum(E_oth[ce, sne] on sne)
     
-    @over E[ce, s] = E_indus[ce, s] + E_oth[ce, s] if E[ce, s] <> 0
+    @over E[ce, s] = E_indus[ce, s] + E_oth[ce, s] 
     
-    @over E[s] = E_indus[s] + E_oth[s]  if E[s] <> 0
+    @over E[s] = E_indus[s] + E_oth[s]  
     
-    verif_E[s] = sum( E[ce, s] on ce ) - E[s] if E[s] <> 0
+    verif_E[s] = sum( E[ce, s] on ce ) - E[s] 
+    
+    verif_E_indus[s] = sum( E_indus[ce, s] on ce ) - E_indus[s] 
+    
+    verif_E_oth[s] = sum( E_oth[ce, s] on ce ) - E_oth[s] 
     
     # Exception for the households block
     
@@ -1048,27 +1052,42 @@ U_auto_elec[h] * @elem(NewAUTO_elec[h],%baseyear) = sum(U_auto_elec[h,pcl] * @el
 U_auto_th[h] * @elem(NewAUTO_th[h],%baseyear) = sum(U_auto_th[h,ecl] * @elem(NewAUTO_th[h,ecl],%baseyear) on ecl)
 
   ##-------------------------- sectors' GDP calibration over the 2006-2015 period--------- Modifié 
-                                                        
+
+DSD[c] = SUPPLY_USE_DOM($c,(NELEMSET(1,1)+1)+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+DSM[c] = SUPPLY_USE_FOREIGN($c,1+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+#@over CIexo[cm,sne]  = MAT[cm]  
+#@over CIDexo[cm,sne]  = MATD[cm,sne]          
+#@over CIMexo[cm,sne]  = MATM[cm,sne]
+                                                          
   d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2015) + log(1+STEADYSTATE(2,1)) *(@year>2015)   if Xexo[cm] <> 0
   
   @over dlog(X[cm]) = (dlog(Xexo[cm]))*(@year<=2015) + (d(log(WD[cm])) + d(SUBST_X[cm])) *(@year>2015)   if X[cm] <> 0
  
-  
-  @over DSD[cm] = (@year<=2006)* (DS_trend * @elem(DSD[cm], %baseyear) / @elem(DSD + DSM, %baseyear)) + _
-                 (@year>2006)*( (QDexo[cm]-CID[cm]-CHD[cm]- GD[cm]-ID[cm] -XD[cm])*(@year<=2015) + (DS_trend * DSD[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
-  
-  #@over DSD[cm] = (DSexo[cm] -DSM[cm])*(@year<=2015) + (DSD[cm]{-1}*(1+dlog(DS_trend)))*(@year>2015)   
+#gel  
+  #gel@over DSD[cm] = (@year<=2006)* (DS_trend * @elem(DSD[cm], %baseyear) / @elem(DSD + DSM, %baseyear)) + _
+                 #gel(@year>2006)*( (QDexo[cm]-CID[cm]-CHD[cm]- GD[cm]-ID[cm] -XD[cm])*(@year<=2015) + (DS_trend * DSD[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
+#gel  
+  #gel#@over DSD[cm] = (DSexo[cm] -DSM[cm])*(@year<=2015) + (DSD[cm]{-1}*(1+dlog(DS_trend)))*(@year>2015)   
+#gel 
+  #gel@over DSD[ce2] = DS_trend * @elem(DSD[ce2], %baseyear) / @elem(DSD + DSM, %baseyear)
+#gel  
+  #gel#@over DSM[cm] = (DSMexo[cm]) * (@year<=2015) + (DSM[cm]{-1} * (1+dlog(DS_trend))) * (@year>2015)     
+#gel 
+  #gel@over DSM[ce2] = DS_trend * @elem(DSM[ce2], %baseyear) / @elem(DSD + DSM, %baseyear)
+#gel 
+  #gel@over DSM[cm] = (@year<=2006) * (DS_trend * @elem(DSM[cm], %baseyear) / @elem(DSD + DSM, %baseyear)) + _
+                   #gel(@year>2006) * ( (QMexo[cm]-CIM[cm]-CHM[cm]- GM[cm]-IM[cm] -XM[cm]) * (@year<=2015) + (DS_trend * DSM[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
+
+ #gel@over DS[c] =  DSD[c] + DSM[c]
  
-  @over DSD[ce2] = DS_trend * @elem(DSD[ce2], %baseyear) / @elem(DSD + DSM, %baseyear)
-  
-  #@over DSM[cm] = (DSMexo[cm]) * (@year<=2015) + (DSM[cm]{-1} * (1+dlog(DS_trend))) * (@year>2015)     
- 
-  @over DSM[ce2] = DS_trend * @elem(DSM[ce2], %baseyear) / @elem(DSD + DSM, %baseyear)
- 
-  @over DSM[cm] = (@year<=2006) * (DS_trend * @elem(DSM[cm], %baseyear) / @elem(DSD + DSM, %baseyear)) + _
-                   (@year>2006) * ( (QMexo[cm]-CIM[cm]-CHM[cm]- GM[cm]-IM[cm] -XM[cm]) * (@year<=2015) + (DS_trend * DSM[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
- 
- 
+ @over DS[cm] =   (@year<=2006)* (DS_trend ) + @year>2006)*( (QDexo[cm] + QMexo[cm] -CI[cm]-CH[cm]- G[cm]-I[cm] -X[cm])*(@year<=2015) + _
+                    (DS_trend * DSD[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
+                    
+@over DSD[cm] =  DS[cm] *QD[cm]/(QD[cm]+QM[cm])
+
+@over DSM[cm] =  DS[cm] -DSD[cm]
+
+    
   @over EXP_n[co, h] = (@year <= 2015)*((@year <= %baseyear) * (@elem(EXP_n[co, h],%baseyear) * (1 + STEADYSTATE(2, 1))^(@year-%baseyear))+ _
                       (@year > %baseyear)*(EXP_n[co,h]{-1}*EXPexo[co]/EXPexo[co]{-1})) + _
                       (@year >  2015) * ((PEXP[co, h] * NEXP[co, h] + BetaExp[co, h] * _ 

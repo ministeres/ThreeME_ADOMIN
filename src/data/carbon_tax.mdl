@@ -16,14 +16,14 @@ TCO_VAL_SEC := sum(TCO_VAL_SEC[s] on s)
 TCO_VAL_SOU := sum(TCO_VAL_SOU[ce2] on ce2)
 verif_TCO_VAL := TCO_VAL_SOU - TCO_VAL_SEC
 
+TCO_VOL[ce2] * (PYQ[ce2] * YQ[ce2] + PM[ce2] * M[ce2]) := (TCO_VAL_SOU[ce2] + TCO_VAL_HH_SOU[ce2]) * (YQ[ce2] + M[ce2]) 
+
 # equation 6.18
-# TCO_VAL|O|[ce, s] := if(E[ce, s] <> 0, TCO_VAL[ce, s] * E|O|[ce, s]/E[ce, s], 0)
 
 TCO_VAL|O|[ce, s] := 0
-# @over  TCO_VAL|O|[ce2, s] := if(E[ce2, s] <> 0, TCO_VAL[ce2, s] * E|O|[ce2, s]/E[ce2, s], 0) 
-# @over  TCO_VAL|O|[ce2, s] := TCO_VAL[ce2, s] * E|O|[ce2, s]/E[ce2, s] if E[ce2, s] <> 0
 
 TCO_VAL|O|_SOU[c] := 0
+
 @over TCO_VAL|O|_SOU[ce2] :=  sum(TCO_VAL|O|[ce2, s] on s)
 
 # equation 6.19
@@ -35,6 +35,14 @@ TCO_VAL_HH_SOU[c] := 0
 
 TCO_VAL_HH[h] := sum(TCO_VAL_HH[ce2, h] on ce2)
 TCO_VAL_HH := sum(TCO_VAL_HH[h] on h)
+
+TCO_VALD_HH_SOU[c] := 0
+TCO_VALM_HH_SOU[c] := 0
+
+TCO_VALD[c] := 0
+
+TCO_VALM[c] := 0
+
 
 # equation 6.20
 Rec_TCO_VAL := TCO_VAL_SEC + TCO_VAL_HH

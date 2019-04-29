@@ -3,13 +3,13 @@
 # Taxes on energy
 
 # equation 3.1
-PENERTD[c] * ENERTD[c] = TENERTD[c] * YQ[c] if ENERTD[c] <> 0
+PENERTD[c] * ENERTD[c] = TENERTD[c] * YQ[c]  + TCO_VALD[c]   if ENERTD[c] <> 0     #modifié ADEME
 
 # equation 3.2
 ENERTD[c] = @elem(TENERTD[c], %baseyear) * YQ[c] if ENERTD[c] <> 0
 
 # equation 3.3
-PENERTM[c] * ENERTM[c] = TENERTM[c] * M[c] if ENERTM[c] <> 0
+PENERTM[c] * ENERTM[c] = TENERTM[c] * M[c] + TCO_VALM[c]   if ENERTM[c] <> 0               #modifié ADEME
 
 # equation 3.4
 ENERTM[c] = @elem(TENERTM[c], %baseyear) * M[c] if ENERTM[c] <> 0
@@ -17,15 +17,24 @@ ENERTM[c] = @elem(TENERTM[c], %baseyear) * M[c] if ENERTM[c] <> 0
 # equation 3.5, 3.6
 @pv ENERT[c] = sum(ENERT|O|[c] on O) if ENERT[c] <> 0
 
+@over ENERT[ce2] = ENERTD[ce2] + ENERTM[ce2]     #modifié Gaël
+
+@over PENERT[ce2] * ENERT[ce2] = PENERTD[ce2] * ENERTD[ce2] + PENERTM[ce2] * ENERTM[ce2] # + TCO_VAL_SOU[ce2] + TCO_VAL_HH_SOU[ce2]                           #modifié Gaël
+
+TTICD[c] * YQ[c] = PENERTD[c] * ENERTD[c]   if YQ[c]>0         #modifié ADEME
+
+TTICM[c] * M[c] =  PENERTM[c] * ENERTM[c]   if M[c]>0         #modifié ADEME
+
 # equation 3.7, 3.8
 @pv ENERT = sum(ENERT[c] if ENERT[c] <> 0 on c)
 
 # VAT taxes on commodity c
 # equations 3.9, 3.11
-PVAT|O|[c] * VAT|O|[c] = TVAT|O|[c] * (PCH|O|[c] * CH|O|[c])/(1 + TVAT|O|[c]) + _
-                         TVAT|O|OTH[c] * (PI|O|[c] * I|O|[c] + PCI|O|[c] * CI|O|[c] + PG|O|[c] * G|O|[c]) / (1 + TVAT|O|OTH[c]) _
-                         if VAT|O|[c] <> 0
 
+PVAT|O|[c] * VAT|O|[c] = TVAT|O|[c] * (PCH|O|[c] * CH|O|[c])/(1 + TVAT|O|[c]) + _
+                         TVAT|O|OTH[c] * (PI|O|[c] * I|O|[c] + PCI|O|[c] * CI|O|[c] + PG|O|[c] * G|O|[c]) / (1 +TVAT|O|OTH[c]) _
+                         if VAT|O|[c] <> 0
+                         
 # equations 3.10, 3.12
 VAT|O|[c] = @elem(TVAT|O|[c],    %baseyear) *  CH|O|[c]                      / (1 + @elem(TVAT|O|[c],    %baseyear)) + _
             @elem(TVAT|O|OTH[c], %baseyear) * (I|O|[c] + CI|O|[c] + G|O|[c]) / (1 + @elem(TVAT|O|OTH[c], %baseyear)) _
@@ -64,6 +73,8 @@ TAX[c] = VAT[c] + ENERT[c] + OTHT[c] if TAX[c] <> 0
 
 # equation 3.26
 PTAX[c] * TAX[c] = PVAT[c] * VAT[c] + PENERT[c] * ENERT[c] + POTHT[c] * OTHT[c] + TCO_VAL_SOU[c] + TCO_VAL_HH_SOU[c] if TAX[c] <> 0
+
+@over PTAX[c] * TAX[c] = PVAT[c] * VAT[c] + PENERT[c] * ENERT[c] + POTHT[c] * OTHT[c]  if TAX[c] <> 0             #corrigé Gaël
 
 # equations 3.27 & 3.2
 @pv TAX = sum(TAX[c] if TAX[c] <> 0 on c)

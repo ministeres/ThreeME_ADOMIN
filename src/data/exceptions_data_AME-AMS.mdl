@@ -339,3 +339,4 @@ GR_Eexo_24_ster :=0
 
 TREND_E_BUIL[ce] :=0
 
+X_exo_23 := @elem(X_23, %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)

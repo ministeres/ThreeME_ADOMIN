@@ -22,7 +22,7 @@ PX[c] * X[c] = PXD[c] * XD[c] + PXM[c] * XM[c] if X[c] <> 0
 PCI|O|[cm, s] = PMAT|O|[cm] if CI|O|[cm, s] > 0
 CI|O|[cm, s] = MAT|O|[cm, s] if CI|O|[cm, s] > 0
 
-PCI|O|[ce, s] = PE|O|[ce] + TCO_VAL|O|[ce, s] / E|O|[ce, s] if CI|O|[ce, s] > 0
+PCI|O|[ce, s] = PE|O|[ce]  if CI|O|[ce, s] > 0
 CI|O|[ce, s] = E|O|[ce, s] if CI|O|[ce, s] > 0
 
 #equation 1.22
@@ -50,7 +50,7 @@ PGDPter * GDPter = PVA * VA + PTAX * TAX + PSUB * SUB
 GDPter = VA + TAX + SUB
 
 # equation 1.32
-YQ[c]*PYQ[c] = PQD[c]*QD[c] - PVATD[c]*VATD[c] - POTHTD[c]*OTHTD[c] - PSUBD[c]*SUBD[c] - (PMCD[c]*MCD[c] + PMTD[c]*MTD[c])- PENERTD[c]*ENERTD[c] - TCO_VALD_SOU[c] - TCO_VAL_HH_SOU[c] * CHD[c] / ((CH[c]>0) * CH[c] + (CH[c]<=0) * 1) if YQ[c] <> 0
+YQ[c]*PYQ[c] = PQD[c]*QD[c] - PVATD[c]*VATD[c] - POTHTD[c]*OTHTD[c] - PSUBD[c]*SUBD[c] - (PMCD[c]*MCD[c] + PMTD[c]*MTD[c])- PENERTD[c]*ENERTD[c]  if YQ[c] <> 0
 
 # equation 1.33
 YQbis[c] = QD[c] - VATD[c] - OTHTD[c] - SUBD[c] - (MCD[c] + MTD[c]) - ENERTD[c] if YQ[c] <> 0
@@ -58,7 +58,7 @@ YQbis[c] = QD[c] - VATD[c] - OTHTD[c] - SUBD[c] - (MCD[c] + MTD[c]) - ENERTD[c] 
 # PROBLEME! Eq. PMbis et PQbis devrait être utilisée pour calculer les volumes. Voir si la spécification actuelle est équivalente.
 
 # equation 1.34
-M[c]*PM[c] = PQM[c]*QM[c] - PVATM[c]*VATM[c] - POTHTM[c]*OTHTM[c] - PSUBM[c]*SUBM[c] - (PMCM[c]*MCM[c] + PMTM[c]*MTM[c]) - PENERTM[c]*ENERTM[c] - TCO_VALM_SOU[c] - TCO_VAL_HH_SOU[c] * CHM[c] / ((CH[c]>0) * CH[c] + (CH[c]<=0) * 1) if M[c] <> 0
+M[c]*PM[c] = PQM[c]*QM[c] - PVATM[c]*VATM[c] - POTHTM[c]*OTHTM[c] - PSUBM[c]*SUBM[c] - (PMCM[c]*MCM[c] + PMTM[c]*MTM[c]) - PENERTM[c]*ENERTM[c]  if M[c] <> 0
 
 # equation 1.35
 Mbis[c] = QM[c] - VATM[c] - OTHTM[c] - SUBM[c] - (MCM[c]+MTM[c])- ENERTM[c] if M[c] <> 0
@@ -78,7 +78,10 @@ PI|O|[c] * I|O|[c] = sum(PIA|O|[c] * IA|O|[c, s] if IA|O|[c, s] <> 0 on s) if I|
 I|O|[c] = sum(IA|O|[c, s] if IA|O|[c, s] <> 0 on s) if I|O|[c] <> 0
 
 # equations 1.46 & 1.47
-@pv VA[s] = Y[s] - MAT[s] - E[s] where s in %list_sec
+
+VA[s] = Y[s] - MAT[s] - Ener[s] where s in %list_sec
+
+PVA[s] * VA[s] = PY[s] * Y[s] - PMAT[s] * MAT[s] - PEner[s]*Ener[s] where s in %list_sec
 
 # equations 1.48 & 1.49
 @pv VA = sum(VA[s] on s)
