@@ -44,3 +44,23 @@ include ..\model\lists
   EMS_SOU[ce2] = EMS_SECSOU[ce2] + EMS_HH[ce2]
   
   verif_EMS_SOU = sum(EMS_SOU[ce2] on ce2) - EMS_SOU   
+  
+Carbon_foot = EMS_TOT/1000000 + EMS_M - EMS_X      
+
+EMS_M = 0 + sum(EMS_M[c] on c)
+
+EMS_X = sum(EMS_X[c] on c) 
+
+EMS_M[c] = FOOTPRINT($c,1)*M[c]
+
+EMS_X[c] =  EMS[c]*X[c]/(YQ[c]*1000000)
+
+EMS[sne] =  EMS_SEC[sne]/Y[sne]*YQ[sne]   # grossier : on connait les émissions par secteur mais pas par produit
+
+EMS[21] =  EMS_SEC[21]
+
+EMS[22] =  sum(EMS_SEC[se22] on se22)
+
+EMS[23] =  sum(EMS_SEC[se23] on se23)
+
+EMS[24] =  sum(EMS_SEC[se24] on se24)

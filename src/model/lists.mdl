@@ -25,6 +25,7 @@
 %list_com_commarg := 19 # [ccm] # For now only one possible
 
 %list_trsp := 14 15 16 17 18 #[trsp]
+%list_trsp_road := 15 16 #[road]
 %list_trsp_travel := 14 15 18
 %list_trsp_services := 14 15 16 17 18 19
 %list_trsp_services_E_CO2 := 14 15 16 17 18 19 21 22 24
@@ -61,6 +62,7 @@ ccm in %list_com_commarg
 cind in %list_com_indus
 
 trsp in %list_trsp
+road in %list_trsp_road 
 trav in %list_trsp_travel
 
 co in %list_com_oth

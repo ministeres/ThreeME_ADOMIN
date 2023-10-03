@@ -29,7 +29,7 @@ include ..\model\lists
    
   # Equation H.4.39  H.4.40
   
-    d(tau_REHAB_N[h,ecl]) = (@year>%baseyear)*(- nu_REHAB[h,ecl]*dlog(Payback_REHAB[h,ecl])) if tau_REHAB[h,ecl] <> 0      #modifié
+    d(tau_REHAB_N[h,ecl]) = (@year>%baseyear)*((nu_REHAB[h,ecl]*dlog(Payback_REHAB[h,ecl])<tau_REHAB_N[h,ecl]{-1})*(- nu_REHAB[h,ecl]*dlog(Payback_REHAB[h,ecl]))) if tau_REHAB[h,ecl] <> 0
   
     tau_REHAB_2[h,ecl] = ADJUST(74,1)*tau_REHAB_N[h,ecl] + (1-ADJUST(74,1))*tau_REHAB[h,ecl]{-1} if tau_REHAB[h,ecl] <> 0
     
@@ -58,7 +58,7 @@ include ..\model\lists
   
   SUM_phi_REHAB_n[h,ecl] = (sum(phi_REHAB_n[h,ecl,ecl2] if REHAB[h,ecl,ecl2] <> 0 on ecl2))   if REHAB[h,ecl] <> 0
   
-  phi_REHAB[h,ecl,ecl2] = (phi_REHAB_n[h,ecl,ecl2]/SUM_phi_REHAB_n[h,ecl])  if REHAB[h,ecl,ecl2] <> 0 if REHAB[h,ecl] <> 0
+  phi_REHAB[h,ecl,ecl2] = (phi_REHAB_n[h,ecl,ecl2]>0)*(phi_REHAB_n[h,ecl,ecl2]/SUM_phi_REHAB_n[h,ecl]) + (phi_REHAB_n[h,ecl,ecl2]<=0)*0  if REHAB[h,ecl,ecl2] <> 0 if REHAB[h,ecl] <> 0
   
   #U_REHAB[h,ecl,ecl2] = 1000000*((UC_E[h,ecl]{-1} - UC_E[h,ecl2]{-1}) - ((1 - R_SUB[h,ecl,ecl2]{-1}) * PREHAB[h,ecl,ecl2]{-1}))   if REHAB[h,ecl,ecl2] <> 0
   #
@@ -98,6 +98,8 @@ include ..\model\lists
    
    R_LOAN_REHAB[h,ecl] = 1 - R_CASH_REHAB[h,ecl] if REHAB[h,ecl] <> 0
    
+   R_RMBS_REHAB[h, ecl] = if(REHAB[h, ecl] <> 0, 1 / LD_REHAB[h, ecl], 1)
+   
    # Equation H.4.49 H.4.50  H.4.51'
    
    UC_K[h,ecl] = ( PREHAB[h,ecl,ecl] / BUIL_D[h,ecl] ) * (R_CASH[h,ecl] + R_LOAN[h,ecl] * R_I_BUIL[h,ecl]{-1} * LD[h,ecl] / _
@@ -118,7 +120,7 @@ include ..\model\lists
    
      # Equation H.4.54, H.4.55, and H.4.56
   
-UC_E[h, ecl] = PENER_m2[h, ecl] * ( ((1 + GR_PENER_m2_e[h, ecl]) ^ BUIL_D[h, ecl] - 1) / (GR_PENER_m2_e[h, ecl] * BUIL_D[h, ecl]) )    # modifié
+UC_E[h, ecl] = PENER_m2[h, ecl] * ( ((1 + GR_PENER_m2_e[h, ecl] + GR_PE_SIGNAL_H) ^ BUIL_D[h, ecl] - 1) / ((GR_PENER_m2_e[h, ecl] + GR_PE_SIGNAL_H)* BUIL_D[h, ecl]) )   
     
 PENER_m2[h,ecl]  = PENER_BUIL[h,ecl] * ENER_BUIL[h,ecl]/BUIL[h,ecl] 
      
@@ -497,10 +499,26 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
     
     # equation 2.20
     
-    d(log(E_indus[ce, s])) = d(log(E_indus[s])) + d(SUBST_E[ce, s]) if E_indus[ce, s] <> 0
+    d(log(E_indus_des[ce, s])) = d(log(E_indus[s])) + d(SUBST_E[ce, s]) if E_indus_des[ce, s] <> 0
     
-    d(log(E_oth[ce, s])) = d(log(E_oth[s])) + d(SUBST_E[ce, s]) if E_oth[ce, s] <> 0
+    d(log(E_oth_des[ce, s])) = d(log(E_oth[s])) + d(SUBST_E[ce, s]) if E_oth_des[ce, s] <> 0
     
+    E_indus[ce, s] = phi_E_indus[ce,s] * E_indus[s]  if E_indus[ce,s] <> 0
+    
+    E_indus_des[s] = sum(E_indus_des[ce, s] on ce)
+         
+    E_oth[ce, s] = phi_E_oth[ce,s] * E_oth[s]  if E_oth[ce,s] <> 0
+    
+    E_oth_des[s] = sum(E_oth_des[ce, s] on ce) 
+       
+    phi_E_oth[ce,s]*((E_oth_des[s]>0)*E_oth_des[s]+(E_oth_des[s]<=0)) = (E_oth_des[s]>0)*E_oth_des[ce,s]+ (E_oth_des[s]<=0)*0  
+ 
+    phi_E_indus[ce,s]*((E_indus_des[s]>0)*E_indus_des[s]+(E_indus_des[s]<=0)) = (E_indus_des[s]>0)*E_indus_des[ce,s]+(E_indus_des[s]<=0)*0   
+    
+    verif_phi_E_oth[s] = sum(phi_E_oth[ce,s] on ce) - 1*(E_oth[s]>0)
+    
+    verif_phi_E_indus[s] = sum(phi_E_indus[ce,s] on ce) - 1*(E_indus[s]>0)  
+   
     @over E_n[s] = E_indus_n[s] + E_oth_n[s] 
     
     Ener[s] = sum(E[ce,s] on ce)
@@ -630,19 +648,21 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
 
 # Equation H.4.78
 
-AUTO_elec[h,DES,pcl] = (@year>%baseyear)*(delta_AUTO[h,CA,DES] * AUTO_elec[h,pcl]{-1}) + (@year<=%baseyear)*AUTO_elec[h,DES,pcl]{-1}*(1+STEADYSTATE(2,1))        
+AUTO_elec[h,DES,pcl] = ( @year > %baseyear )*(delta_AUTO[h,CA,DES] * AUTO_elec[h,pcl]{-1}) + ( @year <= %baseyear ) * (AUTO_th[h,ecl]{-1} * (1+STEADYSTATE(2,1)))       
 
-AUTO_th[h,DES,ecl] = (@year>%baseyear)*(delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1})+ (@year<=%baseyear)*AUTO_th[h,DES,ecl]{-1}*(1+STEADYSTATE(2,1))          
+AUTO_th[h,DES,ecl] = ( @year > %baseyear )* (delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1}) + ( @year <= %baseyear ) * (AUTO_th[h,ecl]{-1} * (1+STEADYSTATE(2,1)))          
 
-AUTO[h,DES,ecl] = (@year>%baseyear)*(AUTO_th[h,DES,ecl]) + (@year<=%baseyear)*AUTO[h,DES,ecl]{-1}*(1+STEADYSTATE(2,1)) 
+AUTO[h,DES,ecl] = AUTO_th[h,DES,ecl] 
 
-@over AUTO[h,DES,CA] = (@year>%baseyear)*(sum(AUTO_elec[h,DES,pcl] on pcl) + AUTO_th[h,DES,CA]) + (@year<=%baseyear)*AUTO[h,DES,CA]{-1}*(1+STEADYSTATE(2,1))           
+@over AUTO[h,DES,CA] = sum(AUTO_elec[h,DES,pcl] on pcl) + AUTO_th[h,DES,CA]         
 
-AUTO[h,DES] = (@year>%baseyear)*(sum(AUTO[h,DES,ecl] on ecl)) + (@year<=%baseyear)*AUTO[h,DES]{-1}*(1+STEADYSTATE(2,1))                    #modifié
+AUTO[h,DES] = (sum(AUTO[h,DES,ecl] on ecl)) 
+
+AUTO_DES = AUTO[h,DES]
 
 # Equation H.4.79 and H.4.80
 
-NewAUTO[h,CA] = NewAUTO_elec[h] + NewAUTO_th[h,CA]   #modifié
+NewAUTO[h,CA] = NewAUTO_elec[h] + NewAUTO_th[h,CA]   
 
 NewAUTO[h,c] = NewAUTO_th[h,c]  where c in %list_ener_class \ CA
 
@@ -654,8 +674,9 @@ AUTO_verif = sum( AUTO_verif[h] on h )
 
 Verif_AUTO = AUTO_verif - AUTO
 
-Verif_AUTO2 = ( @year > %baseyear ) * (NewAUTO - AUTO_DES - d(AUTO)) + ( @year <= %baseyear ) * Verif_AUTO2{-1}
+Verif_AUTO2 = (@year>%baseyear)*(NewAUTO - AUTO_DES - d(AUTO)) + (@year=<%baseyear)* Verif_AUTO2{-1}  
 
+verif_AUTO_DES = (@year>%baseyear)*(AUTO_H01_DES_CA_0+AUTO_H01_DES_CB_0+AUTO_H01_DES_CC_0+AUTO_H01_DES_CD_0+AUTO_H01_DES_CE_0+AUTO_H01_DES_CF_0+AUTO_H01_DES_CG_0-auto_DES_0) + (@year=<%baseyear)* Verif_AUTO_DES{-1} 
 
 # Equation H.4.81
 
@@ -686,18 +707,18 @@ EXP_NEWAUTO_VAL[h,ecl] = PNewAuto[h,ecl] * NewAUTO[h,ecl]
 
 # Equation H.4.88
 
-dlog(AUTO[h])= (@year > %baseyear)*(d(log(Km_auto[h]))-d(log(kmPerAuto[h]))) + _
-              (@year <= %baseyear)*log(1+STEADYSTATE(2,1))                                     #modifié
+dlog(AUTO_N)= (@year > %baseyear)*(d(log(Km_auto[h]))-d(log(kmPerAuto[h]))) + _
+              (@year <= %baseyear)*log(1+STEADYSTATE(2,1))                                     
 
 # Equation H.4.89 and H.4.90
 
-KM_AUTO[h,ecl] = sum(km_AUTO[h, ecl, ce] on ce)    #modifié
+KM_AUTO[h,ecl] = sum(km_AUTO[h, ecl, ce] on ce)    
 
-dlog(EXP_AUTO[h,ecl,ce2]) = d(log(AUTO_th[h,ecl,ce2])) -dlog(PROG_AUTO) -dlog(sobre_AUTO)  if AUTO_th[h,ecl,ce2] <> 0   #modifié
+dlog(EXP_AUTO[h,ecl,ce2]) = d(log(AUTO_th[h,ecl,ce2])) -dlog(PROG_AUTO) -dlog(sobre_AUTO)  if AUTO_th[h,ecl,ce2] <> 0   
 
-EXP_AUTO[h,CA,23] = sum(EXP_AUTO_elec[h,pcl] on pcl)                                             #modifié
+EXP_AUTO[h,CA,23] = sum(EXP_AUTO_elec[h,pcl] on pcl)                                             
 
-EXP_AUTO[h,c,23] = 0   where c in %list_ener_class \CA                                           #modifié
+EXP_AUTO[h,c,23] = 0   where c in %list_ener_class \CA                                           
 
 
 # -------------------------------------------Aggregation of automobile expenditure--------------------------------------------
@@ -726,24 +747,31 @@ EXP_AUTO[ecl, ce] = sum(EXP_AUTO[h, ecl, ce] on h)
 
 # -----------------------------------------------------------AGGREGATION AUTOMOBILE---------------------------------------------------
 # Equation H.4.96
+
 AUTO[bcl] = sum(AUTO[h, bcl] on h)
 
 # Equation H.4.97
+
 AUTO = sum(AUTO[ecl] on ecl)
+
+AUTO[h] = sum(AUTO[h, ecl] on ecl) 
 
 # Equation H.4.98
 
-NewAUTO[h] = (@year>%baseyear)*(d(AUTO[h]) + AUTO[h,DES]) + (@year<=%baseyear)*(NewAUTO[h]{-1}*(1+STEADYSTATE(2,1)))  #  modifié
+NewAUTO[h] = (@year > %baseyear)*(d(AUTO_N) + AUTO[h,DES]) + ( @year =< %baseyear ) * NewAUTO[h]{-1} * ( 1 + STEADYSTATE(2,1) )  
 
 NewAUTO = sum(NewAUTO[h] on h)
 
  # Equation H.4.99
- @over PnewAUTO[h]*NewAUTO[h] = PAUTO_elec[h]*NewAUTO_elec[h] + PNewAUTO_th[h]*NewAUTO_th[h]  if NewAUTO[h]>0         #modifié
+ 
+ @over PnewAUTO[h]*NewAUTO[h] = PAUTO_elec[h]*NewAUTO_elec[h] + PNewAUTO_th[h]*NewAUTO_th[h]  if NewAUTO[h]>0        
  
 # Equation H.4.100
+
 EXP_NEWAUTO_VAL[h] = sum(EXP_NewAUTO_VAL[h, ecl] on ecl)
 
 # Equation H.4.101
+
 EXP_NEWAUTO_VAL = sum(EXP_NEWAUTO_VAL[h] if EXP_NEWAUTO_VAL[h] <> 0 on h)
 
 # Equation H.4.102
@@ -816,17 +844,17 @@ SUB_AUTO_VAL = sum(SUB_AUTO_VAL[h] on h)
       
  ## passager-kilomètre Longue distance
  
- d(log(km_traveler_LD_h01)) =(@year>%baseyear)*(0.37*d(log(dispinc_val/PCH)) -0.4*((km_traveler_14[h]{-1}/( km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
-                             *d(log((pc_trav_14[h]+PC_Trav_14_signal)/PCH)))  -0.4 *(km_trav_auto_LD[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
+ d(log(km_traveler_LD_h01)) =(@year>%baseyear)*(0.25*d(log(dispinc_val/PCH)) -0.4*((km_trav_auto_LD[h]{-1}/( km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
+                             *d(log(PC_trav_14[h]/PCH)))  -0.4 *(km_traveler_14[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
                              * dlog( PC_trav_auto_LD[h]/PCH)) + (2006<@year)*(@year<2016)*trend_km_traveler_LD + _
-                             (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
+                             (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                             
  
  ## passager-kilomètre courte distance
  
- d(log(km_traveler_CD_h01)) =(@year>%baseyear)*(0.4*d(log(dispinc_val/PCH)) -0.3*(km_traveler_15[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
-                             *dlog(pc_trav_15[h]/PCH) - 0.3*dlog(PC_trav_auto_CD[h]/PCH) * km_trav_auto_CD[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
+ d(log(km_traveler_CD_h01)) =(@year>%baseyear)*(0.25*d(log(dispinc_val/PCH)) -0.3*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
+                             *dlog(PC_trav_15[h]/PCH) - 0.3*dlog(PC_trav_auto_CD[h]/PCH) * km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
                              + (2006<@year)*(@year<2016)*trend_km_traveler_CD + _
-                             (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
+                             (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                              
  
  
  ############### Niveau 2 : arbitrages CES           modifié
@@ -837,31 +865,31 @@ SUB_AUTO_VAL = sum(SUB_AUTO_VAL[h] on h)
  
  @over dlog(km_traveler_14[h])=(@year > %baseyear)*(d(log(km_traveler_LD[h]))+ _
                                   0.5*(km_trav_auto_LD[h]{-1}/(km_traveler_14[h]{-1}+km_trav_auto_LD[h]{-1}))*d(log(PC_trav_auto_LD_h01)-log(pc_trav_14[h]+PC_Trav_14_signal)))+ _
-                                   (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
+                                   (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                        # Modifié Hervé
  
  #VP longue distance
  
  dlog(km_trav_auto_LD[h])=(@year > %baseyear)*(d(log(km_traveler_LD[h]))+ _
-                           0.5*(km_traveler_14[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1}))* d(log(pc_trav_14[h])-log(PC_trav_auto_LD[h]+PC_Trav_14_signal))) + _
-                           (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
+                           0.5*(km_traveler_14[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1}))* d(log(pc_trav_14[h]+PC_Trav_14_signal)-log(PC_trav_auto_LD[h]))) + _
+                           (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                                
     
  ## Arbitrage courte distance : Bus et VP (courte distance)
  
  #VP courte distance 
  
  dlog(km_trav_auto_CD[h])=(@year > %baseyear)*(d(log(km_traveler_CD[h]))+ _ 
-                         0.2*(km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))* d(log(pc_trav_15[h])-log(PC_trav_auto_CD[h]))) + _
-                         (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
+                         0.2*(km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))* d(log(pc_trav_15[h] + PC_Trav_15_signal)-log(PC_trav_auto_CD[h]))) + teletravail + voirie +_
+                         (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                                    
  
  # Bus
  
  @over dlog(km_traveler_15[h])=(@year > %baseyear)*(d(log(km_traveler_CD[h]))+ _ 
-                                 0.2*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))*d(log(PC_trav_auto_CD[h])-log(pc_trav_15[h])))+ _
-                               (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
+                                 0.2*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))*d(log(PC_trav_auto_CD[h])-log(pc_trav_15[h]+PC_Trav_15_signal)))+ teletravail + _
+                               (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                               
  
  
  
-############### Auto     modifié
+############### Auto     
 ## km réalisés en voiture : 
 #Longue distance
 
@@ -906,13 +934,15 @@ KM_AUTO_elec[h] = sum(KM_AUTO_elec[h,pcl] on pcl)
 
 KM_AUTO_elec = sum(KM_AUTO_elec[h] on h) 
 
-d(AUTO_elec[h])=(@year>%baseyear)*(NewAUTO[h]*share_elec[h]-delta_AUTO[h,CA,DES]*AUTO_elec[h]{-1})+ _
-                (@year <= %baseyear) * (AUTO_elec[h]{-1} * (STEADYSTATE(2,1) ) )
+#d(AUTO_elec[h])=(@year>%baseyear)*(NewAUTO[h]*share_elec[h]-delta_AUTO[h,CA,DES]*AUTO_elec[h]{-1})+ _
+#                (@year <= %baseyear) * (AUTO_elec[h]{-1} * (STEADYSTATE(2,1) ) )
+
+AUTO_elec[h] = sum(AUTO_elec[h,pcl] on pcl) 
 
 AUTO_elec= sum(AUTO_elec[h] on h)
 
-d(AUTO_elec[h,pcl])= (@year>%baseyear)*(NewAUTO[h]*share_elec[h]*phi_elec[h,pcl]-delta_AUTO[h,CA,DES]*AUTO_elec[h,pcl]{-1}) + _
-                      (@year <= %baseyear) * (AUTO_elec[h,pcl]{-1} * (STEADYSTATE(2,1) ) )
+d(AUTO_elec[h,pcl])= ( @year > %baseyear ) * (NewAUTO[h]*share_elec[h]*phi_elec[h,pcl]-delta_AUTO[h,CA,DES]*AUTO_elec[h,pcl]{-1}) + _
+                     ( @year <= %baseyear ) * (AUTO_elec[h,pcl]{-1} * STEADYSTATE(2,1))
 
 NewAUTO_elec[h] = NewAUTO[h]*share_elec[h]
 
@@ -922,10 +952,9 @@ NewAUTO_th[h, ecl] = NewAUTO_th[h]*phi_th[h,ecl]
 
 NewAUTO_elec[h,pcl] = NewAUTO_elec[h]*phi_elec[h,pcl]
   
-d(AUTO_th[h,ecl])= (@year>%baseyear)*(NewAUTO[h]*(1-share_elec[h])*phi_th[h,ecl]-delta_AUTO[h,ecl,DES]*AUTO_th[h,ecl]{-1}) + _
-                  (@year <= %baseyear)*(AUTO_th[h,ecl]{-1} * (STEADYSTATE(2,1) ) ) 
+d(AUTO_th[h,ecl])= ( @year > %baseyear ) * (NewAUTO[h]*(1-share_elec[h])*phi_th[h,ecl]-delta_AUTO[h,ecl,DES]*AUTO_th[h,ecl]{-1}) + ( @year <= %baseyear ) * (AUTO_th[h,ecl]{-1} * STEADYSTATE(2,1))
 
-AUTO[h,CA] =  AUTO_th[h,CA] + AUTO_elec[h]         #modifié
+AUTO[h,CA] =  AUTO_th[h,CA] + AUTO_elec[h]         
 
 AUTO[h,c] =  AUTO_th[h,c]   where c in %list_ener_class \ CA
 
@@ -957,7 +986,7 @@ R_SUB_AUTO_elec[h,pcl]= bonus_elec[h]/PAUTO_elec[h,pcl]
 
 R_SUB_AUTO_elec[h] = sum(R_SUB_AUTO_elec[h,pcl]*phi_elec[h,pcl] on pcl )
  		
-R_SUB_AUTO_th[h,ecl]= bonus_th[h,ecl]/Pnewauto_th[h,ecl]
+#R_SUB_AUTO_th[h,ecl]= bonus_th[h,ecl]/Pnewauto_th[h,ecl]
  
 R_SUB_AUTO[h,CA]*NewAUTO[h,CA] = (R_SUB_AUTO_elec[h]*NewAUTO_elec[h] + R_SUB_AUTO_th[h,CA]* NewAUTO_th[h,CA]) if NewAUTO[h,CA]>0
 
@@ -980,9 +1009,11 @@ U_auto_elec[h,pcl]=-0.76*UC_K_auto_elec[h,pcl]-0.2*UC_E_auto_elec[h,pcl]
 
 d(phi_elec_n[h,pcl])= (@year>%baseyear)*d(exp(U_auto_elec[h,pcl])/(sum(exp(U_auto_elec[h,c]) where c in %list_price_class)))      
 
-phi_elec_n_tot[h]= sum(phi_elec_n[h,pcl] if  phi_elec_n[h,pcl]>0 on pcl)   
+phi_elec_e[h,pcl] = (phi_elec_n[h,pcl]>0)*phi_elec_n[h,pcl] + (phi_elec_n[h,pcl]<=0)*0 
 
-phi_elec[h,pcl] = (phi_elec_n[h,pcl]>0)*phi_elec_n[h,pcl]/phi_elec_n_tot[h] + (phi_elec_n[h,pcl]<=0)*0
+phi_elec_n_tot[h]= sum(phi_elec_e[h,pcl] on pcl)
+
+phi_elec[h,pcl] = phi_elec_e[h,pcl]/phi_elec_n_tot[h]
 
 #####Définition du coût de maintenance (hors batterie) du véhicule électrique:
 
@@ -1023,9 +1054,11 @@ U_auto_th[h,ecl]=-0.76*UC_K_auto_th[h,ecl]-0.2*UC_E_auto_th[h,ecl]
 
 d(phi_th_n[h,ecl]) = (@year>%baseyear)*d(exp(U_auto_th[h,ecl])/(sum(exp(U_auto_th[h,c]) where c in %list_ener_class))) 
 
-phi_th_n_tot[h] = sum(phi_th_n[h,ecl]  if  phi_th_n[h,ecl]>0 on ecl)   
+phi_th_e[h,ecl] = (phi_th_n[h,ecl]>0)*phi_th_n[h,ecl] + (phi_th_n[h,ecl]<=0)*0 
 
-phi_th[h,ecl] = (phi_th_n[h,ecl]>0) * phi_th_n[h,ecl]/phi_th_n_tot[h] + (phi_th_n[h,ecl]<=0)*0    
+phi_th_n_tot[h]= sum(phi_th_e[h,ecl] on ecl)
+
+phi_th[h,ecl] = phi_th_e[h,ecl]/phi_th_n_tot[h]   
 
 UC_M_auto_th[h]=(HOUSEHOLD_HYBRID_AUTO(219,1)*PCH_03/100*km_auto_th[h]/(auto[h]-auto_elec[h]))/1000
 
@@ -1045,107 +1078,96 @@ share_elec =  share_elec[h]
    
  innovation[h] = coeffBassinnov[h] 
   
- d(coeffBassinnov[h]) = ES_BASS*d((2*UC_auto_elec[h])^(-nu_diffusion)/((2*UC_auto_elec[h])^(-nu_diffusion)+(UC_auto_th[h])^(-nu_diffusion)))      
+ d(coeffBassinnov[h]) = ES_BASS*d((3.1*UC_auto_elec[h])^(-nu_diffusion)/((3.1*UC_auto_elec[h])^(-nu_diffusion)+(UC_auto_th[h])^(-nu_diffusion)))      
   
 U_auto_elec[h] * @elem(NewAUTO_elec[h],%baseyear) = sum(U_auto_elec[h,pcl] * @elem(NewAUTO_elec[h,pcl],%baseyear) on pcl)
   
 U_auto_th[h] * @elem(NewAUTO_th[h],%baseyear) = sum(U_auto_th[h,ecl] * @elem(NewAUTO_th[h,ecl],%baseyear) on ecl)
 
-  ##-------------------------- sectors' GDP calibration over the 2006-2015 period--------- Modifié 
+  ##-------------------------- sectors' GDP calibration over the 2006-2019 period--------- Modifié 
+
+DSD_base[c] = SUPPLY_USE_DOM($c,(NELEMSET(1,1)+1)+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+
+DSM_base[c] = SUPPLY_USE_FOREIGN($c,1+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
 
 DSD[c] = SUPPLY_USE_DOM($c,(NELEMSET(1,1)+1)+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+
 DSM[c] = SUPPLY_USE_FOREIGN($c,1+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
-#@over CIexo[cm,sne]  = MAT[cm]  
-#@over CIDexo[cm,sne]  = MATD[cm,sne]          
-#@over CIMexo[cm,sne]  = MATM[cm,sne]
-                                                          
-  d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2015) + log(1+STEADYSTATE(2,1)) *(@year>2015)   if Xexo[cm] <> 0
+
+d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + log(1+STEADYSTATE(2,1)) *(@year>2019)   if Xexo[cm] <> 0
   
-  @over dlog(X[cm]) = (dlog(Xexo[cm]))*(@year<=2015) + (d(log(WD[cm])) + d(SUBST_X[cm])) *(@year>2015)   if X[cm] <> 0
+@over dlog(X[cm]) = (dlog(Xexo[cm]))*(@year<=2019) + (d(log(WD[cm])) + d(SUBST_X[cm])) *(@year>2019)   if X[cm] <> 0
  
-#gel  
-  #gel@over DSD[cm] = (@year<=2006)* (DS_trend * @elem(DSD[cm], %baseyear) / @elem(DSD + DSM, %baseyear)) + _
-                 #gel(@year>2006)*( (QDexo[cm]-CID[cm]-CHD[cm]- GD[cm]-ID[cm] -XD[cm])*(@year<=2015) + (DS_trend * DSD[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
-#gel  
-  #gel#@over DSD[cm] = (DSexo[cm] -DSM[cm])*(@year<=2015) + (DSD[cm]{-1}*(1+dlog(DS_trend)))*(@year>2015)   
-#gel 
-  #gel@over DSD[ce2] = DS_trend * @elem(DSD[ce2], %baseyear) / @elem(DSD + DSM, %baseyear)
-#gel  
-  #gel#@over DSM[cm] = (DSMexo[cm]) * (@year<=2015) + (DSM[cm]{-1} * (1+dlog(DS_trend))) * (@year>2015)     
-#gel 
-  #gel@over DSM[ce2] = DS_trend * @elem(DSM[ce2], %baseyear) / @elem(DSD + DSM, %baseyear)
-#gel 
-  #gel@over DSM[cm] = (@year<=2006) * (DS_trend * @elem(DSM[cm], %baseyear) / @elem(DSD + DSM, %baseyear)) + _
-                   #gel(@year>2006) * ( (QMexo[cm]-CIM[cm]-CHM[cm]- GM[cm]-IM[cm] -XM[cm]) * (@year<=2015) + (DS_trend * DSM[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
-
- #gel@over DS[c] =  DSD[c] + DSM[c]
- 
- @over DS[cm] =   (@year<=2006)* (DS_trend ) + @year>2006)*( (QDexo[cm] + QMexo[cm] -CI[cm]-CH[cm]- G[cm]-I[cm] -X[cm])*(@year<=2015) + _
-                    (DS_trend * DSD[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2015))
+@over DS[cm] =    (QDexo[cm] + QMexo[cm] -CI[cm]-CH[cm]- G[cm]-I[cm] -X[cm])*(@year<=2019) + _
+                    (DS_trend * DS[cm]{-1} /(DSD{-1} + DSM{-1}))*(@year>2019)
                     
-@over DSD[cm] =  DS[cm] *QD[cm]/(QD[cm]+QM[cm])
+@over DS[cm] =    (QDexo[cm] + QMexo[cm] -CI[cm]-CH[cm]- G[cm]-I[cm] -X[cm])*(@year<=2019) + _
+                    (DS[cm]{-1}*(1 + d(POP_TOT)/POP_TOT{-1})*(1 + d(PROG_L)/PROG_L{-1})) *(@year>2019)                   
+                    
+@over DSD[cm] =  (@year<=2006)*(DSD_base[cm])* (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear) + _
+                (@year > 2006)*DS[cm] *QD[cm]/(QD[cm]+QM[cm])
+                
+@over DSM[cm] =  DS[cm] -DSD[cm] 
 
-@over DSM[cm] =  DS[cm] -DSD[cm]
+#@over DSM[cm] =  (@year<=2006)*(DSM_base[cm])* (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear) + _
+#                (@year > 2006)*((@year <= 2019) * DSM[cm]{-1} *(1 +d(QMexo[cm])/QMexo[cm]{-1})) 
+                
+#@over DSD[cm] =  DS[cm] -DSM[cm]  
 
     
-  @over EXP_n[co, h] = (@year <= 2015)*((@year <= %baseyear) * (@elem(EXP_n[co, h],%baseyear) * (1 + STEADYSTATE(2, 1))^(@year-%baseyear))+ _
+  @over EXP_n[co, h] = (@year <= 2019)*((@year <= %baseyear) * (@elem(EXP_n[co, h],%baseyear) * (1 + STEADYSTATE(2, 1))^(@year-%baseyear))+ _
                       (@year > %baseyear)*(EXP_n[co,h]{-1}*EXPexo[co]/EXPexo[co]{-1})) + _
-                      (@year >  2015) * ((PEXP[co, h] * NEXP[co, h] + BetaExp[co, h] * _ 
+                      (@year >  2019) * ((PEXP[co, h] * NEXP[co, h] + BetaExp[co, h] * _ 
                         (DISPINC_VAL[h] * (1 - MPS_HH[h]) - PNEXP[h] * NEXP[h] - EXP_HOUSING_Val[h] - Exp_13_OTH_VAL[h] - EXP_MOB_Val[h])) _
                         / PEXP[co, h])  if EXP[co, h] <> 0
   
- @over log(EXP[co,h]) = log(EXP_n[co,h])*(@year<=2015) + _
+ @over log(EXP[co,h]) = log(EXP_n[co,h])*(@year<=2019) + _
                      (ADJUST(20 + $h + %nb_households * ($co - 1), 1)  *  log(EXP_n[co, h]) _
-                     + (1 - ADJUST(20 + $h + %nb_households*($co - 1), 1))*(log(EXP[co, h]{-1}) + dlog(EXP_e[co, h])))*(@year>2015)    if EXP[co, h] <> 0
+                     + (1 - ADJUST(20 + $h + %nb_households*($co - 1), 1))*(log(EXP[co, h]{-1}) + dlog(EXP_e[co, h])))*(@year>2019)    if EXP[co, h] <> 0
                      
-  @over dlog(EXP_e[co, h]) = (@year <= 2015)*(dlog(EXP_n[co, h])) + _
-                              (@year > 2015)* (ADJUST(20 + $h + %nb_households * ($co - 1), 2) * d(log(EXP_e[co, h]{-1})) + _
+  @over dlog(EXP_e[co, h]) = (@year <= 2019)*(dlog(EXP_n[co, h])) + _
+                              (@year > 2019)* (ADJUST(20 + $h + %nb_households * ($co - 1), 2) * d(log(EXP_e[co, h]{-1})) + _
                               ADJUST(20 + $h + %nb_households * ($co - 1), 3) * d(log(EXP[co, h]{-1})) +   _
                               ADJUST(20 + $h + %nb_households * ($co - 1), 4) * d(log(EXP_n[co, h]))) if EXP[co, h] <> 0
   
-  @over dlog(BetaExp[co, h]) = (@year <= 2015)*(0.000001) + _
-                                 (@year > 2015)*((1 - ES_LES_CES(1, 1)) * d(log(PEXP[co, h] / PEXP_CES[h]))) if BetaExp[co, h] <> 0                            
+  @over dlog(BetaExp[co, h]) = (@year <= 2019)*(0.000001) + _
+                                 (@year > 2019)*((1 - ES_LES_CES(1, 1)) * d(log(PEXP[co, h] / PEXP_CES[h]))) if BetaExp[co, h] <> 0                            
   
-  #@over EXP_13[h] = (EXP_13{-1}*EXPexo[13]/EXPexo_13{-1})*(@year<=2015) + _
-  #                  (@year>2015)*(( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) _
-  #                   * NewBUIL[h] + @elem(PREHAB[h],%baseyear) * REHAB[h] + EXP_13_OTH_Val[h] / PEXP_13[h] ))  
+  @over EXP_13[h] = (CHD_13 - SUB_REHAB_VAL)*(@year<=2019) + _
+                    (@year>2019)*(( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) _
+                     * NewBUIL[h] + @elem(PREHAB[h],%baseyear) * REHAB[h] + EXP_13_OTH_Val[h] / PCH_13 ))  
   
-  #@over dlog(EXP_13_OTH_VAL[h]) = (EXPothexo[13]/EXPothexo_13{-1})*(@year<=2015) + _
-  #                                       (@year>2015)*(dlog(DISPINC_VAL[h]) + dlog(1 - MPS_HH[h])) 
+  #@over dlog(EXP_13_OTH_VAL[h]) = (EXPothexo[13]/EXPothexo_13{-1})*(@year<=2019) + _
+  #                                       (@year>2019)*(dlog(DISPINC_VAL[h]) + dlog(1 - MPS_HH[h])) 
                                         
-  @over NewBUIL[h,ecl] =  (@year <= 2006) * @elem(NewBUIL[h,ecl],%baseyear)*(1+STEADYSTATE(2,1))^(@year-%baseyear) + _
-                          (@year > 2006) *( @year <= 2015 ) * (NewBUIL[h,ecl]{-1}*NewBUILexo/NewBUILexo{-1}) + _
-                          ( @year > 2015 ) * phi_NewBUIL[h,ecl] * ( d( BUIL[h] ) + BUIL[h,DES] ) 
-                        
-                 
-  @over BUIL[h] =  (@year<=2006)*(@elem(BUIL[h],%baseyear) *(1+steadystate(2,1))^(@year-%baseyear)) + _
-                    (@year > 2006) *(@year <= 2015) * (BUIL[h]{-1} -BUIL[h,DES] + NewBUIL[h] ) + _
-                   (@year>2015)*(BUIL[h]{-1} *(1+d(POP_tot)/POP_tot{-1} + d(M2perCapita)/M2perCapita{-1}))                  
-                  
-  #@over EXP_03[h] = (EXP_03{-1}*EXPexo_03/EXPexo_03{-1})*(@year<=2015) + _
-  #                  (@year>2015) * (sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + _
+                
+  #@over EXP_03[h] = (EXP_03{-1}*EXPexo_03/EXPexo_03{-1})*(@year<=2019) + _
+  #                  (@year>2019) * (sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + _
   #                  sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h])
   
-  @over dlog(AUTO[h])= (@year<=2015)*(dlog(AUTOexo)) + (@year>2015)*(dlog(Km_auto[h])-dlog(kmPerAuto[h])) 
+  @over dlog(AUTO_N)= (@year<=2019)*(dlog(AUTOexo)) + (@year>2019)*(dlog(Km_auto[h])-dlog(kmPerAuto[h])) 
   
-  #@over dlog(EXP_03_OTH_VAL[h]) = (@year<=2015)*(dlog(EXPothexo_03)) + (@year>2015)*((dlog(DISPINC_VAL[h]) + dlog(1 - MPS_HH[h])))   
+  #@over dlog(EXP_03_OTH_VAL[h]) = (@year<=2019)*(dlog(EXPothexo_03)) + (@year>2019)*((dlog(DISPINC_VAL[h]) + dlog(1 - MPS_HH[h])))   
    
-  @over dlog(EXP[trsp, h])   = (dlog(EXPexo[trsp]))*(@year<=2015) + _                                                                           
-                                (@year >  2015) * d(log(Km_traveler[trsp, h])) if Km_traveler[trsp, h] <> 0 where trsp in %list_trsp_travel
+  @over dlog(EXP[trsp, h])   = (dlog(EXPexo[trsp]))*(@year<=2019) + _                                                                           
+                                (@year >  2019) * d(log(Km_traveler[trsp, h])) if Km_traveler[trsp, h] <> 0 where trsp in %list_trsp_travel
                        
-  @over d(MPS_HH[h]) = (@year<=2006)*0 +(@year>2006)*(@year<=2015)*(d((DISPINC_VAL[h] - EXP_HH_Val[h])/DISPINC_VAL[h])) + _
-                      (@year>2015) * ( household(52, $h) * d(UNR_TOT) + household(53, $h) * d(R - infl_FR) _
+  @over d(MPS_HH[h]) = (@year<=2006)*0 +(@year>2006)*(@year<=2019)*(d((DISPINC_VAL[h] - EXP_HH_Val[h])/DISPINC_VAL[h])) + _
+                      (@year>2019) * ( household(52, $h) * d(UNR_TOT) + household(53, $h) * d(R - infl_FR) _
                        + household(54, $h) * d(DEBT_G_VAL / (PGDP * GDP)))
   
-  @over CHD[cm] = ((EXP[cm]-CHM[cm] > 0) * (EXP[cm] - CHM[cm]) + (EXP[cm] - CHM[cm] =< 0) * (0.00001))*(@year<=2015) + _
-                   (CHD[cm]{-1} * (1 + d(EXP[cm])/EXP[cm]{-1} + d(SUBST_CHD[cm])))*(@year>2015)     if CHD[cm] <> 0
+  @over CHD[cm] = ((EXPexo[cm]-CHM[cm] > 0) * (EXPexo[cm] - CHM[cm]) + (EXPexo[cm] - CHM[cm] =< 0) * (0.00001))*(@year<=2019) + _
+                   (CHD[cm]{-1} * (1 + d(EXP[cm])/EXP[cm]{-1} + d(SUBST_CHD[cm])))*(@year>2019)     if CHD[cm] <> 0
+                   
+  @over CHD[13] = ((EXPexo[13]-CHM[13] > 0) * (EXPexo[13] - CHM[13]) + (EXPexo[13] - CHM[13] =< 0) * (0.00001))*(@year<=2019) + _
+                   (CHD[13]{-1} * (1 + d(EXP[13] + SUB_REHAB_VAL)/(EXP[13]{-1} + SUB_REHAB_VAL{-1}) + d(SUBST_CHD[13])))*(@year>2019)     if CHD[13] <> 0
                        
-  @over CHM[cm] = (CHM[cm]{-1}*(1 + (QMexo[cm]>0)*(d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2015) _
-                   + ((EXP[cm] - CHD[cm]>0)*(EXP[cm] - CHD[cm])+(EXP[cm] - CHD[cm]<=0)*0.00001)*(@year>2015) if CHM[cm] <> 0
+  @over CHM[cm] = (CHM[cm]{-1}*(1 + (QMexo[cm]>0)*(d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2019) _
+                   + ((EXP[cm] - CHD[cm]>0)*(EXP[cm] - CHD[cm])+(EXP[cm] - CHD[cm]<=0)*0.00001)*(@year>2019) if CHM[cm] <> 0
   
-  @over GD[cm] = ((EXPG[cm] - GM[cm]>0)*(EXPG[cm] - GM[cm])+(EXPG[cm] - GM[cm]<=0)*0.00001)*(@year<=2015) + (GD[cm]{-1}*(1+d(EXPG[cm])/EXPG[cm]{-1} + d(subst_GD[cm])))*(@year>2015) if GD[cm] <> 0          #corrigé
+  @over GD[cm] = ((EXPG[cm] - GM[cm]>0)*(EXPG[cm] - GM[cm])+(EXPG[cm] - GM[cm]<=0)*0.00001)*(@year<=2019) + (GD[cm]{-1}*(1+d(EXPG[cm])/EXPG[cm]{-1} + d(subst_GD[cm])))*(@year>2019) if GD[cm] <> 0          #corrigé
   
-  @over GM[cm] = (GM[cm]{-1}*(1+ (QMexo[cm]>0)*(d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2015) + ((EXPG[cm] - GD[cm]>0)*(EXPG[cm] - GD[cm])+(EXPG[cm] - GD[cm]<=0)*0.00001)*(@year>2015) if GM[cm] <> 0
+  @over GM[cm] = (GM[cm]{-1}*(1+ (QMexo[cm]>0)*(d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2019) + ((EXPG[cm] - GD[cm]>0)*(EXPG[cm] - GD[cm])+(EXPG[cm] - GD[cm]<=0)*0.00001)*(@year>2019) if GM[cm] <> 0
   
   @over dlog(CIexo[cm,sne])  = dlog(CIexo[cm])  if CIexo[cm,sne] <> 0
   
@@ -1153,39 +1175,49 @@ DSM[c] = SUPPLY_USE_FOREIGN($c,1+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * 
     
   @over dlog(CIMexo[cm,sne])  = dlog(QMexo[cm])     if CIMexo[cm,sne] <> 0
                      
-  @over MATD[cm,sne]  = (CIDexo[cm,sne])*(@year<=2015) + _
-                        (MATD[cm,sne]{-1}*(1+(MAT[cm,sne]>0)*(d(MAT[cm,sne])/MAT[cm,sne]{-1} + d(SUBST_MATD[cm,sne])))) *(@year>2015) if MATD[cm,sne] <> 0
+  @over MATD[cm,sne]  = (CIDexo[cm,sne])*(@year<=2019) + _
+                        (MATD[cm,sne]{-1}*(1+(MAT[cm,sne]>0)*(d(MAT[cm,sne])/MAT[cm,sne]{-1} + d(SUBST_MATD[cm,sne])))) *(@year>2019) if MATD[cm,sne] <> 0
     
-  @over MATM[cm,sne]  = (CIMexo[cm,sne])*(@year<=2015) _
-                       + ((MAT[cm,sne]-MATD[cm,sne]>0)*(MAT[cm,sne]-MATD[cm,sne])+(MAT[cm,sne]-MATD[cm,sne]<=0)*0.0001)*(@year>2015) if MATM[cm,sne] <> 0
+  @over MATM[cm,sne]  = (CIMexo[cm,sne])*(@year<=2019) _
+                       + ((MAT[cm,sne]-MATD[cm,sne]>0)*(MAT[cm,sne]-MATD[cm,sne])+(MAT[cm,sne]-MATD[cm,sne]<=0)*0.0001)*(@year>2019) if MATM[cm,sne] <> 0
  
- @over dlog(MAT_n[sne]) = (@year<=2015) * (dlog(sum(MATD[cm,sne] on cm)+sum(MATM[cm,sne] on cm))) + (@year>2015) *(dlog(Y[sne]) + d(SUBST_MAT[sne]) )       if MAT_n[sne] <> 0
+ @over dlog(MAT_n[sne]) = (@year<=2019) * (dlog(sum(MATD[cm,sne] on cm)+sum(MATM[cm,sne] on cm))) + (@year>2019) *(dlog(Y[sne]) + d(SUBST_MAT[sne]) )       if MAT_n[sne] <> 0
  
- @over log(MAT[sne]) =  (@year<=2015) *log(MAT_n[sne]) + (@year>2015)*( ADJUST(4, 1) * log(MAT_n[sne]) + (1 - ADJUST(4, 1)) * (log(MAT[sne]{-1}) + d(log(MAT_e[sne])))) if MAT[sne] <> 0
+ @over log(MAT[sne]) =  (@year<=2019) *log(MAT_n[sne]) + (@year>2019)*( ADJUST(4, 1) * log(MAT_n[sne]) + (1 - ADJUST(4, 1)) * (log(MAT[sne]{-1}) + d(log(MAT_e[sne])))) if MAT[sne] <> 0
  
- @over dlog(MAT_e[sne]) = (@year<=2015) *dlog(MAT_n[sne]) + (@year>2015)*( ADJUST(4, 2) * d(log(MAT_e[sne]{-1})) + ADJUST(4, 3) * d(log(MAT[sne]{-1})) + ADJUST(4, 4) * d(log(MAT_n[sne]))) if MAT[sne] <> 0 
+ @over dlog(MAT_e[sne]) = (@year<=2019) *dlog(MAT_n[sne]) + (@year>2019)*( ADJUST(4, 2) * d(log(MAT_e[sne]{-1})) + ADJUST(4, 3) * d(log(MAT[sne]{-1})) + ADJUST(4, 4) * d(log(MAT_n[sne]))) if MAT[sne] <> 0 
  
- @over d(log(MAT[cm, sne])) = (@year<=2015) * (dlog(CIexo[cm,sne])) + (@year>2015) * (dlog(MAT[sne]) + d(SUBST_MAT[cm, sne])) if MAT[cm, sne] <> 0
+ d(log(MAT_n[cm, sne])) = (@year<=2019) * (dlog(CIexo[cm,sne])) + (@year>2019) * (dlog(MAT[sne]) + d(SUBST_MAT[cm, sne])) if MAT[cm, sne] <> 0
  
-  @over IAD[cm,sne]  = ((IA[cm,sne] - IAM[cm,sne]>0)*(IA[cm,sne] - IAM[cm,sne])+(IA[cm,sne] - IAM[cm,sne]<=0)*0.0001)*(@year<=2015) + _
-                        (IAD[cm,sne]{-1}*(1+(IA[cm,sne]>0)*(d(IA[cm,sne])/IA[cm,sne]{-1} + d(SUBST_IAD[cm,sne])))) *(@year>2015) if IAD[cm,sne] <> 0
+ SUM_MAT_N_CM[sne] = sum(MAT_n[cm,sne] on cm )
+ 
+ phi_MAT_n[cm,sne] * SUM_MAT_N_CM[sne] = MAT_n[cm,sne]
+ 
+  @over MAT[cm, sne] = (@year<=2019) * (MATD[cm,sne] + MATM[cm,sne]) + (@year>2019) * (MAT[sne] * phi_MAT_n[cm,sne]) if MAT[cm, sne] <> 0    #modifié Gaël
+ 
+  @over IAD[cm,sne]  = ((IA_n[cm,sne] - IAM[cm,sne]>0)*(IA_n[cm,sne] - IAM[cm,sne])+(IA_n[cm,sne] - IAM[cm,sne]<=0)*0.0001)*(@year<=2019) + _
+                        (IAD[cm,sne]{-1}*(1+(IA_n[cm,sne]>0)*(d(IA_n[cm,sne])/IA_n[cm,sne]{-1} + d(SUBST_IAD[cm,sne])))) *(@year>2019) if IAD[cm,sne] <> 0
   
-  @over IAM[cm,sne]  = (IAM[cm,sne]{-1} * (1+(QMexo[cm]>0) * (d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2015) + _ 
-                        ((IA[cm,sne]-IAD[cm,sne]>0) * (IA[cm,sne]-IAD[cm,sne])+(IA[cm,sne]-IAD[cm,sne]<=0)*0.0001) * (@year>2015) if IAM[cm,sne] <> 0
+  @over IAM[cm,sne]  = (IAM[cm,sne]{-1} * (1+(QMexo[cm]>0) * (d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2019) + _ 
+                        (IAM[cm,sne]{-1}*(1+(IA_n[cm,sne]>0)*(d(IA_n[cm,sne])/IA_n[cm,sne]{-1} + d(SUBST_IAM[cm,sne])))) * (@year>2019) if IAM[cm,sne] <> 0
  
-  @over dlog(IA[sne]) = (@year<=2015) * ((IAexo[sne]>0)*(dlog(IAexo[sne]))) + (@year>2015) * ( ADJUST(1, 1) * dlog(IA[sne]{-1}) + ADJUST(1, 2) * dlog(Y_e[sne]) + _
-                          ADJUST(1, 3) * (log(K_n[sne]{-1}) - log(K[sne]{-1})) + ADJUST(1, 4) * d(SUBST_K[sne]) + IMP_BUD[sne] * GDP{-1} / IA[sne]{-1})  if IA[sne] <> 0
+  @over dlog(IA_n[sne]) = (@year<=2019) * ((IAexo[sne]>0)*(dlog(IAexo[sne]))) + (@year>2019) * ( ADJUST(1, 1) * dlog(IA[sne]{-1}) + ADJUST(1, 2) * dlog(Y_e[sne]) + _
+                          ADJUST(1, 3) * (log(K_n[sne]{-1}) - log(K[sne]{-1})) + ADJUST(1, 4) * d(SUBST_K[sne]) + IMP_BUD[sne] * GDP{-1} / IA[sne]{-1})  if IA_n[sne] <> 0
   
-  @over d(log(K_n[sne])) = (@year<=2015) * (K_n[sne]>0)*(dlog(K[sne])) + _
-                          (@year>2015) * (dlog(Y[sne]) + d(SUBST_K[sne]) - dlog(PROG_K[sne])) if K_n[sne] <> 0                          
-   
+ @over dlog(IA_n_20) = (@year<=2019) * ((IAexo_20>0)*(dlog(IAexo_20))) + (@year>2019) * ( ADJUST(1, 1) * dlog(IA_20{-1}) + ADJUST(1, 2) * dlog(Y_e_20) + _
+                        ADJUST(1, 3) * (log(K_n_20{-1}) - log(K_20{-1})) + ADJUST(1, 4) * d(SUBST_K_20) + IMP_BUD_20 * GDP{-1} / IA_20{-1})  if IA_n_20 <> 0
+  
+
+ @over d(log(K_n[sne])) = (@year<=2019) * (K_n[sne]>0)*(dlog(K[sne])) + _
+                          (@year>2019) * (dlog(Y[sne]) + d(SUBST_K[sne]) - dlog(PROG_K[sne])) if K_n[sne] <> 0                          
+
  
-   ##-------------- public spendings calibration over the 2006_2015 period
+   ##-------------- public spendings calibration over the 2006_2019 period
  
   
-  @over dlog(EXPG[cm]) = dlog(EXPGexo[cm])*(@year<=2015) + (ADJUST(69,1) * (dlog(EXPG_trend) - STEADYSTATE(62,1) * (DP_G_VAL - DP_G_VAL_n) * PGDP(-1) * GDP(-1) / (PG(-1) * EXPG(-1))) + (1 - ADJUST(69,1)) * d(log(EXPG(-1))))*(@year>2015)     if EXPG[cm] <>0
+  @over dlog(EXPG[cm]) = dlog(EXPGexo[cm])*(@year<=2019) + (ADJUST(69,1) * (dlog(EXPG_trend) - STEADYSTATE(62,1) * (DP_G_VAL - DP_G_VAL_n) * PGDP(-1) * GDP(-1) / (PG(-1) * EXPG(-1))) + (1 - ADJUST(69,1)) * d(log(EXPG(-1))))*(@year>2019)     if EXPG[cm] <>0
   
- # @over dlog(EXPG[cm]) = dlog(EXPGexo[cm])*(@year<=2015) + (dlog(EXPG_trend + Choc_BUD * @elem(GDP,%baseyear)*1.195) )*(@year>2015)     if EXPG[cm] <>0
+ # @over dlog(EXPG[cm]) = dlog(EXPGexo[cm])*(@year<=2019) + (dlog(EXPG_trend + Choc_BUD * @elem(GDP,%baseyear)*1.195) )*(@year>2019)     if EXPG[cm] <>0
     
   @over EXPG = sum(EXPG[c] on c)
 
@@ -1219,36 +1251,43 @@ DSM[c] = SUPPLY_USE_FOREIGN($c,1+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * 
                                PE[ce_oth, s]{-1}*E[ce_oth, s]{-1} / (PE[s]{-1}*E[s]{-1}) if ce_oth <> ce on ce_oth in %list_com_E) _
                          if E[ce, s] <> 0
                      
-#   @over PE_signal[snets] * E[snets]  = sum(PE_signal[ce,snets] * E[ce,snets] on ce)   if E[snets] > 0
+   @over PE_signal[snets] * E[snets]  = sum(PE_signal[ce,snets] * E[ce,snets] on ce)   if E[snets] > 0
    
-#   @over PE_signal[sets] * E[sets]  = sum(PE_signal[ce,sets] * E[ce,sets] on ce) + PE_signal_ETS  * EMS_SEC[sets] * PCH    if E[sets] > 0
+   @over PE_signal[sets] * E[sets]  = sum(PE_signal[ce,sets] * E[ce,sets] on ce) + PE_signal_ETS  * EMS_SEC[sets] * PCH    if E[sets] > 0
   
    
-  @over PE_signal[trsp] = PE_signal_trsp
+   @over PE_signal[trsp] = PE_signal_trsp + CIEE[trsp]
     
-   @over PE_signal[sinc] = PE_signal_sinc 
+   @over PE_signal[sinc]  = PE_signal_sinc + CIEE[sinc] 
    
-   @over PE_signal[ster] =  PE_signal_ster  
-
    @over PE_signal[21,sinc] = PE_signal_21_sinc 
       
    @over PE_signal[22,sinc] = PE_signal_22_sinc 
                                              
    @over PE_signal[22,ster] = PE_signal_22_ster
    
-   @over PE_signal[22,trsp] = PE_signal_22_trsp
+#   @over PE_signal[22,trsp] = PE_signal_22_trsp
    
    @over PE_signal[23,sinc] = PE_signal_23_sinc
    
    @over PE_signal[23,ster] = PE_signal_23_ster
    
-   @over PE_signal[23,trsp] = PE_signal_23_trsp
+#   @over PE_signal[23,trsp] = PE_signal_23_trsp
    
    @over PE_signal[24,sinc] = PE_signal_24_sinc
    
    @over PE_signal[24,ster] = PE_signal_24_ster
    
-   @over PE_signal[24,trsp] = PE_signal_24_trsp
+#   @over PE_signal[24,trsp] = PE_signal_24_trsp
+   
+   @over PE_signal[snets] * E[snets]  = PE_signal_sec[snets] * E[snets] + CIEE[snets] *E[snets]  if E[snets] > 0
+   
+   @over PE_signal[sets] * E[sets]  = PE_signal_sec[sets] * E[sets]  + PE_signal_ETS  * EMS_SEC[sets] * PCH + CIEE[sets] * E[sets]   if E[sets] > 0
+      
+   @over PE_signal_sec[trsp] = PE_signal_trsp
+    
+   @over PE_signal_sec[sinc]  = PE_signal_sinc  
+ 
    
    ##    Les constructions neuves diminuent en cas de transition énergétique : 
    ## le taux de destruction ne concerne que les classes e f et g. la rénovation énergétique diminue l’assiette de la destruction du bâti.
@@ -1265,9 +1304,17 @@ dlog(PE_a[sne]) =  0.8*dlog(PE_a[sne]{-1}) + (1-0.8)*dlog(PE[sne]) + 0.01*(log(P
    
 dlog(CK_a[sne]) = 0.8*dlog(CK_a[sne]{-1})+ (1-0.8)*dlog(CK[sne]) + 0.01*(log(CK[sne]{-1})- log(CK_a[sne]{-1})) 
   
- @over d(eta_K_E_des[sne]) = (@year>2006) * (alpha_eta_K_E_PE[sne] * d(dlog(PE_a[sne])-dlog(CK_a[sne])))*(d(dlog(PE_a[sne])-dlog(CK_a[sne]))>0)
+# @over d(eta_K_E_des[sne]) = (@year>2006) * (alpha_eta_K_E_PE[sne] * d(dlog(PE_a[sne])-dlog(CK_a[sne])))*(d(dlog(PE_a[sne])-dlog(CK_a[sne]))>0)
    
- @over eta_K_E[sne] = 0.5*eta_K_E[sne]{-1} +(1-0.5)*(eta_K_E_des[sne]) +0.1*(eta_K_E_des[sne]{-1}-eta_K_E[sne]{-1})
+# @over eta_K_E[sne] = 0.5*eta_K_E[sne]{-1} +(1-0.5)*(eta_K_E_des[sne]) +0.1*(eta_K_E_des[sne]{-1}-eta_K_E[sne]{-1})
+
+@over d(eta_K_E_des[19]) = (@year>2006) * (alpha_eta_K_E_PE[19] * d(dlog(PE_a[19])-dlog(CK_a[19])))*(d(dlog(PE_a[19])-dlog(CK_a[19]))>0)
+   
+#@over eta_K_E[19] = 0.5*eta_K_E[19]{-1} +(1-0.5)*(eta_K_E_des[19]) +0.1*(eta_K_E_des[19]{-1}-eta_K_E[19]{-1})
+
+@over d(eta_K_E_des[20]) = (@year>2006) * (alpha_eta_K_E_PE[20] * d(dlog(PE_a[20])-dlog(CK_a[20])))*(d(dlog(PE_a[20])-dlog(CK_a[20]))>0)
+   
+#@over eta_K_E[20] = 0.5*eta_K_E[20]{-1} +(1-0.5)*(eta_K_E_des[20]) +0.1*(eta_K_E_des[20]{-1}-eta_K_E[20]{-1})
 
 #pour estimer alpha_eta_K_E_PE, il faut geler les 2 lignes ci-dessus. Activer les lignes ci-dessous.  Il faut geler les feuilles exorealistic dans sam_fra_AME et urtiliser le fichier de sortie "calibrage alpha_eta_KE_PE" dans le fichier calibration
 #  Il faut estimer lambda_eta_KE_PE en simulant un choc permanent des prix de l'énergie de 1% via les taux de taxe énergétique tenertD et tenertM.

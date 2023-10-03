@@ -3,27 +3,31 @@
 # Taxes on energy
 
 # equation 3.1
-PENERTD[c] * ENERTD[c] = TENERTD[c] * YQ[c]  + TCO_VALD[c]   if ENERTD[c] <> 0     #modifié ADEME
+PENERTD[c] * ENERTD[c] = TTICD[c] * YQ[c]  + TCO_VALD[c]   if ENERTD[c] <> 0     #modifié ADEME
 
 # equation 3.2
-ENERTD[c] = @elem(TENERTD[c], %baseyear) * YQ[c] if ENERTD[c] <> 0
+ENERTD[c] = @elem(TTICD[c], %baseyear) * YQ[c] if ENERTD[c] <> 0
 
 # equation 3.3
-PENERTM[c] * ENERTM[c] = TENERTM[c] * M[c] + TCO_VALM[c]   if ENERTM[c] <> 0               #modifié ADEME
+PENERTM[c] * ENERTM[c] = TTICM[c] * M[c] + TCO_VALM[c]   if ENERTM[c] <> 0               #modifié ADEME
 
 # equation 3.4
-ENERTM[c] = @elem(TENERTM[c], %baseyear) * M[c] if ENERTM[c] <> 0
+ENERTM[c] = @elem(TTICM[c], %baseyear) * M[c] if ENERTM[c] <> 0
 
 # equation 3.5, 3.6
 @pv ENERT[c] = sum(ENERT|O|[c] on O) if ENERT[c] <> 0
 
-@over ENERT[ce2] = ENERTD[ce2] + ENERTM[ce2]     #modifié Gaël
+@over ENERT[ce] = ENERTD[ce] + ENERTM[ce]     #modifié Gaël
 
-@over PENERT[ce2] * ENERT[ce2] = PENERTD[ce2] * ENERTD[ce2] + PENERTM[ce2] * ENERTM[ce2] # + TCO_VAL_SOU[ce2] + TCO_VAL_HH_SOU[ce2]                           #modifié Gaël
+@over PENERT[ce] * ENERT[ce] = PENERTD[ce] * ENERTD[ce] + PENERTM[ce] * ENERTM[ce] # + TCO_VAL_SOU[ce2] + TCO_VAL_HH_SOU[ce2]                           #modifié Gaël          
 
-TTICD[c] * YQ[c] = PENERTD[c] * ENERTD[c]   if YQ[c]>0         #modifié ADEME
+PTICD[c] * TICD[c] = TTICD[c] * YQ[c] if TICD[c] <>0     #modifié ADEME
 
-TTICM[c] * M[c] =  PENERTM[c] * ENERTM[c]   if M[c]>0         #modifié ADEME
+PTICM[c] * TICM[c] = TTICM[c] * M[c]   if TICM[c] <>0     #modifié ADEME
+
+TICD[c] = @elem(TTICD[c], %baseyear) * YQ[c]  if TICD[c] <>0     #modifié ADEME
+
+TICM[c] = @elem(TTICM[c],%baseyear) * M[c]   if TICM[c] <>0       #modifié ADEME
 
 # equation 3.7, 3.8
 @pv ENERT = sum(ENERT[c] if ENERT[c] <> 0 on c)
@@ -72,9 +76,8 @@ OTHTM[c] = @elem(TOTHTM[c], %baseyear) * M[c] if OTHTM[c] <> 0
 TAX[c] = VAT[c] + ENERT[c] + OTHT[c] if TAX[c] <> 0
 
 # equation 3.26
-PTAX[c] * TAX[c] = PVAT[c] * VAT[c] + PENERT[c] * ENERT[c] + POTHT[c] * OTHT[c] + TCO_VAL_SOU[c] + TCO_VAL_HH_SOU[c] if TAX[c] <> 0
 
-@over PTAX[c] * TAX[c] = PVAT[c] * VAT[c] + PENERT[c] * ENERT[c] + POTHT[c] * OTHT[c]  if TAX[c] <> 0             #corrigé Gaël
+PTAX[c] * TAX[c] = PVAT[c] * VAT[c] + PENERT[c] * ENERT[c] + POTHT[c] * OTHT[c]  if TAX[c] <> 0             
 
 # equations 3.27 & 3.2
 @pv TAX = sum(TAX[c] if TAX[c] <> 0 on c)
@@ -94,16 +97,10 @@ IS[s] = @elem(TIS * PRF[s]{-1}, %baseyear) * RF[s]{-1} * (RF[s]{-1}>0) + 0.00000
 IR_VAL[h] = TIR[h] * DISPINC_AI_VAL[h]
 d(TIR[h]) = -d(PHI_TCO[h] * TCO_VAL_HH / DISPINC_AI_VAL[h]) 
 
-#verification
-d(TIR_bis[h]) = 0
-IR_VAL_bis[h]= TIR_bis[h] * DISPINC_AI_VAL[h]
 
 # equation 3.34
 IR_VAL = sum(IR_VAL[h] if IR_VAL[h] <> 0 on h)
 
-#verification
-IR_VAL_bis = sum(IR_VAL_bis[h] if IR_VAL_bis[h] <> 0 on h)
-Verif_TCO_VAL_HH =  TCO_VAL_HH - (IR_VAL_BIS - IR_VAL)
 
 # Taxes on capital
 # equation 3.35
@@ -168,9 +165,6 @@ CSE_bis[s] * PCSE_bis[s] = TCSE_bis[s] * L_S[s] * W_S[s]
 @pv CSE = sum(CSE[s] if CSE[s] <> 0 on s)
 CSE_bis * PCSE_bis =  sum(CSE_bis[s]*PCSE_bis[s] if CSE_bis[s] <> 0 on s)
 TCSE = PCSE*CSE/(L_S*W_S)
-
-#verification
-verif_TCO_VAL_SEC = TCO_VAL_SEC - (CSE_bis * PCSE_bis - CSE * PCSE)
 
 # equation 3.53
 CSE_ROW*PCSE_ROW = TCSE_ROW*SB_ROW
@@ -280,7 +274,7 @@ REC_VAL = DIV_GOV_VAL + IR_VAL + AIC_VAL + INC_GOV_OTH_net - CL_S[sp] * L_S[sp] 
 # Total spending
 # equation 3.79
 DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL +_
-          value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))
+          value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
 
 # Exception for substitution in transport
 # Substitution for transport margins
@@ -300,4 +294,7 @@ d(SUBST_MAT_n[trsp, s]) = sum( -ES_TRANSP_CI($s, cols_mat(trsp, trsp_oth)) * d(l
 EXO[ce2, sets] = EXO_ETS
 EXO[ce2, snets] = EXO_NETS 
 
+
+
 TQETS[ce2,s] = Ttco_vol[ce2] * (1 - EXO[ce2, s])
+

@@ -102,29 +102,53 @@ PIA[s]*IA[s] = sum(PIA[c, s]*IA[c, s] if IA[c, s] <> 0 on c) if IA[s] <> 0
 
 # equation 5.18
 
-PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1 + TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2         
+#PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1 + TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2         
 
-PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) if YQS[c] > 0 where c in %list_trsp_services
+#PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) if YQS[c] > 0 where c in %list_trsp_services
 
-PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2     #modifié Gaël
+#PYQS[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TTICD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2     #modifié Gaël
+
+PYQS[c]*YQS[c] = PYQ[c]*YQ[c] + POTHTD[c]* OTHTD[c] + PENERTD[c] *ENERTD[c] + PSUBD[c]*SUBD[c] + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2         
+
+PYQS[c]*YQS[c] = PYQ[c]*YQ[c] + POTHTD[c]* OTHTD[c] + PENERTD[c] *ENERTD[c] + PSUBD[c]*SUBD[c] if YQS[c] > 0 where c in %list_trsp_services
+
+PYQS[c]*YQS[c] = PYQ[c]*YQ[c]+ POTHTD[c]* OTHTD[c] + PENERTD[c] *ENERTD[c] + PSUBD[c]*SUBD[c] + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2     #modifié Gaël
 
 # equation 5.19
 
 d(log(YQS[c])) = d(log(YQ[c])) if YQS[c] > 0
 
+@over YQS[c] = YQ[c] + OTHTD[c] + ENERTD[c] + SUBD[c] + MTD[c] + MCD[c] if YQS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2         
+
+@over YQS[c] = YQ[c] + OTHTD[c] + ENERTD[c] + SUBD[c] if YQS[c] > 0 where c in %list_trsp_services
+
+@over YQS[c] = YQ[c]+ OTHTD[c] + ENERTD[c] + SUBD[c] + MTD[c] + MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2     
+
+
 # equation 5.20
 
-PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TTICM[c] + TsubM[c]) + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2
+#PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TTICM[c] + TsubM[c]) + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2
 
-PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TTICM[c] + TsubM[c]) if MS[c] > 0 where c in %list_trsp_services
+#PMS[c]*MS[c] = PM[c]*M[c]*(1 + TothtM[c]) + M[c]*(TTICM[c] + TsubM[c]) if MS[c] > 0 where c in %list_trsp_services
 
-PMS[ce2]*MS[ce2] = PM[ce2]*M[ce2]*(1 + TothtM[ce2]) + M[ce2]*(TTICM[ce2] + TsubM[ce2]) + PMTM[ce2]*MTM[ce2] + PMCM[ce2]*MCM[ce2] if MS[ce2] > 0        #modifié Gaël
+#PMS[ce2]*MS[ce2] = PM[ce2]*M[ce2]*(1 + TothtM[ce2]) + M[ce2]*(TTICM[ce2] + TsubM[ce2]) + PMTM[ce2]*MTM[ce2] + PMCM[ce2]*MCM[ce2] if MS[ce2] > 0        #modifié Gaël
+
+PMS[c]*MS[c] = PM[c]*M[c] + POTHTM[c]* OTHTM[c] + PENERTM[c] *ENERTM[c] + PSUBM[c]*SUBM[c] + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2
+
+PMS[c]*MS[c] = PM[c]*M[c]+ POTHTM[c]* OTHTM[c] + PENERTM[c] *ENERTM[c] + PSUBM[c]*SUBM[c] if MS[c] > 0 where c in %list_trsp_services
+
+PMS[ce2]*MS[ce2] = PM[ce2]*M[ce2]+ POTHTM[ce2]* OTHTM[ce2] + PENERTM[ce2] *ENERTM[ce2] + PSUBM[ce2]*SUBM[ce2] + PMTM[ce2]*MTM[ce2] + PMCM[ce2]*MCM[ce2] if MS[ce2] > 0        #modifié Gaël
 
 # Production pric ebefore carbon tax. #modifié Gaël
 
-PYQS_BTCO[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TenertD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2
+#PYQS_BTCO[c]*YQS[c] = PYQ[c]*YQ[c]*(1+TothtD[c]) + YQ[c]*(TenertD[c] + TsubD[c]) + PMTD[c]*MTD[c] + PMCD[c]*MCD[c] if YQS[c] > 0 where c in %list_com_E_CO2
 
-PMS_BTCO[c]*MS[c] = PM[ce]*M[c]*(1 + TothtM[c]) + M[c]*(TenertM[c] + TsubM[c]) + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0   where c in %list_com_E_CO2
+#PMS_BTCO[c]*MS[c] = PM[ce]*M[c]*(1 + TothtM[c]) + M[c]*(TenertM[c] + TsubM[c]) + PMTM[c]*MTM[c] + PMCM[c]*MCM[c] if MS[c] > 0   where c in %list_com_E_CO2
+
+PYQS_BTCO[ce]*(YQ[ce] + OTHTD[ce] + TICD[ce] + SUBD[ce] + MTD[ce] + MCD[ce]) = PYQ[ce]*YQ[ce] + POTHTD[ce]* OTHTD[ce] + PTICD[ce] *TICD[ce] + PSUBD[ce]*SUBD[ce] + PMTD[ce]*MTD[ce] + PMCD[ce]*MCD[ce] if YQS[ce] > 0     
+
+PMS_BTCO[ce]*(M[ce] + OTHTM[ce] + TICM[ce] + SUBM[ce] + MTM[ce] + MCM[ce]) = PM[ce]*M[ce] + POTHTM[ce]* OTHTM[ce] + PTICM[ce] *TICM[ce] + PSUBM[ce]*SUBM[ce] + PMTM[ce]*MTM[ce] + PMCM[ce]*MCM[ce] if MS[ce] > 0         
+
 
 # Energy consumption price after carbon tax   #modifié Gaël
 
@@ -135,6 +159,12 @@ PEM[ce,s] * EM[ce,s] = (PMS_BTCO[ce] * EM[ce,s] + TCO_VALM[ce,s]) * (1 + TvatMot
 # equation 5.21
 
 d(log(MS[c])) = d(log(M[c])) if MS[c] > 0
+
+@over MS[c] = M[c] + OTHTM[c] + ENERTM[c] + SUBM[c] + MTM[c] + MCM[c] if MS[c] > 0 where c in %list_com \ %list_trsp_services_E_CO2
+
+@over MS[c] = M[c]+ OTHTM[c] + ENERTM[c] + SUBM[c] if MS[c] > 0 where c in %list_trsp_services
+
+@over MS[ce] = M[ce]+ OTHTM[ce] + ENERTM[ce] + SUBM[ce] + MTM[ce] + MCM[ce] if MS[ce] > 0        #modifié Gaël
 
 # equation 5.22 & 5.24
 
@@ -249,3 +279,7 @@ CFS = (1 + TCSE) / ((1 - TCSS)*(1-TIR[H01]))
 
 
 #-----------------------------------------------------------------------------------
+
+# Prix des énergies consommées par les secteurs
+
+PCI[ce]*CI[ce] = PCID[ce]*CID[ce] + PCIM[ce]*CIM[ce] if CI[ce] <> 0

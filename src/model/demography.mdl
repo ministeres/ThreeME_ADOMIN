@@ -37,4 +37,13 @@ LF[sex] = sum(LF[sex,age] on age)
 
 LF_TOT = sum(LF[sex] on sex)
 
-d(log(WAPop[sex, age])) = dlog(POP_TOT) - 0.5 * d(UNR_TOT) # modifié Gaël (insertion d'un taux de flexion)
+d(log(WAPop[sex, age])) = dlog(POP_TOT) - 0.5 * d(UNR_TOT) # modifié Gaël (insertion d'un taux de flexion)     
+
+#dlog(WAPop) = dlog(POP_TOT)
+
+#UN_TOT = WAPop - L
+
+#UnR_TOT=Un_TOT/L
+
+
+

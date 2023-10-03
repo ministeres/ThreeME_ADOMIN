@@ -7,6 +7,8 @@ PYQ[c] * YQ[c] = sum(PY[s] * Y[c, s] if Y[c, s] <> 0 on s) if YQ[c] <> 0
 Y[c, s] = PhiY[c, s] * YQ[c] if Y[c, s] <> 0
 Y[s] = sum(Y[c, s] if Y[c, s] <> 0 on c)
 
+verif_phiYbis[c] = sum(PhiY[c, s] on s) -1
+
 # Level I
 
 # equation 2.04
@@ -48,7 +50,7 @@ if MAT_n[s] <> 0
 # Calcul Input shares
 phi_K[s]   = K[s] * CK[s]             / (CU[s] * Y[s])
 phi_L[s]   = L[s] * PROG_L[s] * CL[s] / (CU[s] * Y[s])
-phi_E[s]   = E[s] * PE[s]             / (CU[s] * Y[s])
+phi_E[s]   = (E[s] * PE[s] + CEE[s])             / (CU[s] * Y[s])
 phi_MAT[s] = MAT[s] * PMAT[s]         / (CU[s] * Y[s])
 
 verif_phi_input[s] = 1 - phi_K[s] - phi_L[s] - phi_E[s] - phi_MAT[s]
@@ -56,15 +58,26 @@ verif_phi_input[s] = 1 - phi_K[s] - phi_L[s] - phi_E[s] - phi_MAT[s]
 
 
 # equation 2.09
-d(log(IA[c, s])) = d(log(IA[s])) if IA[c, s] <> 0
+
+d(log(IA_n[c, s])) = d(log(IA_n[s])) if IA[c, s] <> 0
+
+IA[c, s] = IAD[c, s] + IAM[c, s]
+
+@over d(log(IA_n_13_20)) = d(log(IA_n_20 - INV_Road)) + d(INV_Road)/IA_13_20{-1} if IA_13_20 <> 0
 
 # equation 2.10
+
 PK[s] * K[s] = (1 - Tdec[s]) * PK[s]{-1} * K[s]{-1} + PIA[s] * IA[s] if K[s] <> 0
 
 # equation 2.11
+
 K[s] = (1 - Tdec[s]) * K[s]{-1} + IA[s] if K[s] <> 0
 
-d(log(IA[s])) = ADJUST(1, 1) * d(log(IA[s]{-1})) + ADJUST(1, 2) * d(log(Y_e[s])) + ADJUST(1, 3) * (log(K_n[s]{-1}) - log(K[s]{-1})) + ADJUST(1, 4) * d(SUBST_K[s]) + IMP_BUD[s] * @elem(GDP, %baseyear) / @elem(IA[s], %baseyear) if K[s] <> 0
+#d(log(IA[s])) = ADJUST(1, 1) * d(log(IA[s]{-1})) + ADJUST(1, 2) * d(log(Y_e[s])) + ADJUST(1, 3) * (log(K_n[s]{-1}) - log(K[s]{-1})) + ADJUST(1, 4) * d(SUBST_K[s]) + IMP_BUD[s] * @elem(GDP, %baseyear) / @elem(IA[s], %baseyear) if K[s] <> 0
+
+d(log(IA_n[s])) = ADJUST(1, 1) * d(log(IA[s]{-1})) + ADJUST(1, 2) * d(log(Y_e[s])) + ADJUST(1, 3) * (log(K_n[s]{-1}) - log(K[s]{-1})) + ADJUST(1, 4) * d(SUBST_K[s]) + IMP_BUD[s] * @elem(GDP, %baseyear) / @elem(IA[s], %baseyear) if K[s] <> 0
+
+IA[s] = sum(IA[c, s] on c)
 
 d(log(Y_e[s])) = ADJUST(71,2) * d(log(Y_e[s]{-1})) + (1 - ADJUST(71,2)) * d(log(Y[s])) + 0.05 * (log(Y[s]{-1}) - log(Y_e[s]{-1}))
 
@@ -75,6 +88,8 @@ d(log(MT|O|[trsp, c])) = d(log(|V|[c])) + d(SUBST_MT|O|[trsp, c]) if MT|O|[trsp,
 
 # equation 2.14 & 2.15
 d(log(MC|O|[c])) = d(log(|V|[c])) if MC|O|[c] <> 0 where (O, V) in (D M, YQ M), c in %list_com \ %list_com_commarg
+
+MC[c] = MCM[c] +MCD[c]
 
 # Stock inventories for commodity c
 
@@ -142,14 +157,19 @@ d(SUBST_ED_n[ce, s]) = -ES_CIM($s, 20 + $ce) * d(log(PED[ce]) - log(PEM[ce])) * 
 # Allocation of Investment between domestic and import (Imports)
 
 # equation 2.29
-IAM[c, s] = (IA[c, s] - IAD[c, s] > 0) * (IA[c, s] - IAD[c, s]) + (IA[c, s] - IAD[c, s] =< 0) * (0.00001) if IAM[c, s] <> 0
+#IAM[c, s] = (IA[c, s] - IAD[c, s] > 0) * (IA[c, s] - IAD[c, s]) + (IA[c, s] - IAD[c, s] =< 0) * (0.00001) if IAM[c, s] <> 0
+
+d(log(IAM[c, s])) = d(log(IA_n[c, s])) + d(SUBST_IAM[c, s]) if IAM[c, s] <> 0
 
 d(SUBST_IAM_n[c, s]) = -ES_IAM($s, $c) * d(log(PIAM[c]) - log(PIAD[c])) * (PIAD[c]{-1} * IAD[c, s]{-1} / (PIA[c, s]{-1} * IA[c, s]{-1})) if (IAM[c, s] <> 0) * (IAD[c, s] <> 0)
 
 # Allocation of Investment between domestic and import (Domestic)
 
 # equation 2.30
-d(log(IAD[c, s])) = d(log(IA[c, s])) + d(SUBST_IAD[c, s]) if IAD[c, s] <> 0
+
+d(log(IAD[c, s])) = d(log(IA_n[c, s])) + d(SUBST_IAD[c, s]) if IAD[c, s] <> 0
+
+@over d(log(IAD_13_20)) = d(log(IA_n_13_20 - INV_Road)) + d(SUBST_IAD_13_20) + d(INV_Road)/IAD_13_20{-1} if IAD_13_20 <> 0
 
 d(SUBST_IAD_n[c, s]) = -ES_IAM($s, $c) * d(log(PIAD[c]) - log(PIAM[c])) * (PIAM[c]{-1} * IAM[c, s]{-1} / (PIA[c, s]{-1} * IA[c, s]{-1})) if (IAM[c, s] <> 0) * (IAD[c, s] <> 0)
 

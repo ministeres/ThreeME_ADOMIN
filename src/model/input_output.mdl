@@ -4,30 +4,56 @@
 @pv Q|O|[c] = CI|O|[c] + CH|O|[c] + G|O|[c] + I|O|[c] + X|O|[c] + DS|O|[c] if Q|O|[c] <> 0
 
 # equations 1.5 & 1.6
-@pv |V|[c] = |V|D[c] + |V|M[c] if |V|[c] <> 0 where V in Q CH G I DS
+@pv |V|[c] = |V|D[c] + |V|M[c] if |V|[c] <> 0 where V in Q CH G I 
 
+ DS[c] = DSD[c] + DSM[c] 
+
+ #PDS[c]*DS[c] = PDSD[c]*DSD[c] + PDSM[c]*DSM[c] if DS[c] <> 0
+ 
+#PDS[c] = (@year<=2006)*PYQS[c] + (@year>2006)*(((PDSD[c]*DSD[c] + PDSM[c]*DSM[c]) / (DS[c]+1) ) + (DS[c] = 0)*(PYQS[c]) )
+
+PDS[c] = (@year<=2006)*PYQS[c] + (@year>2006)*((PDSD[c]*DSD[c] + PDSM[c]*DSM[c]) / (DS[c]+1) ) 
 # equation 1.7
 PX[c] * X[c] = PXD[c] * XD[c] + PXM[c] * XM[c] if X[c] <> 0
 
 # equations 1.8, 1.9, 1.10 & 1.11
-@pv |V||O| = sum(|V||O|[c] if |V||O|[c] <> 0 on c) where V in Q CH G I X DS CI MT MC
+
+@pv |V||O| = sum(|V||O|[c] if |V||O|[c] <> 0 on c) where V in Q CH G I X CI MT MC
+
+DSD = sum(DSD[c] on c )
+
+PDSD*DSD = sum((PDSD[c]*DSD[c]) on c ) 
+
+DSM = sum(DSM[c] on c )
+
+PDSM*DSM = sum((PDSM[c]*DSM[c]) on c )
+
 # equations 1.12 & 1.13
+
 @pv |V| = |V|D + |V|M where V in Q CH G I X DS CI
+
 |V| = |V|D + |V|M where V in MT MC
 
+
 # equations 1.14, 1.15, 1.16 & 1.17
+
 @pv CI|O|[c] = sum(CI|O|[c, s] if CI|O|[c, s] <> 0 on s) if CI|O|[c] > 0
 
+CI[c] = CID[c] + CIM[c]             #ajout Gaël
+
 # equations 1.18, 1.19, 1.20 & 1.21
+
 PCI|O|[cm, s] = PMAT|O|[cm] if CI|O|[cm, s] > 0
+
 CI|O|[cm, s] = MAT|O|[cm, s] if CI|O|[cm, s] > 0
 
-PCI|O|[ce, s] = PE|O|[ce]  if CI|O|[ce, s] > 0
+PCI|O|[ce, s] = PE|O|[ce,s]  if CI|O|[ce, s] > 0            
+
 CI|O|[ce, s] = E|O|[ce, s] if CI|O|[ce, s] > 0
 
 #equation 1.22
 @pv M = sum(M[c] if M[c] <> 0 on c)
-
+            
 # GDP: PRODUCT DEFINITON
 
 #equation 1.24
@@ -52,14 +78,26 @@ GDPter = VA + TAX + SUB
 # equation 1.32
 YQ[c]*PYQ[c] = PQD[c]*QD[c] - PVATD[c]*VATD[c] - POTHTD[c]*OTHTD[c] - PSUBD[c]*SUBD[c] - (PMCD[c]*MCD[c] + PMTD[c]*MTD[c])- PENERTD[c]*ENERTD[c]  if YQ[c] <> 0
 
+#@over YQ[c] = QD[c] - VATD[c] - OTHTD[c] - SUBD[c] - (MCD[c] + MTD[c]) - ENERTD[c] if YQ[c] <> 0       
+
+PYQbis[c] *(QD[c] - VATD[c] - OTHTD[c] - SUBD[c] - MCD[c] - MTD[c]- ENERTD[c]) = _
+
+                PQD[c]*QD[c] - PVATD[c]*VATD[c] - POTHTD[c]*OTHTD[c] - PSUBD[c]*SUBD[c] - (PMCD[c]*MCD[c] + PMTD[c]*MTD[c])- PENERTD[c]*ENERTD[c]   if YQ[c] <> 0
 # equation 1.33
+
 YQbis[c] = QD[c] - VATD[c] - OTHTD[c] - SUBD[c] - (MCD[c] + MTD[c]) - ENERTD[c] if YQ[c] <> 0
 
 # PROBLEME! Eq. PMbis et PQbis devrait être utilisée pour calculer les volumes. Voir si la spécification actuelle est équivalente.
 
 # equation 1.34
-M[c]*PM[c] = PQM[c]*QM[c] - PVATM[c]*VATM[c] - POTHTM[c]*OTHTM[c] - PSUBM[c]*SUBM[c] - (PMCM[c]*MCM[c] + PMTM[c]*MTM[c]) - PENERTM[c]*ENERTM[c]  if M[c] <> 0
+M[c]*PM[c] = PQM[c]*QM[c] - PVATM[c]*VATM[c] - POTHTM[c]*OTHTM[c] - PSUBM[c]*SUBM[c] - (PMCM[c]*MCM[c] + PMTM[c]*MTM[c]) - PENERTM[c]*ENERTM[c]  if M[c] <> 0     
 
+#@over M[c] = QM[c] - VATM[c] - OTHTM[c] - SUBM[c] - (MCM[c] + MTM[c]) - ENERTM[c]  if M[c] <> 0           
+
+
+PMbis[c] *(QM[c] - VATM[c] - OTHTM[c] - SUBM[c] - MCM[c] - MTM[c]- ENERTM[c]) = _
+
+                PQM[c]*QM[c] - PVATM[c]*VATM[c] - POTHTM[c]*OTHTM[c] - PSUBM[c]*SUBM[c] - (PMCM[c]*MCM[c] + PMTM[c]*MTM[c])- PENERTM[c]*ENERTM[c]   if M[c] <> 0
 # equation 1.35
 Mbis[c] = QM[c] - VATM[c] - OTHTM[c] - SUBM[c] - (MCM[c]+MTM[c])- ENERTM[c] if M[c] <> 0
 
@@ -94,7 +132,7 @@ EBE[s] = VA[s] - (CL[s] / PEBE[s]) * L[s] * PROG_L[s] - IY[s] - SY[s]
 @pv EBE = sum(EBE[s] on s)
 
 # equations 1.54 & 1.55
-PRF[s]*RF[s] = PEBE[s]*EBE[s] - PK[s]{-1} * Tdec[s] * K[s]{-1} where s in %list_sec
+PRF[s]*RF[s] = PEBE[s]*EBE[s] - PK[s]{-1} * Tdec[s] * K[s]{-1} where s in %list_sec    # erreur il s'agit de l'ENE et non du résultat financier (l'assiette de l'IS n'est pas la bonne). 
 RF[s] = EBE[s] - @elem(PK[s]{-1}, %baseyear) * Tdec[s] * K[s]{-1}
 
 # equations 1.56 & 1.57
@@ -121,9 +159,23 @@ VERIF_PIAxIA_PIxI = PIA * IA / (PI * I) - 1
 VERIF_PIA_PI = PIA / PI - 1
 VERIF_IA_I = IA / I - 1
 
-VERIF_GDP_GDPBIS    =  GDP / GDPBIS - 1
-VERIF_GDP_GDPTER    =  GDP / GDPTER - 1
-VERIF_PGDP_PGDPBIS  = PGDP / PGDPBIS - 1
-VERIF_PGDP_PGDPTER  = PGDP / PGDPTER - 1
+VERIF_GDP_GDPBIS    =  (GDP / GDPBIS - 1)*100
+VERIF_GDP_GDPTER    =  (GDP / GDPTER - 1)*100
+VERIF_GDPTER_GDPBIS    =  (GDPTER / GDPBIS - 1)*100
+VERIF_GDPBIS_GDPTER    =  (GDPBIS / GDPTER - 1)*100
+VERIF_PGDP_PGDPBIS  = (PGDP / PGDPBIS - 1)*100
+VERIF_PGDP_PGDPTER  = (PGDP / PGDPTER - 1)*100
 
-VERIF_ValGDP_ValGDPTER = PGDP * GDP / (PGDPTER * GDPTER) - 1
+VERIF_ValGDP_ValGDPTER = (PGDP * GDP / (PGDPTER * GDPTER) - 1)*100
+
+verif_CH = CH - (sum(CH[c] on c))
+
+Verif_G = G - (sum(G[c] on c))  
+
+Verif_I = I - (sum(I[c] on c)) 
+
+verif_X = X - (sum(X[c] on c))
+
+verif_DS = DS - (sum(DS[c] on c))
+
+verif_M = M - (sum(M[c] on c)) 

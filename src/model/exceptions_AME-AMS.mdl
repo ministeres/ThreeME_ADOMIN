@@ -6,8 +6,8 @@
 
 # If need: No adjustments for investments in the electricity sector
 
-@over IA[se23] = (K_n[se23] > (1 - Tdec[se23]) * K_n[se23]{-1}) * (K_n[se23] - (1 - Tdec[se23]) * K_n[se23]{-1}) + _
-                 (K_n[se23] <= (1 - Tdec[se23]) * K_n[se23]{-1}) * 0.1
+#gel@over IA[se23] = (K_n[se23] > (1 - Tdec[se23]) * K_n[se23]{-1}) * (K_n[se23] - (1 - Tdec[se23]) * K_n[se23]{-1}) + _
+#gel                 (K_n[se23] <= (1 - Tdec[se23]) * K_n[se23]{-1}) * 0.1
  
 #gel @over d(log(IA[se23])) = (@year<= 2015)*(ADJUST(1, 1) * d(log(IA[se23]{-1})) + ADJUST(1, 2) * d(log(Y_e[se23])) + _ 
                  #gel ADJUST(1, 3) * (log(K_n[se23]{-1}) - log(K[se23]{-1})) + _
@@ -32,11 +32,11 @@ q24 = q_mtep_ef_sou_24
 
 @over Q_Mtep_ef_tot[ce, se] = Q_Mtep_ef[ce, se]  + Q_Mtep_X[ce, se] + Q_Mtep_Nener[ce, se] - Q_Mtep_in[ce, se] + Q_Mtep_out[ce, se] if Q_Mtep_ef_tot[ce, se] <> 0
 
-# Take cross-consumptions into account for primary energy consumption
+# --------------------------------Take cross-consumptions into account for primary energy consumption
 
 @over Q_Mtep_ep[ce, se] = Q_Mtep_ef[ce, se] + Q_Mtep_X[ce, se] + Q_Mtep_int[ce, se] + Q_Mtep_Losses[ce, se] - Q_Mtep_in[ce, se] + Q_Mtep_out[ce, se] if Q_Mtep_ep[ce,se] <> 0
 
-# Special case for methanation in 2303
+#----------------------- Special case for methanation in 2303
 
 #@over Q_Mtep_ef_tot[23, 2303] = Q_Mtep_ef[23, 2303]  + Q_Mtep_X[23, 2303] + Q_Mtep_indus[23, 2303]
 
@@ -46,15 +46,15 @@ q24 = q_mtep_ef_sou_24
 
 #Q_Mtep_out[23, 2402] = (1-AME)*(Q_Mtep_in[24, 2303])        
 
-# gel méthanation
+# ---------------------- méthanation
 
 # Q_Mtep_in[23, 2402] = (1-AME)*(0 +(@year>2040)*0.5*(1+0.15))
 
 # Q_Mtep_out[24, 2305] = (1-AME)*(Q_Mtep_ep[23, 2402])              
 
-@over dlog(E[ce, se]) = dlog(E[se]) + d(SUBST_E[ce, se]) + (@year>2006)*d(Q_Mtep_in[ce, se])/E[ce, se]{-1}    if E[ce, se] <> 0
+@over dlog(E_oth_des[ce, se]) = dlog(E_oth[se]) + d(SUBST_E[ce, se]) + (@year>2006)*d(Q_Mtep_in[ce, se])/E[ce, se]{-1}    if E_oth_des[ce, se] <> 0
 
-
+       
 #CAPEX[se] = d(K[se])
 
 CAPEX[se] = CK[se] * K[se] / P
@@ -85,19 +85,19 @@ PROG_BUIL[h, ecl, 23] = PROG_BUIL_23
 							
 PROG_BUIL[h, ecl, 24] = PROG_BUIL_24 							
 
-# Distribution of energy taxes receipts
+# ------------------------------Distribution of energy taxes receipts
 #--------------option 1
 
-REDIS_VAL = (sum((TenertD[ce] - @elem(TenertD[ce],%baseyear))*(YQ[ce]+M[ce]) on ce))
+#gelREDIS_VAL = (sum((TTICD[ce] - @elem(TTICD[ce],%baseyear))*(YQ[ce]+M[ce]) on ce))
 
-REDIS_VAL_H = REDIS_VAL*Q_Mtep_H/Q_Mtep_ef
+#gelREDIS_VAL_H = REDIS_VAL*Q_Mtep_H/Q_Mtep_ef
 
 REDIS_VAL_SEC = REDIS_VAL - REDIS_VAL_H
 
 @over DISPINC_VAL[h] = DISPINC_AI_VAL[h] - IR_VAL[h] - AIC_VAL[h] + REDIS_VAL_H + SUB_AUTO_VAL + SUB_REHAB_VAL       
 
 @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_REHAB_VAL + SUB_AUTO_VAL + REDIS_VAL_H _
-                + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))
+                + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
 
 @over TCSE[s] = @elem(TCSE[s], %baseyear) - (REDIS_VAL_SEC + DEP_TCO_VAL)/(W_S * L_S)
 
@@ -110,42 +110,50 @@ REDIS_VAL_SEC = REDIS_VAL - REDIS_VAL_H
 #@over d(TIR[h]) = 0 
 
 #----------------------option 3    
+ 
+# PIS[s]  * IS[s]  = TIS  * PRF[s]{-1}  * RF[s]{-1}  * ( RF[s]{-1} > 0 )  + 1e-08  * ( RF[s]{-1}  = < 0 )  - ( @year > 2018 )  * REDIS_VAL_SEC{-1}  * PY[s]{-1}  * Y[s]{-1}  / ( PY{-1}  * Y{-1} )
 
+#gel @over TIS[s] = TIS[s]{-1} - (REDIS_VAL_SEC{-1}+*PY[s]{-1}*Y[s]{-1}/(PY{-1}*Y{-1}) + tax_cr[s])/(PRF[s]{-1} * RF[s]{-1} +0.0000001)
 
-@over PIS[s] * IS[s] = TIS * PRF[s]{-1} * RF[s]{-1} * (RF[s]{-1}>0) + 0.00000001 * (RF[s]{-1} =< 0) - (@year>2018)*TCO_VAL_SEC{-1}*PY[s]{-1}*Y[s]{-1}/(PY{-1}*Y{-1})  
+#gel REDIS_VAL_SEC = REDIS_VAL - REDIS_VAL_H + DEP_TCO_VAL 
 
 @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_REHAB_VAL + SUB_AUTO_VAL + REDIS_VAL_H _
                 + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
 
 @over TCSE[s] = @elem(TCSE[s], %baseyear) 
 
-#----------------------option 4    recession divisée par 3 mais bug si TCO trop élevée
+#----------------------option 4    
 
 
-#@over PIS[s] * IS[s] = TIS * PRF[s]{-1} * RF[s]{-1} * (RF[s]{-1}>0) + 0.00000001 * (RF[s]{-1} =< 0) - (@year>2018)*REC_TCO_VAL{-1}*PY[s]{-1}*Y[s]{-1}/(PY{-1}*Y{-1})  
-#
-#@over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_REHAB_VAL + SUB_AUTO_VAL + REDIS_VAL_H _
-                #+ value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
-#
-#@over TCSE[s] = @elem(TCSE[s], %baseyear) 
-#
-#@over d(TIR[h]) = 0
+ 
+## PIS[s]  * IS[s]  = TIS  * PRF[s]{-1}  * RF[s]{-1}  * ( RF[s]{-1} > 0 )  + 1e-08  * ( RF[s]{-1}  = < 0 )  - ( @year > 2018 )  * REDIS_VAL_SEC{-1}  * PY[s]{-1}  * Y[s]{-1}  / ( PY{-1}  * Y{-1} )
 
-# -------------------------------------Evolution des prix à l'import sous l'effet de la lutte généralisée contre le rechauffement climatique
+#gel @over TIS[s] = TIS[s]{-1} - (REDIS_VAL_SEC{-1}*PY[s]{-1}*Y[s]{-1}/(PY{-1}*Y{-1}) + tax_cr[s])/(PRF[s]{-1} * RF[s]{-1} +0.0000001)
+
+#gel REDIS_VAL_SEC = REDIS_VAL - REDIS_VAL_H + DEP_TCO_VAL 
+
+#gel @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_REHAB_VAL + SUB_AUTO_VAL + REDIS_VAL_H _
+                #gel+ value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))  
+
+#gel@over TCSE[s] = @elem(TCSE[s], %baseyear) 
+
+#gel@over d(TIR[h]) = 0
+
+# ------------------Evolution des prix à l'import sous l'effet de la lutte généralisée contre le rechauffement climatique
 
 #@over PWD[sne] = (@year<=2018)*PWD_n[sne] + (@year>2018)*PWD_n[sne]*(1+TCO_VAL_SEC[sne]{-1}/CU[sne]{-1}*TTCO_VOL_ROW/TTCO_VOL_21) #where c in %list_com \ %list_com_E  # la chronique est fournie par la DGEC
 
 #PWD[sne] = (@year<=2018)*PWD_n[sne] + (@year>2018)*PWD_n[sne]*(1+DELTA_TTCO_ROW*TCO_VAL_SEC[sne]{-1}/(CU[sne]{-1}*Y[sne]{-1} ))
 
-# ------------------------politique monétaire
+# -------------------politique monétaire
             
 # attention, ne pas redistribuer la totalité des intérêts sinon, politique monétaire procyclique
 
-@over d(R_DIR) = 1* d(infl_FR) + d(R_ADD) #- 0.8 * d(Unr_tot) 
+@over d(R_DIR) = 1* d(infl_FR) + d(R_ADD) # -0.8 * d(Unr_tot) 
  
 @over d(R_S)= 0.3*d(R)
       
-# Subvention pour les logements (CIDD)
+#-------------------- Subvention pour les logements (CIDD)
 
 SUB_REHAB_VAL[h, ecl] = sum(R_SUB[h,ecl,ecl2] * PREHAB[h,ecl,ecl2] * REHAB[h,ecl,ecl2] if REHAB[h,ecl,ecl2]  <> 0 on ecl2)
 
@@ -155,36 +163,34 @@ SUB_REHAB_VAL = sum(SUB_REHAB_VAL[h] on h)
  
 EXP_ENER[h] = sum(EXP[ce, h] on ce)
 
-PEXP_ENER[h]*EXP_ENER[h] = sum(PEXP[ce,h]*EXP[ce, h] on ce)        # il faut écrire PEXP[ce,h]     # corrigé
+PEXP_ENER[h]*EXP_ENER[h] = sum(PEXP[ce,h]*EXP[ce, h] on ce)        
 
 
-# sobriété, reglementation thermique, substitution interénergie dans logement
+#----------------- sobriété, reglementation thermique, substitution interénergie dans logement
 
 @over d(log(ENERperM2[h, ecl, ce])) = -eta_BUIL[ce]* d(log(PEXP[ce, h])-log(PCH))*(d(log(PEXP[ce, h])-log(PCH))>0) + d(SUBST_BUIL[h, ecl, ce]) + TREND_E_BUIL[ce] if ENER_BUIL[h, ecl, ce] <> 0
 
 d(SUBST_BUIL[h, ecl, ce]) = (@year>%baseyear)*(sum(-ES_BUILNRJ($ecl, cols_ce(ce, ce_oth)) * d(log(PEXP[ce, h]+PE_Signal_H[ce]) - log(PEXP[ce_oth, h]+PE_Signal_H[ce_oth])) * _
-                           (PEXP[ce_oth, h]{-1}*EXP_BUIL[h, ecl, ce_oth]{-1}) /(PEXP_BUIL[h, ecl]{-1}*EXP_BUIL[h, ecl]{-1}) if ce_oth <> ce on ce_oth in %list_com_E))_
-                            if  PEXP[ce, h]*EXP_BUIL[h, ecl, ce] <> 0
+                           (EXP_BUIL[h, ecl, ce_oth]{-1}) /(EXP_BUIL[h, ecl]{-1}) if ce_oth <> ce on ce_oth in %list_com_E))_
+                            if  EXP_BUIL[h, ecl, ce] <> 0
 
-# export of energy commodities 
-
-
+#-------------------- export of energy commodities 
+ 
 @over X[ce] = @elem(X[ce],%baseyear)
+
 @over X_23 = X_exo_23
 
-#energy price signal
+#--------------------energy price signal
 
 ENER_price_signal = (sum(value(ENERT[ce] + OTHT[ce] + SUB[ce]) on ce)+ Rec_TCO_VAL )/ (Q_Mtep_ef * PGDP)
 
 ENER_price_signal[ce] = (value(ENERT[ce] + OTHT[ce] + SUB[ce]) + TCO_VAL_SOU[ce] + TCO_VAL_HH_SOU[ce]) / (Q_Mtep_ef_SOU[ce] * PGDP)
 
-#implicite Carbon tax
+#-------------------implicite Carbon tax
 
 Ttco_signal[21] = 1000000 * (value(ENERT[21]+ OTHT[21] + SUB[21]) + TCO_VAL_SOU[21] + TCO_VAL_HH_SOU[21])/ (EMS_SECSOU[21] + EMS_HH[21])
 
 Ttco_signal[22] = 1000000 * ((value(ENERT[22]+ OTHT[22] + SUB[22])) * PHIY_ef_tot[22,2201] + TCO_VAL_SOU[22] + TCO_VAL_HH_SOU[22])/ (EMS_SECSOU[22] + EMS_HH[22])
-
-#Ttco_signal[23] = 1000000 * ((value(ENERT[23]+ OTHT[23] + SUB[23])) * (PHIY_ef_tot[23,2302] + PHIY_ef_tot[23,2303] + PHIY_ef_tot[23,2304]) + TCO_VAL_SOU[23] + TCO_VAL_HH_SOU[23])/ (EMS_SECSOU[23] + EMS_HH[23])
 
 Ttco_signal[24] = 1000000 * ((value(ENERT[24]+ OTHT[24] + SUB[24])) * PHIY_ef_tot[24,2401] + TCO_VAL_SOU[24] + TCO_VAL_HH_SOU[24])/ (EMS_SECSOU[24] + EMS_HH[24])
 
@@ -194,7 +200,7 @@ Ttco_signal = ((sum(Ttco_signal[ce2] * (EMS_SECSOU[ce2] + EMS_HH[ce2]) on ce2)) 
 
 Ttco_vol_signal = Ttco_signal/PGDP
 
-#production unit cost of energy sectors per MTEP
+#------------------production unit cost of energy sectors per MTEP
 
 CU_MTEP[se] = ((CU[se]*Y[se])/Q_mtep_ef[se]) / P #(CU[se]*Y[se])/(PY[se]*Q_mtep_ef[se])
 
@@ -212,7 +218,7 @@ CU_MTEP_PGDP_23 = (sum(CU[se23]*Y[se23]/PGDP on se23))/Q_mtep_ef_tot_sou_23   # 
 
 CU_MTEP_PGDP_24 = (sum(CU[se24]*Y[se24]/PGDP on se24))/Q_mtep_ef_tot_sou_24    # modifié Gaël
 
-# production unit cost of energy sectors per Mwh
+#------------------- production unit cost of energy sectors per Mwh
 
 CU_MWH[se] = CU_MTEP[se]*0.086
 
@@ -230,30 +236,32 @@ CU_MWH_PGDP_23 = CU_MTEP_PGDP_23*0.086
 
 CU_MWH_PGDP_24 = CU_MTEP_PGDP_24*0.086
 
-# energy bill in % of GDP
+#------------------- energy bill in % of GDP
 
 EGDP_bill[ce] = CH[ce]/GDP
 
 EGDP_bill = (sum(CH[ce] on ce))/GDP
 
-#industrial production in % of GDP
+#-------------------industrial production in % of GDP
 
 YQGDP_ind = (sum(YQ[sind] on sind))/GDP
 
 #TTCO[ce2] =TTCO[ce2]{-1}*(1+GR_TCO)
 
-# GDP growth rate
+#------------------ GDP growth rate
 
 GR_GDP = dlog(GDP)
 
  #------------ dans AME l'enveloppe correspondant aux montant des dépenses fiscales du bonus automobile est sensée restée constante. 
 
-bonus_elec[h]= AME*((@year>2018)*((350*(1+STEADYSTATE(15,1))^(@year - 2018))/NEWAUTO_elec[h]) + (@year<=2018)*(R_bonus_elec)) + (1-AME)*R_bonus_elec
-
-@over bonus_th[h,ecl]= AME * R_bonus_th[h,ecl] +   (@year<=2018)*(1-AME)*R_bonus_th[h,ecl] + _
-                       (@year>2018)*(1-AME)*(bonus_th[h,ecl]{-1} - (@year<2040)*d(bonus_elec[h]*NewAuto_elec[h])/NewAuto_th[h] ) 
+#bonus_elec[h]= AME*((@year>2018)*((350*(1+STEADYSTATE(15,1))^(@year - 2018))/NEWAUTO_elec[h]) + (@year<=2018)*(R_bonus_elec)) + (1-AME)*R_bonus_elec
+#
+#@over bonus_th[h,ecl]= AME * R_bonus_th[h,ecl] +   (@year<=2018)*(1-AME)*R_bonus_th[h,ecl] + _
+                       #(@year>2018)*(1-AME)*(bonus_th[h,ecl]{-1} - (@year<2040)*d(bonus_elec[h]*NewAuto_elec[h])/NewAuto_th[h] ) 
 
 #@over bonus_th[h,ecl]= AME * R_bonus_th[h,ecl] +   (@year<=2018)*(1-AME)*R_bonus_th[h,ecl] + (@year>2018)*(1-AME)*(bonus_th[h,ecl]{-1}*(1 - (@year<2040)*d(bonus_elec[h]*NewAuto_elec[h])/(sum(bonus_th[h,ecl]{-1}*Newauto_th[h,ecl]{-1} on ecl))))
+
+bonus_elec[h]= R_bonus_elec
 
 #----------------------- Energy Reporting
 
@@ -396,56 +404,849 @@ ER_Inv_Wind = CAPEX_2305
 ER_Inv_Solar = CAPEX_2306
 ER_Jobs_Public_Trsp = sum(L[trsp] on trsp)
 
-# Raphael: prise en compte du teletravail et du partage de voirie dans le calcul des km_trav_auto
-
- 
- ## Arbitrage courte distance : Bus et VP (courte distance)
- 
- #VP courte distance 
- 
-@over dlog(km_trav_auto_CD[h])=(@year > %baseyear)*(d(log(km_traveler_CD_n[h]))+ _ 
-                         0.2*(km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))* d(log(pc_trav_15[h])-log(PC_trav_auto_CD[h]))) + teletravail + voirie + _
-                         (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
-						 
- # Bus
- 
-@over dlog(km_traveler_15[h])=(@year > %baseyear)*(d(log(km_traveler_CD_n[h]))+ _ 
-                                 0.2*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))*d(log(PC_trav_auto_CD[h])-log(pc_trav_15[h])))+ _
-                               (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
- 
- # total courte distance 					 
- 
-d(log(km_traveler_CD_n[h])) =(@year>%baseyear)*(0.4*d(log(dispinc_val/PCH)) -0.3*(km_traveler_15[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
-                             *dlog(pc_trav_15[h]/PCH) -0.3*dlog(PC_trav_auto_CD[h]/PCH) * km_trav_auto_CD[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
-                             + (2006<@year)*(@year<2016)*trend_km_traveler_CD + _
-                             (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
-							 
-							 
-							 
-@over km_traveler_CD[h] = km_trav_auto_CD[h] + km_traveler_15[h]
-
-# Raphael prise en compte du surcout de l'amelioration de l efficacité énergétique des véhicules thermiques : 
-
-prog_k_e_03 = d(oc_ee_vp * (newauto_th_h01 / 1000)) / ia_03{-1} 
-@over dlog(IA_03) = (@year<=2015) * ((IAexo_03>0)*(dlog(IAexo_03))) + (@year>2015) * ( ADJUST(1, 1) * dlog(IA_03{-1}) + ADJUST(1, 2) * dlog(Y_e_03) + _
-                          ADJUST(1, 3) * (log(K_n_03{-1}) - log(K_03{-1})) + ADJUST(1, 4) * d(SUBST_K_03)) + prog_k_e_03 if IA_03 <> 0
+@over dlog(IA_n_03) = (@year<=2019) * ((IAexo_03>0)*(dlog(IAexo_03))) + (@year>2019) * ( ADJUST(1, 1) * dlog(IA_03{-1}) + ADJUST(1, 2) * dlog(Y_e_03) + _
+                          ADJUST(1, 3) * (log(K_n_03{-1}) - log(K_03{-1})) + ADJUST(1, 4) * d(SUBST_K_03))  if IA_n_03 <> 0
 						  
-@over PAUTO_elec[h,pcl] = PNewAUTO_th[h,pcl]+(Pbattery + overcost_elec)/1000 - oc_ee_vp/1000
+@over EMS_SEC_21[sne] = Q_Mtep_SEC_21[sne]*1000000*4                 
 
-# Raphael cale pour cibler les conso de gaz, d'electricité ou de fioul des secteurs PL et bus: 
-# cette équation provoque un léger déséquilibre comptable
+@over EMS_SEC_22[sne] = Q_Mtep_SEC_22[sne]*IC_22[sne]*1000000*3.05      
 
-@over dlog(E_oth[ce, s]) = dlog(E_oth[s]) + d(SUBST_E[ce, s]) + GR_Eexo[ce, s] _
-                          + sum(-GR_Eexo[ce_oth, s]*E_oth[ce_oth, s]{-1}/E_oth[s]{-1} if ce_oth <> ce on ce_oth in %list_com_E)  if E_oth[ce, s] <> 0
+@over EMS_SEC_24[sne] = Q_Mtep_SEC_24[sne]*IC_24[sne]*1000000*2.4        
 
-#@over dlog(E_oth[ce, s]) = dlog(E_oth[s]) + d(SUBST_E[ce, s]) + sum(GR_Eexo[ce, s]*PE[ce_oth, s]{-1}*E[ce_oth, s]{-1} / (PE[s]{-1}*E[s]{-1}) if ce_oth <> ce on ce_oth in %list_com_E) _
-#                          + sum(-GR_Eexo[ce_oth, s]*(PE[ce, s]{-1}*E_oth[ce, s]{-1})/(PE[ce, s]{-1}*E_oth[s]{-1}) if ce_oth <> ce on ce_oth in %list_com_E)  if E_oth[ce, s] <> 0
+CCF_val[s] = Tdec[s] * PK[s] * K[s]
 
+CCF_vol[s] = Tdec[s] * K[s]
+
+verif_MT[c] = MT[c] - MTD[c] - MTM[c]
+
+#Verif_MTD[c] = MTD[c] - sum(MTD[trsp,c]  on trsp  )   if MTD[trsp,c]<>0  where c in %list_com \ %list_trsp      where trsp in %list_trsp
+
+#Verif_MTM[c] = MTM[c] - sum(MTM[trsp,c] on trsp  )   if MTM[trsp,c]<>0   where c in %list_com \ %list_trsp      where trsp in %list_trsp
+
+Verif_MC[c] = MC[c] - MCD[c] - MCM[c]
+
+IA_indus = sum(IA[sinc] on sinc)
+
+IA_tert = IA_19 + IA_20
+
+REHAB_VAL = PREHAB * REHAB
+
+#----------------- Net disposal incomes after debt charges and energy bill
+
+NDI_ADEB_VOL = (DISPINC_VAL - EXP_HOUSING_Val - EXP_MOBAUTO_Val)/PCH 
+
+
+#--------------------- choc d'investissement public
+
+@over dlog(IA_n_20) = (@year<=2019) * ((IAexo_20>0)*(dlog(IAexo_20))) + (@year>2019) * _
+                    (ADJUST(1, 1) * d(log(IA_20{-1})) + ADJUST(1, 2) * d(log(Y_e_20)) + _
+                     ADJUST(1, 3) * (log(K_n_20{-1}) - log(K_20{-1})) + ADJUST(1, 4) * d(SUBST_K_20) + _
+                     d(INV_Road)/IA_n_20{-1} + IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(IA_n_20, %baseyear)) if IA_n_20 <> 0
+            
+@over d(log(K_n_20)) = (@year<=2019) * (K_n_20>0)*(dlog(K_20)) + _ 
+                       (@year>2019) * (d(log(Y_20)) + d(SUBST_K_20) - d(log(PROG_K_20)) + d(INV_road)/K_n_20{-1} + IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(K_n_20, %baseyear)) if K_n_20 <> 0
+
+# ---------------------investissement d'efficacité énergétique
+
+ 
+ d(SUBST_K_NE_n[s]) = _
+     -ES_KLEM($s, 1) * d(log(CK[s]) - log(CL[s]))                    * (L[s]{-1}     * PROG_L[s]{-1} * CL[s]{-1} / (CU[s]{-1} * Y[s]{-1} )) _
+     -0     * d(log(CK[s]) - log((PE[s] + PE_signal[s])))   * (E[s]{-1} * PE[s]{-1} / (CU[s]{-1} * Y[s]{-1})) _
+     -ES_KLEM($s, 3) * d(log(CK[s]) - log(PMAT[s]))                  * (MAT[s]{-1}   * PMAT[s]{-1} / (CU[s]{-1} * Y[s]{-1})) _
+   if K_n[s] <> 0
+
+ d(SUBST_K_E_n[s]) = _
+     -0 * d(log(CK[s]) - log(CL[s]))                    * (L[s]{-1}     * PROG_L[s]{-1} * CL[s]{-1} / (CU[s]{-1} * Y[s]{-1} )) _
+     -eta_K_E[s]      * d(log(CK[s]) - log((PE[s] + PE_signal[s])))   * (E[s]{-1} * PE[s]{-1} / (CU[s]{-1} * Y[s]{-1})) _
+     -0 * d(log(CK[s]) - log(PMAT[s]))                  * (MAT[s]{-1}   * PMAT[s]{-1} / (CU[s]{-1} * Y[s]{-1})) _
+   if K_n[s] <> 0
+
+ 
+ 
+ SUBST_K_NE[s]  = ADJUST(1  + 1 , 6)  * SUBST_K_NE_n[s]  + ( 1  - ADJUST(1  + 1 , 6) )  * SUBST_K_NE[s]{-1}
+
+ SUBST_K_E[s]  = ADJUST(1  + 1 , 6)  * SUBST_K_E_n[s]  + ( 1  - ADJUST(1  + 1 , 6) )  * SUBST_K_E[s]{-1}
+ 
+ 
+ K_NE_des_n[s] = (@year<=2019) * (K_n[s]>0)*K_NE_n[s]{-1}*(K_n[s]/K_n[s]{-1}) + _
+                     (@year>2019) * (K_NE_des_n[s]{-1}*(1 + d(Y[s])/Y[s]{-1} - d(PROG_K[s])/prog_K[s]{-1} + IMP_BUD[s] * @elem(GDP, %baseyear) / @elem(K_n[s], %baseyear) + Choc_CSC[s]) + _
+                      K_n[s]{-1}*d(SUBST_K_NE[s])) if K_NE_n[s] <> 0
+
+ K_E_des_n[s] = (@year<=2019) * (K_n[s]>0)*K_E_n[s]{-1} *(K_n[s]/K_n[s]{-1}) + _
+                     (@year>2019) * (K_E_des_n[s]{-1}*(1 + d(Y[s])/Y[s]{-1} - d(PROG_K[s])/prog_K[s]{-1} + IMP_BUD[s] * @elem(GDP, %baseyear) / @elem(K_n[s], %baseyear) + Choc_CSC[s]) + _
+                      K_n[s]{-1}*d(SUBST_K_E[s]))  if K_E_n[s] <> 0
+   
+ @over K_NE_des_n_19 = (@year<=2019) * (K_n_19>0)*K_NE_n_19{-1}*(K_n_19/K_n_19{-1}) + _
+                     (@year>2019) * (K_NE_des_n_19{-1}*(1 + d(Y_19)/Y_19{-1} - d(PROG_K_19)/prog_K_19{-1} + IMP_BUD_19 * @elem(GDP, %baseyear) / @elem(K_n_19, %baseyear) + Choc_CSC_19 + d(Inv_IRVE)/K_n_19{-1}) + _
+                      K_n_19{-1}*d(SUBST_K_NE_19)) if K_NE_n_19 <> 0
+
+@over  K_E_des_n_19 = (@year<=2019) * (K_n_19>0)*K_E_n_19{-1} *(K_n_19/K_n_19{-1}) + _
+                     (@year>2019) * (K_E_des_n_19{-1}*(1 + d(Y_19)/Y_19{-1} - d(PROG_K_19)/prog_K_19{-1} + IMP_BUD_19 * @elem(GDP, %baseyear) / @elem(K_n_19, %baseyear) + Choc_CSC_19 + d(Inv_IRVE)/K_n_19{-1}) + _
+                      K_n_19{-1}*d(SUBST_K_E_19))  if K_E_n_19 <> 0
+
+ 
+@over K_NE_des_n_20 = (@year<=2019) * (K_n_20>0)*K_NE_n_20{-1}*(K_n_20/K_n_20{-1}) + _
+                          (@year>2019) * (K_NE_des_n_20{-1} *  (1+ d(Y_20)/Y_20{-1} - d(PROG_K_20)/prog_K_20{-1} + d(INV_road)/K_n_20{-1} + _
+                           IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(K_n_20, %baseyear) + Choc_DACCS ) + K_n_20{-1} * d(SUBST_K_NE_20)) if K_NE_n_20 <> 0
+
+@over K_E_des_n_20 = (@year<=2019) * (K_n_20>0)*K_E_n_20{-1}*(K_n_20/K_n_20{-1}) + _
+                          (@year>2019) * (K_E_des_n_20{-1} *  (1+ d(Y_20)/Y_20{-1} - d(PROG_K_20)/prog_K_20{-1} + d(INV_road)/K_n_20{-1} + _
+                           IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(K_n_20, %baseyear) + Choc_DACCS ) + K_n_20{-1} * d(SUBST_K_E_20)) if K_E_n_20 <> 0
+
+@over K_E_n[s] =  K_E_des_n[s]/(K_E_des_n[s] + K_NE_des_n[s]) * K_n[s]
+ 
+@over K_NE_n[s] =  K_NE_des_n[s]/(K_E_des_n[s] + K_NE_des_n[s]) * K_n[s]
+  
+ verif_K_n[s] = K_n[s]- K_NE_n[s] - K_E_n[s]
+
+@over I_MDE_n[s] =  K_E_n[s] - K_E_n[s]{-1}*(1-tdec[s])
+
+@over I_NE_n[s] =  K_NE_n[s] - K_NE_n[s]{-1}*(1-tdec[s])
+
+ IA_des[s] =   K_n[s] - K_n[s]{-1}*(1-tdec[s])
+
+ verif_IA_des[s] = IA_des[sne]- I_MDE_n[sne] - I_NE_n[sne]
+
+   verif_subst_K[s] = subst_K[s]-subst_K_E[s] - subst_K_NE[s]
+  
+  verif_subst_K_n[s] = subst_K_n[s]-subst_K_E_n[s] - subst_K_NE_n[s]
+
+
+ 
+#dlog(I_NE[sne]) =  (@year<=2019) * ((IA[sne]>0 ) * (dlog(IAexo[sne]))) + (@year>2019) * (ADJUST(1,1) * dlog(I_NE[sne]{-1}) + _
+                       #ADJUST(1,2)* dlog(Y_e[sne]) + ADJUST(1 , 3) * ( log(K_NE_n[sne]{-1}) - log(K_NE[sne]{-1})) + ADJUST(1,4) * d(SUBST_K_NE[sne])) if K[sne] <> 0
+#
+#dlog(I_MDE[sne]) =  (@year<=2019)  * ((IA[sne]>0) * (dlog(IAexo[sne]))) + (@year>2019) * (ADJUST(1,1) * dlog(I_MDE[sne]{-1}) + _ 
+                     #ADJUST(1,2)* dlog(Y_e[sne]) + ADJUST(1 , 3) * ( log(K_E_n[sne]{-1}) - log(K_E[sne]{-1})) + ADJUST(1,4) * d(SUBST_K_E[sne])) if K[sne] <> 0
+#
+#@over dlog(I_NE_19) =  (@year<=2019) * ((IA_19>0 ) * (dlog(IAexo_19))) + (@year>2019) * (ADJUST(1,1) * dlog(I_NE_19{-1}) + _
+                       #ADJUST(1,2)* dlog(Y_e_19) + ADJUST(1 , 3) * ( log(K_NE_n_19{-1}) - log(K_NE_19{-1})) + ADJUST(1,4) * d(SUBST_K_NE_19)+ Choc_CSC_19 + d(Inv_IRVE)/K_n_19{-1} + sobre_19) if K_19 <> 0
+#
+#@over dlog(I_MDE_19) =  (@year<=2019)  * ((IA_19>0) * (dlog(IAexo_19))) + (@year>2019) * (ADJUST(1,1) * dlog(I_MDE_19{-1}) + _ 
+                     #ADJUST(1,2)* dlog(Y_e_19) + ADJUST(1 , 3) * ( log(K_E_n_19{-1}) - log(K_E_19{-1})) + ADJUST(1,4) * d(SUBST_K_E_19)+ Choc_CSC_19 + d(Inv_IRVE)/K_n_19{-1} + sobre_19) if K_19 <> 0
+#
+ #@over dlog(I_NE_20) =  (@year<=2019) * ((IA_20>0 ) * (dlog(IAexo_20))) + (@year>2019) * (ADJUST(1,1) * dlog(I_NE_20{-1}) + _
+                       #ADJUST(1,2)* dlog(Y_e_20) + ADJUST(1 , 3) * ( log(K_NE_n_20{-1}) - log(K_NE_20{-1})) + ADJUST(1,4) * d(SUBST_K_NE_20)+ d(INV_road)/K_n_20{-1} + _
+                           #IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(K_n_20, %baseyear) + Choc_DACCS) if K_20 <> 0
+#
+#@over dlog(I_MDE_20) =  (@year<=2019)  * ((IA_20>0) * (dlog(IAexo_20))) + (@year>2019) * (ADJUST(1,1) * dlog(I_MDE_20{-1}) + _ 
+                     #ADJUST(1,2)* dlog(Y_e_20) + ADJUST(1 , 3) * ( log(K_E_n_20{-1}) - log(K_E_20{-1})) + ADJUST(1,4) * d(SUBST_K_E_20)+ d(INV_road)/K_n_20{-1} + _
+                           #IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(K_n_20, %baseyear) + Choc_DACCS) if K_20 <> 0
+  
+  
+  I_MDE[sne] * IA_des[sne] = IA[sne]* I_MDE_n[sne]
+  
+  I_NE[sne] =  IA[sne] - I_MDE[sne]
+  
+ verif_IA[sne] = IA[sne]- I_MDE[sne] - I_NE[sne]
+ 
+
+#----------------- Crédit d'impôt rénovation tertiaire 
+
+#TAX_CR_19 = - T_TAX_CR_19 * d(E_19/Y_19)*Y_19*PE_19*15 # le crédit d'impôt est égal à un pourcentage de l'énergie économisée en valeur sur la durée de vie de l'équipement estimée à 15 ans
+
+TAX_CR_VAL_19 =  T_TAX_CR_19 * (I_MDE_19>0)*PIA_13_19*I_MDE_19  # le crédit d'impôt est égal à un pourcentage du coût des investissements d'efficacité énergétique
+
+TAX_CR_19 =  T_TAX_CR_19 * (I_MDE_19>0)*I_MDE_19
+
+#TAX_CR_19 =  TAX_CR_n_19  # le crédit d'impôt est budgété à 300 millions d'euros
+
+@over PE_signal_19 = TAX_CR_19/(PE_19*E_19) +  PE_signal_ren_19                          # crédit impôt réno énergétique pour le tertiaire
+
+#@over IS[s]  = @elem(TIS  * PRF[s](-1) , 2006)  * RF[s](-1)  * ( RF[s](-1) > 0 )  + 1e-08  * ( RF[s](-1)  = < 0 ) - TAX_CR_VAL[s] - (@year>2022)*REDIS_VAL_SEC{-1}*PY_19{-1}*Y_19{-1}/(PY{-1}*Y{-1})
+
+#@over PIS_19 * IS_19 = TIS * PRF_19{-1} * RF_19{-1} * (RF_19{-1}>0) + 0.00000001 * (RF_19{-1} =< 0) - (@year>2022)*REDIS_VAL_SEC{-1}*PY_19{-1}*Y_19{-1}/(PY{-1}*Y{-1}) - TAX_CR_VAL_19  
+ 
+
+# -----------------CSPE   on suppose que le tarif de rachat permet aux produxteurs d'énergie renouvelable de recevoir une subvention égale à l'écart entre le coût unitaire de production du nucléaire et le leur. La cspe n'a pas d'incidence sur le prix de vente de l'électricité puisqu'il est égal à la moyenne pondérée des CU plus une marge.
+#cela n'a pas d'incidence sur le budgert de l'Etat puisqu'il s'agit d'un transfert entre producteurs. 
+
+CSPE[se22]= (CU[se22]-CU_2201)*Y[se22]
+
+CSPE[se23]= (CU[se23]-CU_2301)*Y[se23]
+
+CSPE[se24]= (CU[se24]-CU_2401)*Y[se24]
+
+CSPE = CSPE_2305 + CSPE_2306
+
+#----------------- On suppose que le ferroviaire n'augmente pas ses prix sous l'effet de la hausse de la demande induite par le développement du reseau
+
+@over TMD_n_15 = @elem(TMD_n_15, %baseyear)
+
+@over dlog(PY_n_15)  = dlog(NCU_n_15)  
+
+#-------------------- introduction du gaz dans les transports collectifs
+
+@over E_oth_des_24_15  = E_oth_des_24_15{-1} *(1 + d(log(E_oth_15))  + d(SUBST_E_24_15)) + Choc_E_oth_des_24_15
+
+@over E_oth_des_22_15  = E_oth_des_22_15{-1} *(1 + d(log(E_oth_15))  + d(SUBST_E_22_15)) - Choc_E_oth_des_24_15
+
+@over E_oth_des_24_16  = E_oth_des_24_16{-1} *(1 + d(log(E_oth_16))  + d(SUBST_E_24_16)) + Choc_E_oth_des_24_16
+
+@over E_oth_des_22_16  = E_oth_des_22_16{-1} *(1 + d(log(E_oth_16))  + d(SUBST_E_22_16)) - Choc_E_oth_des_24_16
+                                                   
+@over E_oth_des_24_17  = E_oth_des_24_17{-1} *(1 + d(log(E_oth_17))  + d(SUBST_E_24_17)) + Choc_E_oth_des_24_17
+
+@over E_oth_des_22_17  = E_oth_des_22_17{-1} *(1 + d(log(E_oth_17))  + d(SUBST_E_22_17)) - Choc_E_oth_des_24_17 - Choc_E_oth_des_23_17
+
+@over E_oth_des_24_18  = E_oth_des_24_18{-1} *(1 + d(log(E_oth_18))  + d(SUBST_E_24_18)) + Choc_E_oth_des_24_18
+
+@over E_oth_des_23_18  = E_oth_des_23_18{-1} *(1 + d(log(E_oth_18))  + d(SUBST_E_23_18)) + Choc_E_oth_des_23_18
+
+@over E_oth_des_22_18  = E_oth_des_22_18{-1} *(1 + d(log(E_oth_18))  + d(SUBST_E_22_18)) - Choc_E_oth_des_24_18 - Choc_E_oth_des_23_18 
+
+@over E_oth_des_23_17  = E_oth_des_23_17{-1} *(1 + d(log(E_oth_17))  + d(SUBST_E_23_17)) + Choc_E_oth_des_23_17
+
+  @over MATD[cm,sne]  = (CIDexo[cm,sne])*(@year<=2019) + _
+                        (MATD[cm,sne]{-1}*(1+(MAT[cm,sne]>0)*(d(MAT[cm,sne])/MAT[cm,sne]{-1} + d(SUBST_MATD[cm,sne])))) *(@year>2019) if MATD[cm,sne] <> 0
+ 
+ #------------------ choc sur les consommations intermédiaires
+    
+  @over MATM[cm,sne]  = (CIMexo[cm,sne])*(@year<=2019) _
+                       + ((MAT[cm,sne]-MATD[cm,sne]>0)*(MAT[cm,sne]-MATD[cm,sne])+(MAT[cm,sne]-MATD[cm,sne]<=0)*0.0001)*(@year>2019) if MATM[cm,sne] <> 0
+ 
+ @over MAT_n[sne] = sum(MAT[cm,sne] on cm) 
+ 
+ @over MAT[sne] =  (MAT_n[sne]) 
+ 
+ @over d(log(MAT_n[cm, sne])) = (@year<=2019) * (dlog(CIexo[cm,sne])) + (@year>2019) *(dlog(Y[sne]) + (1-choc_tech_coef)*(Tech_coef_var[cm,sne]) + (choc_tech_coef)*(@year>2023)*(Tech_coef_var_2[cm,sne])+ d(SUBST_MAT[sne]) ) if MAT[cm, sne] <> 0
+ 
+ @over d(log(MAT_n[cm, sne])) = (@year<=2019) * (dlog(CIexo[cm,sne])) + (@year>2019) *(dlog(Y[sne]) + (1-choc_tech_coef)*(Tech_coef_var[cm,sne] - d(SUBST_MAT[sne])) + (choc_tech_coef)*(@year>2023)*(Tech_coef_var_2[cm,sne] - d(SUBST_MAT[sne]))+ d(SUBST_MAT[sne]) ) if MAT[cm, sne] <> 0
+ 
+ @over MAT[cm, sne] = (@year<=2019) * (MATD[cm,sne] + MATM[cm,sne]) + (@year>2019) * (MAT_n[cm, sne]) if MAT[cm, sne] <> 0    
+
+#-------------------- choc sur la demande de produits manufacturés
+                  
+ #gel@over EXP_n[co, h] = (@year <= 2019)*((@year <= %baseyear) * (@elem(EXP_n[co, h],%baseyear) * (1 + STEADYSTATE(2, 1))^(@year-%baseyear))+ _
+                      #gel(@year > %baseyear)*(EXP_n[co,h]{-1}*EXPexo[co]/EXPexo[co]{-1})) + _
+                      #gel(@year >  2019) * ((choc_EXP[co]>=0)*((PEXP[co, h] * NEXP[co, h] + BetaExp[co, h] * _ 
+                        #gel(DISPINC_VAL[h] * (1 - MPS_HH[h]) - PNEXP[h] * NEXP[h] - EXP_HOUSING_Val[h] - Exp_13_OTH_VAL[h] - EXP_MOB_Val[h])) _
+                        #gel/ PEXP[co, h])+(choc_EXP[co]<0)*((1+choc_EXP[co])*EXP_n[co, h]{-1}))  if EXP[co, h] <> 0
+#gel                        
+ #gelchoc_EXP_VAL = sum(choc_EXP[co]*EXP[co, h]{-1}*PEXP[co, h] on co)
+#gel 
+ #gel@over BetaEXP[co, h] = (@year <= 2019)*(BetaEXP[co, h]{-1}) + (@year > 2019)*((@year < 2022)*(BetaEXP[co, h]{-1} * (1 + (1 - ES_LES_CES(1, 1)) * dlog(PEXP[co, h] / PEXP_CES[h]))) _  
+                      #gel+ (@year >=2022) * ((PEXP[co, h]*EXP_n[co, h] - PNEXP[co, h]*NEXP[co, h]) / EXP_CES_VAL)) 
+#gel                                     
+ #gelBetaEXP  = sum(BetaEXP[co, h] on co)    
+#gel                      
+ #gelEXP_CES_VAL = sum((PEXP[co, h]*EXP_n[co, h] - PNEXP[co, h]*NEXP[co, h] ) on co)
+
+# --------------------- choc exogène sur l'efficacité énergétique dans l'industrie
+                                             
+ PROG_E_indus[s] = PROG_E_indus[s]{-1}*(1+GR_PROG_E[s])   #vérifier que l'on n'écrase pas la hausse de début d epériode     
+
+ #-------------------- choc sur la demande alimentaire
+  
+ @over d(log(NEXP[co, h])) = (@year >  %baseyear) * ((@year <=2022) * d(log(Pop_TOT)) + (@year >=2022) * choc_EXP[co]) + (@year <=  %baseyear) * log( 1 + STEADYSTATE(2,1))  where co in 01
+                
+ #------------------ choc sur la durée de vie des véhicules
+                       
+  AUTO_elec_D[h, pcl] = AUTO_D
+  
+  AUTO_D[h, ecl] = AUTO_D 
+  
+  delta_AUTO[h, ecl, DES] = 1/AUTO_D
+  
+ #------------------- choc sur la consommation publique
+    
+ @over EXPG = ( 1 + ADJUST(69,1)*(d(log(EXPG_trend)) - STEADYSTATE(62,1)*(DP_G_VAL - DP_G_VAL_n)*PGDP{-1}*GDP{-1} / (PG{-1}*EXPG{-1})) + _
+              (1-ADJUST(69,1))*dlog(EXPG{-1}))*EXPG{-1} - sum(choc_G[c]*G[c] on c)
+  
+ @over dlog(EXPG[cm]) = dlog(EXPGexo[cm])*(@year<=2019) + (ADJUST(69,1)*(dlog(EXPG_trend) - STEADYSTATE(62,1)*(DP_G_VAL - DP_G_VAL_n)*PGDP{-1}*GDP{-1}/(PG{-1}*EXPG{-1})) _
+                         + (1 - ADJUST(69,1)) * dlog(EXPG{-1}))*(@year>2019) + choc_G[cm]     if EXPG[cm] <>0 
+
+ #------------------- choc sur la demande extérieure
+                         
+ @over d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + (log(1+STEADYSTATE(2,1)) + choc_WD[cm] )*(@year>2019)    if Xexo[cm] <> 0   
+ 
+ @over dlog(X[cm]) = (dlog(Xexo[cm]))*(@year<=2019) + (dlog(WD[cm]) + d(SUBST_X[cm]))*(@year>2019)   if X[cm] <> 0
+   
+ #------------------ gain d'efficacité energétique exogènes    (les eta_K_E et eta_L_E =0  et es retards sont supprimés)
+    
+ @over    dlog(E_oth[sne])= dlog(E_oth_n[sne])   if E_oth_n[sne] <> 0
+     
+ @over    dlog(E_indus[sne])= dlog(E_indus_n[sne])  if E_indus_n[sne] <> 0 
+ 
+ @over   d(log( EXP_13_OTH_VAL[h] ) ) = (@year<2019)*(d(log( DISPINC_VAL[h])) + d(log( 1 - MPS_HH[h]))) + (@year>=2019)*dlog(BUIL)   
+
+#------------------- choc sur le trafic aérien 
+
+  @over d(log(Km_traveler[18, h])) =(@year>%baseyear)*(1.2*d(log(dispinc_val/PCH))-0.7*d(log(PCH_18)-log(PCH))) + choc_air_trafic + _
+                                   (@year<=%baseyear)*log(1+STEADYSTATE(2,1))   
+                                   
+  @over DS_18  = (QDexo_18+QMexo_18-CI_18-CH_18-G_18-I_18-X_18)*(@year<=2019) + (@year > 2019)*((@year<=2022)*(DS_18(-1)*(1+d(POP_TOT)/POP_TOT(-1))*(1+d(PROG_L)/PROG_L(-1))) _
+                    +(@year>2022)*DS_18{-1})    
+                    
+#------------------- capture et stockage de CO2 CSC
+
+ @over d(log(K_n[s])) = (@year<=2019) * (K_n[s]>0)*(dlog(K[s])) + _
+                          (@year>2019) * (dlog(Y[s]) + d(SUBST_K[s]) - dlog(PROG_K[s]) + Choc_CSC[s]) if K_n[s] <> 0   
+                          
+ Choc_CSC[s] * K_n[s]{-1}  = CSC_cost * EMS_CSC[s]
+                                   
+## DACCS On suppose que l'Etat finance la capture du CO2 de l'air. Coût financé par une taxe carbone  
+
+ @over dlog(K_n_20) = dlog(Y_20) + d(SUBST_K_20) - dlog(PROG_K_20) + d(INV_road)/K_n_20{-1}  + Choc_DACCS  if K_n_20 <> 0               
+
+ Choc_DACCS * K_n_20{-1}  = DACCS_cost * EMS_DACCS  
+
+ @over REDIS_VAL_SEC = REDIS_VAL - REDIS_VAL_H  - DACCS_cost * EMS_DACCS
+  
+ #@over PIS[s] * IS[s] = TIS * PRF[s]{-1} * RF[s]{-1} * (RF[s]{-1}>0) + 0.00000001 * (RF[s]{-1} =< 0) - (@year>2018)*REDIS_VAL_SEC{-1}*PY[s]{-1}*Y[s]{-1}/(PY{-1}*Y{-1}) - TAX_CR_VAL[s]
+
+ @over TIS[s] = TIS[s]{-1} - (REDIS_VAL_SEC{-1}*PY[s]{-1}*Y[s]{-1}/(PY{-1}*Y{-1}) + TAX_CR_VAL[s])/(PRF[s]{-1} * RF[s]{-1} +0.0000001)
+
+ @over PIS[s] * IS[s] = TIS[s] * PRF[s]{-1} * RF[s]{-1} * (RF[s]{-1}>0) + 0.00000001 * (RF[s]{-1} =< 0)   if IS[s] <> 0
+
+#------------------- Modification des capex et opex de la production d'énergie
+
+ #gel@over IA_n[se23] = (@year< 2022) * IA_n[se23]{-1}*(1+(ADJUST(1, 1) * d(log(IA[se23]{-1})) + ADJUST(1, 2) * d(log(Y_e[se23])) + ADJUST(1, 3) * (log(K_n[se23]{-1}) - log(K[se23]{-1})) + ADJUST(1, 4) * d(SUBST_K[se23]))) _
+                    #gel+ (@year>= 2022) * (INVexo[se23])   if K[se23] <> 0
+#gel
+#gel#  @over PROG_K_2403 = (@year< 2022)*(PROG_K_2403{-1}*(1+ GR_prog_K_2403)) + (@year>= 2022) * (PROG_K_2403{-1}*(1 - 0.4*(log(cible_CU_2403)-log(CU_MWH_PGDP_2403{-1}))))       if K_2403<>0
+#gel    
+#gel#  @over PROG_L_2403 = (@year< 2022)*(PROG_L_2403{-1}*(1+ GR_prog_L_2403)) + (@year>= 2022) * (PROG_L_2403{-1}*(1 - 0.2*(log(cible_CU_2403)-log(CU_MWH_PGDP_2403{-1}))))       if K_2403<>0
+#gel
+  #gelCU_CAPEX[se] * PY[se] * Y[se] = CK[se]*K[se]   if Y[se] > 0
+#gel
+  #gelCU_OPEX[se] * PY[se] * Y[se] = CL[se]*L[se] + PEner[se]*Ener[se] + PMAT[se]*MAT[se] if Y[se] > 0   
+#gel  
+  #gelCU_CAPEX_Mwh[se] = (CU_CAPEX[se]*PY[se]*Y[se]/PGDP)/(Q_mtep_ef[se]/0.086)      if Q_mtep_ef[se] >0
+#gel
+  #gelCU_OPEX_Mwh[se] = (CU_OPEX[se]*PY[se]*Y[se]/PGDP)/(Q_mtep_ef[se]/0.086)        if Q_mtep_ef[se] >0
+#gel                   
+  #gel@over IA_n[se23] = (@year< 2022) * IA_n[se23]{-1}*(1+(ADJUST(1, 1) * d(log(IA[se23]{-1})) + ADJUST(1, 2) * d(log(Y_e[se23])) + ADJUST(1, 3) * (log(K_n[se23]{-1}) - log(K[se23]{-1})) + ADJUST(1, 4) * d(SUBST_K[se23]))) _
+                    #gel+ (@year>= 2022) * (INVexo[se23])  if K[se23] <> 0
+#gel 
+#gel
+ #gel@over K_n[se23] = (@year<2022)*(K_n[se23]{-1}*(1 + dlog(Y[se23]) + d(SUBST_K[se23]) - dlog(PROG_K[se23]) + Choc_CSC[se23])) + _
+                         #gel(@year>=2022)*(Kexo[se23] + Choc_CSC[se23]) if K_n[se23] <> 0     
+#gel                    
+#gel
+ #gel@over  d(log(MAT_n[se23]))  = (@year< 2022)*(d(log(Y[se23]))  + d(SUBST_MAT[se23])) + (@year>= 2022)* dlog(OPEX_target[se23]*Q_mtep_ef[se23]/0.086)
+#gel  
+  #gel@over  d(log(L_n[se23]))  = (@year< 2022)*(d(log(Y[se23]))  - d(log(PROG_L[se23]))  + d(SUBST_L[se23])) + (@year>= 2022)* 39/75*dlog(OPEX_target[se23]*Q_mtep_ef[se23]/0.086) 
+#gel  
+  #gel#  39/75 est le rapport entre les emplois liés à la production et les emplois liés à la distribution. 
+ 
+ @over IA_n[se24] =  (K[se24] - K[se24]{-1}*(1-tdec[se24])>0)*(K[se24] - K[se24]{-1}*(1-tdec[se24]))+ (K[se24] - K[se24]{-1}*(1-tdec[se24])<=0)*0.1 if K[se24] <> 0
+ 
+ @over dlog(K_n[se24]) = dlog(Y[se24]) + d(SUBST_K[se24]) - dlog(PROG_K[se24])    if K_n[se24] <> 0
+ 
+  @over K[se24] = K_n[se24]
+  
+ @over  d(log(MAT_n[se24]))  = d(log(Y[se24]))  + d(SUBST_MAT[se24]) + choc_MAT[se24]  
+ 
+#--------------------- recalibrage investissement tertiaire
+
+ #gel@over IA_n_13_19 = IA_exo_13_19
+#gel 
+ #gel@over IA_n_13_20 = IA_exo_13_20
+#gel 
+ 
+#--------------------  introduction des Certificats d'économie d'énergie CEE 
+
+#  CEE = subvention versée par les entreprises
+
+ R_SUB[h,ecl,ecl2] = R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+ 
+ RENOV_VAL = (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
+ 
+ RENOV_VAL[ecl] = sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
+ 
+ R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL =  CEE
+ 
+ CEE[se] = CEE * Phi_CEE[se]
+
+ Phi_CEE[21] = 1 * ENER_BUIL[21] / (sum(ENER_BUIL[ce] on ce))   
+ @over Phi_CEE[se22] = PhiY_ENER[22,se22] * ENER_BUIL[22] / ENER_BUIL
+ @over Phi_CEE[se23] = PhiY_ENER[23,se23] * ENER_BUIL[23] / ENER_BUIL
+ @over Phi_CEE[se24] = PhiY_ENER[24,se24] * ENER_BUIL[24] / ENER_BUIL
+ 
+verif_phi_CEE = sum(Phi_CEE[se] on se) -1
+
+VERIF_CEE = sum(CEE[se] on se) - CEE
+
+ @over CU_n[s] * Y[s] = CK[s] * K_n[s] + CL[s] * L_n[s] * PROG_L[s] + PE[s] * E_n[s] + PMAT[s] * MAT_n[s] + CEE[s] if Y[s] > 0
+  
+ @over CU[s]*Y[s] = CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] + CEE[s] if Y[s] > 0
+    
+ @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
+                + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))  
+
+ R_SUB[ecl] * RENOV_VAL[ecl]  = sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0
+ 
+ R_SUB_renov[ecl] * RENOV_VAL[ecl]  = sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0
+                           
+ #Nu_REHAB[h,ecl] =  Nu_REHABexo[h,ecl]*(@year<=2022) +  (@year>2022) * (Nu_REHAB[h,ecl]{-1} * R_SUB[ecl]/( R_SUB[ecl]{-1}+0.001))   where ecl in %list_ener_class\ CA
+
+ #Nu_REHAB[h,ecl] =  Nu_REHABexo[h,ecl] *(@year<=2007) +  (@year>2007) * (Nu_REHAB[h,ecl]{-1} * (1-d(PAYBACK_REHAB_R[h,ecl]) _
+                         # / (PAYBACK_REHAB_R[h,ecl]{-1} +0.001)))   where ecl in %list_ener_class\ CA
+
+ @over tau_REHAB_2[h,ecl] = 0.5*tau_REHAB_N[h,ecl] + (1-0.5)*tau_REHAB[h,ecl]{-1} + 0.05 * (tau_REHAB_N[h,ecl]{-1}-tau_REHAB[h,ecl]{-1})  if tau_REHAB[h,ecl] <> 0  
+ 
+ SUB_RENOV_val[ecl] = R_SUB_renov[ecl] * RENOV_VAL[ecl]       where ecl in %list_ener_class\ CA
+ 
+ SUB_RENOV_val = SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
+  
+#---------------------  Augmentation de la sensibilité des marges aux variations de l'activité
+ 
+ @over dlog(1+TMD_n[sind]) = (0.4 * ( dlog(Y[sind]) -dlog(Y_e[sind]{-1})))*(@year<=2022) + _
+                            (@year>2022) * (TMD_n[sind]{-1}>0.01) * (2 * ( dlog(Y[sind]) -dlog(POP_tot) - dlog(PROG_L))) + _
+                            (@year>2022) * (TMD_n[sind]{-1}<=0.01) * ( dlog(Y[sind]) > (dlog(POP_tot) + dlog(PROG_L))) * _
+                            (2 * ( dlog(Y[sind]) - dlog(POP_tot) - dlog(PROG_L)))   if Y[sind] > 0  #where sind in %list_sec_indus \ 02 03 06 07 08 09 10 11
+                            
+#------------------ tension sur les marchés du travail bâtiment
+
+@over d(log(W_S_n[13])) = 1*d(log(P_e)) + d(log(CFS)) + 1*d(log(PROG_L[13])) - 1.8 * (-d(L[13]{-1}* (DLog(GDP[13])-Dlog(prog_L[13]))/( L[13]{-1}/L{-1}*POP_tot{-1})))
+
+# AUgmentation de l'élasticité des exports et des imports aux prix
+
+@over d(SUBST_X_n[c]) = (@year<=2022)*(-ES_X($c, 1) * d(log(PX[c]) - log(TC*PWD[c]))) _ 
+                        +(@year>2022)*(-ES_ext_choc * d(log(PX[c]) - log(TC*PWD[c]))) if X[c] <> 0  #  where c in 05 06 12 13
+
+@over d(SUBST_IAM_n[c, s]) = (@year<=2022)*(-ES_IAM($s, $c) * d(log(PIAM[c]) - log(PIAD[c])) * (PIAD[c]{-1} * IAD[c, s]{-1} / (PIA[c, s]{-1} * IA[c, s]{-1}))) _
+                                +(@year>2022)*(-ES_ext_choc * d(log(PIAM[c]) - log(PIAD[c])) * (PIAD[c]{-1} * IAD[c, s]{-1} / (PIA[c, s]{-1} * IA[c, s]{-1})))  if (IAM[c, s] <> 0) * (IAD[c, s] <> 0) #  where c in 05 06 12 13
+
+@over d(SUBST_MATD_n[cm, s]) = (@year<=2022)*(-ES_CIM($s, $cm) * d(log(PMATD[cm]) - log(PMATM[cm])) * (PMATM[cm]{-1} * MATM[cm, s]{-1} / (PMAT[cm, s]{-1} * MAT[cm, s]{-1}))) _ 
+                             +(@year>2022)*(-ES_ext_choc * d(log(PMATD[cm]) - log(PMATM[cm])) * (PMATM[cm]{-1} * MATM[cm, s]{-1} / (PMAT[cm, s]{-1} * MAT[cm, s]{-1})))  if (MATM[cm, s] <> 0) * (MATD[cm, s])   #  where c in 05 06 12 13
+
+@over d(SUBST_GD_n[c]) = (@year<=2022)*(- ES_GOV(1, $c) * d(log(PGD[c]) - log(PGM[c])) * (PGM[c]{-1} * GM[c]{-1}/(PG[c]{-1} * G[c]{-1}))) _ 
+                        +(@year>2022)*(-ES_ext_choc * d(log(PGD[c]) - log(PGM[c])) * (PGM[c]{-1} * GM[c]{-1}/(PG[c]{-1} * G[c]{-1}))) if GD[c] <> 0     #   where c in 05 06 12 13
+
+@over d(SUBST_CHD_n[c])= (@year<=2022)*(- ES_LVL4_HH(1, $c) * d(log(PCHD[c]) - log(PCHM[c])) * (PCHM[c]{-1} * CHM[c]{-1} / (PCH[c]{-1} * CH[c]{-1}))) _ 
+                        +(@year>2022)*(-ES_ext_choc * d(log(PCHD[c]) - log(PCHM[c])) * (PCHM[c]{-1} * CHM[c]{-1} / (PCH[c]{-1} * CH[c]{-1}))) if CHD[c] <> 0   #   where c in 05 06 12 13
+
+#------------------- politique monétaire
+
+@over d(R_DIR) = 1* d(infl_FR) + d(R_ADD) + (@year>2022) * (- 0.8 * d(Unr_tot) + 0* d(infl_FR) ) 
+
+#------------------- choc sur la substitution entre chaudières au fioul et PAC
+ 
+
+ choc_PAC[ecl] = BUIL[22,ecl]/100 * coef_choc_PAC[ecl] * P_PAC
+ 
+ choc_PAC  = sum(choc_PAC[ecl] on ecl ) 
+
+ choc_PAC_VAl[ecl] = choc_PAC[ecl] * (Prop_M_PAC * PCHM_12 + (1-Prop_M_PAC) *PCHD_12)   # le prix de la PAC augmente comme l'indice du prix du secteur 12
+ 
+ choc_PAC_VAL = sum(choc_PAC_VAL[ecl] on ecl )
+
+ BUIL[ce,ecl] =  BUIL[ecl]* ENER_BUIL_h01[ecl,ce] /ENER_BUIL_h01[ecl]
+
+ @over d(log(MAT_n_12_13))  = ( @year <= 2019 )  * ( dlog(CIexo_12_13) )  + ( @year > 2019 )  * ( dlog(Y_13)  + ( 1  - choc_tech_coef )  * ( Tech_coef_var_12_13 )  + ( choc_tech_coef )  * ( Tech_coef_var_2_12_13 )  + d(SUBST_MAT_13) + d(choc_PAC)/MAT_n_12_13{-1})
+ 
+ @over MATD_12_13  = ( CIDexo_12_13 )  * ( @year <= 2019 )  + ( MATD_12_13{-1} * ( 1  + ( MAT_12_13 > 0 )  * ( d(MAT_12_13)  / MAT_12_13(-1)  + d(SUBST_MATD_12_13) ) ) - Prop_M_PAC * d(choc_PAC) * MATD_12_13{-1}/MAT_12_13{-1} ) * ( @year > 2019 )   
+
+ @over SUB_RENOV_val[ecl] = R_SUB_renov[ecl] * RENOV_VAL[ecl] + choc_PAC_VAL[ecl]      where ecl in %list_ener_class\ CA
+
+ @over d(log(ENERperM2[h, ecl, ce])) =  d(SUBST_BUIL[h, ecl, ce]) _
+      + TREND_E_BUIL[ce] + TREND_E_BUIL[ecl,ce] if ENER_BUIL[h, ecl, ce] <> 0
+
+ TREND_E_BUIL[ecl,22] = -(choc_PAC[ecl]/P_PAC * 100)/BUIL[22,ecl]{-1}     
+
+ TREND_E_BUIL[ecl,23] = (choc_PAC[ecl]/P_PAC * 100)/BUIL[23,ecl]{-1} * 1/COP_PAC  
+ 
+ coef_choc_PAC[ecl] = coef_choc_PAC
+ 
+ @over EXP_13_H01  = ( CHD_13  - SUB_REHAB_VAL )  * ( @year <= 2019 )  + ( @year > 2019 )  * ( ( @year > 2006 )  * ( @elem(PNewBUIL_H01  , 2006)  * NewBUIL_H01  + @elem(PREHAB_H01  , 2006)  * REHAB_H01  + (EXP_13_OTH_Val_H01 )/ PCH_13 + choc_PAC ) )
+
+ @over PEXP_13[h]*EXP_13[h] = PNewBUIL[h]*NewBUIL[h] + (sum(PREHAB[h,ecl]*REHAB[h,ecl] on ecl)) + EXP_13_OTH_Val[h] + choc_PAC_VAl
+
+ @over DISPINC_VAL_H01  = DISPINC_AI_VAL_H01  - IR_VAL_H01  - AIC_VAL_H01  + REDIS_VAL_H  + SUB_AUTO_VAL  + SUB_RENOV_VAL
+
+
+#-------------------- Endogénéisation de bonus_elec pour avoir un montant d'aide à l'électrification constant entre 2024 et 2030
+
+@over bonus_elec[h] = AME_Bonus_elec * R_bonus_elec + (1-AME_Bonus_elec)*(( @year <= 2023 )*R_bonus_elec + ( @year > 2023 )*(@year <= 2030)*(SUB_AUTO_elec*PGDP/(NewAUTO_elec[h]*@elem(PGDP,2023))) + (@year > 2030)*(bonus_elec[h]{-1}))
+
+# ------------------ Correction de la productivité des facteurs dans l'automobile
+ 
+ @over Prog_L_03 = (@year<=2022) * (1 + GR_Prog_L_03) * Prog_L_03{-1} + _
+              (@year>2022) * ( Prog_L_03{-1} * (1 + dlog(Prog_L_VP) + GR_Prog_L_03))
+
+ Prog_L_VP = (NewAUTO_th[h] * @elem( PnewAUTO_th[h]*NewAUTO[h]/L_03 , %baseyear) + NewAUTO_elec[h] * @elem(PAUTO_elec[h]*NewAUTO[h]/L_03 , %baseyear))/NewAUTO[h] 
+
+ @over PROG_K_03  = (@year<=2022) * PROG_K_03{-1}  * ( 1  + GR_PROG_K_03 ) + _
+            (@year>2022) * ( Prog_K_03{-1} * (1 + dlog(Prog_K_VP) + GR_Prog_K_03))
+            
+ PROG_K_VP  = (NewAUTO_th[h] * @elem( PnewAUTO_th[h]*NewAUTO[h]/K_03 , %baseyear) + NewAUTO_elec[h] * @elem(PAUTO_elec[h]*NewAUTO[h]/K_03 , %baseyear))/NewAUTO[h]
+
+#------------------ option surcoût du véhicule électrique ne correspond pas à une augmentation de la production en volume
+
+#gel# /!\ si cette option est active, il faut geler les lignes 779 à 787
+#gel
+#gel#Sachant que le volume de la production est égal à  : 
+#gel#    @over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl)+ sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h]) + _
+#gel#                      ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
+#gel#on remplace : 
+#gel# PAUTO_elec[h,pcl] = PNewAUTO_th[h,pcl]+(Pbattery + overcost_elec)/1000 
+#gel# par 
+#gel
+ #gel@over PAUTO_elec[h,pcl] = PNewAUTO_th[h,pcl]
+#gel
+#gel# pour préserver l'équilibre comptable, il faut ajouter à l'équation EXP_03 une constante égale à  @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear) car à l'année de base, les prix sont normalisés à 1
+#gel
+ #gel@over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + _
+                   #gelsum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h] + @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear)) _
+                   #gel+ ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
+#gel
+#gel# ainsi le volume de la production en euros constants n'inclu pas la valeur de la batterie électrique (à l'exception de celles des 1500 VE vendus en 2006), ni les surcoûts de production du véhicule électrique
+#gel# on remplace l'équation suivante : 
+#gel                      
+#gel#@over dlog(PY_n_03) = 0.9*dlog(NCU_n_03) +(1-0.9)*@elem(dlog(NCU_n_03),%baseyear) + 0.15*(dlog(Y_03)-dlog(Y_e_03{-1})) _
+#gel#           + 0.01 * (log (NCU_n_03{-1}*(1+TMD_n_03{-1}))-log(PY_n_03{-1})) if Y_03 > 0  
+#gel#par : 
+#gel#
+ #gel@over dlog(PY_n_03) = dlog(NCU_n_03 + newauto_elec_h01/newauto *((Pbattery + overcost_elec)/1000)/(sum(@elem(PAUTO_elec[h,pcl] * NewAUTO_elec[h,pcl], %baseyear) on pcl))) _
+                    #gel+ 0.15*(dlog(Y_03)-dlog(Y_e_03{-1})) _
+                    #gel+ 0.01 * (log (NCU_n_03{-1} + ((Pbattery + overcost_elec)/1000)/(sum(@elem(PAUTO_elec[h,pcl] * NewAUTO_elec[h,pcl], %baseyear)*newauto_elec_h01/newauto))*(1+TMD_n_03{-1}))-log(PY_n_03{-1})) if Y_03 > 0 
+
+# ------------------ choc sur les importations de batteries
+
+  @over MATD_12_03  = (CIDexo_12_03)*(@year<=2019) + _
+                        (MATD_12_03{-1}*(1+(MAT_12_03>0)*(d(MAT_12_03)/MAT_12_03{-1} + d(SUBST_MATD_12_03)))-(1-AME_battery)*(CHD_03/CH_03)*d(Pbattery* Newauto_elec[h]/1000)) *(@year>2019) if MATD_12_03 <> 0
+ 
+
+# ------------------ prise en compte de l'ETS 2
+ 
+ @over TCO_VAL[ce2, s] = (Ttco[ce2] + ETS2) * EMS_SEC[ce2, s] * (1 - EXO[ce2, s])  where s in 13 14 15 16 17 19 20
+ 
+ @over TCO_VAL[ce2, s] = (Ttco[ce2] + choc_TIC_sec1516 + ETS2) * EMS_SEC[ce2, s] * (1 - EXO[ce2, s])  where s in 15 16
+
+ ETS2 = ETSexo2 * PGDP/@elem(PGDP,2023)
+ 
+ #-----------------  Energy efficiency credit tax for industries     (crédit d'impôt à l'efficacité énergétique dans l'industrie)
+
+CIEE[sinc] = (@year >2021)* T_TAX_CR[sinc] * PE[sinc]
+
+TAX_CR_VAL[sinc] = - T_TAX_CR[sinc] * (d(E[sinc]/YQ[sinc])<=0) * PE[sinc]*d(E[sinc]/YQ[sinc])*YQ[sinc]{-1}
+
+TAX_CR_VAL = sum(TAX_CR_VAL[sinc] on sinc)
+        
+
+# calibrage du taux de crédit d'impôt avec 12.2 milliards de subventions pour une baisse espérée de 35MtCO2   activer AME_TCIEE_sinc et caler T_TAX_CR_sinc
+
+
+ EMS_SEC_sinc = sum(EMS_SEC[sinc] on sinc)
+ 
+ EE_VAL_SEC_sinc =sum(PE[sinc]*E[sinc]/YQ[sinc] on sinc)
+
+ YQ_SINC = sum(YQ[sinc] on sinc )
+  
+ T_TAX_CR[sinc] =  0 + (1- AME_TCIEE_sinc)*(@year<=2030)*d(T_TAX_CR_sinc) + T_TAX_CR[sinc]{-1}
+   
+# les process électriques ne sont pas éligibles au crédit d'impôt à l'efficacité énergétique (i.e = subvention à la décarbonation)
+ 
+   PE_SECinc[ce] * E_SECinc[ce] = sum(PE[ce,sinc]*E[ce,sinc] on sinc)
+   
+   E_SECinc[ce] = sum(E[ce,sinc] on sinc)
+   
+   E_SECinc_tot =  sum(E_SECinc[ce] on ce)
+    
+   EMS_per_Einc[ce2] = (sum(EMS_SEC_tot[ce2,sinc] on sinc))/E_SECinc[ce2] if   E_SECinc[ce2] <> 0
+   
+   EMS_per_Einc = sum(EMS_per_Einc[ce2]*E_SECinc[ce2] on ce2)/E_SECinc_tot
+   
+   tCIEE_sinc[ce2] = T_TAX_CR[sinc] * (1 + E_SECinc_23{-1}/E_SECinc_tot{-1} + EMS_per_Einc[ce2]{-1}/EMS_per_Einc{-1})
+   
+  @over d(PE_signal[21,sinc]) = d(PE_signal_21_sinc) + (@year> 2022)* (@year<= 2030) * d(tCIEE_sinc[21] * PE[21,sinc]) 
+  @over d(PE_signal[22,sinc]) = d(PE_signal_22_sinc) + (@year> 2022)* (@year<= 2030) * d(tCIEE_sinc[22] * PE[22,sinc]) 
+  @over d(PE_signal[23,sinc]) = d(PE_signal_23_sinc) + (@year> 2022)* (@year<= 2030) * d(tCIEE_sinc[23] * PE[23,sinc])
+  @over d(PE_signal[24,sinc]) = d(PE_signal_24_sinc) + (@year> 2022)* (@year<= 2030) * d(tCIEE_sinc[24] * PE[24,sinc])  
+
+#------------------Suppression des retards dans l’industrie 
+
+#@over SUBST_K[sinc] = AME_tCIEE_sinc*( ADJUST(1  + 1  , 6)  * SUBST_K_n[sinc]  + ( 1  - ADJUST(1  + 1  , 6) )  * SUBST_K[sinc]{-1} ) + (1-AME_tCIEE_sinc)*SUBST_K_n[sinc] if K_n[sinc] <> 0
+#
+#@over SUBST_E[sinc] = AME_tCIEE_sinc*( ADJUST(1  + 3  , 6)  * SUBST_E_n[sinc]  + ( 1  - ADJUST(1  + 3  , 6) )  * SUBST_E[sinc]{-1} ) + (1-AME_tCIEE_sinc)*SUBST_E_n[sinc] if E_n[sinc] <> 0
+#
+#@over dlog(IA_n[sinc])  =  (@year <= 2019) * (( IAexo[sinc] > 0 ) * ( dlog(IAexo[sinc]))) + (@year > 2019) * (AME_tCIEE_sinc) _
+                    #* (ADJUST(1  , 1) * dlog(IA[sinc]{-1})  + ADJUST(1  , 2) * dlog(Y_e[sinc]) _
+                    #+ ADJUST(1  , 3) * ( log(K_n[sinc]{-1}) - log(K[sinc]{-1})) + ADJUST(1  , 4) * d(SUBST_K[sinc]) + IMP_BUD[sinc] * GDP{-1} / IA[sinc]{-1}) _
+                    #+ (1-AME_tCIEE_sinc) * ((ADJUST(1  , 1) * dlog(IA[sinc]{-1})  + ADJUST(1  , 2) * dlog(Y_e[sinc]) _
+                    #+ 0.4 * ( log(K_n[sinc]{-1}) - log(K[sinc]{-1})) + d(SUBST_K[sinc]) + IMP_BUD[sinc] * GDP{-1} / IA[sinc]{-1}))) if IA_n[sinc] <> 0                    
+   
+#------------------- correction variation des stocks du fluvial
+                                              
+@over DS_17 =    (QDexo_17 + QMexo_17 -CI_17-CH_17- G_17-I_17 -X_17)*(@year<=2019) + _
+                    ((DS_17{-1}/Q_17{-1}<=0.1)*(DS_17{-1}/Q_17{-1}>-0.1)*DS_17{-1}*(1 + d(POP_TOT)/POP_TOT{-1})*(1 + d(PROG_L)/PROG_L{-1}) + _
+                    (DS_17{-1}/Q_17{-1}<=0.1)*(DS_17{-1}/Q_17{-1}<-0.1)*DS_17{-1}*(1+0.3) + _
+                    (DS_17{-1}/Q_17{-1}>=0.1)*DS_17{-1}*(1-0.3)) *(@year>2019) 
+ 
+# ---------------- choc sur les infrastructures de recharches de VE
+ 
+ @over d(log(IA_n_12_19)) = d(log(IA_n_19 - Inv_IRVE)) + d(Inv_IRVE)/IA_12_19{-1} if IA_12_19 <> 0        
+ 
+ @over d(log(IA_n_19)) = (@year<=2019)*((IAexo_19>0)*(dlog(IAexo_19))) + _ 
+                        (@year>2019) * (ADJUST(1,1) * dlog(IA_19{-1}) + ADJUST(1,2) * dlog(Y_e_19) + _ 
+                        ADJUST(1,3) * (log(K_n_19{-1}) - log(K_19{-1})) + ADJUST(1,4) * d(SUBST_K_19) + _ 
+                        d(Inv_IRVE)/IA_n_19{-1} + IMP_BUD_19*GDP{-1}/IA_19{-1})    if K_19 <> 0
+
+ @over K_n_19 = (@year<=2019)*(K_n_19>0)*(K_n_19{-1} * K_19/K_19{-1})+(@year>2019)*(K_n_19{-1} * (1+ d(Y_19)/Y_19{-1}+ d(SUBST_K_19)-d(PROG_K_19)/prog_K_19{-1} + _ 
+                       d(Inv_IRVE)/K_n_19{-1} + Choc_CSC_19 + IMP_BUD_19 * @elem(GDP, %baseyear) / @elem(K_n_19, %baseyear)))     if K_n_19 <> 0  
+ 
+ Inv_IRVE =  IRVE - IRVE{-1} * tdec_IRVE
+  
+ SUB_IRVE_VAL =   T_Sub_IRVE * PInv_IRVE * Inv_IRVE
+ 
+ PInv_IRVE = PIA_12_19
+ 
+ SUB_IRVE = T_Sub_IRVE * Inv_IRVE
+ 
+ dlog(IRVE) = dlog(Auto_elec)
+ 
+ @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
+                + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))   
+                
+#@over SY_19  = @elem(TSYN_19 , 2006)  * Y_19 + (@year>2019)* SUB_IRVE 
+
+#@over PSY_19  * SY_19  = TSYN_19  * PY_19  * Y_19 + (@year>2019)* SUB_IRVE_VAL 
+
+TSYN_19 = @elem(TSYN_19 , 2006) + SUB_IRVE_VAL/(PY_19  * Y_19)                        
+
+
+ #-----------------  Subvention à l'électrification des bus et poids lourds    
+
+#gelCIEE[road] = (@year >2021)* T_TAX_CR[road] * PE[road]
+#gel
+#gelTAX_CR_VAL[road] = - T_TAX_CR[road] * (d(E[road]/YQ[road])<=0) * PE[road]*d(E[road]/YQ[road])*YQ[road]{-1}
+#gel
+#gel@over TAX_CR_VAL = sum(TAX_CR_VAL[s] on s)
+#gel        
+#gel
+#gel# calibrage du taux de crédit d'impôt avec 1.638 milliards de subvention pour une baisse espérée de 2MtCO2 
+#gel
+#gel# TAX_CR_VAL= -T_TAX_CR * sum(PE[road]*d(E_des[road]) on road)
+#gel#  sum(d(E_des[road]/YQ[road]) on road) = @elem(sum(PE[road]*E[road]/YQ[road] on road),2022) * ((1- 2000000/(@elem(sum(EMS_SEC[road] on road),2022)))^(1/7) -1)
+#gel# TAX_CR_VAL= -T_TAX_CR * @elem(sum(PE[road]*E[road]/YQ[road] on road),2022)  * ((1- 2000000/(@elem(sum(EMS_SEC[road] on road),2022)))^(1/7) -1)*@elem(YQ_road,2021)
+#gel# T_TAX_CR = -TAX_CR_VAL /(@elem(sum(PE[road]*E[road]/YQ[road] on road),2022)  * ((1- 2000000/(@elem(sum(EMS_SEC[road] on road),2022)))^(1/7) -1)*@elem(YQ_road,2021))
+#gel
+ #gelEMS_SEC_road = sum(EMS_SEC[road] on road) 
+#gel 
+ #gelEE_VAL_SEC_road =sum(PE[road]*E[road]/YQ[road] on road) 
+#gel
+ #gelYQ_road = sum(YQ[road] on road)  
+#gel 
+ #geld(T_TAX_CR_road) =  -(1638/7)/(EE_VAL_SEC_road * ((1-2000000/EMS_SEC_road)^(1/7)-1)*YQ_road{-1})
+#gel  
+ #gelT_TAX_CR[road] =  0 + (1- AME_TCIEE_road)*(@year<=2030)*d(T_TAX_CR_road) + T_TAX_CR[road]{-1}  
+#gel 
+ #gel# les process électriques ne sont pas éligibles au crédit d'impôt à l'efficacité énergétique (i.e = subvention à la décarbonation)
+#gel 
+   #gelPE_SECroad[ce] * E_SECroad[ce] = sum(PE[ce,road]*E[ce,road] on road) if   E_SECroad[ce] <> 0   
+#gel   
+   #gelE_SECroad[ce] = sum(E[ce,road] on road)  
+#gel   
+   #gelE_SECroad_tot =  sum(E_SECroad[ce] on ce)   
+#gel    
+   #gelEMS_per_Eroad[ce2] = (sum(EMS_SEC_tot[ce2,road] on road))/E_SECroad[ce2] if   E_SECroad[ce2] <> 0      
+#gel   
+#gel#   EMS_per_Eroad * E_SECroad_tot = sum(EMS_per_Eroad[ce2]*E_SECroad[ce2] on ce2) where ce2 in %list_com_E_CO2 \21     
+   #gelEMS_per_Eroad * E_SECroad_tot = EMS_per_Eroad[22]*E_SECroad[22] + EMS_per_Eroad[24]*E_SECroad[24]
+#gel      
+   #geltCIEE_road_22 = T_TAX_CR[road] #* (1 + E_SECroad_23{-1}/E_SECroad_tot{-1} + E_SECroad_24{-1}/E_SECroad_tot{-1} + EMS_per_Eroad_22{-1}/EMS_per_Eroad{-1}) 
+#gel      
+  #gel@over d(PE_signal[22,road]) = d(PE_signal_22_road) + (@year> 2022) * (@year<= 2030) * d(tCIEE_road[22] * PE[22,road])    
+#gel
+
+#------------------------Aide à l'électrification des PL 
+
+ CIEE[16] = (@year >2021)* T_TAX_CR[16] * PE[22,16]
+
+ TAX_CR_VAL[16] = - T_TAX_CR[16] * (d(E[22,16]/YQ[16])<=0) * PE[22,16]*d(E[22,16]/YQ[16])*YQ[16]{-1}
+
+ @over TAX_CR_VAL = sum(TAX_CR_VAL[s] on s)
+                    
+ T_TAX_CR[16] =  0 + d(T_TAX_CR_road) + T_TAX_CR[16]{-1}
+      
+ @over d(PE_signal[22,16]) = d(PE_signal_22_road) + (@year> 2022) * d(CIEE[16]) 
+ 
+  @over d(SUBST_E_n_23_16)  = 0  - 0.8 * d(log(PE_23_16 + PE_Signal_23_16) - log(PE_21_16 + PE_Signal_21_16)) * PE_21_16{-1} * E_21_16{-1}/(PE_16{-1} * E_16{-1}) _
+    - 0.8 * d(log(PE_23_16 + PE_Signal_23_16) - log(PE_22_16 + PE_Signal_22_16)) * 2.25 * PE_22_16{-1} * E_22_16{-1}/(PE_16{-1} * E_16{-1}) _
+    - 0.8 * d(log(PE_23_16 + PE_Signal_23_16) - log(PE_24_16 + PE_Signal_24_16)) * 2.25/0.86 * PE_24_16{-1}*E_24_16{-1}/(PE_16{-1}*E_16{-1})
+
+ @over d(SUBST_E_n_24_16)  = 0 - 0.8 * d(log(PE_24_16 + PE_Signal_24_16) - log(PE_21_16 + PE_Signal_21_16)) * PE_21_16{-1} * E_21_16{-1}/ _
+  (PE_16{-1} * E_16{-1}) - 0.8 * d(log(PE_24_16 + PE_Signal_24_16) - log(PE_22_16 + PE_Signal_22_16)) * 1/0.86 * PE_22_16{-1} * E_22_16{-1}/ _
+  (PE_16{-1} * E_16{-1}) - 0.8 * d(log(PE_24_16 + PE_Signal_24_16) - log(PE_23_16 + PE_Signal_23_16)) * 2.25/0.86 * PE_23_16{-1}*E_23_16{-1}/(PE_16{-1}*E_16{-1})
+
+ @over d(SUBST_E_n_22_16)  = 0 - 0.8 * d(log(PE_22_16 + PE_Signal_22_16) - log(PE_21_16 + PE_Signal_21_16)) * PE_21_16{-1} * E_21_16{-1}/ _
+  (PE_16{-1} * E_16{-1}) - 0.8 * d(log(PE_22_16 + PE_Signal_22_16) - log(PE_23_16 + PE_Signal_23_16)) * 2.25 * PE_23_16{-1} * E_23_16{-1}/ _
+  (PE_16{-1} * E_16{-1}) - 0.8 * d(log(PE_22_16 + PE_Signal_22_16) - log(PE_24_16 + PE_Signal_24_16)) * 1/0.86 * PE_24_16{-1} * E_24_16{-1}/(PE_16{-1}*E_16{-1})
+
+  
+# ---------------- Correction : choc_PAC_VAL doit être inclus dans EXP_HOUSING_Val
+
+@over EXP_HOUSING_Val[h,ecl] = ( @year > %baseyear ) * ( DEBT_REHAB_Val[h,ecl]{-1} * (R_I_REHAB[h,ecl]{-1} + R_RMBS_REHAB[h,ecl]{-1} ) _
+                                                   + R_CASH_REHAB[h,ecl] * PREHAB[h,ecl] * REHAB[h,ecl] _
+                                                   + DEBT_NewB_Val[h,ecl]{-1} * ( R_I_NewBUIL[h,ecl]{-1} + R_RMBS_NewBUIL[h,ecl]{-1} ) _
+                                                   + R_CASH_NewBUIL[h,ecl] * PNewBUIL[h,ecl] * NewBUIL[h,ecl] _
+                                                   + PENER_BUIL[h,ecl] * ENER_BUIL[h,ecl] + choc_PAC_VAL[ecl] ) _
+                         + ( @year =< %baseyear ) * EXP_HOUSING_Val[h,ecl]{-1} * ( 1 + STEADYSTATE(1,1) )
+                         
+                         
+# ---------------- Modification des fonctions de consommation avec revenu arbitrable
+
+ARBINC_VAL[h] = DISPINC_VAL[h] - (PNEXP_H01  * NEXP[h] + EXP_HOUSING_Val[h] + Exp_13_OTH_VAL[h] + EXP_MOB_Val[h])
+       
+ ##--------------- fonction de conso pour la majorité des secteurs (hors 03, 13, 14, 15 et 18 qui ont leurs équations spécifiques)
+
+@over EXP_n[co, h] = (@year <= 2019)*((@year <= %baseyear) * (@elem(EXP_n[co, h],%baseyear) * (1 + STEADYSTATE(2, 1))^(@year-%baseyear))+ _
+                      (@year > %baseyear)*(EXP_n[co,h]{-1}*EXPexo[co]/EXPexo[co]{-1})) + _
+                      (@year >  2019) * ((choc_EXP[co]>=0)*((PEXP[co, h] * NEXP[co, h] + BetaExp[co, h] * _ 
+                        ( ARBINC_VAL[h] * (1 - MPS_HH[h]) )) _
+                        / PEXP[co, h])+(choc_EXP[co]<0)*((1+choc_EXP[co])*EXP_n[co, h]{-1}))  if EXP[co, h] <> 0
+
+                     
+ ##----------------------------- passager-kilomètre Avion 
+ 
+@over d(log(Km_traveler[18, h])) =(@year>%baseyear)*(1.5*d(log((DISPINC_VAL[h]-choc_PAC_VAL)/PCH))-0.7*d(log(PCH_18)-log(PCH))) + _
+                                   choc_air_trafic + (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
+      
+ ## passager-kilomètre Longue distance
+ 
+@over d(log(km_traveler_LD_h01)) =(@year>%baseyear)*(0.25*d(log((DISPINC_VAL[h]-choc_PAC_VAL)/PCH)) -0.4*((km_trav_auto_LD[h]{-1}/( km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
+                             *d(log(PC_trav_14[h]/PCH)))  -0.4 *(km_traveler_14[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
+                             * dlog( PC_trav_auto_LD[h]/PCH)) + (2006<@year)*(@year<2016)*trend_km_traveler_LD + _
+                             (@year<=%baseyear)*log(1+STEADYSTATE(2,1)) 
+ 
+ ## passager-kilomètre courte distance
+ 
+@over d(log(km_traveler_CD_h01)) =(@year>%baseyear)*(0.25*d(log((DISPINC_VAL[h]-choc_PAC_VAL)/PCH)) -0.3*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
+                             *dlog(PC_trav_15[h]/PCH) - 0.3*dlog(PC_trav_auto_CD[h]/PCH) * km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
+                             + (2006<@year)*(@year<2016)*trend_km_traveler_CD + _
+                             (@year<=%baseyear)*log(1+STEADYSTATE(2,1))  
+
+#------------------------- choc de productivité 
+
+GR_PROG_L[sne] = GR_PROG_L  
+
+PROG_L = PROG_L{-1}*(1+GR_PROG_L)   
+    
+#---------------- distinction entre consommation énergétique spécifique et consommation de chauffage dans le résidentiel 
+ 
+                
+ENER_spe[h,ecl] = sum(ENER_spe[h,ecl,ce] on ce)
+
+ENER_spe_val[h,ecl,ce] = PENER_BUIL[h,ecl,ce] * ENER_spe[h,ecl,ce]  if ENER_BUIL[h,ecl,ce] <>0   
+
+ENER_spe_val[h,ecl]  = sum(ENER_spe_val[h,ecl,ce] on ce )
+
+@over PENER_m2[h,ecl]  = ( PENER_BUIL[h,ecl] * ENER_BUIL[h,ecl] - ENER_spe_val[h,ecl] )   /BUIL[h,ecl] 
+
+@over ENERperM2[h, ecl, ce] = (ENERperM2[h, ecl, ce]{-1} - ENER_spe_m2[h,ecl,ce] ) *(1 + d(SUBST_BUIL[h, ecl, ce]) + TREND_E_BUIL[ce] +TREND_E_BUIL[ecl,ce]) + ENER_spe_m2[h,ecl,ce] if ENER_BUIL[h, ecl, ce] <> 0
+
+
+#---------------- modification du taux de charge des poids lourds (via un choc sur les consos énergétiques)
+
+@over d(log(E_oth_n[16])) = d(log(Y[16])) + d(SUBST_E[16]) - d(log(PROG_E[16])) + choc_truck_load if E_oth_n[16] <> 0
+
+#---------------- investissements tertiaire en EE exogènes
+
+@over I_MDE_19 = I_MDE_exo_19
+
+@over I_MDE_20 = I_MDE_exo_20
+
+@over E_oth_n_19 = E_oth_exo_19
+ 
+@over E_oth_n_20 = E_oth_exo_20
+
+@over dlog(IA_n_20) = (@year<=2019) * ((IAexo_20>0)*(dlog(IAexo_20))) + (@year>2019) * _
+                    (ADJUST(1, 1) * d(log(IA_20{-1})) + ADJUST(1, 2) * d(log(Y_e_20)) + _
+                     ADJUST(1, 3) * (log(K_n_20{-1}) - log(K_20{-1})) + ADJUST(1, 4) * d(SUBST_K_NE_20) + _
+                     d(I_MDE_exo_20)/IA_n_20{-1} + IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(IA_n_20, %baseyear)) if IA_n_20 <> 0
+            
+@over d(log(K_n_20)) = (@year<=2019) * (K_n_20>0)*(dlog(K_20)) + _ 
+                       (@year>2019) * (d(log(Y_20)) + d(SUBST_K_20) - d(log(PROG_K_20)) + d(I_MDE_exo_20)/K_n_20{-1} + IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(K_n_20, %baseyear)) if K_n_20 <> 0
+# memo : plante en 2020 baseline si on met d(SUBST_K_NE_20) au lieu de d(SUBST_K_20) dans l'équation d(log(K_n_20))
+
+@over K_NE_n_20 = (@year<= 2019 )*(K_n_20 > 0)*K_NE_n_20{-1}*(K_n_20/K_n_20{-1})+ _
+                (@year>2019)*(K_n_20 - K_E_n_20) 
+                
+@over K_E_n_20 = (@year<= 2019 )*(K_n_20 > 0)*K_NE_n_20{-1}*(K_n_20/K_n_20{-1})+ _
+                (@year>2019)*(K_E_n_20{-1}*(1 - tdec_20) + I_MDE_exo_20)                 
+
+                       
+@over dlog(IA_n_19) = (@year<=2019) * ((IAexo_19>0)*(dlog(IAexo_19))) + (@year>2019) * _
+                    (ADJUST(1, 1) * d(log(IA_19{-1})) + ADJUST(1, 2) * d(log(Y_e_19)) + _
+                     ADJUST(1, 3) * (log(K_n_19{-1}) - log(K_19{-1})) + ADJUST(1, 4) * d(SUBST_K_NE_19) + _
+                     d(I_MDE_exo_19)/IA_n_19{-1} ) if IA_n_19 <> 0
+            
+@over d(log(K_n_19)) = (@year<=2019) * (K_n_19>0)*(dlog(K_19)) + _ 
+                       (@year>2019) * (d(log(Y_19)) + d(SUBST_K_19) - d(log(PROG_K_19)) + d(I_MDE_exo_19)/K_n_19{-1})  if K_n_19 <> 0
+                       
+                       
+@over K_NE_n_19 = (@year<= 2019 )*(K_n_19 > 0)*K_NE_n_19{-1}*(K_n_19/K_n_19{-1})+ _
+                (@year>2019)*(K_n_19 - K_E_n_19) 
+                
+@over K_E_n_19 = (@year<= 2019 )*(K_n_19 > 0)*K_NE_n_19{-1}*(K_n_19/K_n_19{-1})+ _
+                (@year>2019)*(K_E_n_19{-1}*(1 - tdec_19) + I_MDE_exo_19)  
+
+
+#---------------- réduction du nombre de m² par employé dans le teriaire
 # 
-@over EMS_SEC_21[sne] = (@year>%baseyear)*Q_Mtep_SEC_21[sne]*1000000*4                 # modifié Gaël
+#@over d(log(K_n_19)) = (@year<=2019) * (K_n_19>0)*(dlog(K_19)) + _ 
+                       #(@year>2019) * d(log(Y_19)) + d(SUBST_K_19) - d(log(PROG_K_19)) + d(I_MDE_exo_19)/K_n_19{-1} + SOBRE_19 if K_n_19 <> 0
+#                       
+#                       
+ @over d(log(IA_n_19)) = (@year<=2019)*((IAexo_19>0)*(dlog(IAexo_19))) + _ 
+                        (@year>2019) * (ADJUST(1,1) * dlog(IA_19{-1}) + ADJUST(1,2) * dlog(Y_e_19) + _ 
+                        ADJUST(1,3) * (log(K_n_19{-1}) - log(K_19{-1})) + ADJUST(1,4) * d(SUBST_K_19) + _ 
+                        d(Inv_IRVE)/IA_n_19{-1} + IMP_BUD_19*GDP{-1}/IA_19{-1} + sobre_19)    if K_19 <> 0
 
-@over EMS_SEC_22[sne] = (@year>%baseyear)*Q_Mtep_SEC_22[sne]*IC_22[sne]*1000000*3.05      # modifié Gaël
+ @over K_n_19 = (@year<=2019)*(K_n_19>0)*(K_n_19{-1} * K_19/K_19{-1})+(@year>2019)*(K_n_19{-1} * (1+ d(Y_19)/Y_19{-1}+ d(SUBST_K_19)-d(PROG_K_19)/prog_K_19{-1} + _ 
+                       d(Inv_IRVE)/K_n_19{-1} + Choc_CSC_19 + IMP_BUD_19 * @elem(GDP, %baseyear) / @elem(K_n_19, %baseyear) + sobre_19))     if K_n_19 <> 0  
 
-@over EMS_SEC_24[sne] = (@year>%baseyear)*Q_Mtep_SEC_24[sne]*IC_24[sne]*1000000*2.4        # modifié Gaël
+@over K_NE_n_19 = (@year<=2019) * (K_n_19>0)*K_NE_n_19{-1}*(K_n_19/K_n_19{-1}) + _
+                     (@year>2019) * (K_NE_n_19{-1}*(1 + d(Y_19)/Y_19{-1} - d(PROG_K_19)/prog_K_19{-1} + IMP_BUD_19 * @elem(GDP, %baseyear) / @elem(K_n_19, %baseyear) + Choc_CSC_19 + d(Inv_IRVE)/K_n_19{-1} + sobre_19) + _
+                      K_n_19{-1}*d(SUBST_K_NE_19)) if K_NE_n_19 <> 0
 
+@over K_E_n_19 = (@year<=2019) * (K_n_19>0)*K_E_n_19{-1} *(K_n_19/K_n_19{-1}) + _
+                     (@year>2019) * (K_E_n_19{-1}*(1 + d(Y_19)/Y_19{-1} - d(PROG_K_19)/prog_K_19{-1} + IMP_BUD_19 * @elem(GDP, %baseyear) / @elem(K_n_19, %baseyear) + Choc_CSC_19 + d(Inv_IRVE)/K_n_19{-1} + sobre_19) + _
+                      K_n_19{-1}*d(SUBST_K_E_19))  if K_E_n_19 <> 0
 
+ #gel@over dlog(IA[c,19]) =   dlog(IA_n_19)  - sobre_19
+#gel 
+ #gel@over dlog(IA_13_19) =   dlog(IA_n_19)  
+ 
+ 
+ ##---------------- Calcul des subventions à l'achat d'automobiles
+ 
+ # Les formules précédentes, qui multiplient des R_SUB moyens par des prix moyens, étaient erronnées. Il faut calculer les montants de subventions classe par classe (d'énergie ou de prix) sans utiliser de taux de subvention moyen.
+ # Le produit de deux moyennes n'est pas égal à la moyenne du produit, et ce que l'on veut ici c'est la moyenne du produit, ou plutôt la somme pondérée du produit (produit du R_SUB par le prix, dont la somme est calculée avec pondération par les nombre de ventes).
+ 
+ # Explicitation des erreurs 
+ # test sub auto val
+ # @over SUB_AUTO_VAL_H01_CA = R_SUB_AUTO_elec_H01  * NewAUTO_elec_H01 * PAUTO_elec_H01 + R_SUB_AUTO_th_H01_CA  * NewAUTO_th_H01_CA * PNewAUTO_th_H01_CA
+ # ce test démontrait que SUB_AUTO_VAL_H01_CA n'a pas la même valeur qu'avec la formule suivante :
+ 
+ #SUB_AUTO_VAL_H01_CA  = R_SUB_AUTO_H01_CA  * PNewAUTO_H01_CA  * NewAUTO_H01_CA
+ #
+ #PNewAUTO_H01_CA  * NewAUTO_H01_CA  = PAUTO_elec_H01  * NewAUTO_elec_H01  + PNewAUTO_th_H01_CA  * NewAUTO_th_H01_CA
+ #
+ #R_SUB_AUTO_H01_CA  * NewAUTO_H01_CA  = ( R_SUB_AUTO_elec_H01  * NewAUTO_elec_H01  + R_SUB_AUTO_th_H01_CA  * NewAUTO_th_H01_CA )
+ #
+ #-> développer les termes des deux lignes ci-dessus montre que SUB_AUTO_VAL_H01_CA est erroné car il contient des termes croisés insensés (mélangeant de l'elec et du thermique). Donc non seulement les sub_auto_elec_val et sub_auto_th_val sont faux (car ne prennent pas en compte les différences de prix entre classes) mais le sub_auto_val aussi puisqu'il se base sur sub_auto_val_ca (les sub_auto_val_cb jusqu'à cg sont bons car pas de mélange avec l'elec : SUB_AUTO_VAL_H01_CB  = R_SUB_AUTO_H01_CB  * PNewAUTO_H01_CB  * NewAUTO_H01_CB, avec R_SUB_AUTO_H01_CB égal à l'exogène R_SUB_AUTO_th_H01_CB).
+ #
+ #on peut modifier comme suit :
+ #
+ #@over SUB_AUTO_VAL_H01_CA = R_SUB_AUTO_elec_H01  * NewAUTO_elec_H01 * PAUTO_elec_H01 + R_SUB_AUTO_th_H01_CA  * NewAUTO_th_H01_CA * PNewAUTO_th_H01_CA
+ #
+ #mais cela reste problématique car PAUTO_elec_H01 est un prix moyen pondéré et R_SUB_AUTO_elec_H01 est un taux moyen pondéré ! (voir ci-dessous) on aura donc à nouveau des termes croisés qui ne devraient pas exister.
+ #
+ #PAUTO_elec_H01  * NewAUTO_elec_H01  = 0  + PAUTO_elec_H01_CA  * NewAUTO_elec_H01_CA  + PAUTO_elec_H01_CB  * NewAUTO_elec_H01_CB  + PAUTO_elec_H01_CC  * NewAUTO_elec_H01_CC  + PAUTO_elec_H01_CD  * NewAUTO_elec_H01_CD  + PAUTO_elec_H01_CE  * NewAUTO_elec_H01_CE  + PAUTO_elec_H01_CF  * NewAUTO_elec_H01_CF  + PAUTO_elec_H01_CG  * NewAUTO_elec_H01_CG
+ #
+ #R_SUB_AUTO_elec_H01  = 0  + R_SUB_AUTO_elec_H01_CA  * phi_elec_H01_CA  + R_SUB_AUTO_elec_H01_CB  * phi_elec_H01_CB  + R_SUB_AUTO_elec_H01_CC  * phi_elec_H01_CC  + R_SUB_AUTO_elec_H01_CD  * phi_elec_H01_CD  + R_SUB_AUTO_elec_H01_CE  * phi_elec_H01_CE  + R_SUB_AUTO_elec_H01_CF  * phi_elec_H01_CF  + R_SUB_AUTO_elec_H01_CG  * phi_elec_H01_CG
+
+ # Formules corrigées
+ 
+ SUB_AUTO_elec_VAL[h,pcl] = R_SUB_AUTO_elec[h,pcl] * PAUTO_elec[h,pcl] * NewAUTO_elec[h,pcl]
+ 
+ SUB_AUTO_elec_VAL[h] = sum(SUB_AUTO_elec_VAL[h,pcl] on pcl)
+ 
+ SUB_AUTO_th_VAL[h,ecl] = R_SUB_AUTO_th[h,ecl] * PNewAUTO_th[h,ecl] * NewAUTO_th[h,ecl]
+ 
+ SUB_AUTO_th_VAL[h] = sum(SUB_AUTO_th_VAL[h,ecl] on ecl)
+ 
+ @over SUB_AUTO_VAL[h] = SUB_AUTO_elec_VAL[h] + SUB_AUTO_th_VAL[h]
