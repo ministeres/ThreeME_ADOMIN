@@ -38,8 +38,34 @@ include ..\model\lists
   EMS_SOU := EMS_SECSOU + EMS_HH
   EMS_SOU[ce2] := EMS_SECSOU[ce2] + EMS_HH[ce2]
   
-  verif_EMS_SOU := 0   
-IC[ce2,s] := 1 
+  verif_EMS_SOU := 0 
+  
+  PhiY_ener[ce, se] :=  MTEP($se, 53+$ce)  
+   
+IC[21,s]:= 1
+
+IC[22,s] := PhiY_ener[22, 2201]    
+ 
+IC[24,s] := PhiY_ener[24, 2401]     
+
 IC_HH[ce2,h] := 1 
   
-          
+Carbon_foot := EMS_TOT/1000000 + EMS_M - EMS_X      
+
+EMS_M := sum(EMS_M[c] on c)
+
+EMS_X := sum(EMS_X[c] on c) 
+
+EMS_M[c] := FOOTPRINT(c,1)*M[c]
+
+EMS_X[c] :=  EMS[c]*X[c]/(YQ[c]*1000000)     
+
+EMS[sne] :=  EMS_SEC[sne]/Y[sne]*YQ[sne]   # grossier : on connait les émissions par secteur mais pas par produit
+
+EMS[21] :=  EMS_SEC[21]
+
+EMS[22] :=  sum(EMS_SEC[se22] on se22)
+
+EMS[23] :=  sum(EMS_SEC[se23] on se23)
+
+EMS[24] :=  sum(EMS_SEC[se24] on se24)              

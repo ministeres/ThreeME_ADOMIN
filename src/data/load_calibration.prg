@@ -77,4 +77,30 @@ subroutine load_calibration
    matrix(24,3) ES_eta_K_E                     ' Matrix of the parameters in endogenous elasticity of substitution between capital and energy
   ES_eta_K_E.read(B43,s=ELAS_L2_NRJ)          {%data_calibration}
 
+  matrix(24,1) FOOTPRINT                     ' Matrix of the imports carbon intensity 
+  FOOTPRINT.read(F4,s=FOOTPRINT)          {%data_calibration}
+
+    matrix(23,57) MTEP                     ' Matrix of the energy production features
+  MTEP.read(C4,s=Donnees_energie) {%data_calibration}
+
+  matrix(35,5) MTEP_USE                   ' Matrix of the energy production features
+  MTEP_USE.read(C33,s=Donnees_energie) {%data_calibration}
+   
+  matrix(37,4) MTEP_INDUS                     ' Matrix of the energy production features
+  MTEP_INDUS.read(J5,s=EnergyIndus) {%data_calibration}
+  
+  matrix(300,10) HOUSEHOLD_HYBRID_BUIL                          ' Matrix of the data HOUSEHOLD_HYBRID_BUIL
+  HOUSEHOLD_HYBRID_BUIL.read(D4,s=Household_hybrid_BUIL) {%data_calibration}
+
+  matrix(370,10) HOUSEHOLD_HYBRID_AUTO                          ' Matrix of the data HOUSEHOLD_HYBRID_AUTO
+  HOUSEHOLD_HYBRID_AUTO.read(D4,s=Household_hybrid_AUTO) {%data_calibration}
+
+  matrix(100,10) HOUSEHOLD_HYBRID_Trans                         ' Matrix of the data HOUSEHOLD_HYBRID_Trans
+  HOUSEHOLD_HYBRID_Trans.read(D4,s=Household_hybrid_Transition) {%data_calibration}
+  
+  matrix(37,37) TECH_COEF_VAR                         ' Matrix of the TECHNICAL COEFFICIENT VARIATION
+  TECH_COEF_VAR.read(B3,s=technical_coef_variation) {%data_calibration}
+  
+  matrix(37,37) TECH_COEF_VAR_2                         ' Matrix of the TECHNICAL COEFFICIENT VARIATION  in choc scenario
+  TECH_COEF_VAR_2.read(B3,s=technical_coef_variation_2) {%data_calibration}
 endsub

@@ -28,12 +28,17 @@ R_G := @elem( (DEP_VAL - (PRESOC_VAL + CL_S[sp]*L_S[sp]*PROG_L[sp] +_
 
 Tvat|O|[c] := (VAT|O|_HSH[c] / (CH|O|[c] - VAT|O|_HSH[c]+0.00000000000000000001))
 
-
-#Exoneration ETS
-EXO_ETS := 0 
-EXO_NETS := 0 
 TQETS[ce2,s] := Ttco_vol[ce2] * (1 - EXO[ce2, s]) 
 
-TTICD[c] * YQ[c] := PENERTD[c] * ENERTD[c]            #modifié ADEME
+TTICD[c] := @elem(TENERTD[c], %baseyear) * (1 + STEADYSTATE(15,1))^(@year - %baseyear)             
 
-TTICM[c] * M[c] :=  PENERTM[c] * ENERTM[c]            #modifié ADEME
+TTICM[c] :=  @elem(TENERTM[c],%baseyear) * (1 + STEADYSTATE(15,1))^(@year - %baseyear)           
+
+PTICD[c] := P
+
+PTICM[c] := P
+
+TICD[c] := @elem(TTICD[c],%baseyear) * YQ[c]
+
+TICM[c] := @elem(TTICM[c],%baseyear) * M[c]
+

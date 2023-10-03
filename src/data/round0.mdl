@@ -90,15 +90,71 @@ IA[c, s] := INV_MAT($c,$s) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
 
 #---------------------------***LOAD EMISSION DATA***---------------------------------
 
+
+
+#-----------------------Data for MTEP
+
+Q_Mtep_ef[ce,se] := MTEP($se, 15+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+Q_Mtep_X[ce,se] := MTEP($se, 19+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+Q_Mtep_Nener[ce,se] := MTEP($se, 24+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+Q_Mtep_Nener[ce] := sum (Q_Mtep_Nener[ce,se] on se)
+ 
+Q_Mtep_int[ce,se] := MTEP($se, 34+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+Q_Mtep_Losses[ce,se] := MTEP($se, 38+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+Q_Mtep_indus[ce,s] := MTEP_INDUS($s, $ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+Q_Mtep_H_BUIL[ce] := MTEP_USE(1, $ce)*(1 + STEADYSTATE(2,1))^ (@year -%baseyear)
+                  
+Q_Mtep_H_AUTO[ce] := MTEP_USE(2, $ce)*(1 + STEADYSTATE(2,1))^ (@year -%baseyear)
+
+Q_Mtep_SEC[ce, sne] :=  MTEP_USE(12 + $sne, $ce)*(1 + STEADYSTATE(2,1))^ (@year -%baseyear) 
+
+Q_Mtep_H_BUIL := sum(Q_Mtep_H_BUIL[ce] on ce)
+
+Q_Mtep_H_AUTO := sum(Q_Mtep_H_AUTO[ce] on ce)
+
+Q_Mtep_SEC_SOU[ce] := sum(Q_Mtep_SEC[ce, sne] on sne)
+
+Q_Mtep_SEC[sne] := sum(Q_Mtep_SEC[ce, sne] on ce)
+
+Q_Mtep_H := Q_Mtep_H_BUIL + Q_mtep_H_AUTO
+
+Q_Mtep_SEC := sum(Q_Mtep_SEC_SOU[ce] on ce)
+
+Verif_Q_Mtep_HSEC := 0
+
 EMS_SEC[ce2, s] := EMISSION($s, $ce2) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
 
-EMS_SEC_indus[ce, s] := EMS_INDUS($s, $ce) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)     # modifié Gaël
+@over EMS_SEC_21[sne] := Q_Mtep_SEC_21[sne]*1000000*4                 
+
+@over EMS_SEC_22[sne] := Q_Mtep_SEC_22[sne]*IC_22[sne]*1000000*3.05      
+
+@over EMS_SEC_24[sne] := Q_Mtep_SEC_24[sne]*IC_24[sne]*1000000*2.4        
+
+EMS_SEC_indus[ce, s] := EMS_INDUS($s, $ce) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)     
 
 EMS_DC[s] := EMISSION($s, 4) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
 
 EMS_HH[ce2, h] := household(70+$ce2, $h) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
 
 #EXO[ce2,s] := EMISSION(45+$s, $ce2)
+
+#Exoneration ETS
+
+EXO_ETS := 1
+
+EXO_NETS := 0 
+
+EXO[ce, s] := 0 
+
+@over EXO[ce2, sets] := EXO_ETS
+
+@over EXO[ce2, snets] := EXO_NETS 
                     
 #  '---------------------------***DEMOGRAPHY***---------------------------------
 
@@ -111,6 +167,15 @@ betaEmp_M[age] := DEMOGRAPHY($age,7)
 Empl_W[age] := DEMOGRAPHY(6+$age,1) * (1 + STEADYSTATE(3,1)) ^ (@year - %baseyear)
 LF_W[age] := DEMOGRAPHY(6+$age,2) * (1 + STEADYSTATE(3,1)) ^ (@year - %baseyear) 
 WAPop_W[age] := DEMOGRAPHY(6+$age,3) * (1 + STEADYSTATE(3,1)) ^ (@year - %baseyear)  
+
+WAPop_W := sum(WAPop_W[age] on age)
+
+WAPop_M := sum(WAPop_M[age] on age)
+
+WAPop := WAPop_M + WAPop_W
+
+verif_L := L - L_S - L_SE
+
 PARTR_W[age] := DEMOGRAPHY(6+$age,6) 
 betaEmp_W[age] := DEMOGRAPHY(6+$age,7)  
                                                        
@@ -141,8 +206,17 @@ INC_GOV_OTH_net := OTH_VARIABLE(4,1) * (1 + STEADYSTATE(1,1)) ^ (@year - %baseye
 
 phi_K[s]   := K[s] * CK[s]             / (CU[s] * Y[s])
 phi_L[s]   := L[s] * PROG_L[s] * CL[s] / (CU[s] * Y[s])
-phi_E[s]   := E[s] * PE[s]             / (CU[s] * Y[s])
+phi_E[s]   := (E[s] * PE[s] + CEE[s])            / (CU[s] * Y[s])
 phi_MAT[s] := MAT[s] * PMAT[s]         / (CU[s] * Y[s])
+
+CEE[s] := 0
 
 verif_phi_input[s] := 1 - phi_K[s] - phi_L[s] - phi_E[s] - phi_MAT[s]
 
+BUIL[h] := HOUSEHOLD_HYBRID_BUIL(16, $h) *(1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+BUIL := sum(BUIL[h] on h)
+
+ER_BUIL := BUIL	
+
+INV_road := 0

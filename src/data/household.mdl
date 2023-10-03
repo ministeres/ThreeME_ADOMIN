@@ -29,11 +29,6 @@ TIR[h] := IR_VAL[h] / DISPINC_AI_VAL[h]
 TIR := IR_VAL / DISPINC_AI_VAL
 DISPINC_VAL[h] := DISPINC_AI_VAL[h] - IR_VAL[h] - AIC_VAL[h]
 
-#verification
-TIR_bis[h] := IR_VAL[h] / DISPINC_AI_VAL[h]
-IR_VAL_bis[h]:= IR_VAL[h]
-IR_VAL_bis := sum(IR_VAL_bis[h] on h)
-Verif_TCO_VAL_HH :=  TCO_VAL_HH - (IR_VAL_bis - IR_VAL)
 #----------------------------------------------------
 
 IR_VAL := sum(IR_VAL[h] on h)

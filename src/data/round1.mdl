@@ -1,6 +1,6 @@
 include ..\model\lists
 
-VERIF_|V| := 0 where V in PY_PYQ Y_YQ PIAxIA_PIxI PIA_PI IA_I GDP_GDPBIS GDP_GDPTER PGDP_PGDPBIS PGDP_PGDPTER ValGDP_ValGDPTER
+VERIF_|V| := 0 where V in PY_PYQ Y_YQ PIAxIA_PIxI PIA_PI IA_I GDP_GDPBIS GDP_GDPTER GDPTER_GDPBIS GDPBIS_GDPTER PGDP_PGDPBIS PGDP_PGDPTER ValGDP_ValGDPTER X M G I CH 
 VERIF_PEXP_CES[h] := 0
 
 FISC := 0
@@ -17,15 +17,16 @@ GDP[c] := CH[c] + G[c] + I[c] + X[c] + DS[c] - M[c]
 DC_VAL[c] := PX[c]*X[c] - PM[c]*M[c]
 TAX[c] := VAT[c] + ENERT[c] + OTHT[c]
 
-TenertD[c] := PENERTD[c] * ENERTD[c] / YQ[c]
-TenertM[c] := PENERTM[c] * ENERTM[c] / (M[c] + (M[c]<0.0000000001)*1)
+TenertD[c] := @elem(PENERTD[c] * ENERTD[c] / YQ[c], %baseyear)
+
+TenertM[c] := @elem(PENERTM[c] * ENERTM[c] / (M[c] + (M[c]<0.0000000001)*1),%baseyear)
 
 TothtD[c] := OTHTD[c] / YQ[c]
 TothtM[c] := OTHTM[c] / (M[c] + (M[c]<0.0000000001)*1)
 TvatDoth[c] := VATD_OTH[c] / (ID[c] + CID[c] + GD[c] - VATD_OTH[c])
 TvatMoth[c] := VATM_OTH[c] / (IM[c] + CIM[c] + GM[c] - VATM_OTH[c] + (IM[c] + CIM[c] + GM[c] - VATM_OTH[c]<0.0000000001)*1)
-TsubD[c] := PSUBD[c] * SUBD[c] / YQ[c]
-TsubM[c] := PSUBM[c] * SUBM[c] / (M[c] + (M[c]<0.0000000001)*1)
+TsubD[c] := @elem(PSUBD[c] * SUBD[c] / YQ[c],%baseyear)*(1+STEADYSTATE(15,1))^ (@year - %baseyear)                                  #modifié Gaël si PSUBD[c] * SUBD[c] / YQ[c] alors choc en AMS est inclu dans AME
+TsubM[c] := @elem(PSUBM[c] * SUBM[c] / (M[c] + (M[c]<0.0000000001)*1), %baseyear)*(1+STEADYSTATE(15,1))^ (@year - %baseyear)
 
 MT|O|[c] := sum(MT|O|[trsp, c] on trsp)
 MT[c] := MTM[c] + MTD[c]
@@ -74,14 +75,14 @@ DNAIRU := 0
 
 TCSE[s] := PCSE[s] * CSE[s] / (L_S[s]*W_S[s])
 
-TCSE := PCSE*CSE/(L_S*W_S)
+TCSE := PCSE*CSE/(L_S*W_S) 
 CFS := 1*(1+TCSE)/((1-TCSS)*(1-TIR))
 
-#verification
+
 TCSE_bis[s]:= PCSE_bis[s] * CSE[s] / (L_S[s]*W_S[s])
 CSE_bis[s] :=  CSE[s]
 CSE_bis := sum(CSE_bis[s] on s)
-verif_TCO_VAL_SEC := TCO_VAL_SEc - (CSE_bis - CSE)
+
 #-------------------------------------------
 
 CSS[s] := (TCSS * L_S[s] * W_S[s]) / PCSS[s]
@@ -94,6 +95,13 @@ TCSE_ROW := CSE_ROW * PCSS / SB_ROW
 MAT[cm, s] := MATD[cm, s] + MATM[cm, s]
 MAT|O|[s] := sum(MAT|O|[cm, s] on cm)
 MAT[s] := MATD[s] + MATM[s]
+
+MAT_n[cm, sne] := MAT[cm, sne]          
+ 
+SUM_MAT_N_CM[sne] := sum(MAT_n[cm,sne] on cm )
+ 
+phi_MAT_n[cm,sne] * SUM_MAT_N_CM[sne] := MAT_n[cm,sne]  if  SUM_MAT_N_CM[sne] <>0
+
 E[ce, s] := ED[ce, s] + EM[ce, s]
 E[s] := sum(E[ce, s] on ce)
 Ener[s] := sum(E[ce, s] on ce)
@@ -107,15 +115,36 @@ E_ESEC[ce] := E_ESECD[ce] + E_ESECM[ce]
 
 CU_oth[s]*Y[s] := CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PE[s]*E_oth[s] + PMAT[s]*MAT[s] if Y[s] > 0
 
+E_indus_des[ce, s] := ENER_INDUS($s, $ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+E_oth_des[ce, s] := E[ce, s] - E_indus[ce, s]
+
 E_indus[ce, s] := ENER_INDUS($s, $ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
 
 E_oth[ce, s] := E[ce, s] - E_indus[ce, s]
+  
+E_indus_des[s] := sum(E_indus_des[ce, s] on ce)
 
+phi_E_indus[ce,s]*((E_indus_des[s]>0)*E_indus_des[s]+(E_indus_des[s]<=0)):= (E_indus_des[s]>0)*E_indus_des[ce,s]+(E_indus_des[s]<=0)*0   #if E_indus_des[s] > 0
+    
+phi_E_oth[ce,s]*((E_oth_des[s]>0)*E_oth_des[s]+(E_oth_des[s]<=0)) := (E_oth_des[s]>0)*E_oth_des[ce,s]+(E_oth_des[s]<=0)*0   #if E_oth_des[s] > 0
+
+verif_phi_E_oth[s] := 0
+    
+verif_phi_E_indus[s] := 0
+    
+E_oth_des[s] := sum(E_oth_des[ce, s] on ce)
+    
 E_indus_SOU[ce] := sum( E_indus[ce, s] on s )
+
 E_oth_SOU[ce] := sum( E_oth[ce, s] on s)
+
 # Internal energy use in energy producing sectors
+
 E_oth_SOU_ener[ce] := sum(E_oth[ce, se] on se)
+
 # Internal energy use in non-energy producing sectors
+
 E_oth_SOU_non_ener[ce] := sum(E_oth[ce, sne] on sne)
 
 E_indus[s] := sum( E_indus[ce, s] on ce )
@@ -192,3 +221,5 @@ CU[s] := (CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PE[s]*Ener[s] + PMAT[s]*MAT[s]) / 
 RF[s]*PRF[s] := PEBE[s]*EBE[s] - PK[s]{-1}*Tdec[s]*K[s]{-1}
 
 ASS_VATM_OTH[c] := IM[c] + CIM[c] + GM[c] - VATM_OTH[c]
+
+verif_phiYbis[c] := 0

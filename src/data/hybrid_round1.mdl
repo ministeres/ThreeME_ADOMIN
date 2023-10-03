@@ -1,40 +1,5 @@
 include ..\model\lists
 
-#-----------------------Data for MTEP
-
-Q_Mtep_ef[ce,se] := MTEP($se, 15+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
-
-Q_Mtep_X[ce,se] := MTEP($se, 19+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
-
-Q_Mtep_Nener[ce,se] := MTEP($se, 24+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
-
-Q_Mtep_Nener[ce] := sum (Q_Mtep_Nener[ce,se] on se)
- 
-Q_Mtep_int[ce,se] := MTEP($se, 34+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
-
-Q_Mtep_Losses[ce,se] := MTEP($se, 38+$ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
-
-Q_Mtep_indus[ce,s] := MTEP_INDUS($s, $ce) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
-
-Q_Mtep_H_BUIL[ce] := MTEP_USE(1, $ce)*(1 + STEADYSTATE(2,1))^ (@year -%baseyear)
-                  
-Q_Mtep_H_AUTO[ce] := MTEP_USE(2, $ce)*(1 + STEADYSTATE(2,1))^ (@year -%baseyear)
-
-Q_Mtep_SEC[ce, sne] :=  MTEP_USE(12 + $sne, $ce)*(1 + STEADYSTATE(2,1))^ (@year -%baseyear) 
-
-Q_Mtep_H_BUIL := sum(Q_Mtep_H_BUIL[ce] on ce)
-
-Q_Mtep_H_AUTO := sum(Q_Mtep_H_AUTO[ce] on ce)
-
-Q_Mtep_SEC_SOU[ce] := sum(Q_Mtep_SEC[ce, sne] on sne)
-
-Q_Mtep_SEC[sne] := sum(Q_Mtep_SEC[ce, sne] on ce)
-
-Q_Mtep_H := Q_Mtep_H_BUIL + Q_mtep_H_AUTO
-
-Q_Mtep_SEC := sum(Q_Mtep_SEC_SOU[ce] on ce)
-
-Verif_Q_Mtep_HSEC := 0
 
 #----------------------data for BUIL
 
@@ -54,7 +19,17 @@ nu_REHAB[h, ecl] := HOUSEHOLD_HYBRID_BUIL(206 + $ecl, $h)              #déplacé
   
 NewBUIL[h] := HOUSEHOLD_HYBRID_BUIL(277, $h)*(1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
   
-BUIL[h] := HOUSEHOLD_HYBRID_BUIL(16, $h) *(1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+
+BUIL[bcl] := sum(BUIL[h, bcl] on h)
+
+
+  
+BUIL_verif[h] := sum(BUIL[h, ecl] on ecl)
+
+Verif_BUIL := 0
+
+BUIL_verif := BUIL
   
 phi_NewBUIL[h, ecl] := HOUSEHOLD_HYBRID_BUIL(17 + $ecl, $h)
 
@@ -109,7 +84,6 @@ NewBUIL[h, ecl] := @elem(phi_NewBUIL[h, ecl] * NewBUIL[h], %baseyear)*(1 + STEAD
 PENER_BUIL[h, ecl, ce] := PEXP[ce, h] * EXP_BUIL[h, ecl, ce] / ENER_BUIL[h, ecl, ce] if ENER_BUIL[h, ecl, ce] <> 0
 
 ENERperM2[h, ecl, ce] := @elem(ENER_BUIL[h, ecl, ce] / BUIL[h, ecl],%baseyear) if ENER_BUIL[h, ecl, ce] <> 0
-
 
 #------------------data for auto
 
@@ -171,7 +145,7 @@ AUTO_elec_D[h, pcl] := HOUSEHOLD_HYBRID_AUTO(172 + $pcl, $h)
 
 bonus_elec[h]:= 0
 
-Pbattery := 20000 * (1 + STEADYSTATE(15, 1)) ^ (@year - %baseyear)
+Pbattery := 5000 * (1 + STEADYSTATE(15, 1)) ^ (@year - %baseyear)
 
 overcost_elec := 4000 * (1 + STEADYSTATE(15, 1)) ^ (@year - %baseyear)
 

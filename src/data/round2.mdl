@@ -1,7 +1,12 @@
 include ..\model\lists
 
 |V||O| := sum(|V||O|[c] on c) where V in Q CH G I X DS CI VAT OTHT ENERT MC MT
+
 |V| := |V|D + |V|M where V in Q CH G I X DS CI VAT OTHT ENERT MC MT
+
+CI[c,s]  := CID[c,s] + CIM[c,s]
+
+CI[c]  := CIM[c]+CID[c]
 
 MT[trsp, c] := sum(MTD[trsp, c] + MTM[trsp, c])
 
@@ -16,6 +21,8 @@ GDPbis := CH + G + I + X + DS - M
 IA|O|[s] := sum(IA|O|[c, s] on c)
 
 IA := sum(IA[s] on s)
+
+IA_n[c, s] := IA[c, s] 
 
 Phi_IA|O|[s] := IA|O|[s] / (IA[s] + (IA[s]<0.0000000001)*1)
 
@@ -136,3 +143,5 @@ phi_cap[sne] := PK[sne]{-1}*K[sne]{-1}/(PK[sne]{-1}*K[sne]{-1}+PE[sne]{-1}*E[sne
 PE_a[sne] :=  PE[sne]
 
 CK_a[sne] := CK[sne]
+
+Verif_DS := 0

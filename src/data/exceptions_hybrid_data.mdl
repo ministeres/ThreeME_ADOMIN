@@ -20,7 +20,7 @@ PhiY_indus[ce,se] :=0
 
 Q_Mtep_ef_tot_SOU[ce] := sum(Q_Mtep_ef_tot[ce,se] on se)
 
-PhiY_ener[ce, se] := Q_Mtep_ef[ce,se] / Q_Mtep_ef_SOU[ce]   
+#PhiY_ener[ce, se] := Q_Mtep_ef[ce,se] / Q_Mtep_ef_SOU[ce]   
 
 Q_Mtep_ef_SOU[ce] := Q_Mtep_H_BUIL[ce] + Q_Mtep_H_AUTO[ce] + Q_Mtep_SEC_SOU[ce]
 
@@ -61,16 +61,6 @@ tau_REHAB_2[h, ecl] := tau_REHAB[h, ecl]
 delta_BUIL[h, ecl] := sum(delta_BUIL[h, ecl, bcl] on bcl)          
 
 delta_REHAB[h, ecl] := sum(phi_REHAB[h, ecl, ecl2] * delta_BUIL[h, ecl2] on ecl2)
-
-BUIL[bcl] := sum(BUIL[h, bcl] on h)
-
-BUIL := sum(BUIL[h] on h)
-  
-BUIL_verif[h] := sum(BUIL[h, ecl] on ecl)
-
-Verif_BUIL := 0
-
-BUIL_verif := BUIL
 
 @pv ENER_BUIL[h, ecl] := sum(ENER_BUIL[h, ecl, ce] if ENER_BUIL[h, ecl, ce] <> 0 on ce)
 
@@ -193,7 +183,9 @@ EXP_13_OTH_VAL := @elem(PEXP_13 * EXP_13 - (PNEWBUIL * NEWBUIL + PREHAB * REHAB)
 
 EXP_13_OTH_Val[h] := phi_exp_13bis[h] * EXP_13_OTH_VAL
 
-EXP_13[h] := @elem(PNewBUIL[h] * NewBUIL[h] + PREHAB[h] * REHAB[h] +  EXP_13_OTH_val[h] / PCH_13, %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+#EXP_13[h] := @elem(PNewBUIL[h] * NewBUIL[h] + PREHAB[h] * REHAB[h] +  EXP_13_OTH_val[h] / PCH_13, %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+EXP_13[h] := CHD_13 - SUB_REHAB_VAL
 
 # Subvention pour les logements (CIDD)
 
@@ -240,11 +232,15 @@ EXP_AUTO[ce] := sum(EXP_AUTO[ecl, ce] on ecl)
 
 EXP_AUTO := sum(EXP_AUTO[h] on h) 
 
-AUTO[h] := sum(AUTO[h, ecl] on ecl)                                                      #modifié     AUTO[h] := HOUSEHOLD_HYBRID_AUTO(40, $h)                     
+AUTO[h] := sum(AUTO[h, ecl] on ecl)  
+
+AUTO_N := AUTO[h]                                                     #modifié     AUTO[h] := HOUSEHOLD_HYBRID_AUTO(40, $h)                     
 
 AUTO[h, DES] := sum(delta_AUTO[h, ecl, DES] * AUTO[h, ecl]{-1} on ecl)
 
-AUTO[bcl] := sum(AUTO[h, bcl] on h)                                           
+AUTO_DES := AUTO[h,DES]
+
+AUTO[ecl] := sum(AUTO[h, ecl] on h)                                           
 
 AUTO := sum(AUTO[ecl] on ecl)   
 
@@ -278,6 +274,8 @@ AUTO_verif := sum( AUTO_verif[h] on h )
 Verif_AUTO := 0
 
 Verif_AUTO2 := 0
+
+Verif_AUTO_DES := 0
 
 #@pv NewAUTO[h] := sum(NewAUTO[h, ecl] if NewAUTO[h, ecl] <> 0 on ecl)
 
@@ -336,9 +334,9 @@ GR_KmPerAuto := 0
 
 km_auto_CD[h] := KM_AUTO[h] - km_auto_LD[h]
 
-km_trav_auto_LD[h] := (km_traveler_LD[h]-km_traveler_14[h])
+km_trav_auto_LD[h] := (km_traveler_LD[h]-km_traveler_14[h])            # modifié Hervé
 
-km_trav_auto_CD[h] := km_traveler_CD[h]-km_traveler_15[h]
+km_trav_auto_CD[h] := km_traveler_CD[h]-km_traveler_15[h]              # modifié Hervé
 
 ##### Nombre de voyageurs par auto : (covoiturage)
 
@@ -473,7 +471,7 @@ imitation[h] :=  coeffBassimit[h]
 
 innovation[h] := coeffBassinnov[h] 
 
-nu_diffusion := 7.82
+nu_diffusion := 14
 
 COeffBassinnov[h] := 0
 
@@ -483,9 +481,13 @@ CoeffBassimit[h] := 0
 
 phiNVE[h]:=share_elec[h]
 
-phi_elec_n[h,ecl] := phi_elec[h,ecl]
+phi_elec_n[h,pcl] := phi_elec[h,pcl]
+
+phi_elec_e[h,pcl] := phi_elec[h,pcl]
 
 phi_th_n[h,ecl]:=phi_th[h,ecl]
+
+phi_th_e[h,ecl]:=phi_th[h,ecl]
 
 phi_elec_n_tot[h] := 1
 
@@ -506,10 +508,6 @@ PE_Signal[s] := 0
 PE_signal_trsp := 0
  
 PE_Signal_sinc := 0
-
-PE_Signal_ster := 0
-
-PE_Signal_H[ce] := 0
 
 
 # Price signals by sector for each fuel
@@ -535,6 +533,8 @@ GR_PROG_L := STEADYSTATE(4,1)
 GR_PROG_L[s] := GR_PROG_L
 
 PE_signal_ETS :=0
+
+SUBST_K_E_n[s] := 0
 
 SUBST_K_E[s] := 0
  
@@ -608,7 +608,9 @@ EXP_MOBAUTO_VAL := sum(EXP_MOBAUTO_VAL[h] on h)
 
 Phi_EXP[co, h] := EXP[co, h] / EXP[co] if EXP[co] <> 0
 
-AUTO_elec[h,DES,pcl] := (delta_AUTO[h,CA,DES] * AUTO_elec[h,pcl]{-1})    
+AUTO_elec[h,DES,pcl] := (delta_AUTO[h,CA,DES] * AUTO_elec[h,pcl]{-1})     # à corriger inversion de l'équationauto   d(AUTO_elec[h,pcl]) - NewAUTO_elec[h,pcl] 
+
+#AUTO_elec[h,DES,pcl] :=  d(AUTO_elec[h,pcl]) - NewAUTO_elec[h,pcl]
 
 AUTO_th[h,DES,ecl] := (delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1})         
 
@@ -616,9 +618,6 @@ AUTO[h,DES,ecl] := (AUTO_th[h,DES,ecl])
 
 @over AUTO[h,DES,CA] := (sum(AUTO_elec[h,DES,pcl] on pcl) + AUTO_th[h,DES,CA]) 
 
-#AUTO[h,DES] := sum(AUTO[h,DES,ecl] on ecl)
-
-#AUTO[DES] := AUTO[h,DES] 
 
 # Just for verification
 
@@ -630,9 +629,6 @@ DS_base_trend := sum(DS|O|[c] on c, O in D M)
 
 DS_trend := DS_base_trend
 
-IC[22,s] := PhiY_ener[22, 2201]    #modifié Gaël
- 
-IC[24,s] := PhiY_ener[24, 2401]    #modifié Gaël
  
 IC_HH[22,h] := PhiY_ener[22, 2201]  #modifié Gaël
                                    
@@ -683,5 +679,35 @@ EXPH := sum(EXP[h] on h)
 S := DISPINC_VAL - PEXPH*EXPH
 
 S[h] := S
+    
+Carbon_foot := EMS_TOT/1000000 + EMS_M - EMS_X      
 
-          
+EMS_M := sum(EMS_M[c] on c)
+
+EMS_X := sum(EMS_X[c] on c) 
+
+EMS_M[c] := FOOTPRINT(c,1)*M[c]
+
+EMS_X[c] :=  EMS[c]*X[c]/(YQ[c]*1000000)     
+
+EMS[sne] :=  EMS_SEC[sne]/Y[sne]*YQ[sne]   # grossier : on connait les émissions par secteur mais pas par produit
+
+EMS[21] :=  EMS_SEC[21]
+
+EMS[22] :=  sum(EMS_SEC[se22] on se22)
+
+EMS[23] :=  sum(EMS_SEC[se23] on se23)
+
+EMS[24] :=  sum(EMS_SEC[se24] on se24)  
+
+CIEE[s] := 0
+
+PE_signal_sec[s] := 0
+
+DSD_base[c] := SUPPLY_USE_DOM($c,(NELEMSET(1,1)+1)+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+
+DSM_base[c] := SUPPLY_USE_FOREIGN($c,1+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+
+Choc_E_oth_des[c,s] :=0
+ 
+GR_PE_SIGNAL_H :=0

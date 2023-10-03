@@ -9,7 +9,11 @@ ENER_price_signal[ce] := (value(ENERT[ce] + OTHT[ce] + SUB[ce]) + TCO_VAL_SOU[ce
 
 #implicite Carbon tax
 
-Ttco_signal[ce2] := 1000000 * (value(ENERT[ce2]+ OTHT[ce2] + SUB[ce2]) + TCO_VAL_SOU[ce2] + TCO_VAL_HH_SOU[ce2])/ (EMS_SECSOU[ce2] + EMS_HH[ce2])
+Ttco_signal[21] := 1000000 * (value(ENERT[21]+ OTHT[21] + SUB[21]) + TCO_VAL_SOU[21] + TCO_VAL_HH_SOU[21])/ (EMS_SECSOU[21] + EMS_HH[21])
+
+Ttco_signal[22] := 1000000 * ((value(ENERT[22]+ OTHT[22] + SUB[22])) * PHIY_ef_tot[22,2201] + TCO_VAL_SOU[22] + TCO_VAL_HH_SOU[22])/ (EMS_SECSOU[22] + EMS_HH[22])
+
+Ttco_signal[24] := 1000000 * ((value(ENERT[24]+ OTHT[24] + SUB[24])) * PHIY_ef_tot[24,2401] + TCO_VAL_SOU[24] + TCO_VAL_HH_SOU[24])/ (EMS_SECSOU[24] + EMS_HH[24])
 
 Ttco_vol_signal[ce2] := Ttco_signal[ce2]/PGDP
 
@@ -234,8 +238,6 @@ Share_NEWAUTO_CE := PHI_NEWAUTO_H01_CE        #à retirer
 Share_NEWAUTO_CF := PHI_NEWAUTO_H01_CF         #à retirer
 Share_NEWAUTO_CG := PHI_NEWAUTO_H01_CG        #à retirer
 
-ER_BUIL := BUIL			
-			
 ER_BUIL_A := BUIL_CA			
 ER_BUIL_B := BUIL_CB			
 ER_BUIL_C := BUIL_CC			
@@ -254,11 +256,7 @@ ER_Jobs_Public_Trsp := sum(L[trsp] on trsp)
 
 eta_BUIL[ce]:=0.2
 
-#Exoneration ETS
 
-@over EXO_ETS := 1
-
-EXO_NETS := 0 
 
 GR_TCO :=0
 
@@ -269,6 +267,8 @@ EMS_tot_tgt :=0
 PROG_BUIL[h, ecl, ce] := PROG_BUIL[ce]
 
 PROG_BUIL[ce] := 1
+
+TIS[s] := TIS
 
 REDIS_VAl := 0
 
@@ -296,8 +296,6 @@ AME := 1
 
 GR_E[24, 15] := 1
 
-TIS[s] := TIS
-
 PWD_n[c] := P
 
 TTCO_VOL_ROW :=0
@@ -314,12 +312,10 @@ km_traveler_CD_n[h] := km_traveler_CD[h]
 
 # Raphael: signal prix ferroviaire pour caler le bon report modal entre VP et train
 
-PC_Trav_14_signal := 1
+PC_Trav_14_signal := 0
 
-# Raphael prise en compte du surcout de l'amelioration de l efficacité énergétique des véhicules thermiques : overcost_efficacitenrj_vp
+PC_Trav_15_signal := 0 
 
-oc_ee_vp := 1
-prog_k_e_03 := 1
 
 # Raphael cale pour cibler les conso de gaz, d'electricité ou de fioul des secteurs PL et bus:  
 
@@ -340,3 +336,422 @@ GR_Eexo_24_ster :=0
 TREND_E_BUIL[ce] :=0
 
 X_exo_23 := @elem(X_23, %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+Verif_MT[c] := 0
+
+Verif_MTD[c] := 0
+
+Verif_MTM[c] := 0
+
+Verif_MC[c] :=0
+
+Verif_MCD[c] := 0
+
+Verif_MCM[c] := 0
+
+MDE_n[s] := 0
+
+Alpha_MDE[sne] :=  1
+
+REHAB_VAL := PREHAB * REHAB
+
+NDI_ADEB_VOL := (DISPINC_VAL - EXP_HOUSING_Val - EXP_MOBAUTO_Val)/PCH 
+#
+#tdec_MDE := 0.05
+#
+#K_E_n[sne] := K_E[sne]
+#
+ #K_E[sne] * (dlog(GDP) + tdec_MDE) :=  MDE[sne] * (1+ dlog(GDP))
+#
+ #MDE[sne] := 0.05 * IA[sne]
+# 
+# @over MDE_19 := 600
+ 
+# @over MDE_20 := 300
+
+#MDE_N_indus := sum(MDE_n[sinc] on sinc)
+
+I_MDE_indus := sum(I_MDE[sinc] on sinc) 
+
+IA_indus := sum(IA[sinc] on sinc)
+
+IA_tert := IA_19 + IA_20
+
+tCIEE := 0
+
+DEP_CIEE := 0
+
+DEP_CIEE[sinc] := 0
+
+T_TAX_CR := 0
+
+T_TAX_CR[s] := 0
+
+TAX_CR_n[s] := 0
+
+TAX_CR_VAL :=0
+
+TAX_CR_VAL[s] :=0
+
+TAX_CR[s] := 0
+
+PE_signal_ren[s] := 0
+
+PE_Signal_H[ce] := 0
+
+CSPE[se22] := (CU[se22]-CU_2201)*Y[se22]
+
+CSPE[se23] := (CU[se23]-CU_2301)*Y[se23]
+
+CSPE[se24] := (CU[se24]-CU_2401)*Y[se24]
+
+CSPE := CSPE_2305 + CSPE_2306
+
+CCF_val[s] := Tdec[s] * PK[s] * K[s]
+ 
+CCF_vol[s] := Tdec[s] * K[s]
+
+MATD[cm, s] := SUPPLY_USE_DOM($cm,(NELEMSET(1,1)+1)+NELEMSET(5,1)+NELEMSET(7,1)+$s) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+MATM[cm, s] := SUPPLY_USE_FOREIGN(+$cm,1+NELEMSET(5,1)+NELEMSET(7,1)+$s) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+
+Tech_coef_var[cm,s] := TECH_COEF_VAR($cm, $s)
+
+Tech_coef_var_2[cm,s] := TECH_COEF_VAR_2($cm, $s)
+
+ choc_tech_coef :=0
+ 
+ choc_NEXP[c] :=0
+ 
+ EXP_CES_VAL := sum((PEXP[co, h]*EXP[co, h] - PNEXP[co, h]*NEXP[co, h]) on co)
+ 
+ AUTO_D := 12.85
+ 
+ choc_G[c] :=0
+ 
+ choc_EXP_VAL :=0
+ 
+ choc_EXP[c] :=0
+ 
+ choc_WD[c] :=0
+ 
+ choc_air_trafic :=0
+
+ Choc_CSC[s] := 0
+ 
+ CSC_cost :=0
+ 
+ EMS_CSC[s] :=0
+ 
+ DACCS_cost := 0
+ 
+ EMS_DACCS := 0
+ 
+ choc_DACCS := 0
+ 
+ choc_INV_road :=0
+ 
+ INVexo[se23] := 0
+
+INVexo_per_Mtep[se23] := 0
+
+OPEXexo[se23] :=0
+
+cible_Prog_K[se24] :=0
+
+cible_CU[se24]:= CU_MWH_PGDP[se24]
+
+CU_CAPEX[se] * Y[se] := CK[se]*K[se]   if Y[se] > 0
+
+CU_OPEX[se] * Y[se] := CL[se]*L[se]*PROG_L[se] + PEner[se]*Ener[se] + PMAT[se]*MAT[se] if Y[se] > 0   
+
+CU_CAPEX_Mwh[se] := (CU_CAPEX[se]*PY[se]*Y[se]/PGDP)/(Q_mtep_ef[se]/0.086)    if Q_mtep_ef[se] >0
+
+CU_OPEX_Mwh[se] := (CU_OPEX[se]*PY[se]*Y[se]/PGDP)/(Q_mtep_ef[se]/0.086)       if Q_mtep_ef[se] >0
+  
+OPEX_target[se] := CU_OPEX_Mwh[se]
+
+CAPEX_target[se] := CU_CAPEX_Mwh[se]
+
+ choc_MAT[se24] :=0  
+ 
+ IA_exo_13_19 := 0
+ 
+ IA_exo_13_20 := 0
+ 
+ E_oth_exo_19 := 0
+ 
+ E_oth_exo_20 := 0
+ 
+ I_MDE_exo_19 := 0
+ 
+ I_MDE_exo_20 := 0
+ 
+ ###  introduction des Certificats d'économie d'énergie CEE 
+
+ #gel##### option CEE subvention versée par l'Etat, financée par une taxe sur l'énergie
+ 
+#gel R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
+ 
+#gel @over R_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+#gel   CEE :=0
+ #gelR_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+#gel 
+ #gelRENOV_VAL := (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] on ecl) on ecl2))  
+#gel 
+ #gelR_SUB_CEE[h,ecl,ecl2] * RENOV_VAL :=  CEE
+#gel 
+ #gelCEE[ce] := CEE * Phi_CEE[ce]
+#gel
+#gelPhi_CEE[ce] := ENER_BUIL[ce] / (sum(ENER_BUIL[ce] on ce))
+#gel
+#gelVERIF_CEE := sum(CEE[ce] on ce) - CEE
+#gel
+#gelPOTHTD[ce] * OTHTD[ce] := TOTHTD[ce] * PYQ[ce] * YQ[ce] + CEE[ce] * YQ[ce]/(YQ[ce]+M[ce]) if OTHTD[ce] <> 0 
+#gel
+#gelPOTHTM[ce] * OTHTM[ce] := TOTHTM[ce] * PM[ce] * M[ce] + CEE[ce] * M[ce]/(YQ[ce]+M[ce]) if OTHTM[ce] <> 0
+
+
+##### option CEE = subvention versée par les entreprises
+ CEE :=0
+ 
+ R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
+ 
+ @over R_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+ 
+ RENOV_VAL := (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
+ 
+ RENOV_VAL[ecl] := sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
+   
+ 
+ R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL :=  CEE
+ 
+ CEE[s] := CEE * Phi_CEE[s]
+
+ Phi_CEE[s] := 0
+ @over Phi_CEE[21] := 1 * ENER_BUIL[21] / (sum(ENER_BUIL[ce] on ce))   
+ @over Phi_CEE[se22] := PhiY_ENER[22,se22] * ENER_BUIL[22] / ENER_BUIL
+ @over Phi_CEE[se23] := PhiY_ENER[23,se23] * ENER_BUIL[23] / ENER_BUIL
+ @over Phi_CEE[se24] := PhiY_ENER[24,se24] * ENER_BUIL[24] / ENER_BUIL
+
+verif_phi_CEE := sum(Phi_CEE[se] on se) -1 
+
+VERIF_CEE := sum(CEE[se] on se) - CEE
+
+ @over CU_n[s] * Y[s] := CK[s] * K_n[s] + CL[s] * L_n[s] * PROG_L[s] + PE[s] * E_n[s] + PMAT[s] * MAT_n[s] + CEE[s] if Y[s] > 0
+  
+ @over CU[s]*Y[s] := CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] + CEE[s] if Y[s] > 0
+    
+ @over DEP_VAL := CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
+                + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
+                
+ R_SUB[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0       
+
+ R_SUB_renov[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)    if  RENOV_VAL[ecl] > 0     
+ 
+ @over Nu_REHAB[h,ecl] :=  Nu_REHABexo[h,ecl]
+ 
+ Nu_REHABexo[h,ecl] := HOUSEHOLD_HYBRID_BUIL(206 + $ecl, $h)  
+ 
+ SUB_RENOV_val[ecl] := R_SUB_renov[ecl] * RENOV_VAL[ecl]    where ecl in %list_ener_class\ CA
+ 
+ SUB_RENOV_val := SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
+  
+ ES_ext_choc := 0.4
+  
+
+ 
+ P_PAC :=15000/(1000000*1.2)     #en € 2006
+ 
+ coef_choc_PAC := 0
+ 
+ coef_choc_PAC[ecl] := coef_choc_PAC
+ 
+ choc_PAC_VAl[ecl] := 0
+ 
+ choc_PAC := sum(choc_PAC[ecl] on ecl ) 
+ 
+ choc_PAC_VAL := sum(choc_PAC_VAL[ecl] on ecl )
+
+ choc_PAC[ecl] := 0
+
+ BUIL[ce,ecl] :=  BUIL[ecl]* ENER_BUIL_h01[ecl,ce] /ENER_BUIL_h01[ecl]
+
+ Prop_M_PAC := 0.6
+   
+ @over SUB_RENOV_val[ecl] := R_SUB_renov[ecl] * RENOV_VAL[ecl] + choc_PAC_VAL[ecl]      where ecl in %list_ener_class\ CA
+
+ TREND_E_BUIL[ecl,ce] := 0     
+
+ COP_PAC := 3
+ 
+ SUB_AUTO_elec := 0
+ 
+ prog_L_VP := (NewAUTO_th[h] * @elem( PnewAUTO[h]*NewAUTO[h]/L_03 , %baseyear) + NewAUTO_elec[h] * @elem(PAUTO_elec[h]*NewAUTO[h]/L_03 , %baseyear))/NewAUTO[h] 
+ 
+ PROG_K_VP  := (NewAUTO_th[h] * @elem( PnewAUTO[h]*NewAUTO[h]/K_03 , %baseyear) + NewAUTO_elec[h] * @elem(PAUTO_elec[h]*NewAUTO[h]/K_03 , %baseyear))/NewAUTO[h]
+ 
+ ETS2 := 0
+ 
+ ETSexo2 :=0
+ 
+ AME_tCIEE := 1
+ 
+ AME_Bonus_elec := 1
+  
+ PE_SECinc[ce] * E_SECinc[ce] := sum(PE[ce,sinc]*E[ce,sinc] on sinc)
+   
+ E_SECinc[ce] := sum(E[ce,sinc] on sinc)
+   
+ E_SECinc_tot :=  sum(E_SECinc[ce] on ce)
+    
+ EMS_per_Einc[ce2] := (sum(EMS_SEC_tot[ce2,sinc] on sinc))/E_SECinc[ce2] if   E_SECinc[ce2] <> 0
+   
+ EMS_per_Einc := sum(EMS_per_Einc[ce2]*E_SECinc[ce2] on ce2)/E_SECinc_tot
+ 
+ AME_tCIEE_sinc := 1
+ 
+ T_TAX_CR_sinc := 0
+   
+ tCIEE_sinc[ce] := 0
+ 
+ EMS_SEC_sinc := sum(EMS_SEC[sinc] on sinc)
+ 
+ EE_VAL_SEC_sinc := sum(PE[sinc]*E[sinc]/YQ[sinc] on sinc)
+ 
+ YQ_sinc := sum(YQ[sinc] on sinc)
+   
+ choc_TIC_sec1516 := 0 
+
+ Inv_IRVE := 0 + (@year>2019) * IRVE - IRVE{-1} * tdec_IRVE
+ 
+ tdec_IRVE := 1/20
+ 
+ PInv_IRVE := P
+ 
+ SUB_IRVE_VAL :=   T_Sub_IRVE * PInv_IRVE * Inv_IRVE
+ 
+ SUB_IRVE := T_Sub_IRVE * Inv_IRVE
+ 
+ IRVE := (500 * @elem(Auto_elec, %baseyear) /1000) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
+ 
+ T_Sub_IRVE := 0.33
+ 
+ PE_SECroad[ce] * E_SECroad[ce] := sum(PE[ce,road]*E[ce,road] on road) if E_SECroad[ce] <> 0
+   
+ E_SECroad[ce] := sum(E[ce,road] on road)
+   
+ E_SECroad_tot :=  sum(E_SECroad[ce] on ce)
+    
+ EMS_per_Eroad[ce2] := (sum(EMS_SEC_tot[ce2,road] on road))/E_SECroad[ce2] if   E_SECroad[ce2] <> 0
+   
+# EMS_per_Eroad := sum(EMS_per_Eroad[ce2]*E_SECroad[ce2] on ce2)/(E_SECroad_tot + 0.0001)  if E_SECroad[ce2] <> 0
+ EMS_per_Eroad * E_SECroad_tot := EMS_per_Eroad[22]*E_SECroad[22] + EMS_per_Eroad[24]*E_SECroad[24]
+ 
+ AME_tCIEE_road := 1
+ 
+ T_TAX_CR_road := 0
+
+ tCIEE_road[ce] := 0
+ 
+ EMS_SEC_road := sum(EMS_SEC[road] on road)
+ 
+ EE_VAL_SEC_road := sum(PE[road]*E[road]/YQ[road] on road)
+ 
+ YQ_road := sum(YQ[road] on road)
+ 
+ PE_signal_21_road := 0
+ 
+ PE_signal_22_road := 0
+ 
+ PE_signal_23_road := 0
+ 
+ PE_signal_24_road := 0
+ 
+ AME_battery := 1
+ 
+ @over EXP_HOUSING_Val[h, ecl] := @elem(DEBT_REHAB_Val[h, ecl]{-1} * (R_I_REHAB[h, ecl]{-1} + R_RMBS_REHAB[h, ecl]{-1}) + _
+      	       	   	         R_CASH_REHAB[h, ecl] * PREHAB[h, ecl] * REHAB[h, ecl] + _
+	       			 DEBT_NewB_Val[h, ecl]{-1} * (R_I_NewBUIL[h, ecl]{-1} + R_RMBS_NewBUIL[h, ecl]{-1}) + _
+	       			 R_CASH_NewBUIL[h, ecl] * PNewBUIL[h, ecl] * NewBUIL[h, ecl] + _
+	       			 PENER_BUIL[h, ecl] * ENER_BUIL[h, ecl] + choc_PAC_VAL[ecl], %baseyear) * _
+	                   (1 + STEADYSTATE(1, 1)) ^ (@year - %baseyear)
+                       
+ ARBINC_VAL[h] := DISPINC_VAL[h] - (PNEXP_H01  * NEXP[h] + EXP_HOUSING_Val[h] + Exp_13_OTH_VAL[h] + EXP_MOB_Val[h]) 
+
+ @over MPS_HH[h] := @elem((DISPINC_VAL[h]-EXP_HH_VAL[h]) / ARBINC_VAL[h], %baseyear)    
+
+ @over BetaExp[co, h] := @elem((EXP[co, h] * PEXP[co, h] - PEXP[co, h] * NEXP[co, h]) / _
+	            (ARBINC_VAL[h] * (1 - MPS_HH[h])), %baseyear)   
+
+ #---------------- distinction entre consommation énergétique spécifique et consommation de chauffage dans le résidentiel
+
+
+ENER_spe[h,ecl] := sum(ENER_spe[h,ecl,ce] on ce)
+ 
+ ENER_spe_val[h,ecl,ce] := 0
+ 
+ @over ENER_spe_val[h,ecl,23] := PENER_BUIL[h,ecl,23] *ENER_spe[h,ecl,23]     
+ 
+ ENER_spe_val[h,ecl] := sum(ENER_spe_val[h,ecl,ce] on ce) 
+ 
+ ENER_spe[h,ecl,ce] := 0
+ 
+ @over ENER_spe[h,CA,23] := 0.5*@elem(ENER_BUIL[h,CA,23], %baseyear)
+ @over ENER_spe[h,CB,23] := 0.4*@elem(ENER_BUIL[h,CB,23], %baseyear)
+ @over ENER_spe[h,CC,23] := 0.3*@elem(ENER_BUIL[h,CC,23], %baseyear)
+ @over ENER_spe[h,CD,23] := 0.2*@elem(ENER_BUIL[h,CD,23], %baseyear)
+ @over ENER_spe[h,CE,23] := 0.2*@elem(ENER_BUIL[h,CE,23], %baseyear)
+ @over ENER_spe[h,CF,23] := 0.2*@elem(ENER_BUIL[h,CF,23], %baseyear)
+ @over ENER_spe[h,CG,23] := 0.2*@elem(ENER_BUIL[h,CG,23], %baseyear)
+ 
+ 
+ ENER_spe_m2[h,ecl,ce] := 0
+ 
+ @over ENER_spe_m2[h,ecl,23] := ENER_spe[h,ecl,23] / (BUIL[h,ecl] + 0.1)
+ 
+ choc_truck_load := 0
+ 
+ SOBRE_19 := 0
+
+  
+ SUBST_K_NE_n[s] := SUBST_K_n[s]
+
+ K_NE_n[s] := K_n[s] * 0.8 # à recaler finement par secteur 
+ 
+ @over K_NE_n[ster] := K_n[ster] * 0.98 
+
+ K_NE[s] := K_NE_n[s]
+
+ SUBST_K_NE[s]  := SUBST_K[s]
+
+ K_NEbis[s] :=  K_NE[s]
+ 
+ K_E[s] :=   K[s] - K_NE[s]
+ 
+ K_E_n[s] :=   K_E[s] 
+ 
+ K_E_des_n[s] :=   K_E[s]
+ 
+ K_NE_des_n[s] :=   K_NE[s]
+ 
+ verif_IA_n[s] := 0
+ 
+  verif_K_n[s] := 0
+ 
+ I_NE_n[s] :=   @elem(K_NE[s]-K_NE[s]{-1}*(1-tdec[s]), %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+  
+ I_MDE_n[s] :=  @elem(K_E[s]-K_E[s]{-1}*(1-tdec[s]), %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+ I_NE[s] :=  I_NE_n[s] 
+ 
+ I_MDE[s] :=  I_MDE_n[s]
+ 
+ SUB_AUTO_elec_VAL[h,pcl] := R_SUB_AUTO_elec[h,pcl] * PAUTO_elec[h,pcl] * NewAUTO_elec[h,pcl]
+ 
+ SUB_AUTO_elec_VAL[h] := sum(SUB_AUTO_elec_VAL[h,pcl] on pcl)
+ 
+ SUB_AUTO_th_VAL[h,ecl] := R_SUB_AUTO_th[h,ecl] * PNewAUTO_th[h,ecl] * NewAUTO_th[h,ecl]
+ 
+ SUB_AUTO_th_VAL[h] := sum(SUB_AUTO_th_VAL[h,ecl] on ecl)
+ 
+ @over SUB_AUTO_VAL[h] := SUB_AUTO_elec_VAL[h] + SUB_AUTO_th_VAL[h]

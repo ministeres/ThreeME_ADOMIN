@@ -4,12 +4,14 @@ include ..\model\lists
 # equation 6.17
 Ttco[ce2] := 0
 Ttco_vol[ce2] := 0
-EXO[ce, s] := 0
+
+TCO_VAL_23[s] := 0
+
+TCO_VAL_SOU_23 := 0
   
-TCO_VAL[ce, s] := 0
-TCO_VAL_SOU[c] := 0
-@over TCO_VAL[ce2, s] := Ttco[ce2] * EMS_SEC[ce2, s] * (1 - EXO[ce2, s])
-@over TCO_VAL_SOU[ce2] := sum(TCO_VAL[ce2, s] on s)
+TCO_VAL[ce2, s] := Ttco[ce2] * EMS_SEC[ce2, s] * (1 - EXO[ce2, s])
+
+TCO_VAL_SOU[ce2] := sum(TCO_VAL[ce2, s] on s)
 
 TCO_VAL_SEC[s] := sum(TCO_VAL[ce2, s] on ce2)
 TCO_VAL_SEC := sum(TCO_VAL_SEC[s] on s)
@@ -27,7 +29,9 @@ TCO_VAL|O|_SOU[c] := 0
 @over TCO_VAL|O|_SOU[ce2] :=  sum(TCO_VAL|O|[ce2, s] on s)
 
 # equation 6.19
+
 TCO_VAL_HH[ce, h] := 0
+
 TCO_VAL_HH_SOU[c] := 0
 
 @over TCO_VAL_HH[ce2, h] := Ttco[ce2] * EMS_HH[ce2, h]
