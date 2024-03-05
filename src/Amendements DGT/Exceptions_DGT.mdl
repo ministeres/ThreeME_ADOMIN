@@ -1,0 +1,145 @@
+
+
+#### PRIX AUX IMPORTATIONS ####
+# On remplace: 
+# Price/equation 5.40
+# PM[c] = TC*PWD[c] if M[c] <> 0
+
+# Import Price as a function of the domestic price
+#@over dlog(PM[sne]) = 0.75*dlog(TC * PWD[sne])+0.25*dlog(PYQS[sne])+ 0.01*(log(TC*PWD[sne]{-1})-log(PM[sne]{-1}))
+
+# Reproduction des dynamiques de Mésange
+
+# biens agricoles et manufacturés
+
+# j'enleve la constante et le terme pdm_em de l'equation
+
+# biens agricoles
+@over dlog(PM_01) = 0.18 * dlog(PWD_01) + 0.12 * dlog(PWD_01{-1}) + 0.09 * dlog(PWD_01{-2}) + 0.42 * dlog(PYQS_01) - 0.11 * ( log(PM_01{-1}) - 0.75 * log(PYQS_01{-1}) - (1-0.75) * log(TC * PWD_01{-1}))
+
+# biens manufactures (industrie hors construction)
+@over dlog(PM[sind]) = 0.18 * dlog(PWD[sind]) + 0.12 * dlog(PWD[sind]{-1}) + 0.09 * dlog(TC * PWD[sind]{-2}) + 0.42 * dlog(PYQS[sind]) - 0.11 * ( log(PM[sind]{-1}) - 0.75 * log(PYQS[sind]{-1}) - (1-0.75) * log(TC * PWD[sind]{-1}))
+
+# services exposes (transports sauf 15 et business services? )
+@over dlog(PM[cservex]) = 0.57 * dlog(PM[cservex]{-1}) + 0.32 * dlog(PYQS[cservex]) - 0.04 * ( log(PM[cservex]{-1}) - 0.75 * log(PYQS[cservex]{-1}) - (1-0.75) * log(TC * PWD[cservex]{-1})) if PM[cservex] <> 0
+
+# biens energetiques (tous les secteurs de 21 a 24?)
+# production du secteur marchand en valeur
+YQS_SM_VAL = sum(YQS[cbienmar]*PYQS[cbienmar] on cbienmar)
+# prix production du secteur marchand
+PYQS_SM = sum(YQS[cbienmar]*PYQS[cbienmar]/YQS_SM_VAL on cbienmar)
+@over dlog(PM[ce])= 0.50 * dlog(PWD_22) - 0.54 * (log(PM[ce]{-1}) - 0.19 * log(PYQS_SM{-1}) - (1-0.19)*log(TC * PWD_22{-1}))
+# comme on prend le prix du baril pour tous les secteurs et que les séries de PM par secteur sont identiques jusqu'en 2006 alors on a des PM identiques pour tous les secteurs nrj.
+
+
+#### VOLUMES DES IMPORTATIONS ####
+# ajouter dans list.mdl :
+# %list_com_dai := 01 02 03 04 05 06 07 08 09 10 11 12 #[cdai]
+# %list_com_dai_cim := 01 02 03 04 06 07 08 09 10 12 #[cdaicim]
+# cdai in %list_com_dai
+
+#conso intermédiaires
+#relation de long terme modifiée de manière à converger vers la propension moyenne à importer
+	#industrie ok sauf 05 11 (matériaux construction ?)
+@over MATM[cdaicim,sne]  = (CIMexo[cdaicim,sne])*(@year<=2019) _
+                       + ((MATM[cdaicim,sne]{-1}*(1+GRMATM[cdaicim,sne])>0)*(MATM[cdaicim,sne]{-1}*(1+GRMATM[cdaicim,sne]))+(MATM[cdaicim,sne]{-1}*(1+GRMATM[cdaicim,sne])<=0)*0.00001)*(@year>2019) if MATM[cdaicim,sne] <> 0
+GRMATM[cdaicim,sne] = (@year>2019)*(1.42*dlog(MAT[cdaicim,sne]) _
+					- 0.11*(log(MATM[cdaicim,sne]{-1}) - log(MAT[cdaicim,sne]{-1}) + 0.44*(log(PMATM[cdaicim]{-1})-log(PMATD[cdaicim]{-1}))-log(@elem(CIMexo[cdaicim,sne],%baseyear)/(@elem(CIexo[cdaicim,sne],%baseyear))))) if MATM[cdaicim,sne] <> 0  			
+@over MATD[cdaicim,sne]  = (CIDexo[cdaicim,sne])*(@year<=2019) _
+                       + ((MAT[cdaicim,sne]-MATM[cdaicim,sne]>0)*(MAT[cdaicim,sne]-MATM[cdaicim,sne])+(MAT[cdaicim,sne]-MATM[cdaicim,sne]<=0)*0.0001)*(@year>2019) if MATD[cdaicim,sne] <> 0
+		#dans AME-AMS
+@over MATD_12_13  = ( CIDexo_12_13 )  * ( @year <= 2019 )  + ( MATD_12_13{-1} * ( 1  + ( MAT_12_13 > 0 )  * ( d(MAT_12_13)  / MAT_12_13(-1)  + d(SUBST_MATD_12_13) ) ) - Prop_M_PAC * d(choc_PAC) * MATD_12_13{-1}/MAT_12_13{-1} ) * ( @year > 2019 )   
+@over MATM_12_13  = (CIMexo_12_13)*(@year<=2019) _
+                       + ((MAT_12_13-MATD_12_13>0)*(MAT_12_13-MATD_12_13)+(MAT_12_13-MATD_12_13<=0)*0.0001)*(@year>2019) if MATM_12_13 <> 0
+@over MATD_12_03  = (CIDexo_12_03)*(@year<=2019) + _
+                        (MATD_12_03{-1}*(1+(MAT_12_03>0)*(d(MAT_12_03)/MAT_12_03{-1} + d(SUBST_MATD_12_03)))-(1-AME_battery)*(CHD_03/CH_03)*d(Pbattery* Newauto_elec[h]/1000)) *(@year>2019) if MATD_12_03 <> 0
+@over MATM_12_03  = (CIMexo_12_03)*(@year<=2019) _
+                       + ((MAT_12_03-MATD_12_03>0)*(MAT_12_03-MATD_12_03)+(MAT_12_03-MATD_12_03<=0)*0.0001)*(@year>2019) if MATM_12_03 <> 0
+
+	#services
+@over MATM_19[sne] = (CIMexo_19[sne])*(@year<=2019) _
+                       + ((MATM_19[sne]{-1}*(1+GRMATM_19[sne])>0)*(MATM_19[sne]{-1}*(1+GRMATM_19[sne]))+(MATM_19[sne]{-1}*(1+GRMATM_19[sne])<=0)*0.00001)*(@year>2019) if MATM_19[sne] <> 0
+GRMATM_19[sne] =	(@year>2019)*(0.36*dlog(MAT_19[sne]) _
+					- 0.12*(log(MATM_19[sne]{-1}) - log(MAT_19[sne]{-1}) + 0.29*(log(PMATM_19{-1})-log(PMATD_19{-1}))-log(@elem(CIMexo_19[sne],%baseyear)/(@elem(CIexo_19[sne],%baseyear))))) if MATM_19[sne] <> 0 
+@over MATD_19[sne]  = (CIDexo_19[sne])*(@year<=2019) _
+                       + ((MAT_19[sne]-MATM_19[sne]>0)*(MAT_19[sne]-MATM_19[sne])+(MAT_19[sne]-MATM_19[sne]<=0)*0.0001)*(@year>2019) if MATD_19[sne] <> 0
+
+#conso des ménages
+	#dai
+@over CHM[cdai] = CHM[cdai]{-1}*((1 + (QMexo[cdai]>0)*(d(QMexo[cdai])/QMexo[cdai]{-1})))*(@year<=2019) _
+                       + ((CHM[cdai]{-1}*(1+GRCHM[cdai])>0)*(CHM[cdai]{-1}*(1+GRCHM[cdai]))+(CHM[cdai]{-1}*(1+GRCHM[cdai])<=0)*0.00001)*(@year>2019) if CHM[cdai] <> 0
+GRCHM[cdai] =	(@year>2019)*(1.42*dlog(EXP[cdai]) _
+					- 0.11*(log(CHM[cdai]{-1}) - log(EXP[cdai]{-1}) + 0.44*(log(PCHM[cdai]{-1})-log(PCHD[cdai]{-1}))-log(@elem(CHM[cdai],%baseyear)/(@elem(EXPexo[cdai],%baseyear))))) if CHM[cdai] <> 0
+@over CHD[cdai]  = ((EXPexo[cdai]-CHM[cdai] > 0) * (EXPexo[cdai] - CHM[cdai]) + (EXPexo[cdai] - CHM[cdai] =< 0) * (0.00001))*(@year<=2019) _
+                   + ((EXP[cdai] - CHM[cdai]>0)*(EXP[cdai] - CHM[cdai])+(EXP[cdai] - CHM[cdai]<=0)*0.00001)*(@year>2019)
+
+	#services
+@over CHM_19 = CHM_19{-1}*((1 + (QMexo_19>0)*(d(QMexo_19)/QMexo_19{-1})))*(@year<=2019) _
+                       + ((CHM_19{-1}*(1+GRCHM_19)>0)*(CHM_19{-1}*(1+GRCHM_19))+(CHM_19{-1}*(1+GRCHM_19)<=0)*0.00001)*(@year>2019) if CHM_19 <> 0
+GRCHM_19 =	(@year>2019)*(0.36*dlog(EXP_19) _
+					- 0.12*(log(CHM_19{-1}) - log(EXP_19{-1}) + 0.29*(log(PCHM_19{-1})-log(PCHD_19{-1}))-log(@elem(CHM_19,%baseyear)/(@elem(EXPexo_19,%baseyear))))) if CHM_19 <> 0
+@over CHD_19  = ((EXPexo_19-CHM_19 > 0) * (EXPexo_19 - CHM_19) + (EXPexo_19 - CHM_19 =< 0) * (0.00001))*(@year<=2019) _
+                   + ((EXP_19 - CHM_19>0)*(EXP_19 - CHM_19)+(EXP_19 - CHM_19<=0)*0.00001)*(@year>2019)
+
+#conso publique
+	#dai
+@over GM[cdai] = GM[cdai]{-1}*((1 + (QMexo[cdai]>0)*(d(QMexo[cdai])/QMexo[cdai]{-1})))*(@year<=2019) _
+                       + ((GM[cdai]{-1}*(1+GRGM[cdai])>0)*(GM[cdai]{-1}*(1+GRGM[cdai]))+(GM[cdai]{-1}*(1+GRGM[cdai])<=0)*0.00001)*(@year>2019) if GM[cdai] <> 0
+GRGM[cdai] =	(@year>2019)*(1.42*dlog(EXPG[cdai]) _
+					- 0.11*(log(GM[cdai]{-1}) - log(EXPG[cdai]{-1}) + 0.44*(log(PGM[cdai]{-1})-log(PGD[cdai]{-1}))-log(@elem(GM[cdai],%baseyear)/(@elem(EXPG[cdai],%baseyear))))) if GM[cdai] <> 0
+@over GD[cdai]  = (EXPG[cdai] - GM[cdai]>0)*(EXPG[cdai] - GM[cdai])+(EXPG[cdai] - GM[cdai]<=0)*0.00001
+
+	#services
+@over GM_19 = GM_19{-1}*((1 + (QMexo_19>0)*(d(QMexo_19)/QMexo_19{-1})))*(@year<=2019) _
+                       + ((GM_19{-1}*(1+GRGM_19)>0)*(GM_19{-1}*(1+GRGM_19))+(GM_19{-1}*(1+GRGM_19)<=0)*0.00001)*(@year>2019) if GM_19 <> 0
+GRGM_19 =	(@year>2019)*(0.36*dlog(EXPG_19) _
+					- 0.12*(log(GM_19{-1}) - log(EXPG_19{-1}) + 0.29*(log(PGM_19{-1})-log(PGD_19{-1}))-log(@elem(GM_19,%baseyear)/(@elem(EXPG_19,%baseyear))))) if GM_19 <> 0
+@over GD_19  = (EXPG_19 - GM_19>0)*(EXPG_19 - GM_19)+(EXPG_19 - GM_19<=0)*0.00001
+
+#investissement
+	#dai
+@over IAM[cdai] = IAM[cdai]{-1}*((1 + (QMexo[cdai]>0)*(d(QMexo[cdai])/QMexo[cdai]{-1})))*(@year<=2019) _
+                       + ((IAM[cdai]{-1}*(1+GRIAM[cdai])>0)*(IAM[cdai]{-1}*(1+GRIAM[cdai]))+(IAM[cdai]{-1}*(1+GRIAM[cdai])<=0)*0.00001)*(@year>2019) if IAM[cdai] <> 0
+GRIAM[cdai] =	(@year>2019)*(1.42*dlog(IA_n[cdai]) _
+					- 0.11*(log(IAM[cdai]{-1}) - log(IA_n[cdai]{-1}) + 0.44*(log(PIAM[cdai]{-1})-log(PIAD[cdai]{-1}))-log(@elem(IAM[cdai],%baseyear)/(@elem(IA_n[cdai],%baseyear))))) if IAM[cdai] <> 0
+@over IAD[cdai]  = (IA_n[cdai] - IAM[cdai]>0)*(IA_n[cdai] - IAM[cdai])+(IA_n[cdai] - IAM[cdai]<=0)*0.00001
+
+	#services
+@over IAM_19 = IAM_19{-1}*((1 + (QMexo_19>0)*(d(QMexo_19)/QMexo_19{-1})))*(@year<=2019) _
+                       + ((IAM_19{-1}*(1+GRIAM_19)>0)*(IAM_19{-1}*(1+GRIAM_19))+(IAM_19{-1}*(1+GRIAM_19)<=0)*0.00001)*(@year>2019) if IAM_19 <> 0
+GRIAM_19 =	(@year>2019)*(0.36*dlog(IA_n_19) _
+					- 0.12*(log(IAM_19{-1}) - log(IA_n_19{-1}) + 0.29*(log(PIAM_19{-1})-log(PIAD_19{-1}))-log(@elem(IAM_19,%baseyear)/(@elem(IA_n_19,%baseyear))))) if IAM_19 <> 0
+@over IAD_19  = (IA_n_19 - IAM_19>0)*(IA_n_19 - IAM_19)+(IA_n_19 - IAM_19<=0)*0.00001
+
+#exportations
+	#dai
+@over d(log(XM[cdai])) = (1.42*dlog(X[cdai]) _
+					- 0.11*(log(XM[cdai]{-1}) - log(X[cdai]{-1}) + 0.44*(log(PXM[cdai]{-1})-log(PXD[cdai]{-1}))-log(@elem(XM[cdai],%baseyear)/(@elem(X[cdai],%baseyear))))) if XM[cdai] <> 0
+@over XD[cdai] = (X[cdai] - XM[cdai] > 0) * (X[cdai] - XM[cdai]) + (X[cdai] - XM[cdai] <= 0) * (0.00001) if XD[cdai] <> 0
+
+	#services
+@over d(log(XM_19)) = (0.36*dlog(X_19) _
+					- 0.12*(log(XM_19{-1}) - log(X_19{-1}) + 0.29*(log(PXM_19{-1})-log(PXD_19{-1}))-log(@elem(XM_19,%baseyear)/(@elem(X_19,%baseyear))))) if XM_19 <> 0
+@over XD_19 = (X_19 - XM_19 > 0) * (X_19 - XM_19) + (X_19 - XM_19 <= 0) * (0.00001) if XD_19 <> 0
+
+
+##### PRIX DES EXPORTATIONS #####
+
+#d(log(PXD_n[c])) = (@year <= 2019) *(dlog(PYQS[c])) + ( 0.75 * d(log(PYQS[c])) + 0.25 * d(log(TC * PWD[c])) ) * (@year > 2019) where c in 01 02 03 04 05 06 07 08 09 10 11 12 14 16 17 18 19
+
+#@over d(log(PXD[c])) = (@year <= 2019) *(d(log(PXD_n[c]))) + ( 0.3 * d(log(PXD_n[c])) + 0.7 * d(log(PXD[c]{-1})) - 0.08 * (log(PXD[c]{-1}) - log(PXD_n[c]{-1})) ) * (@year > 2019) where c in 01 02 03 04 05 06 07 08 09 10 11 12
+
+#@over d(log(PXD[c])) = (@year <= 2019) *(d(log(PXD_n[c]))) + ( 0.5 * d(log(PXD_n[c])) + 0.5 * d(log(PXD[c]{-1})) - 0.05 * (log(PXD[c]{-1}) - log(PXD_n[c]{-1})) ) * (@year > 2019) where c in 14 16 17 18 19
+
+#@over d(log(PXD[c])) = (@year <= 2019) *(d(log(PYQS[c]))) + ( 1.9 * d(log(PYQS[c])) - 0.15 * (log(PXD[c]{-1}) - log(PYQS[c]{-1})) ) * (@year > 2019) where c in 22 23 24
+
+#@over d(log(PXD_21))  = d(log(PYQS_21))
+
+
+##### VOLUMES DES EXPORTATIONS #####
+
+#d(log(X_n[c])) = ( dlog(Xexo[c]) )  * ( @year <= 2019 ) + (d(log(WD[c])) + 0.8 * (d(log(TC * PWD[c]))-d(log(PYQS[c])))) * ( @year > 2019 )  where c in 01 02 03 04 05 06 07 08 09 10 11 12 14 16 17 18 19
+
+#@over d(log(X[c])) = ( dlog(Xexo[c]) )  * ( @year <= 2019 ) + ( 0.9 * d(log(X_n[c])) + 0.1 * d(log(X[c]{-1})) - 0.1 * (log(X[c]{-1}) - log(X_n[c]{-1}))) * ( @year > 2019 ) where c in 01 02 03 04 05 06 07 08 09 10 11 12 14 16 17 18 19
+
+

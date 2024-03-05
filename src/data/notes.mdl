@@ -1,0 +1,27 @@
+CHD_13  = ( ( EXPexo_13  - CHM_13 > 0 )  * ( EXPexo_13  - CHM_13 )  + ( EXPexo_13  - CHM_13  = < 0 )  * ( 1e-05 ) )  * ( @year <= 2019 )  + _
+ ( CHD_13(-1)  * ( 1  + d(EXP_13  + SUB_REHAB_VAL)  / ( EXP_13(-1)  + SUB_REHAB_VAL(-1) )  + d(SUBST_CHD_13) ) )  * ( @year > 2019 )
+ 
+   @over EXP_13[h] = (CHD_13 - SUB_REHAB_VAL)*(@year<=2019) + _
+                    (@year>2019)*(( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) _
+                     * NewBUIL[h] + @elem(PREHAB[h],%baseyear) * REHAB[h] + EXP_13_OTH_Val[h] / PCH_13 
+
+#EXP_13[h] := @elem(PNewBUIL[h] * NewBUIL[h] + PREHAB[h] * REHAB[h] +  EXP_13_OTH_val[h] / PCH_13, %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+EXP_13[h] := CHD_13 - SUB_REHAB_VAL
+ 
+ @over PEXP_13_H01  * EXP_13_H01  = PNewBUIL_H01  * NewBUIL_H01  + _
+                ( 0  + PREHAB_H01_CA  * REHAB_H01_CA  + PREHAB_H01_CB  * REHAB_H01_CB  + PREHAB_H01_CC  * REHAB_H01_CC  + PREHAB_H01_CD  * REHAB_H01_CD  + PREHAB_H01_CE  * REHAB_H01_CE  + PREHAB_H01_CF  * REHAB_H01_CF  + PREHAB_H01_CG  * REHAB_H01_CG ) _
+              + EXP_13_OTH_Val_H01  + choc_PAC_VAl
+
+d(log(BUIL_H01))  = ( @year > 2006 )  * ( d(log(POP_tot))  + d(log(M2perCapita)) )  + ( @year <= 2006 )  * log(1  + STEADYSTATE(2  , 1))
+
+NEWBUIL_H01  = 0  + NEWBUIL_H01_CA  + NEWBUIL_H01_CB  + NEWBUIL_H01_CC  + NEWBUIL_H01_CD
+
+NewBUIL_H01_CC  = ( @year > 2006 )  * phi_NewBUIL_H01_CC  * ( d(BUIL_H01)  + BUIL_H01_DES )  + ( @year <= 2006 )  * @elem(NewBUIL_H01_CC , 2006)  * ( 1  + STEADYSTATE(2 , 1) ) ^ ( @year  - 2006 )
+
+#NewBUIL[h, ecl] := @elem(phi_NewBUIL[h, ecl] * (BUIL[h] * HOUSEHOLD_HYBRID_BUIL(276, 1) / _
+#                   (1 + HOUSEHOLD_HYBRID_BUIL(276, 1)) + BUIL[h, DES]), %baseyear)*(1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+                   
+NewBUIL[h, ecl] := @elem(phi_NewBUIL[h, ecl] * NewBUIL[h], %baseyear)*(1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear) 
+
+NewBUIL[h] := @elem(BUIL[h] * HOUSEHOLD_HYBRID_BUIL(276, 1) / (1 + HOUSEHOLD_HYBRID_BUIL(276, 1)) + BUIL[h, DES]), %baseyear)*(1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)

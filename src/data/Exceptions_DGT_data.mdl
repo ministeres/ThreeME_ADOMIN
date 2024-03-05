@@ -1,0 +1,98 @@
+#### PRIX DES IMPORTATIONS ####
+
+YQ_SM := sum(YQ[cbienmar] on cbienmar)
+PYQ_SM := P
+
+#### VOLUMES DES IMPORTATIONS ####
+
+GRMATM[cdai,sne] :=  STEADYSTATE(2,1)
+GRMATM[cdaicim,sepeg] :=  STEADYSTATE(2,1)
+GRMATM[cservex,sne] :=  STEADYSTATE(2,1)
+GRMATM[cservex,sepeg] :=  STEADYSTATE(2,1)
+GRCHM[cdai] :=  STEADYSTATE(2,1)
+GRCHM[cservex] :=  STEADYSTATE(2,1)
+GRCHM[cepeg] :=  STEADYSTATE(2,1)
+GRGM[cdai] :=  STEADYSTATE(2,1)
+GRGM[cservex] :=  STEADYSTATE(2,1)
+GRIAM[cdai,sne] :=  STEADYSTATE(2,1)
+GRIAM[cservex,sne] :=  STEADYSTATE(2,1)
+#GRDSM[cdai] :=  STEADYSTATE(2,1)
+#GRDSM[cservex] :=  STEADYSTATE(2,1)
+GREM[eno21,s] :=  STEADYSTATE(2,1)
+
+#### PRIX DES EXPORTATIONS ####
+
+PXD_n[c] := P 
+
+#### VOLUMES DES EXPORTATIONS ####
+
+#X_n[c] := X[c] where c in 01 02 03 04 05 06 07 08 09 10 11 12 14 16 17 18 19
+
+PYX_des[s] := P
+
+PYX_n[s] := P
+
+PYX[s] := P
+
+YD[s] := Y[s] - YX[s]  #YD est la production vendue sur le marché domestique
+
+PYD[s] := P
+
+PYD_n[s] := P
+
+YX[s] := sum(YX[c,s] on c)   #YX est la production domestique exportée. Limite du modèle, les taux de TVA et autres taxes et subventions à la consommation sont les mêmes pour les produits consommés domestiquement et les exports
+
+#YX[c,s]*QD[c] := Y[c,s]*XD[c] if QD[c]>0 #limite du modèle : on connait les exports par produit mais pas par filière. On suppose que les exports des produits des filières sont égaux au prorata des exports par produits. 
+
+YX[c,s] := PhiY[c,s]*XQ[c] 
+
+PXQ[c] := P
+
+#XQ[c] := sum(YX[c,s] on s)
+
+XQ[c]*PXQ[c] := PXD[c]*XD[c] + (- POTHTD[c]  * OTHTD[c]  - PSUBD[c]  * SUBD[c]  -  (PMCD[c]  * MCD[c]  + PMTD[c]  * MTD[c]) - PENERTD[c]  * ENERTD[c])*XD[c]/QD[c] 
+
+PXQS[c] := P
+
+XQS[c] := XQ[c] + OTHTXD[c] + ENERTXD[c] + SUBXD[c] + MTXD[c] + MCXD[c]  
+
+OTHTXD[c] := @elem(TOTHTXD[c] , 2006)  * XQ[c]
+
+POTHTXD[c]  := P
+
+TOTHTXD[c] := TOTHTD[c]  # à modifier ultérieurement si données disponibles. Auquel cas il faudra créer une équation OTHTYD et OTHTYD et modifier l'équation de OTHTD
+
+ENERTXD[c] := @elem(TTICXD[c], %baseyear) * XQ[c] 
+
+PENERTXD[c] := P
+
+TTICXD[c] := TTICD[c] # à modifier ultérieurement si données disponibles Auquel cas il faudra créer une équation TTICYD et TICYD et modifier l'équation de TICD
+
+TCO_VALXD[c]*YQ[c] := TCO_VALD[c] * XQ[c] if YQ[c]>0
+
+SUBXD[c]  := @elem(TSUBXD[c] , 2006)  * XQ[c]
+
+PSUBXD[c] := P
+
+TSUBXD[c] := TSUBD[c] # à modifier ultérieurement si données disponibles. Auquel cas il faudra créer une équation TSUBYD et SUBYD et modifier l'équation de SUBD
+
+PMTXD[c] := P
+
+PMTXD[s,c] := PXD[s] where s in 14 16 17 18
+
+PMCXD[c] := P
+
+MTXD[c] := sum(MTXD[s,c] on s) where s in 14 16 17 18
+
+MTXD[s,c]*YQ[c] := MTD[s,c] * XQ[c] if YQ[c]>0  where s in 14 16 17 18
+
+MCXD[c]*YQ[c] := MCD[c]*XQ[c] if YQ[c]>0
+
+#PXQS[c]*XQS[c] * YQ[c] := PYQS[c]*YQS[c]*XQ[c]  if XQS[c] * YQ[c] > 0  
+
+#XQS[c]*YQ[c] := (YQ[c] + OTHTD[c] + ENERTD[c] + SUBD[c] + MTD[c] + MCD[c])*XQ[c]  if YQ[c] > 0
+
+@over PXD[c] := P
+
+#verif_XQbis_XQ[c] := 0
+#verif_Ybis_YQbis := Y-YQ

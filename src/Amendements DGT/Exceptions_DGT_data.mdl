@@ -1,0 +1,27 @@
+#### PRIX DES IMPORTATIONS ####
+
+YQS_SM_VAL := sum(YQS[cbienmar]*PYQS[cbienmar] on cbienmar)
+PYQS_SM := PYQS
+
+#### VOLUMES DES IMPORTATIONS ####
+
+GRMATM[cdaicim,sne] := 0
+GRMATM_19[sne] := 0
+GRCHM[cdai] := 0
+GRCHM_19 := 0
+GRGM[cdai] := 0
+GRGM_19 := 0
+GRGIAM[cdai] := 0
+GRGIAM_19 := 0
+GRDSM[cdai] := 0
+GRDSM_19 := 0
+
+
+#### PRIX DES EXPORTATIONS ####
+
+#PXD_n[c] := PXD[c] where c in 01 02 03 04 05 06 07 08 09 10 11 12 14 16 17 18 19
+
+#### VOLUMES DES EXPORTATIONS ####
+
+#X_n[c] := X[c] where c in 01 02 03 04 05 06 07 08 09 10 11 12 14 16 17 18 19
+

@@ -46,12 +46,12 @@ subroutine run(string %data_calibration, string %data_shock)
        {%modelname}.series    hybrid_round1   
        call export_all_to_csv
 
-       {%modelname}.series exceptions_hybrid_data exceptions_data_AME-AMS      
+       {%modelname}.series exceptions_hybrid_data exceptions_data_AME-AMS  'Exceptions_DGT_data     
 
        call export_all_to_csv
 
        ' Load the model specification from the model/ folder
-      {%modelname}.load blocks hybrid_new exceptions_AME-AMS 
+      {%modelname}.load blocks hybrid_new exceptions_AME-AMS 'Exceptions_DGT
 
     endif
 
@@ -335,10 +335,10 @@ TTCO_VOL_21_2 TTCO_VOL_22_2 TTCO_VOL_24_2 TTCO_VOL_21_0 TTCO_VOL_22_0 TTCO_VOL_2
 (gdpter_2/gdpbis_2-1)*100 (gdpter_0/gdpbis_0-1)*100 _
 IA_0 IA_01_0 IA_02_0 IA_03_0 IA_04_0 IA_05_0 IA_06_0 IA_07_0 IA_08_0 IA_09_0 IA_10_0 IA_11_0 IA_12_0 IA_13_0 IA_13_20_0 IA_14_0 IA_15_0  IA_16_0 IA_17_0  IA_18_0 IA_19_0 IA_20_0 IA_21_0 _
 IA_2201_0 IA_2202_0 IA_2301_0 IA_2302_0 IA_2303_0 IA_2304_0 IA_2305_0 IA_2306_0 IA_2307_0 IA_2308_0 IA_2401_0 IA_2402_0 IA_2403_0 IA_2404_0 IA_2405_0 IA_2406_0   _
-REHAB_VAL_0 NEWBUIL_H01_0 PNEWBUIL_H01_0 PREHAB_H01_0 REHAB_H01_0 PEXP_13_H01_0 CH_03_0 PGDP_0 _
+RENOV_VAL_0 NEWBUIL_H01_0 PNEWBUIL_H01_0 PREHAB_H01_0 REHAB_H01_0 PEXP_13_H01_0 CH_03_0 PGDP_0 _
 IA_2 IA_01_2 IA_02_2 IA_03_2 IA_04_2 IA_05_2 IA_06_2 IA_07_2 IA_08_2 IA_09_2 IA_10_2 IA_11_2 IA_12_2 IA_13_2 IA_13_20_2 IA_14_2 IA_15_2 IA_16_2 IA_17_2 IA_18_2 IA_19_2 IA_20_2 IA_21_2 _
 IA_2201_2 IA_2202_2 IA_2301_2 IA_2302_2 IA_2303_2 IA_2304_2 IA_2305_2 IA_2306_2 IA_2307_2 IA_2308_2 IA_2401_2 IA_2402_2 IA_2403_2 IA_2404_2 IA_2405_2 IA_2406_2  _
-REHAB_VAL_2 NEWBUIL_H01_2 PNEWBUIL_H01_2 PREHAB_H01_2 REHAB_H01_2 PEXP_13_H01_2 CH_03_2 PGDP_2 _
+RENOV_VAL_2 NEWBUIL_H01_2 PNEWBUIL_H01_2 PREHAB_H01_2 REHAB_H01_2 PEXP_13_H01_2 CH_03_2 PGDP_2 _
 CH_01_2 CH_02_2 CH_03_2 CH_04_2 CH_05_2 CH_06_2 CH_07_2 CH_08_2 CH_09_2 CH_10 CH_11_2 CH_12_2 CH_13_2 CH_14_2 _
 CH_15_2 CH_16_2 CH_17_2 CH_18_2 CH_19_2 CH_20_2 CH_21_2 CH_22_2 CH_23_2 CH_24_2 _ 
 CH_01_0 CH_02_0 CH_03_0 CH_04_0 CH_05_0 CH_06_0 CH_07_0 CH_08_0 CH_09_0 CH_10 CH_11_0 CH_12_0 CH_13_0 CH_14_0 _
@@ -386,7 +386,7 @@ show Reporting_4
 
 'Pour export des données vers MatMat
 '   call export_matter
- call export_matmat
+ ' call export_matmat
     
     endif
   endif

@@ -270,6 +270,8 @@ PROG_BUIL[ce] := 1
 
 TIS[s] := TIS
 
+TIS_exo[s] := TIS[s]
+
 REDIS_VAl := 0
 
 REDIS_VAL_SEC := 0
@@ -424,13 +426,15 @@ Tech_coef_var_2[cm,s] := TECH_COEF_VAR_2($cm, $s)
  
  EXP_CES_VAL := sum((PEXP[co, h]*EXP[co, h] - PNEXP[co, h]*NEXP[co, h]) on co)
  
- AUTO_D := 12.85
+ AUTO_D := 1/HOUSEHOLD_HYBRID_AUTO(173, 1) 
  
  choc_G[c] :=0
  
  choc_EXP_VAL :=0
  
  choc_EXP[c] :=0
+ 
+ choc_R_EXP[c] :=0
  
  choc_WD[c] :=0
  
@@ -460,9 +464,11 @@ cible_Prog_K[se24] :=0
 
 cible_CU[se24]:= CU_MWH_PGDP[se24]
 
-CU_CAPEX[se] * Y[se] := CK[se]*K[se]   if Y[se] > 0
+CU_CAPEX[s] * PY[s] * Y[s] := CK[s]*K[s]   if Y[s] > 0
 
 CU_OPEX[se] * Y[se] := CL[se]*L[se]*PROG_L[se] + PEner[se]*Ener[se] + PMAT[se]*MAT[se] if Y[se] > 0   
+
+@over CU_OPEX[s] * PY[s] * Y[s] := CL[s]*L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] if Y[s] > 0
 
 CU_CAPEX_Mwh[se] := (CU_CAPEX[se]*PY[se]*Y[se]/PGDP)/(Q_mtep_ef[se]/0.086)    if Q_mtep_ef[se] >0
 
@@ -474,17 +480,17 @@ CAPEX_target[se] := CU_CAPEX_Mwh[se]
 
  choc_MAT[se24] :=0  
  
- IA_exo_13_19 := 0
+ IA_exo_13_19 := 1
  
- IA_exo_13_20 := 0
+ IA_exo_13_20 := 1
  
- E_oth_exo_19 := 0
+ E_oth_exo_19 := 1
  
- E_oth_exo_20 := 0
+ E_oth_exo_20 := 1
  
- I_MDE_exo_19 := 0
+ I_MDE_exo_19 := 1
  
- I_MDE_exo_20 := 0
+ I_MDE_exo_20 := 1
  
  ###  introduction des Certificats d'économie d'énergie CEE 
 
@@ -634,7 +640,7 @@ VERIF_CEE := sum(CEE[se] on se) - CEE
  
  IRVE := (500 * @elem(Auto_elec, %baseyear) /1000) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)
  
- T_Sub_IRVE := 0.33
+ T_Sub_IRVE := 0
  
  PE_SECroad[ce] * E_SECroad[ce] := sum(PE[ce,road]*E[ce,road] on road) if E_SECroad[ce] <> 0
    
@@ -681,7 +687,9 @@ VERIF_CEE := sum(CEE[se] on se) - CEE
  @over MPS_HH[h] := @elem((DISPINC_VAL[h]-EXP_HH_VAL[h]) / ARBINC_VAL[h], %baseyear)    
 
  @over BetaExp[co, h] := @elem((EXP[co, h] * PEXP[co, h] - PEXP[co, h] * NEXP[co, h]) / _
-	            (ARBINC_VAL[h] * (1 - MPS_HH[h])), %baseyear)   
+	            (ARBINC_VAL[h] * (1 - MPS_HH[h])), %baseyear) 
+                
+ BetaEXP  := sum(BetaEXP[co, h] on co)  
 
  #---------------- distinction entre consommation énergétique spécifique et consommation de chauffage dans le résidentiel
 
@@ -709,34 +717,44 @@ ENER_spe[h,ecl] := sum(ENER_spe[h,ecl,ce] on ce)
  
  @over ENER_spe_m2[h,ecl,23] := ENER_spe[h,ecl,23] / (BUIL[h,ecl] + 0.1)
  
- choc_truck_load := 0
- 
  SOBRE_19 := 0
 
   
  SUBST_K_NE_n[s] := SUBST_K_n[s]
+ 
+ SUBST_K_NE[s]  := SUBST_K_n[s]
 
- K_NE_n[s] := K_n[s] * 0.8 # à recaler finement par secteur 
+ K_NE_des_n[s] := K_n[s] * 0.99 # à recaler finement par secteur 
  
- @over K_NE_n[ster] := K_n[ster] * 0.98 
+ K_E_des_n[s] := K_n[s] - K_NE_des_n[s]
+ 
+ @over K_NE_des_n_10 := K_n_10 * 0.95
+ 
+#  @over K_NE_des_n_05 := K_n_05 * 0.99
+  
+#  @over K_NE_des_n_07 := K_n_07 * 0.99
+  
+#  @over K_NE_des_n_08 := K_n_08 * 0.99
+   
+ @over K_NE_des_n[ster] := K_n[ster] * 0.98 
+ 
+ @over K_NE_des_n[trsp] := K_n[trsp] * 0.5
 
- K_NE[s] := K_NE_n[s]
-
- SUBST_K_NE[s]  := SUBST_K[s]
-
- K_NEbis[s] :=  K_NE[s]
+ K_NE_n[s] := K_NE_des_n[s]
  
- K_E[s] :=   K[s] - K_NE[s]
+ K_NE[s] := K_NE_des_n[s]
  
- K_E_n[s] :=   K_E[s] 
+ K_E_n[s] := K_E_des_n[s]
  
- K_E_des_n[s] :=   K_E[s]
- 
- K_NE_des_n[s] :=   K_NE[s]
+ K_E[s] := K_E_des_n[s]
  
  verif_IA_n[s] := 0
  
-  verif_K_n[s] := 0
+ verif_IA_des[s] := 0
+ 
+  verif_K_n[s] := 0  
+  
+ IA_des[s] :=   K_n[s] - K_n[s]{-1}*(1-tdec[s])
  
  I_NE_n[s] :=   @elem(K_NE[s]-K_NE[s]{-1}*(1-tdec[s]), %baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
   
@@ -745,6 +763,12 @@ ENER_spe[h,ecl] := sum(ENER_spe[h,ecl,ce] on ce)
  I_NE[s] :=  I_NE_n[s] 
  
  I_MDE[s] :=  I_MDE_n[s]
+ 
+ verif_subst_K[s] := 0
+  
+ verif_subst_K_n[s] := 0
+ 
+ verif_IA[sne] := 0
  
  SUB_AUTO_elec_VAL[h,pcl] := R_SUB_AUTO_elec[h,pcl] * PAUTO_elec[h,pcl] * NewAUTO_elec[h,pcl]
  
@@ -755,3 +779,183 @@ ENER_spe[h,ecl] := sum(ENER_spe[h,ecl,ce] on ce)
  SUB_AUTO_th_VAL[h] := sum(SUB_AUTO_th_VAL[h,ecl] on ecl)
  
  @over SUB_AUTO_VAL[h] := SUB_AUTO_elec_VAL[h] + SUB_AUTO_th_VAL[h]
+ 
+ PWD[ce2] := PWD_constant[ce2]*PGDP
+ 
+ PWD_constant[ce2] := P
+ 
+ AME_renov[ster]  := 1
+ 
+ AUTO_th_destruction :=0
+
+@over IRVE:= (500 * @elem(vehicles_elec, %baseyear) /1000) * (1 + STEADYSTATE(2,1)) ^ (@year - %baseyear)     
+
+###########################################" bloc tranport" voir calibrage dans fichier "calibrage transport routier de marchandises"
+
+
+  #trucks_15 :=  75.3 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+#
+  #trucks_16 := 5474.3 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)   #y compris VUL. Voir fichier calibrage transport routier de marchandises
+#  
+ #Trucks[ce,road] := (Q_Mtep_sec[ce,road]-Q_Mtep_spe[ce,road])*1000/Mtep_per_trucks[ce,road] * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear) where ce in 22 23 24
+# 
+# Vehicles_elec := Auto_elec + sum(trucks[23,road] on road)) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+ 
+  #Q_Mtep_spe[21,road] := 0                        
+#  
+  #Q_Mtep_spe[22,15] := 0.2994  * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                      
+#  
+  #Q_Mtep_spe[23,15] := 0.2824689  * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                   
+#    
+  #Q_Mtep_spe[24,15] := 0.0138687  * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                   
+#    
+  #Q_Mtep_spe[22,16] := 3.5350  * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                       
+#    
+  #Q_Mtep_spe[23,16] := 0.2278   * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                     
+#    
+  #Q_Mtep_spe[24,16] := 0.0049   * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                     
+#  
+  Mtep_per_trucks[21,road] := 0 
+  
+  Mtep_per_trucks[22,15] := 9.666195/1000000                  
+  
+  Mtep_per_trucks[23,15] := 4.250079/1000000                      
+  
+  Mtep_per_trucks[24,15] := 11.399199/1000000                     
+  
+  Mtep_per_trucks[22,16] := 17.087077/1000000                   
+  
+  Mtep_per_trucks[23,16] := 5.138242/1000000                   
+  
+  Mtep_per_trucks[24,16] := 13.709017/1000000  
+    
+  Mtep_per_LUV[ce,15] := 0
+  
+  Mtep_per_LUV[21,16] := 0 
+  
+  Mtep_per_LUV[22,16] :=  0.862464/1000000                    
+  
+  Mtep_per_LUV[23,16] := 0.386464/1000000                     
+  
+  Mtep_per_LUV[24,16] :=  1.005273/1000000
+                
+
+  Trucks[21,road] := 0
+  
+  Trucks[22,15] := 88737.31613/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                     
+  
+  Trucks[23,15] := 772.2854685/1000  * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                   
+  
+  Trucks[24,15] := 1044.250169/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                    
+  
+  Trucks[22,16] :=  580664.341770/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)               
+  
+  Trucks[23,16] :=  1000/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                
+  
+  Trucks[24,16] :=  1000/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)  
+  
+  LUV[ce,15] := 0
+  
+  LUV[21,16] := 0
+  
+  LUV[22,16] := 6122994.020173/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+  
+  LUV[23,16]:= 48870.6007/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+  
+  LUV[24,16] := 8541.127210/1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+  
+  LUV[road] := sum(LUV[ce,road] on ce) 
+  
+  Trucks[road] := sum(Trucks[ce,road] on ce) 
+    
+  E_spe[ce,16] := @elem(E_oth[ce,16] -E_LUV_n[ce,16] - E_Trucks_n[ce,16] ,%baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)  if Q_Mtep_sec[ce,16] <>0 
+  
+  E_spe[ce,15] := @elem(E_oth[ce,15] - E_Trucks_n[ce,15] ,%baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)  if Q_Mtep_sec[ce,15] <>0                       
+  
+  Q_Mtep_spe[ce,15] := Q_Mtep_sec[ce,15] - Q_Mtep_Trucks[ce,15]                       
+    
+  Q_Mtep_spe[ce,16] := Q_Mtep_sec[ce,16] - Q_Mtep_Trucks[ce,16] - Q_Mtep_LUV[ce,16]
+                         
+ Vehicles_elec := (auto_elec + sum(trucks[23,road] on road) + sum(LUV[23,road] on road)) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+ 
+ phi_trucks[ce,road] := Trucks[ce,road]/Trucks[road] 
+
+ E_Trucks_n[road] := sum(E_Trucks_n[ce,road] where ce in %list_com_E \ 21 on ce) 
+
+ E_Trucks_n[ce,road] := E_oth_n[ce,road] * Q_Mtep_Trucks[ce,road]/Q_Mtep_sec[ce,road] where ce in %list_com_E \ 21
+ 
+ phi_LUV[ce,16] := LUV[ce,16]/LUV[16] 
+ 
+ E_LUV_n[road] := sum(E_LUV_n[ce,road] where ce in %list_com_E \ 21 on ce)  
+ 
+ E_LUV_n[ce,15] := 0
+ 
+ E_LUV_n[ce,16] := E_oth_n[ce,16] * Q_Mtep_LUV[ce,16]/Q_Mtep_sec[ce,16] where ce in %list_com_E \ 21
+
+ E_oth_n[ce,road] := E_oth[ce,road]
+
+ PNew_trucks[21,road] := 0
+ 
+ PNew_trucks[22,15] :=  271.415                                    #source I4CE
+ 
+ PNew_trucks[23,15] :=  499.555                                    #source I4CE
+ 
+ PNew_trucks[24,15] :=  311.395                                    #source I4CE
+  
+ PNew_trucks[22,16] :=  91.601445                               #source I4CE
+ 
+ PNew_trucks[23,16] := 351.632496                                 #source I4CE
+ 
+ PNew_trucks[24,16] := 112.746601                                 #source I4CE
+ 
+ PNew_LUV[21,road] := 1
+ 
+ PNew_LUV[ce,15] := 1                                           #source I4CE
+
+ PNew_LUV[22,16] := 25.149659                                  #source I4CE
+ 
+ PNew_LUV[23,16] := 30.678899                                 #source I4CE
+ 
+ PNew_LUV[24,16] := 27.749948
+
+                            #source I4CE
+ 
+PROG_E_spe[ce,road] :=1
+
+Q_Mtep_LUV[ce,road] := Mtep_per_LUV[ce,road] * LUV[ce,road]*1000
+
+Q_Mtep_trucks[ce,road] := Mtep_per_trucks[ce,road] * Trucks[ce,road]*1000
+ 
+ New_trucks[ce,road] := Trucks[ce,road] - Trucks[ce,road]{-1}*(1-tdec[road])
+ 
+ New_trucks[road] := sum(New_trucks[ce,road] on ce)
+ 
+ New_LUV[ce,road] := LUV[ce,road] - LUV[ce,road]{-1}*(1-tdec[road])
+ 
+ New_LUV[road]  := sum(New_LUV[ce,road] on ce)
+ 
+ PNew_trucks[road] * New_trucks[road] := sum(PNew_trucks[ce,road] * New_trucks[ce,road] on ce)
+ 
+ PNew_LUV_16 * New_LUV_16 := sum(PNew_LUV[ce,16] * New_LUV[ce,16] on ce)
+ 
+ PNew_LUV_15 := 1
+ 
+ PTrucks[road] := PNew_trucks[road]
+ 
+ PLUV[road] := PNew_LUV[road]
+  
+ I_MDE[ce,road] := PNew_Trucks[ce,road] * New_trucks[ce,road] + PNew_LUV[ce,road]*New_LUV[ce,road] where ce in %list_com_E \ 21 22
+ 
+ @over I_MDE[road] := sum( I_MDE[ce,road] where ce in %list_com_E \ 21 22  on ce )
+
+choc_LUV_load :=0
+
+choc_truck_load[road] :=0
+
+BetaEXP_n[co, h] := BetaEXP[co, h]
+
+BetaEXP_n  := BetaEXP
+
+BetaEXP_exo := 0
+
+ 

@@ -53,13 +53,15 @@ include ..\model\lists
   EXP_U_REHAB[h,ecl,ecl2]= EXP(U_REHAB[h,ecl,ecl2]*6000)   if REHAB[h,ecl,ecl2] <> 0
   
   SUM_EXP_U_REHAB[h,ecl] = sum(EXP_U_REHAB[h,ecl,ecl2] if REHAB[h,ecl,ecl2] <> 0 on ecl2)    if REHAB[h,ecl] <> 0
+     
+  d(phi_REHAB_des_n[h,ecl,ecl2]) = (@year>2007)*d(EXP_U_REHAB[h,ecl,ecl2]/SUM_EXP_U_REHAB[h,ecl])  if REHAB[h,ecl,ecl2] <> 0  if REHAB[h,ecl] <> 0
   
-  d(phi_REHAB_n[h,ecl,ecl2]) = (@year>2007)*d(EXP_U_REHAB[h,ecl,ecl2]/SUM_EXP_U_REHAB[h,ecl])  if REHAB[h,ecl,ecl2] <> 0  if REHAB[h,ecl] <> 0
-  
+  phi_REHAB_n[h,ecl,ecl2] = (phi_REHAB_des_n[h,ecl,ecl2]>0)* phi_REHAB_des_n[h,ecl,ecl2]  if REHAB[h,ecl,ecl2] <> 0  if REHAB[h,ecl] <> 0
+   
   SUM_phi_REHAB_n[h,ecl] = (sum(phi_REHAB_n[h,ecl,ecl2] if REHAB[h,ecl,ecl2] <> 0 on ecl2))   if REHAB[h,ecl] <> 0
-  
-  phi_REHAB[h,ecl,ecl2] = (phi_REHAB_n[h,ecl,ecl2]>0)*(phi_REHAB_n[h,ecl,ecl2]/SUM_phi_REHAB_n[h,ecl]) + (phi_REHAB_n[h,ecl,ecl2]<=0)*0  if REHAB[h,ecl,ecl2] <> 0 if REHAB[h,ecl] <> 0
-  
+   
+  phi_REHAB[h,ecl,ecl2] = (SUM_phi_REHAB_n[h,ecl]>0)*(phi_REHAB_n[h,ecl,ecl2]/SUM_phi_REHAB_n[h,ecl]) + (SUM_phi_REHAB_n[h,ecl]<=0)*0  if REHAB[h,ecl,ecl2] <> 0 if REHAB[h,ecl] <> 0
+   
   #U_REHAB[h,ecl,ecl2] = 1000000*((UC_E[h,ecl]{-1} - UC_E[h,ecl2]{-1}) - ((1 - R_SUB[h,ecl,ecl2]{-1}) * PREHAB[h,ecl,ecl2]{-1}))   if REHAB[h,ecl,ecl2] <> 0
   #
   #SUM_U_REHAB[h,ecl] = sum(U_REHAB[h,ecl,ecl2]^(-1) if REHAB[h,ecl,ecl2] <> 0 on ecl2)    if REHAB[h,ecl] <> 0
@@ -650,7 +652,7 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
 
 AUTO_elec[h,DES,pcl] = ( @year > %baseyear )*(delta_AUTO[h,CA,DES] * AUTO_elec[h,pcl]{-1}) + ( @year <= %baseyear ) * (AUTO_th[h,ecl]{-1} * (1+STEADYSTATE(2,1)))       
 
-AUTO_th[h,DES,ecl] = ( @year > %baseyear )* (delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1}) + ( @year <= %baseyear ) * (AUTO_th[h,ecl]{-1} * (1+STEADYSTATE(2,1)))          
+AUTO_th[h,DES,ecl] = ( @year > %baseyear )* (delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1} ) + ( @year <= %baseyear ) * (AUTO_th[h,ecl]{-1} * (1+STEADYSTATE(2,1)))          
 
 AUTO[h,DES,ecl] = AUTO_th[h,DES,ecl] 
 
@@ -864,13 +866,13 @@ SUB_AUTO_VAL = sum(SUB_AUTO_VAL[h] on h)
  #Fer 
  
  @over dlog(km_traveler_14[h])=(@year > %baseyear)*(d(log(km_traveler_LD[h]))+ _
-                                  0.5*(km_trav_auto_LD[h]{-1}/(km_traveler_14[h]{-1}+km_trav_auto_LD[h]{-1}))*d(log(PC_trav_auto_LD_h01)-log(pc_trav_14[h]+PC_Trav_14_signal)))+ _
-                                   (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                        # Modifié Hervé
+                                  0.5*(km_trav_auto_LD[h]{-1}/(km_traveler_14[h]{-1}+km_trav_auto_LD[h]{-1}))*d(log(PC_trav_auto_LD_h01)-log(pc_trav_14[h]+PC_Trav_14_signal))+choc_rail )+ _
+                                   (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                        
  
  #VP longue distance
  
  dlog(km_trav_auto_LD[h])=(@year > %baseyear)*(d(log(km_traveler_LD[h]))+ _
-                           0.5*(km_traveler_14[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1}))* d(log(pc_trav_14[h]+PC_Trav_14_signal)-log(PC_trav_auto_LD[h]))) + _
+                           0.5*(km_traveler_14[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1}))* d(log(pc_trav_14[h]+PC_Trav_14_signal)-log(PC_trav_auto_LD[h]))-choc_rail*km_traveler_14[h]{-1}/km_trav_auto_LD[h]{-1}) + _
                            (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                                
     
  ## Arbitrage courte distance : Bus et VP (courte distance)
@@ -878,13 +880,13 @@ SUB_AUTO_VAL = sum(SUB_AUTO_VAL[h] on h)
  #VP courte distance 
  
  dlog(km_trav_auto_CD[h])=(@year > %baseyear)*(d(log(km_traveler_CD[h]))+ _ 
-                         0.2*(km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))* d(log(pc_trav_15[h] + PC_Trav_15_signal)-log(PC_trav_auto_CD[h]))) + teletravail + voirie +_
+                         0.2*(km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))* d(log(pc_trav_15[h] + PC_Trav_15_signal)-log(PC_trav_auto_CD[h])) + teletravail + voirie - choc_TCSP*km_traveler_15[h]{-1}/km_trav_auto_CD[h]{-1}) + _
                          (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                                    
  
  # Bus
  
  @over dlog(km_traveler_15[h])=(@year > %baseyear)*(d(log(km_traveler_CD[h]))+ _ 
-                                 0.2*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))*d(log(PC_trav_auto_CD[h])-log(pc_trav_15[h]+PC_Trav_15_signal)))+ teletravail + _
+                                 0.2*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1}))*d(log(PC_trav_auto_CD[h])-log(pc_trav_15[h]+PC_Trav_15_signal))+ teletravail + choc_TCSP ) + _
                                (@year<=%baseyear)*log(1+STEADYSTATE(2,1))                                                                                                               
  
  
@@ -1073,7 +1075,9 @@ share_elec[h]= phiNVE[h]*(phiNVE[h]<=1) + (phiNVE[h]=1)
 share_elec =  share_elec[h]
   
  d(phiNVE[h])=innovation[h] * (1-phiNVE[h]{-1}) + imitation[h] * (phiNVE[h]{-1}) * (1-phiNVE[h]{-1})
-   
+ 
+@over d(phiNVE[h])=innovation[h] * (1-phiNVE[h]{-1}) + imitation[h] * (phiNVE[h]{-1}) * (1-phiNVE[h]{-1})^coef_phiNVE
+    
  imitation[h] =  coeffBassimit[h] 
    
  innovation[h] = coeffBassinnov[h] 
@@ -1130,9 +1134,12 @@ d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + log(1+STEA
                               ADJUST(20 + $h + %nb_households * ($co - 1), 3) * d(log(EXP[co, h]{-1})) +   _
                               ADJUST(20 + $h + %nb_households * ($co - 1), 4) * d(log(EXP_n[co, h]))) if EXP[co, h] <> 0
   
-  @over dlog(BetaExp[co, h]) = (@year <= 2019)*(0.000001) + _
-                                 (@year > 2019)*((1 - ES_LES_CES(1, 1)) * d(log(PEXP[co, h] / PEXP_CES[h]))) if BetaExp[co, h] <> 0                            
-  
+  #@over dlog(BetaExp[co, h]) = (@year <= 2019)*(0.000001) + _
+  #                               (@year > 2019)*((1 - ES_LES_CES(1, 1)) * d(log(PEXP[co, h] / PEXP_CES[h]))) if BetaExp[co, h] <> 0   
+                                                          
+  @over BetaEXP[co, h] = (@year <= 2019)*((PEXP[co, h]*EXP_n[co, h] - PNEXP[co, h]*NEXP[co, h]) / EXP_CES_VAL) + _
+                        (@year > 2019)*(BetaEXP[co, h]{-1} * (1 + (1 - ES_LES_CES(1, 1)) * dlog(PEXP[co, h] / PEXP_CES[h]))) 
+                        
   @over EXP_13[h] = (CHD_13 - SUB_REHAB_VAL)*(@year<=2019) + _
                     (@year>2019)*(( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) _
                      * NewBUIL[h] + @elem(PREHAB[h],%baseyear) * REHAB[h] + EXP_13_OTH_Val[h] / PCH_13 ))  
@@ -1315,6 +1322,15 @@ dlog(CK_a[sne]) = 0.8*dlog(CK_a[sne]{-1})+ (1-0.8)*dlog(CK[sne]) + 0.01*(log(CK[
 @over d(eta_K_E_des[20]) = (@year>2006) * (alpha_eta_K_E_PE[20] * d(dlog(PE_a[20])-dlog(CK_a[20])))*(d(dlog(PE_a[20])-dlog(CK_a[20]))>0)
    
 #@over eta_K_E[20] = 0.5*eta_K_E[20]{-1} +(1-0.5)*(eta_K_E_des[20]) +0.1*(eta_K_E_des[20]{-1}-eta_K_E[20]{-1})
+
+@over d(eta_K_E_des_15) = (@year>2006) * (alpha_eta_K_E_PE_15 * d(dlog(PE_a_15)-dlog(CK_a_15)))*(d(dlog(PE_a_15)-dlog(CK_a_15))>0)
+
+@over eta_K_E_15 = 0.5*eta_K_E_15{-1} +(1-0.5)*(eta_K_E_des_15) +0.1*(eta_K_E_des_15{-1}-eta_K_E_15{-1})
+
+
+@over d(eta_K_E_des_16) = (@year>2006) * (alpha_eta_K_E_PE_16 * d(dlog(PE_a_16)-dlog(CK_a_16)))*(d(dlog(PE_a_16)-dlog(CK_a_16))>0)
+
+@over eta_K_E_16 = 0.5*eta_K_E_16{-1} +(1-0.5)*(eta_K_E_des_16) +0.1*(eta_K_E_des_16{-1}-eta_K_E_16{-1})
 
 #pour estimer alpha_eta_K_E_PE, il faut geler les 2 lignes ci-dessus. Activer les lignes ci-dessous.  Il faut geler les feuilles exorealistic dans sam_fra_AME et urtiliser le fichier de sortie "calibrage alpha_eta_KE_PE" dans le fichier calibration
 #  Il faut estimer lambda_eta_KE_PE en simulant un choc permanent des prix de l'énergie de 1% via les taux de taxe énergétique tenertD et tenertM.

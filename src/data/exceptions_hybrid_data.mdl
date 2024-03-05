@@ -130,12 +130,14 @@ Payback_REHAB[h, ecl] := Payback_REHAB_r[h, ecl] if REHAB[h, ecl] <> 0
 
 phi_REHAB_n[h,ecl,ecl2] := phi_REHAB[h,ecl,ecl2]
 
+phi_REHAB_des_n[h,ecl,ecl2] :=  phi_REHAB[h,ecl,ecl2]
+
 U_REHAB[h,ecl,ecl2] := (UC_E[h,ecl]{-1} - UC_E[h,ecl2]{-1}) - ((1 - R_SUB[h,ecl,ecl2]{-1}) * PREHAB[h,ecl,ecl2]{-1})   if REHAB[h,ecl,ecl2] <> 0
 
 EXP_U_REHAB[h,ecl,ecl2] := EXP(U_REHAB[h,ecl,ecl2]*6000)   if REHAB[h,ecl,ecl2] <> 0
 
 SUM_EXP_U_REHAB[h,ecl] := sum(EXP_U_REHAB[h,ecl,ecl2] if REHAB[h,ecl,ecl2] <> 0 on ecl2)    if REHAB[h,ecl] <> 0
-
+ 
 SUM_phi_REHAB_n[h,ecl] := sum(phi_REHAB_n[h,ecl,ecl2] if REHAB[h,ecl,ecl2] <> 0 on ecl2)   if REHAB[h,ecl] <> 0
 
 #U_REHAB[h,ecl,ecl2] := 1000000*((UC_E[h,ecl]{-1} - UC_E[h,ecl2]{-1}) - ((1 - R_SUB[h,ecl,ecl2]{-1}) * PREHAB[h,ecl,ecl2]{-1}))   if REHAB[h,ecl,ecl2] <> 0
@@ -471,7 +473,9 @@ imitation[h] :=  coeffBassimit[h]
 
 innovation[h] := coeffBassinnov[h] 
 
-nu_diffusion := 14
+nu_diffusion := HOUSEHOLD_HYBRID_AUTO(216,1)
+
+coef_phiNVE := 1
 
 COeffBassinnov[h] := 0
 
@@ -711,3 +715,7 @@ DSM_base[c] := SUPPLY_USE_FOREIGN($c,1+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)
 Choc_E_oth_des[c,s] :=0
  
 GR_PE_SIGNAL_H :=0
+
+choc_rail :=0
+
+choc_TCSP := 0

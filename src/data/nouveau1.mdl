@@ -1,0 +1,61 @@
+                     
+@over Trucks[ce,road] = phi_Trucks[ce,road] * Trucks[road] where ce  in %list_com_E \ 21
+
+LUV[ce,16] = phi_LUV[ce,16] * LUV_16 where ce  in %list_com_E \ 21
+
+dlog(LUV_16)  = dlog(Y_16)  if LUV_16 <> 0
+
+dlog(Trucks[road])  = dlog(Y[road]) + choc_truck_load if Trucks[road] <> 0
+
+dlog(E_spe[ce,road]) = dlog(Y[road]) - dlog(PROG_E_spe[ce,road]) where ce  in %list_com_E \ 21 if E_spe[ce,road] >0
+
+E_Trucks_n[road] = sum(E_Trucks_n[ce,road] where ce in %list_com_E \ 21 on ce) 
+
+E_LUV_n_16 = sum(E_LUV_n[ce,16]  where ce in %list_com_E \ 21 on ce) 
+
+@over dlog(E_Trucks_n[ce,road]) = dlog(Q_Mtep_trucks[ce,road]) where ce in %list_com_E \ 21  if E_Trucks_n[ce,road] >0
+
+ Q_Mtep_trucks[ce,road] = Mtep_per_trucks[ce,road] * Trucks[ce,road]/1000000
+ 
+ Q_Mtep_spe[ce,15] = Q_Mtep_sec[ce,15] - Q_Mtep_Trucks[ce,15]/1000000                       
+    
+ Q_Mtep_spe[ce,16] = Q_Mtep_sec[ce,16] - Q_Mtep_Trucks[ce,16] - Q_Mtep_LUV[ce,16]
+
+@over dlog(E_LUV_n[ce,16]) = dlog(Q_Mtep_LUV[ce,16])  where ce  in %list_com_E \ 21  if E_LUV_n[ce,16] >0
+
+Q_Mtep_LUV[ce,16] = Mtep_per_LUV[ce,16] * LUV[ce,16]/1000000 where ce in %list_com_E \ 21
+
+E_oth_n[ce,road] = E_Trucks_n[ce,road] + E_LUV_n[ce,road] + E_spe[ce,road] where ce  in %list_com_E \ 21
+
+@over E_oth_des[ce,road] = E_oth_n[ce,road] where ce  in %list_com_E \ 21
+
+@over E_oth[ce,road] = E_oth_n[ce,road] where ce  in %list_com_E \ 21
+
+@over E_oth_n[road] = sum(E_oth_n[ce,road] on ce)           
+
+PNew_Trucks[road] * New_trucks[road] = sum( PNew_Trucks[ce,road] * New_trucks[ce,road] on ce) 
+
+PNew_LUV[16] * New_LUV[16] = sum( PNew_LUV[ce,16] * New_LUV[ce,16] on ce)                  #PLUV est un prix réel en k€ 
+
+New_trucks[ce,road] = Trucks[ce,road] - Trucks[ce,road]{-1}*(1-tdec[road]) where ce in %list_com_E \ 21 
+
+New_trucks[road] = sum(New_trucks[ce,road] on ce)
+
+New_LUV[ce,road] = LUV[ce,road] - LUV[ce,road]{-1}*(1-tdec[road]) where ce in %list_com_E \ 21
+
+New_LUV_16 = sum(New_LUV[ce,16] on ce)
+
+@over dlog(K_n[road])  = ( @year <= 2019 )  * ( K_n[road] > 0 )  * dlog(K[road])  + ( @year > 2019 ) * dlog(trucks[road] * PTrucks[road] + _
+                    LUV[road] * PLUV[road] + Choc_CSC[road] )
+
+PTrucks[road] * Trucks[road]  = PNew_trucks[road] * New_trucks[road] + PTrucks[road]{-1} * Trucks[road]{-1}*(1-tdec[road])
+
+PLUV[road] * LUV[road] = PNew_LUV[road] * New_LUV[road] + PLUV[road]{-1} * LUV[road]{-1}*(1-tdec[road])
+
+I_MDE[ce,road] = PNew_Trucks[ce,road] * New_trucks[ce,road]/1000 + PNew_LUV[ce,road]*New_LUV[ce,road]/1000 where ce in %list_com_E \ 21 22 
+
+@over I_MDE[road] = sum( I_MDE[ce,road] where ce in %list_com_E \ 21 22  on ce ) 
+ 
+@over TAX_CR_VAL[road] = T_TAX_CR[road] * PIA[road] * PNew_Trucks[23,road] * New_trucks[23,road]/1000
+
+@over TAX_CR_VAL = sum(TAX_CR_VAL[s] on s)

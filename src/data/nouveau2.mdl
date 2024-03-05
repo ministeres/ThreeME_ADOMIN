@@ -1,0 +1,130 @@
+  Mtep_per_trucks[21,road] := 0 
+  
+  Mtep_per_trucks[22,15] := 9.666195                  
+  
+  Mtep_per_trucks[23,15] := 4.250079                      
+  
+  Mtep_per_trucks[24,15] := 11.399199                     
+  
+  Mtep_per_trucks[22,16] := 17.087077                   
+  
+  Mtep_per_trucks[23,16] := 5.138242                   
+  
+  Mtep_per_trucks[24,16] := 13.709017  
+    
+  Mtep_per_LUV[ce,15] := 0
+  
+  Mtep_per_LUV[21,16] := 0 
+  
+  Mtep_per_LUV[22,16] :=  0.862464                    
+  
+  Mtep_per_LUV[23,16] := 0.386464                     
+  
+  Mtep_per_LUV[24,16] :=  1.005273
+                
+
+  Trucks[21,road] := 0
+  
+  Trucks[22,15] := 88737.31613 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                     
+  
+  Trucks[23,15] := 772.2854685  * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                   
+  
+  Trucks[24,15] := 1044.250169 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                    
+  
+  Trucks[22,16] :=  580664.341770 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)               
+  
+  Trucks[23,16] :=  1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)                
+  
+  Trucks[24,16] :=  1000 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)  
+  
+  LUV[ce,15] := 0
+  
+  LUV[21,16] := 0
+  
+  LUV[22,16] := 6122994.020173 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+  
+  LUV[23,16]:= 48870.6007 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+  
+  LUV[24,16] := 8541.127210 * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+  
+  LUV[road] := sum(LUV[ce,road] on ce) 
+  
+  Trucks[road] := sum(Trucks[ce,road] on ce) 
+    
+  E_spe[ce,16] := @elem(E_oth[ce,16] -E_LUV_n[ce,16] - E_Trucks_n[ce,16] ,%baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)  if Q_Mtep_sec[ce,16] <>0 
+  
+  E_spe[ce,15] := @elem(E_oth[ce,15] - E_Trucks_n[ce,15] ,%baseyear) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)  if Q_Mtep_sec[ce,15] <>0                       
+  
+  Q_Mtep_spe[ce,15] := Q_Mtep_sec[ce,15] - Q_Mtep_Trucks[ce,15]                       
+    
+  Q_Mtep_spe[ce,16] := Q_Mtep_sec[ce,16] - Q_Mtep_Trucks[ce,16] - Q_Mtep_LUV[ce,16]
+                         
+ Vehicles_elec := Auto_elec + sum(trucks[23,road] on road) + LUV[23,road]) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+ 
+ phi_trucks[ce,road] := Trucks[ce,road]/Trucks[road] 
+
+ E_Trucks_n[road] := sum(E_Trucks_n[ce,road] where ce in %list_com_E \ 21 on ce) 
+
+ E_Trucks_n[ce,road] := E_oth_n[ce,road] * Q_Mtep_Trucks[ce,road]/Q_Mtep_sec[ce,road] where ce in %list_com_E \ 21
+ 
+ phi_LUV[ce,16] := LUV[ce,16]/LUV[16] 
+ 
+ E_LUV_n[road] := sum(E_LUV_n[ce,road]  where ce in %list_com_E \ 21 on ce)  
+ 
+ E_LUV_n[ce,15] := 0
+ 
+ E_LUV_n[ce,16] := E_oth_n[ce,16] * Q_Mtep_LUV[ce,16]/Q_Mtep_sec[ce,16] where ce in %list_com_E \ 21
+
+ E_oth_n[ce,road] := E_oth[ce,road]
+
+ New_trucks[ce,road] := Trucks[ce,road] - Trucks[ce,road]{-1}*(1-tdec[road])
+ 
+ New_trucks[road] := sum(New_trucks[ce,road] on ce)
+ 
+ New_LUV[ce,road] := LUV[ce,road] - LUV[ce,road]{-1}*(1-tdec_road)
+ 
+ New_LUV[road]  := sum(New_LUV[ce,road] on ce)
+
+ PNew_trucks[21,road] := 0
+ 
+ PNew_trucks[22,15] :=  271.415                                    #source I4CE
+ 
+ PNew_trucks[23,15] :=  499.555                                    #source I4CE
+ 
+ PNew_trucks[24,15] :=  311.395                                    #source I4CE
+  
+ PNew_trucks[22,16] :=  91.601445                               #source I4CE
+ 
+ PNew_trucks[23,16] := 351.632496                                 #source I4CE
+ 
+ PNew_trucks[24,16] := 112.746601                                 #source I4CE
+ 
+ PTrucks[road] * Trucks[road]  := PNew_trucks[road] * New_trucks[road] + PTrucks[road]{-1} * Trucks[road]{-1}*(1-tdec[road]) 
+ 
+ PNew_LUV[21,road] := 1
+ 
+ PNew_LUV[ce,15] := 1                                           #source I4CE
+
+ PNew_LUV[22,16] := 25.149659                                  #source I4CE
+ 
+ PNew_LUV[23,16] := 30.678899                                 #source I4CE
+ 
+ PNew_LUV[24,16] := 27.749948                                 #source I4CE
+ 
+ PLUV_16 * LUV_16 := PNew_LUV_16 * New_LUV_16 + PLUV_16{-1} * LUV_16{-1}*(1-tdec_16)
+ 
+ PLUV_15 := 0 
+ 
+ PNew_trucks[road] * New_trucks[road] := sum(PNew_trucks[ce,road] * New_trucks[ce,road] on ce)
+ 
+ PNew_LUV[road] * New_LUV[road] := sum(PNew_LUV[ce,road] * New_LUV[ce,road] on ce)
+
+I_MDE[ce,road] := PNew_Trucks[ce,road] * New_trucks[ce,road]/1000 + PNew_LUV[ce,road]*New_LUV[ce,road]/1000 where ce in %list_com_E \ 21 22
+ 
+@over I_MDE[road] := sum( I_MDE[ce,road] where ce in %list_com_E \ 21 22  on ce )
+
+PROG_E_spe[ce,road] :=1
+
+Q_Mtep_LUV[ce,road] := Mtep_per_LUV[ce,road] * LUV[ce,road]/1000000
+
+Q_Mtep_trucks[ce,road] := Mtep_per_trucks[ce,road] * Trucks[ce,road]/1000000
