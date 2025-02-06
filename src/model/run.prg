@@ -100,7 +100,7 @@ subroutine run(string %data_calibration, string %data_shock)
 	'string varendo = "CK_* MATM_* CHM_* GM_* IAM_* EM_* PM_n* SUBST_*_n* R_DIR Ibis_bis_* K_n_* IA_n_* K_NE_n_19_* K_E_n_19_* IA_n_20_* Ibis_20_* K_NE_n_20_* YQS_SM* PYQ_SM* TMD_n* Y_e_* PY_* PY_e_* EXP_e_* SUBST_L_* SUBST_E_* SUBST_K_* SUBST_MAT_* SUBST_CHD_* SUBST_CHM_* SUBST_GD_* SUBST_GM_* SUBST_X_* SUBST_XD_* SUBST_XM_* P_e PY_n_* Ibis_* IA_n_* K_n_* W_*"
 
 '"PM_* YQS_SM PYQS_SM MATM_* GRMATM_* MATD_* CHM_* CHD_* GRCHM_* GM_* GD_* GRGM_* GD_* IAM_* GRIAM_* IAD_* IAM_* EM_* GREM_* ED_* PXD_n_* PXD_* R_DIR* MAT_* PMAT_* W_S_0* W_S_1* W_S_2* TMD_n*  W_S_n_0* W_S_n_1* W_S_n_2* GRPM_* IA_n_* IAM_n*"
-''j'ai mis W_S_0*, W_S_1* et W_S_2* et non W_S_* pour éviter d'inclure les variables W_S_n_* qui ne sont pas concernées par nos modifications	
+''j'ai mis W_S_0*, W_S_1* et W_S_2* et non W_S_* pour ï¿½viter d'inclure les variables W_S_n_* qui ne sont pas concernï¿½es par nos modifications	
 ''X_* XD_*
 ''BetaExp_20_h01 PEXP_CES_H01
 '
@@ -197,7 +197,9 @@ endsub
 ' Pass in "baseline" as the %scenario_name for the baseline scenario
 subroutine run_scenario(string %scenario_name)
 
-	string varendo = "CK_* MATM_DES_N* CHM_DES_N* GM_DES_N* IAM_DES_N* IAM_DES_N_19_19 EM_DES_N* PM_N* IA_N_DES* I_MDE_19 I_MDE_20 TMD_N* W_S_DES_N* W_S_DGT* PY_DES* L_DES* EXP_DES* PRESOC_DOM_U_TETE_DES PRESOC_DOM_OTH_VAL_DES X_DES* MAT_n_12_13  P_PAC  CUR_BIS*" 'IA_NOTIONNEL_NOSHOCK*
+	string varendo = "CK_* MATM_DES_N* CHM_DES_N* GM_DES_N* IAM_DES_N* IAM_DES_N_19_19 EM_DES_N* PM_N* IA_n_des_01 IA_n_des_02 IA_n_des_03 IA_n_des_04 IA_n_des_05 IA_n_des_06 IA_n_des_07 IA_n_des_08 IA_n_des_09 IA_n_des_10 IA_n_des_11 IA_n_des_12 IA_n_des_13 IA_n_des_15 IA_n_des_16 IA_n_des_17 IA_n_des_18 IA_n_des_19 IA_n_des_20 IA_n_des_21 IA_n_des_22* IA_n_des_23* IA_n_des_24* I_MDE_19 I_MDE_20 TMD_N* W_S_DES_N* W_S_DGT* PY_DES* L_DES* EXP_DES* PRESOC_DOM_U_TETE_DES PRESOC_DOM_OTH_VAL_DES X_DES* MAT_n_12_13  P_PAC  CUR_BIS*" 'IA_NOTIONNEL_NOSHOCK*
+ 
+
 	'string varendo = "CH_* CHD_* CHM_* CI_* CK_* CL_* CU_* CUR* DS_* DSD_* DSM_* E_* ED_* EM_* ENER_0* ENER_1* ENER_2* EXP_* EXPG_* G_* GD_* GM_* GDP_* I_* IA_* IAD_* IAM_* K_* L_* M_* MARKUP_* MAT_* MATD_* MATM_* MC_* MCD_* MCM_* MS_* MT_* MTD_* MTM_* NCU_* OTHT_* OTHTD_* OTHTM_* PARTR_* PCH_* PCHD_* PCHM_* PCID_* PCIM_* PE_* PED_* PEM_* PENER_* PEXP_* PEXPG_* PGD_* PGDP_* PI_* PIA_* PIAD_* PIAM_* PID_* PIM_* PIS_* PIY_* PK_* PM_* PMAT_* PMATD_* PMATM_* PMCD_* PMCM_* PMS_* PMT_* PMTD_* PMTM_* PNEXP_* POTHT_* POTHTD_* POTHTM_* PQ_* PQD_* PQM_* PRF_* PSUB_* PSY_* PTAX_* PVA_* PVAT_* PVATD_* PVATM_* PX_* PXD_* PXM_* PY_* PYQ_* PYQS_* Q_* QD_* QM_* RF_* RK_* SD_* SM_* SUBST_* SY_* TCO_* TMD_* VA_* VAT_* VATD_* VATM_* W_* X_* XD_* XM_* Y_* YCAP_* YOPT_* YQ_* YQBIS_* YQS_* "
 	if %exceptions_DGT = "yes" then
 		string list = a_3me.@stochastic
@@ -562,6 +564,25 @@ PRESOC_DOM_Oth_VAL_1 PRESOC_DOM_Oth_VAL_2 PRESOC_DOM_U_VAL_1 PRESOC_DOM_U_VAL_2 
                                                                                                                                                                                                                                         
 Reporting_3.sheet(t)
 show Reporting_3
+
+
+   group Reporting_fipu DEP_VAL_1-REC_VAL_1 (DEP_VAL_1-REC_VAL_1)/(PGDP_1*GDP_1) DEP_VAL_1 CL_S_20_1*L_S_20_1*PROG_L_20_1 _
+R_G_1(-1)*DEBT_G_VAL_1(-1) PE_20_1*E_20_1 PMAT_20_1*MAT_20_1 PIY_20_1*IY_20_1 PIA_20_1*IA_20_1 PG_1*G_1-PG_20_1*G_20_1 _
+0-(PSUB_1*SUB_1-PSUB_01_1*SUB_01_1) 0-(PSY_1*SY_1-PSY_01_1*SY_01_1) PRESOC_VAL_1 SUB_RENOV_VAL_1 SUB_AUTO_VAL_1 REDIS_VAL_TCO_H_1 _
+REDIS_VAL_SEC_TCO_1 REDIS_VAL_SEC_ETS_1 REDIS_VAL_ETS2_H_1 REDIS_VAL_SEC_ETS2_1 REC_VAL_1 DIV_GOV_VAL_1 IR_VAL_1 _
+AIC_VAL_1 INC_GOV_OTH_NET PTAX_1*TAX_1 PIY_1*IY_1 PIS_1*IS_1 PCSE_TOT_1*CSE_TOT_1+PCSS_TOT_1*CSS_TOT_1 _
+PY_20_1*Y_20_1-(PE_20_1*E_20_1+PMAT_20_1*MAT_20_1+PIY_20_1*IY_20_1) 0-CL_S_20_1*L_S_20_1*PROG_L_20_1 REC_VAL_SEC_ETS_1 _
+REC_VAL_SEC_ETS2_1 REC_VAL_ETS2_HH_1 REC_VAL_TCO_HH_1 REC_VAL_SEC_TCO_1 DEP_VAL_2-REC_VAL_2 (DEP_VAL_2-REC_VAL_2)/(PGDP_2*GDP_2) _
+DEP_VAL_2 CL_S_20_2*L_S_20_2*PROG_L_20_2 R_G_2(-1)*DEBT_G_VAL_2(-1) PE_20_2*E_20_2 PMAT_20_2*MAT_20_2 PIY_20_2*IY_20_2 _
+PIA_20_2*IA_20_2 PG_2*G_2-PG_20_2*G_20_2 0-(PSUB_2*SUB_2-PSUB_01_2*SUB_01_2) 0-(PSY_2*SY_2-PSY_01_2*SY_01_2) _
+PRESOC_VAL_2 SUB_RENOV_VAL_2 SUB_AUTO_VAL_2 REDIS_VAL_TCO_H_2 REDIS_VAL_SEC_TCO_2 REDIS_VAL_SEC_ETS_2 REDIS_VAL_ETS2_H_2 _
+REDIS_VAL_SEC_ETS2_2 REC_VAL_2 DIV_GOV_VAL_2 IR_VAL_2 AIC_VAL_2 INC_GOV_OTH_NET PTAX_2*TAX_2 PIY_2*IY_2 PIS_2*IS_2 _
+PCSE_TOT_2*CSE_TOT_2+PCSS_TOT_2*CSS_TOT_2 PY_20_2*Y_20_2-(PE_20_2*E_20_2+PMAT_20_2*MAT_20_2+PIY_20_2*IY_20_2) _
+0-CL_S_20_2*L_S_20_2*PROG_L_20_2 REC_VAL_SEC_ETS_2 REC_VAL_SEC_ETS2_2 REC_VAL_ETS2_HH_2 REC_VAL_TCO_HH_2 REC_VAL_SEC_TCO_2
+
+
+Reporting_fipu.sheet(t)
+show Reporting_fipu
 
    group Reporting_4 Y_01_1 Y_02_1 Y_03_1 Y_04_1 Y_05_1 Y_06_1 Y_07_1 Y_08_1 Y_09_1 Y_10_1 Y_11_1 Y_12_1 Y_13_1 Y_14_1 Y_15_1 Y_16_1 Y_17_1 Y_18_1 Y_19_1 Y_20_1 Y_21_1 _
 Y_01_2 Y_02_2 Y_03_2 Y_04_2 Y_05_2 Y_06_2 Y_07_2 Y_08_2 Y_09_2 Y_10_2 Y_11_2 Y_12_2 Y_13_2 Y_14_2 Y_15_2 Y_16_2 Y_17_2 Y_18_2 Y_19_2 Y_20_2 Y_21_2  _
@@ -1111,7 +1132,7 @@ exp_newauto_val_h01_cd_2 exp_newauto_val_h01_ce_2 exp_newauto_val_h01_cf_2 exp_n
  
 endif
 
-'Pour export des données vers MatMat
+'Pour export des donnï¿½es vers MatMat
 '   call export_matter
  ' call export_matmat
     'MAT_13_0 MATM_sec_13_0 MATD_sec_13_0 MAT_13_2 MATM_sec_13_2 MATD_sec_13_2 E_13_0 EM_sec_13_0 ED_sec_13_0     E_13_2 EM_sec_13_2 ED_sec_13_2  

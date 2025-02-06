@@ -16,13 +16,13 @@
 
 # on endogénéïse PhiY_ener_24[se24]
 
-PhiY_E_24[se24] = PhiY_ener_exo_24[se24] + Q_Mtep_FC[se24]  / Q_Mtep_ef_tot_SOU_24 # Attention, il faut corriger la part exo donnée par Enerdata qui prend déjà en compte le fonds chaleur, sinon double compte.  
+phiy_E[ce,se] = PhiY_ener_exo[ce,se] + Q_Mtep_FC[se]  / Q_Mtep_ef_tot_SOU[ce] # Attention, il faut corriger la part exo donnée par Enerdata qui prend déjà en compte le fonds chaleur, sinon double compte.  
 
-PhiY_ener_24[se24] = PhiY_E_24[se24] / PhiY_E_24
+phiy_ener[ce,se] = phiy_E[ce,se] / PhiY_E[ce]
 
-PhiY_E_24 = (sum(PhiY_E_24[se24] on se24))
+PhiY_E[ce] = (sum(phiy_E[ce,se] on se))
 
-verif_PhiY_ener_24 = 1 - (sum(PhiY_ener_24[se24] on se24)) 
+verif_PhiY_ener[se] = 1 - (sum(phiy_ener[ce,se]] on se)) 
 
 # avec Q_Mtep_FC le nombre de Mtep produites gràce au fonds chaleur cumulé sur la période et dQ_Mtep_FC la production de nouvelles Mtep financée dans l'année: 
 #dQ_Mtep_FC[se24] est la production des reseaux de chaleur et dQ_Mtep_FC[se24,s] est la consommation des secteurs en chaleur renouvelable suite au changement de chaudière financé par le FC. 
@@ -38,47 +38,27 @@ Q_Mtep_FC[se24] = Q_Mtep_FC[se24]{-1} + dQ_Mtep_FC[se24] + sum(dQ_Mtep_FC[se24,s
 #### la production Y s'ajuste à la demande (déterminée par les PhiY_ener) et la demande de facteur K dépend de Y. 
 #### Si le ratio K/Y des secteurs correspondaient à celui des installations financées par le fonds chaleur, il ne serait pas nécessaire de modifier l'équation de demande du facteur capital.
 #### c'est peu probable. Il faut s'assurer que les investissements supplémentaires entre AMS et AME soient sont du même montant que ceux financés par le fonds chaleur 
-#### pour cela, on modifie Prog_K
-
-#on a l'équation :
-
-# PROG_K[se24]  = PROG_K[se24]{-1}  * ( 1  + GR_PROG_K[se24]  + CHOC_K  + CHOC_PGF )
-
-# on la modifie comme suit : 
-
-# soit prog_AP_I_FC[se24] la productivité apparente du facteur capital des nouvelles installations financées par le fonds chaleur
-
-P_Mtep[se24] = Y[se24]/Q_Mtep_ef_tot[se24]  if Q_Mtep_ef_tot[se24] > 0
-
-#où Y[se24]/Q_Mtep_ef_tot[se24] = (@elem(PY[se24], %baseyear)*Y[se24])/Q_Mtep_ef_tot[se24] C'est un proxy du prix de la Mtep en euros constants base 2006 et IA_FC les investissements bruts subventionnés par le fonds chaleur en euros 2006. Prog_K est la moyenne pondérée entre le niveau antérieur de prog _K{-1} = Y{-1}/K{-1} et la productivité des nouvelles installations  dQ_Mtep_FC*P_Mtep/IA_FC
- 
-# option 1 (leger écart de 143M en 2023 entre sum(d(IA[se24]) et sum(IA_FC[se24]))
-
-# K_nFC[se24] + K_FC[se24]  = K[se24]{-1} *(1 + dlog(Y[se24])  + d(SUBST_K[se24])  - dlog(PROG_K[se24]))
-# (K_nFC[se24] + K_FC[se24])/K[se24]{-1} =(1 + dlog(Y[se24])  + d(SUBST_K[se24])  - dlog(PROG_K[se24]))
-# (K_nFC[se24] + K_FC[se24])/K[se24]{-1} -1 - dlog(Y[se24])  - d(SUBST_K[se24]) = - dlog(PROG_K[se24]) 
-
-@over dlog(PROG_K[se24]) = GR_PROG_K[se24] + (@year>2022)* (1 - (K_nFC[se24] + K_FC[se24])/K[se24]{-1} + dlog(Y[se24])  + d(SUBST_K[se24]))
 
  K_nFC[se24]  = K_nFC[se24]{-1} *(1 + dlog(Y_nFC[se24])  + d(SUBST_K[se24])  - GR_PROG_K[se24]) 
 
  K_FC[se24] = K_FC[se24]{-1}*(1-tdec[se24]) + IA_FC[se24]
  
-# option 2 (leger écart de 72M en 2023 entre sum(d(IA[se24]) et sum(IA_FC[se24]))
-
- @over K_nFC[se24]  = K_nFC[se24]{-1} *(1 + dlog(Y_nFC[se24])  + d(SUBST_K[se24])  - dlog(PROG_K[se24])) 
-
- @over K_FC[se24] = K_FC[se24]{-1}*(1-tdec[se24]) + IA_FC[se24]
+ Y_FC[se24] = (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]<1)* Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24] * Y[se24] + _ 
+              (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]>=1)* 0.01* Y[se24] 
+ 
+ Y_nFC[se24] = (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]<1)*(1- Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]) * Y[se24]  + _
+               (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]>=1)* 0.99 * Y[se24]
  
  @over K[se24]  = K_FC[se24] + K_nFC[se24]
  
-@over PROG_K[se24] =  PROG_K[se24]{-1} *(1 + GR_PROG_K[se24])
+ @over K_n[se24]  = K[se24]
+
 
 ############chronique d'aide
 
 # la subvention versée est égale à un taux d'aide en euro courant par Mtep, multipliée par le nombre de Mtep supplémentaires produites annuellement (les données entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront indexés sur l'inflation au-delà de 2023).
 
-SUB_FC[se24] = TSUB_FC[se24]* (1 + (@year > 2023) * dlog(P)) *dQ_Mtep_FC[se24]
+ SUB_FC[se24] = TSUB_FC[se24]* P/1.21 *dQ_Mtep_FC[se24]    # 1.21 est l'indice du prix en 2023
 
 # pour simplifier l'aide est versée sous forme de crédit d'impôt (on aurait pu activer SUB mais cette équation n'est pas lue car il n'existait pas de subvention au secteur de la distribution de gaz à l'année de base)
 
@@ -89,7 +69,7 @@ SUB_FC[se24] = TSUB_FC[se24]* (1 + (@year > 2023) * dlog(P)) *dQ_Mtep_FC[se24]
 
 # la subvention versée est égale à un taux d'aide en euro courant par Mtep, multipliée par le nombre de Mtep supplémentaires produites annuellement (les données entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront indexés sur l'inflation au-delà de 2023).
 
-SUB_FC[sind] = TSUB_FC[sind]* (1 + (@year > 2023) * dlog(P)) *dQ_Mtep_FC[sind]
+SUB_FC[sind] = TSUB_FC[sind]*P/1.21 *dQ_Mtep_FC[sind] # 1.21 est l'indice du prix en 2023
 
 # pour simplifier l'aide est versée sous forme de crédit d'impôt 
 

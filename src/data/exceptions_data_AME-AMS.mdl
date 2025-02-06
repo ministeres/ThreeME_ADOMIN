@@ -34,19 +34,19 @@ E_Mtep[2305,2403] := 0
 
 CU_MTEP[se] :=  (CU[se]*Y[se])/(PY[se]*Q_mtep_ef[se])
 
-CU_MTEP_PGDP[se] :=  (CU[se]*Y[se])/(PGDP*Q_mtep_ef_tot[se])      # modifié Gaël
+CU_MTEP_PGDP[se] :=  (CU[se]*Y[se])/(PGDP*Q_mtep_ef_tot[se])      # modifiï¿½ Gaï¿½l
 
-CU_MTEP_22 := (sum(CU[se22]*Y[se22]/PY[se22] on se22))/Q_mtep_ef_tot_sou_22    # modifié Gaël
+CU_MTEP_22 := (sum(CU[se22]*Y[se22]/PY[se22] on se22))/Q_mtep_ef_tot_sou_22    # modifiï¿½ Gaï¿½l
 
-CU_MTEP_23 := (sum(CU[se23]*Y[se23]/PY[se23] on se23))/Q_mtep_ef_tot_sou_23     # modifié Gaël
+CU_MTEP_23 := (sum(CU[se23]*Y[se23]/PY[se23] on se23))/Q_mtep_ef_tot_sou_23     # modifiï¿½ Gaï¿½l
 
-CU_MTEP_24 := (sum(CU[se24]*Y[se24]/PY[se24] on se24))/Q_mtep_ef_tot_sou_24     # modifié Gaël
+CU_MTEP_24 := (sum(CU[se24]*Y[se24]/PY[se24] on se24))/Q_mtep_ef_tot_sou_24     # modifiï¿½ Gaï¿½l
 
-CU_MTEP_PGDP_22 := (sum(CU[se22]*Y[se22]/PGDP on se22))/Q_mtep_ef_tot_sou_22    # modifié Gaël
+CU_MTEP_PGDP_22 := (sum(CU[se22]*Y[se22]/PGDP on se22))/Q_mtep_ef_tot_sou_22    # modifiï¿½ Gaï¿½l
 
-CU_MTEP_PGDP_23 := (sum(CU[se23]*Y[se23]/PGDP on se23))/Q_mtep_ef_tot_sou_23   # modifié Gaël
+CU_MTEP_PGDP_23 := (sum(CU[se23]*Y[se23]/PGDP on se23))/Q_mtep_ef_tot_sou_23   # modifiï¿½ Gaï¿½l
 
-CU_MTEP_PGDP_24 := (sum(CU[se24]*Y[se24]/PGDP on se24))/Q_mtep_ef_tot_sou_24    # modifié Gaël
+CU_MTEP_PGDP_24 := (sum(CU[se24]*Y[se24]/PGDP on se24))/Q_mtep_ef_tot_sou_24    # modifiï¿½ Gaï¿½l
 
 # production unit cost of energy sectors per Mwh
 
@@ -230,13 +230,13 @@ ER_NEWAUTO_elec_e := newauto_elec_h01_ce
 ER_NEWAUTO_elec_f := newauto_elec_h01_cf
 ER_NEWAUTO_elec_g := newauto_elec_h01_cg
 
-Share_NEWAUTO_CA := PHI_NEWAUTO_H01_CA        #à retirer
-Share_NEWAUTO_CB := PHI_NEWAUTO_H01_CB        #à retirer
-Share_NEWAUTO_CC := PHI_NEWAUTO_H01_CC         #à retirer
-Share_NEWAUTO_CD := PHI_NEWAUTO_H01_CD        #à retirer
-Share_NEWAUTO_CE := PHI_NEWAUTO_H01_CE        #à retirer
-Share_NEWAUTO_CF := PHI_NEWAUTO_H01_CF         #à retirer
-Share_NEWAUTO_CG := PHI_NEWAUTO_H01_CG        #à retirer
+Share_NEWAUTO_CA := PHI_NEWAUTO_H01_CA        #ï¿½ retirer
+Share_NEWAUTO_CB := PHI_NEWAUTO_H01_CB        #ï¿½ retirer
+Share_NEWAUTO_CC := PHI_NEWAUTO_H01_CC         #ï¿½ retirer
+Share_NEWAUTO_CD := PHI_NEWAUTO_H01_CD        #ï¿½ retirer
+Share_NEWAUTO_CE := PHI_NEWAUTO_H01_CE        #ï¿½ retirer
+Share_NEWAUTO_CF := PHI_NEWAUTO_H01_CF         #ï¿½ retirer
+Share_NEWAUTO_CG := PHI_NEWAUTO_H01_CG        #ï¿½ retirer
 
 ER_BUIL_A := BUIL_CA			
 ER_BUIL_B := BUIL_CB			
@@ -252,7 +252,7 @@ ER_Inv_Solar := CAPEX_2306
 ER_Jobs_Public_Trsp := sum(L[trsp] on trsp)
 
 
-# sobriété, reglementation thermique, substitution interénergie dans logement
+# sobriï¿½tï¿½, reglementation thermique, substitution interï¿½nergie dans logement
 
 eta_BUIL[ce]:=0.2
 
@@ -319,7 +319,7 @@ PC_Trav_14_signal := 0
 PC_Trav_15_signal := 0 
 
 
-# Raphael cale pour cibler les conso de gaz, d'electricité ou de fioul des secteurs PL et bus:  
+# Raphael cale pour cibler les conso de gaz, d'electricitï¿½ ou de fioul des secteurs PL et bus:  
 
 GR_Eexo[ce, s] :=0
 
@@ -421,6 +421,10 @@ Tech_coef_var[cm,s] := TECH_COEF_VAR($cm, $s)
 
 Tech_coef_var_2[cm,s] := TECH_COEF_VAR_2($cm, $s)
 
+Tech_coef_var_ams[cm,s] := TECH_COEF_VAR_AMS($cm, $s)
+
+Tech_coef_var_ams2[cm,s] := TECH_COEF_VAR_AMS2($cm, $s)
+
  choc_tech_coef :=0
  
  choc_NEXP[c] :=0
@@ -430,7 +434,8 @@ Tech_coef_var_2[cm,s] := TECH_COEF_VAR_2($cm, $s)
  AUTO_D := 1/HOUSEHOLD_HYBRID_AUTO(173, 1) 
  
  choc_G[c] :=0
- 
+ choc_G := 0
+
  choc_EXP_VAL :=0
  
  choc_EXP[c] :=0
@@ -493,9 +498,9 @@ CAPEX_target[se] := CU_CAPEX_Mwh[se]
  
  I_MDE_exo_20 := 1
  
- ###  introduction des Certificats d'économie d'énergie CEE 
+ ###  introduction des Certificats d'ï¿½conomie d'ï¿½nergie CEE 
 
- #gel##### option CEE subvention versée par l'Etat, financée par une taxe sur l'énergie
+ #gel##### option CEE subvention versï¿½e par l'Etat, financï¿½e par une taxe sur l'ï¿½nergie
  
 #gel R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
  
@@ -518,7 +523,7 @@ CAPEX_target[se] := CU_CAPEX_Mwh[se]
 #gelPOTHTM[ce] * OTHTM[ce] := TOTHTM[ce] * PM[ce] * M[ce] + CEE[ce] * M[ce]/(YQ[ce]+M[ce]) if OTHTM[ce] <> 0
 
 
-##### option CEE = subvention versée par les entreprises
+##### option CEE = subvention versï¿½e par les entreprises
  CEE :=0
  
  R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
@@ -567,7 +572,7 @@ VERIF_CEE := sum(CEE[se] on se) - CEE
   
 
  
- P_PAC :=15000/(1000000*1.2)     #en € 2006
+ P_PAC :=15000/(1000000*1.2)     #en ï¿½ 2006
  
  coef_choc_PAC := 0
  
@@ -692,7 +697,7 @@ VERIF_CEE := sum(CEE[se] on se) - CEE
                 
  BetaEXP  := sum(BetaEXP[co, h] on co)  
 
- #---------------- distinction entre consommation énergétique spécifique et consommation de chauffage dans le résidentiel
+ #---------------- distinction entre consommation ï¿½nergï¿½tique spï¿½cifique et consommation de chauffage dans le rï¿½sidentiel
 
 
 ENER_spe[h,ecl] := sum(ENER_spe[h,ecl,ce] on ce)
@@ -705,18 +710,19 @@ ENER_spe[h,ecl] := sum(ENER_spe[h,ecl,ce] on ce)
  
  ENER_spe[h,ecl,ce] := 0
  
- @over ENER_spe[h,CA,23] := 0.5*@elem(ENER_BUIL[h,CA,23], %baseyear)
- @over ENER_spe[h,CB,23] := 0.4*@elem(ENER_BUIL[h,CB,23], %baseyear)
- @over ENER_spe[h,CC,23] := 0.3*@elem(ENER_BUIL[h,CC,23], %baseyear)
- @over ENER_spe[h,CD,23] := 0.2*@elem(ENER_BUIL[h,CD,23], %baseyear)
- @over ENER_spe[h,CE,23] := 0.2*@elem(ENER_BUIL[h,CE,23], %baseyear)
- @over ENER_spe[h,CF,23] := 0.2*@elem(ENER_BUIL[h,CF,23], %baseyear)
- @over ENER_spe[h,CG,23] := 0.2*@elem(ENER_BUIL[h,CG,23], %baseyear)
- 
+ @over ENER_spe[h,CA,23] := 0.5*ENER_BUIL[h,CA,23]
+ @over ENER_spe[h,CB,23] := 0.4*ENER_BUIL[h,CB,23]
+ @over ENER_spe[h,CC,23] := 0.3*ENER_BUIL[h,CC,23]
+ @over ENER_spe[h,CD,23] := 0.2*ENER_BUIL[h,CD,23]
+ @over ENER_spe[h,CE,23] := 0.2*ENER_BUIL[h,CE,23]
+ @over ENER_spe[h,CF,23] := 0.2*ENER_BUIL[h,CF,23]
+ @over ENER_spe[h,CG,23] := 0.2*ENER_BUIL[h,CG,23]
  
  ENER_spe_m2[h,ecl,ce] := 0
  
  @over ENER_spe_m2[h,ecl,23] := ENER_spe[h,ecl,23] / (BUIL[h,ecl] + 0.1)
+ 
+ @over PENER_m2[h,ecl]  := ( PENER_BUIL[h,ecl] * ENER_BUIL[h,ecl] - ENER_spe_val[h,ecl] )   /BUIL[h,ecl]
  
  SOBRE_19 := 0
 
@@ -725,7 +731,7 @@ ENER_spe[h,ecl] := sum(ENER_spe[h,ecl,ce] on ce)
  
  SUBST_K_NE[s]  := SUBST_K_n[s]
 
- K_NE_des_n[s] := K_n[s] * 0.99 # à recaler finement par secteur 
+ K_NE_des_n[s] := K_n[s] * 0.99 # ï¿½ recaler finement par secteur 
  
  K_E_des_n[s] := K_n[s] - K_NE_des_n[s]
  

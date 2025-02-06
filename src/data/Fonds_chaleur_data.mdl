@@ -2,13 +2,13 @@
 
 PhiY_ener_exo[ce, se] :=  MTEP($se, 53+$ce)
 
-PhiY_E_24[se24] := PhiY_ener_exo_24[se24] + Q_Mtep_FC[se24]  / Q_Mtep_ef_tot_SOU_24   
+PhiY_E[ce,se] := PhiY_ener_exo[ce,se] + Q_Mtep_FC[se]  / Q_Mtep_ef_tot_SOU[ce]  
 
-PhiY_ener_24[se24] := PhiY_E_24[se24]
+PhiY_ener[ce,se] := PhiY_E[ce,se]
 
-PhiY_E_24 := 1
+PhiY_E[ce] := 1
 
-verif_PhiY_ener_24 := 0
+verif_PhiY_ener[ce] := 0
 
 Q_Mtep_FC := 0*1 ^ (@year - %baseyear)
 
@@ -26,30 +26,30 @@ TSUB_FC[s] := 0
 
 IA_FC[s] :=0
 
-P_Mtep[se24] := Y[se24]/Q_Mtep_ef_tot[se24]  if Q_Mtep_ef_tot[se24] > 0 
+P_Mtep[se] := Y[se]/Q_Mtep_ef_tot[se]  if Q_Mtep_ef_tot[se] > 0 
 
 
-dQ_Mtep_FC[se24,s] := 0
+@over dQ_Mtep_FC[se,s] := 0
 
-K_FC[se24] :=0
+K_FC[se] :=0
 
-K_nFC[se24] :=K[se24] 
+K_nFC[se] :=K[se] 
 
-PROG_Ap_K[se24] * K[se24] := Q_Mtep_ef_tot[se24]* @elem(P_Mtep[se24],%baseyear)
+PROG_Ap_K[se] * K[se] := Q_Mtep_ef_tot[se]* @elem(P_Mtep[se],%baseyear)
 
-PROG_Ap_K_nFC[se24] * K_nFC[se24] := (Q_Mtep_ef_tot[se24]- Q_Mtep_FC[se24]) * @elem(P_Mtep[se24],%baseyear)
+PROG_Ap_K_nFC[se] * K_nFC[se] := (Q_Mtep_ef_tot[se]- Q_Mtep_FC[se]) * @elem(P_Mtep[se],%baseyear)
 
-PROG_Ap_I_nFC[se24]  := PROG_Ap_K_nFC[se24]
+PROG_Ap_I_nFC[se]  := PROG_Ap_K_nFC[se]
 
-#PROG_AP_I_FC[se24]*(IA_FC[se24]+ 0.0001) := dQ_Mtep_FC[se24] * @elem(P_Mtep[se24],%baseyear)
+#PROG_AP_I_FC[se]*(IA_FC[se]+ 0.0001) := dQ_Mtep_FC[se] * @elem(P_Mtep[se],%baseyear)
 
-PROG_AP_I_FC[se24] := PROG_AP_I_nFC[se24]
+PROG_AP_I_FC[se] := PROG_AP_I_nFC[se]
 
-K_A[se24] := K[se24]
+K_A[se] := K[se]
 
-Y_nFC[se24] :=Y[se24] - Y_FC[se24]
+Y_nFC[se] :=Y[se] - Y_FC[se]
 
-Y_FC[se24] := Q_Mtep_FC[se24]*@elem(P_Mtep[se24],%baseyear)
+Y_FC[se] := Q_Mtep_FC[se]*@elem(P_Mtep[se],%baseyear)
 
 SUBST_K_n_nFC[s] := SUBST_K_n[s]
         

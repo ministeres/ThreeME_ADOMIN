@@ -8,11 +8,11 @@ subroutine load_data_shocks(string %data_shocks)
   ' Load the historical data froM Excel Inputs : Cell_nuMber; ForMat omitted(t=xls); s = Sheet_naMe; "t" : transpose (read in roW); File_naMe; nuMber of series
   read(c2,s=series,t) {%data_shocks} !seriesnb
 
-  matrix(37,37) TECH_COEF_VAR_AMS                         ' Matrix of the TECHNICAL COEFFICIENT VARIATION
-  TECH_COEF_VAR_AMS.read(B3,s=technical_coef_var) {%data_shocks}
+  'matrix(37,37) TECH_COEF_VAR_AMS                         Matrix of the TECHNICAL COEFFICIENT VARIATION
+  'TECH_COEF_VAR_AMS.read(B3,s=technical_coef_var) {%data_shocks}
   
-  matrix(37,37) TECH_COEF_VAR_AMS2                         ' Matrix of the TECHNICAL COEFFICIENT VARIATION  in choc scenario
-  TECH_COEF_VAR_AMS2.read(B3,s=technical_coef_var_2) {%data_shocks}
+  'matrix(37,37) TECH_COEF_VAR_AMS2                         Matrix of the TECHNICAL COEFFICIENT VARIATION  in choc scenario
+  'TECH_COEF_VAR_AMS2.read(B3,s=technical_coef_var_2) {%data_shocks}
 
 endsub
 

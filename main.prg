@@ -3,8 +3,8 @@
 
 logmode l
 
-'%path = "C:\Users\callonnecg\Documents\GitHub\ThreeME"
-'cd %path
+%path = "C:\GitHub\ThreeME"
+cd %path
 
 include .\configuration
 

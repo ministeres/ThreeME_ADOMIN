@@ -1,0 +1,5 @@
+  @over d(SUBST_K_n[s]) = _
+     -ES_KLEM($s, 1) * d(log(CK[s]/PROG_K[s]) - log(CL[s]))                    * phi_l_bis[s]{-1} _
+     -eta_K_E[s]     * d(log(CK[s]/PROG_K[s]) - log((PE[s] + PE_Signal[s] + PE_CEE[s] + PE_signal_bis[s] + PE_signal_E[s])/PROG_E[s]))   * phi_e_bis[s]{-1} _
+     -ES_KLEM($s, 3) * d(log(CK[s]/PROG_K[s]) - log(PMAT[s]))                  * phi_mat_bis[s]{-1} _
+   if K_n[s] <> 0

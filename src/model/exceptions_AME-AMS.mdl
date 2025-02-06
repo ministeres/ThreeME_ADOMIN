@@ -15,7 +15,7 @@
                  #gel dlog((K_n[se23] > (1 - Tdec[se23]) * K_n[se23]{-1}) * (K_n[se23] - (1 - Tdec[se23]) * K_n[se23]{-1}) + _
                  #gel (K_n[se23] <= (1 - Tdec[se23]) * K_n[se23]{-1}) * 0.1)  
 
-@over dlog(W_S_n[se23]) = dlog(W_S_n_13)      # il est necessaire de déconnecter les salaires des gains de productivité du traval dans le secteur électrique.
+@over dlog(W_S_n[se23]) = dlog(W_S_n_13)      # il est necessaire de dï¿½connecter les salaires des gains de productivitï¿½ du traval dans le secteur ï¿½lectrique.
 
               
 # Shorter names to overcome eViews' brilliant limitations...
@@ -46,7 +46,7 @@ q24 = q_mtep_ef_sou_24
 
 #Q_Mtep_out[23, 2402] = (1-AME)*(Q_Mtep_in[24, 2303])        
 
-# ---------------------- méthanation
+# ---------------------- mï¿½thanation
 
 # Q_Mtep_in[23, 2402] = (1-AME)*(0 +(@year>2040)*0.5*(1+0.15))
 
@@ -83,7 +83,7 @@ PROG_BUIL[h, ecl, 22] = PROG_BUIL_22
 							
 PROG_BUIL[h, ecl, 23] = PROG_BUIL_23
 							
-PROG_BUIL[h, ecl, 24] = PROG_BUIL_24 							
+PROG_BUIL[h, ecl, 24] = PROG_BUIL_24ï¿½							
 
 # ------------------------------Distribution of energy taxes receipts
 #--------------option 1
@@ -139,15 +139,15 @@ REDIS_VAL_SEC = REDIS_VAL - REDIS_VAL_H
 
 #gel@over d(TIR[h]) = 0
 
-# ------------------Evolution des prix à l'import sous l'effet de la lutte généralisée contre le rechauffement climatique
+# ------------------Evolution des prix ï¿½ l'import sous l'effet de la lutte gï¿½nï¿½ralisï¿½e contre le rechauffement climatique
 
 #@over PWD[sne] = (@year<=2018)*PWD_n[sne] + (@year>2018)*PWD_n[sne]*(1+TCO_VAL_SEC[sne]{-1}/CU[sne]{-1}*TTCO_VOL_ROW/TTCO_VOL_21) #where c in %list_com \ %list_com_E  # la chronique est fournie par la DGEC
 
 #PWD[sne] = (@year<=2018)*PWD_n[sne] + (@year>2018)*PWD_n[sne]*(1+DELTA_TTCO_ROW*TCO_VAL_SEC[sne]{-1}/(CU[sne]{-1}*Y[sne]{-1} ))
 
-# -------------------politique monétaire
+# -------------------politique monï¿½taire
             
-# attention, ne pas redistribuer la totalité des intérêts sinon, politique monétaire procyclique
+# attention, ne pas redistribuer la totalitï¿½ des intï¿½rï¿½ts sinon, politique monï¿½taire procyclique
 
 @over d(R_DIR) = 1* d(infl_FR) + d(R_ADD) # -0.8 * d(Unr_tot) 
  
@@ -166,7 +166,7 @@ EXP_ENER[h] = sum(EXP[ce, h] on ce)
 PEXP_ENER[h]*EXP_ENER[h] = sum(PEXP[ce,h]*EXP[ce, h] on ce)        
 
 
-#----------------- sobriété, reglementation thermique, substitution interénergie dans logement
+#----------------- sobriï¿½tï¿½, reglementation thermique, substitution interï¿½nergie dans logement
 
 @over d(log(ENERperM2[h, ecl, ce])) = -eta_BUIL[ce]* d(log(PEXP[ce, h])-log(PCH))*(d(log(PEXP[ce, h])-log(PCH))>0) + d(SUBST_BUIL[h, ecl, ce]) + TREND_E_BUIL[ce] if ENER_BUIL[h, ecl, ce] <> 0
 
@@ -204,19 +204,19 @@ Ttco_vol_signal = Ttco_signal/PGDP
 
 CU_MTEP[se] = ((CU[se]*Y[se])/Q_mtep_ef[se]) / P #(CU[se]*Y[se])/(PY[se]*Q_mtep_ef[se])
 
-CU_MTEP_PGDP[se] =  (CU[se]*Y[se])/(PGDP*Q_mtep_ef_tot[se])      # modifié Gaël
+CU_MTEP_PGDP[se] =  (CU[se]*Y[se])/(PGDP*Q_mtep_ef_tot[se])      # modifiï¿½ Gaï¿½l
 
-CU_MTEP_22 = (sum(CU[se22]*Y[se22]/PY[se22] on se22))/Q_mtep_ef_tot_sou_22    # modifié Gaël
+CU_MTEP_22 = (sum(CU[se22]*Y[se22]/PY[se22] on se22))/Q_mtep_ef_tot_sou_22    # modifiï¿½ Gaï¿½l
 
-CU_MTEP_23 = (sum(CU[se23]*Y[se23]/PY[se23] on se23))/Q_mtep_ef_tot_sou_23     # modifié Gaël
+CU_MTEP_23 = (sum(CU[se23]*Y[se23]/PY[se23] on se23))/Q_mtep_ef_tot_sou_23     # modifiï¿½ Gaï¿½l
 
-CU_MTEP_24 = (sum(CU[se24]*Y[se24]/PY[se24] on se24))/Q_mtep_ef_tot_sou_24     # modifié Gaël
+CU_MTEP_24 = (sum(CU[se24]*Y[se24]/PY[se24] on se24))/Q_mtep_ef_tot_sou_24     # modifiï¿½ Gaï¿½l
 
-CU_MTEP_PGDP_22 = (sum(CU[se22]*Y[se22]/PGDP on se22))/Q_mtep_ef_tot_sou_22    # modifié Gaël
+CU_MTEP_PGDP_22 = (sum(CU[se22]*Y[se22]/PGDP on se22))/Q_mtep_ef_tot_sou_22    # modifiï¿½ Gaï¿½l
 
-CU_MTEP_PGDP_23 = (sum(CU[se23]*Y[se23]/PGDP on se23))/Q_mtep_ef_tot_sou_23   # modifié Gaël
+CU_MTEP_PGDP_23 = (sum(CU[se23]*Y[se23]/PGDP on se23))/Q_mtep_ef_tot_sou_23   # modifiï¿½ Gaï¿½l
 
-CU_MTEP_PGDP_24 = (sum(CU[se24]*Y[se24]/PGDP on se24))/Q_mtep_ef_tot_sou_24    # modifié Gaël
+CU_MTEP_PGDP_24 = (sum(CU[se24]*Y[se24]/PGDP on se24))/Q_mtep_ef_tot_sou_24    # modifiï¿½ Gaï¿½l
 
 #------------------- production unit cost of energy sectors per Mwh
 
@@ -252,7 +252,7 @@ YQGDP_ind = (sum(YQ[sind] on sind))/GDP
 
 GR_GDP = dlog(GDP)
 
- #------------ dans AME l'enveloppe correspondant aux montant des dépenses fiscales du bonus automobile est sensée restée constante. 
+ #------------ dans AME l'enveloppe correspondant aux montant des dï¿½penses fiscales du bonus automobile est sensï¿½e restï¿½e constante. 
 
 #bonus_elec[h]= AME*((@year>2018)*((350*(1+STEADYSTATE(15,1))^(@year - 2018))/NEWAUTO_elec[h]) + (@year<=2018)*(R_bonus_elec)) + (1-AME)*R_bonus_elec
 #
@@ -446,7 +446,7 @@ NDI_ADEB_VOL = (DISPINC_VAL - EXP_HOUSING_Val - EXP_MOBAUTO_Val)/PCH
 @over d(log(K_n_20)) = (@year<=2019) * (K_n_20>0)*(dlog(K_20)) + _ 
                        (@year>2019) * (d(log(Y_20)) + d(SUBST_K_20) - d(log(PROG_K_20)) + d(INV_road)/K_n_20{-1} + IMP_BUD_20 * @elem(GDP, %baseyear) / @elem(K_n_20, %baseyear)) if K_n_20 <> 0
 
-# ---------------------investissement d'efficacité énergétique
+# ---------------------investissement d'efficacitï¿½ ï¿½nergï¿½tique
 
  
  d(SUBST_K_NE_n[s]) = _
@@ -513,24 +513,24 @@ NDI_ADEB_VOL = (DISPINC_VAL - EXP_HOUSING_Val - EXP_MOBAUTO_Val)/PCH
  verif_IA[sne] = IA[sne]- I_MDE[sne] - I_NE[sne]
  
 
-#----------------- Crédit d'impôt rénovation tertiaire 
+#----------------- Crï¿½dit d'impï¿½t rï¿½novation tertiaire 
 
-#TAX_CR_19 = - T_TAX_CR_19 * d(E_19/Y_19)*Y_19*PE_19*15 # le crédit d'impôt est égal à un pourcentage de l'énergie économisée en valeur sur la durée de vie de l'équipement estimée à 15 ans
+#TAX_CR_19 = - T_TAX_CR_19 * d(E_19/Y_19)*Y_19*PE_19*15 # le crï¿½dit d'impï¿½t est ï¿½gal ï¿½ un pourcentage de l'ï¿½nergie ï¿½conomisï¿½e en valeur sur la durï¿½e de vie de l'ï¿½quipement estimï¿½e ï¿½ 15 ans
 
-TAX_CR_VAL_19 =  T_TAX_CR_19 * (I_MDE_19>0)*PIA_13_19*I_MDE_19  # le crédit d'impôt est égal à un pourcentage du coût des investissements d'efficacité énergétique
+TAX_CR_VAL_19 =  T_TAX_CR_19 * (I_MDE_19>0)*PIA_13_19*I_MDE_19  # le crï¿½dit d'impï¿½t est ï¿½gal ï¿½ un pourcentage du coï¿½t des investissements d'efficacitï¿½ ï¿½nergï¿½tique
 
 TAX_CR_19 =  T_TAX_CR_19 * (I_MDE_19>0)*I_MDE_19
 
-#TAX_CR_19 =  TAX_CR_n_19  # le crédit d'impôt est budgété à 300 millions d'euros
+#TAX_CR_19 =  TAX_CR_n_19  # le crï¿½dit d'impï¿½t est budgï¿½tï¿½ ï¿½ 300 millions d'euros
 
-@over PE_signal_19 = TAX_CR_19/(PE_19*E_19) +  PE_signal_ren_19                          # crédit impôt réno énergétique pour le tertiaire
+@over PE_signal_19 = TAX_CR_19/(PE_19*E_19) +  PE_signal_ren_19                          # crï¿½dit impï¿½t rï¿½no ï¿½nergï¿½tique pour le tertiaire
 
 #@over IS[s]  = @elem(TIS  * PRF[s](-1) , 2006)  * RF[s](-1)  * ( RF[s](-1) > 0 )  + 1e-08  * ( RF[s](-1)  = < 0 ) - TAX_CR_VAL[s] - (@year>2022)*REDIS_VAL_SEC{-1}*PY_19{-1}*Y_19{-1}/(PY{-1}*Y{-1})
 
 #@over PIS_19 * IS_19 = TIS * PRF_19{-1} * RF_19{-1} * (RF_19{-1}>0) + 0.00000001 * (RF_19{-1} =< 0) - (@year>2022)*REDIS_VAL_SEC{-1}*PY_19{-1}*Y_19{-1}/(PY{-1}*Y{-1}) - TAX_CR_VAL_19  
  
 
-# -----------------CSPE   on suppose que le tarif de rachat permet aux produxteurs d'énergie renouvelable de recevoir une subvention égale à l'écart entre le coût unitaire de production du nucléaire et le leur. La cspe n'a pas d'incidence sur le prix de vente de l'électricité puisqu'il est égal à la moyenne pondérée des CU plus une marge.
+# -----------------CSPE   on suppose que le tarif de rachat permet aux produxteurs d'ï¿½nergie renouvelable de recevoir une subvention ï¿½gale ï¿½ l'ï¿½cart entre le coï¿½t unitaire de production du nuclï¿½aire et le leur. La cspe n'a pas d'incidence sur le prix de vente de l'ï¿½lectricitï¿½ puisqu'il est ï¿½gal ï¿½ la moyenne pondï¿½rï¿½e des CU plus une marge.
 #cela n'a pas d'incidence sur le budgert de l'Etat puisqu'il s'agit d'un transfert entre producteurs. 
 
 CSPE[se22]= (CU[se22]-CU_2201)*Y[se22]
@@ -541,7 +541,7 @@ CSPE[se24]= (CU[se24]-CU_2401)*Y[se24]
 
 CSPE = CSPE_2305 + CSPE_2306
 
-#----------------- On suppose que le ferroviaire n'augmente pas ses prix sous l'effet de la hausse de la demande induite par le développement du reseau
+#----------------- On suppose que le ferroviaire n'augmente pas ses prix sous l'effet de la hausse de la demande induite par le dï¿½veloppement du reseau
 # erreur le secteur ferroviaire est le secteur 14
 #@over TMD_n_15 = @elem(TMD_n_15, %baseyear)
 
@@ -571,7 +571,7 @@ CSPE = CSPE_2305 + CSPE_2306
 
  
  
- #------------------ choc sur les consommations intermédiaires
+ #------------------ choc sur les consommations intermï¿½diaires
   @over MATD[cm,sne]  = (CIDexo[cm,sne])*(@year<=2019) + _
                         (MATD[cm,sne]{-1}*(1+(MAT[cm,sne]>0)*(d(MAT[cm,sne])/MAT[cm,sne]{-1} + d(SUBST_MATD[cm,sne])))) *(@year>2019) if MATD[cm,sne] <> 0
                         
@@ -585,23 +585,24 @@ CSPE = CSPE_2305 + CSPE_2306
  
 
 
- @over d(log(MAT_n[cm, sne])) = (@year<=2019) * (dlog(CIexo[cm,sne])) + (@year>2019) *(dlog(Y[sne]) + (@year>2023)*(@year<=2030)*(Tech_coef_var[cm,sne] - d(SUBST_MAT[sne])) + _
-                                 (@year>2030)*(Tech_coef_var_2[cm,sne] - d(SUBST_MAT[sne])) + d(SUBST_MAT[sne]) ) if MAT[cm, sne] <> 0
+ @over d(log(MAT_n[cm, sne])) = (@year<=2019) * (dlog(CIexo[cm,sne])) + (1-choc_tech_coef)* (@year>2019) *(dlog(Y[sne]) + (@year>2023)*(@year<=2030)*(Tech_coef_var[cm,sne] - d(SUBST_MAT[sne])) + _
+                                 (@year>2030)*(Tech_coef_var_2[cm,sne] - d(SUBST_MAT[sne])) + d(SUBST_MAT[sne]) ) _
+                                + (choc_tech_coef)* (@year>2019) *(dlog(Y[sne]) + (@year>2023)*(@year<=2030)*(Tech_coef_var_ams[cm,sne] - d(SUBST_MAT[sne])) + _
+                                 (@year>2030)*(Tech_coef_var_ams2[cm,sne] - d(SUBST_MAT[sne])) + d(SUBST_MAT[sne]) )  if MAT[cm, sne] <> 0
 
- 
  @over MAT[cm, sne] = (@year<=2019) * (MATD[cm,sne] + MATM[cm,sne]) + (@year>2019) * (MAT_n[cm, sne]) if MAT[cm, sne] <> 0    
 
            
  
-# --------------------- choc exogène sur l'efficacité énergétique dans l'industrie
+# --------------------- choc exogï¿½ne sur l'efficacitï¿½ ï¿½nergï¿½tique dans l'industrie
                                              
- PROG_E_indus[s] = PROG_E_indus[s]{-1}*(1+GR_PROG_E[s])   #vérifier que l'on n'écrase pas la hausse de début d epériode     
+ PROG_E_indus[s] = PROG_E_indus[s]{-1}*(1+GR_PROG_E[s])   #vï¿½rifier que l'on n'ï¿½crase pas la hausse de dï¿½but d epï¿½riode     
 
  #-------------------- choc sur la demande alimentaire
   
  @over d(log(NEXP[co, h])) = (@year >  %baseyear) * ((@year <=2022) * d(log(Pop_TOT)) + (@year >=2022) * choc_EXP[co]) + (@year <=  %baseyear) * log( 1 + STEADYSTATE(2,1))  where co in 01
                 
- #------------------ choc sur la durée de vie des véhicules
+ #------------------ choc sur la durï¿½e de vie des vï¿½hicules
                        
   AUTO_elec_D[h, pcl] = AUTO_D
   
@@ -610,20 +611,22 @@ CSPE = CSPE_2305 + CSPE_2306
   delta_AUTO[h, ecl, DES] = 1/AUTO_D
   
  #------------------- choc sur la consommation publique
-    
+
+
+
  @over EXPG = ( 1 + ADJUST(69,1)*(d(log(EXPG_trend)) - STEADYSTATE(62,1)*(DP_G_VAL - DP_G_VAL_n)*PGDP{-1}*GDP{-1} / (PG{-1}*EXPG{-1})) + _
-              (1-ADJUST(69,1))*dlog(EXPG{-1}))*EXPG{-1} - sum(choc_G[c]*G[c] on c)
+              (1-ADJUST(69,1))*dlog(EXPG{-1}))*EXPG{-1} - sum(choc_G[c]*G[c] on c) + choc_G * 0.01 * GDP{-1} * PGDP{-1}
   
  @over dlog(EXPG[cm]) = dlog(EXPGexo[cm])*(@year<=2019) + (ADJUST(69,1)*(dlog(EXPG_trend) - STEADYSTATE(62,1)*(DP_G_VAL - DP_G_VAL_n)*PGDP{-1}*GDP{-1}/(PG{-1}*EXPG{-1})) _
                          + (1 - ADJUST(69,1)) * dlog(EXPG{-1}))*(@year>2019) + choc_G[cm]     if EXPG[cm] <>0 
 
- #------------------- choc sur la demande extérieure
+ #------------------- choc sur la demande extï¿½rieure
                          
  @over d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + (log(1+STEADYSTATE(2,1)) + choc_WD[cm] )*(@year>2019)    if Xexo[cm] <> 0   
  
  @over dlog(X[cm]) = (dlog(Xexo[cm]))*(@year<=2019) + (dlog(WD[cm]) + d(SUBST_X[cm]))*(@year>2019)   if X[cm] <> 0
    
- #------------------ gain d'efficacité energétique exogènes    (les eta_K_E et eta_L_E =0  et es retards sont supprimés)
+ #------------------ gain d'efficacitï¿½ energï¿½tique exogï¿½nes    (les eta_K_E et eta_L_E =0  et es retards sont supprimï¿½s)
     
  @over    dlog(E_oth[sne])= dlog(E_oth_n[sne])   if E_oth_n[sne] <> 0
      
@@ -631,7 +634,7 @@ CSPE = CSPE_2305 + CSPE_2306
  
  @over   d(log( EXP_13_OTH_VAL[h] ) ) = (@year<2019)*(d(log( DISPINC_VAL[h])) + d(log( 1 - MPS_HH[h]))) + (@year>=2019)*dlog(BUIL)   
 
-#------------------- choc sur le trafic aérien 
+#------------------- choc sur le trafic aï¿½rien 
 
   @over d(log(Km_traveler[18, h])) =(@year>%baseyear)*(1.2*d(log(dispinc_val/PCH))-0.7*d(log(PCH_18)-log(PCH))) + choc_air_trafic + _
                                    (@year<=%baseyear)*log(1+STEADYSTATE(2,1))   
@@ -646,7 +649,7 @@ CSPE = CSPE_2305 + CSPE_2306
                           
  Choc_CSC[s] * K_n[s]{-1}  = CSC_cost * EMS_CSC[s]
                                    
-## DACCS On suppose que l'Etat finance la capture du CO2 de l'air. Coût financé par une taxe carbone  
+## DACCS On suppose que l'Etat finance la capture du CO2 de l'air. Coï¿½t financï¿½ par une taxe carbone  
 
 # @over dlog(K_n_20) = dlog(Y_20) + d(SUBST_K_20) - dlog(PROG_K_20) + d(INV_road)/K_n_20{-1}  + Choc_DACCS  if K_n_20 <> 0               
 
@@ -663,7 +666,7 @@ CSPE = CSPE_2305 + CSPE_2306
 
  @over PIS[s] * IS[s] = TIS[s] * PRF[s]{-1} * RF[s]{-1} * (RF[s]{-1}>0) + 0.00000001 * (RF[s]{-1} =< 0)   if IS[s] <> 0
 
-#------------------- Modification des capex et opex de la production d'énergie
+#------------------- Modification des capex et opex de la production d'ï¿½nergie
 
   CU_CAPEX[s] * PY[s] * Y[s] = CK[s]*K[s]   if Y[s] > 0
 
@@ -685,7 +688,7 @@ CSPE = CSPE_2305 + CSPE_2306
   
   @over  d(log(L_n[se23]))  = (@year< 2021)*(d(log(Y[se23]))  - d(log(PROG_L[se23]))  + d(SUBST_L[se23])) + (@year>= 2021)* 39/75*dlog(OPEX_target[se23]*Q_mtep_ef[se23]/0.086) 
   
-  #  39/75 est le rapport entre les emplois liés à la production et les emplois liés à la distribution. 
+  #  39/75 est le rapport entre les emplois liï¿½s ï¿½ la production et les emplois liï¿½s ï¿½ la distribution. 
  
  @over IA_n[se24] =  (K[se24] - K[se24]{-1}*(1-tdec[se24])>0)*(K[se24] - K[se24]{-1}*(1-tdec[se24]))+ (K[se24] - K[se24]{-1}*(1-tdec[se24])<=0)*0.1 if K[se24] <> 0
  
@@ -695,9 +698,9 @@ CSPE = CSPE_2305 + CSPE_2306
   
  @over  d(log(MAT_n[se24]))  = d(log(Y[se24]))  + d(SUBST_MAT[se24]) + choc_MAT[se24]  
  
-#--------------------  introduction des Certificats d'économie d'énergie CEE 
+#--------------------  introduction des Certificats d'ï¿½conomie d'ï¿½nergie CEE 
 
-#  CEE = subvention versée par les entreprises
+#  CEE = subvention versï¿½e par les entreprises
 
  R_SUB[h,ecl,ecl2] = R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
  
@@ -740,18 +743,18 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
  
  SUB_RENOV_val = SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
   
-#---------------------  Augmentation de la sensibilité des marges aux variations de l'activité
+#---------------------  Augmentation de la sensibilitï¿½ des marges aux variations de l'activitï¿½
  
  @over dlog(1+TMD_n[sind]) = (0.4 * ( dlog(Y[sind]) -dlog(Y_e[sind]{-1})))*(@year<=2022) + _
                             (@year>2022) * (TMD_n[sind]{-1}>0.01) * (2 * ( dlog(Y[sind]) -dlog(POP_tot) - dlog(PROG_L))) + _
                             (@year>2022) * (TMD_n[sind]{-1}<=0.01) * ( dlog(Y[sind]) > (dlog(POP_tot) + dlog(PROG_L))) * _
                             (2 * ( dlog(Y[sind]) - dlog(POP_tot) - dlog(PROG_L)))   if Y[sind] > 0  #where sind in %list_sec_indus \ 02 03 06 07 08 09 10 11
                             
-#------------------ tension sur les marchés du travail bâtiment
+#------------------ tension sur les marchï¿½s du travail bï¿½timent
 
 @over d(log(W_S_n[13])) = 1*d(log(P_e)) + d(log(CFS)) + 1*d(log(PROG_L[13])) - 1.8 * (-d(L[13]{-1}* (DLog(GDP[13])-Dlog(prog_L[13]))/( L[13]{-1}/L{-1}*POP_tot{-1})))
 
-# AUgmentation de l'élasticité des exports et des imports aux prix
+# AUgmentation de l'ï¿½lasticitï¿½ des exports et des imports aux prix
 
 @over d(SUBST_X_n[c]) = (@year<=2022)*(-ES_X($c, 1) * d(log(PX[c]) - log(TC*PWD[c]))) _ 
                         +(@year>2022)*(-ES_ext_choc * d(log(PX[c]) - log(TC*PWD[c]))) if X[c] <> 0  #  where c in 05 06 12 13
@@ -768,11 +771,11 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
 @over d(SUBST_CHD_n[c])= (@year<=2022)*(- ES_LVL4_HH(1, $c) * d(log(PCHD[c]) - log(PCHM[c])) * (PCHM[c]{-1} * CHM[c]{-1} / (PCH[c]{-1} * CH[c]{-1}))) _ 
                         +(@year>2022)*(-ES_ext_choc * d(log(PCHD[c]) - log(PCHM[c])) * (PCHM[c]{-1} * CHM[c]{-1} / (PCH[c]{-1} * CH[c]{-1}))) if CHD[c] <> 0   #   where c in 05 06 12 13
 
-#------------------- politique monétaire
+#------------------- politique monï¿½taire
 
 @over d(R_DIR) = 1* d(infl_FR) + d(R_ADD) + (@year>2022) * (- 0.8 * d(Unr_tot) + 0* d(infl_FR) ) 
 
-#------------------- choc sur la substitution entre chaudières au fioul et PAC
+#------------------- choc sur la substitution entre chaudiï¿½res au fioul et PAC
  
 
  choc_PAC[ecl] = BUIL[22,ecl]/100 * coef_choc_PAC[ecl] * P_PAC
@@ -787,8 +790,8 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
 
  #@over d(log(MAT_n_12_13))  = ( @year <= 2019 )  * ( dlog(CIexo_12_13) )  + ( @year > 2019 )  * ( dlog(Y_13)  + ( 1  - choc_tech_coef )  * ( Tech_coef_var_12_13 )  + ( choc_tech_coef )  * ( Tech_coef_var_2_12_13 )  + d(SUBST_MAT_13) + d(choc_PAC)/MAT_n_12_13{-1})
  
-  @over d(log(MAT_n_12_13)) = (@year<=2019) * (dlog(CIexo_12_13)) + (@year>2019) *(dlog(Y_13) + (@year>2023)*(@year<=2030)*(Tech_coef_var_12_13 - d(SUBST_MAT_13)) + _
-                                 (@year>2030)*(Tech_coef_var_2_12_13 - d(SUBST_MAT_13)) + d(SUBST_MAT_13) ) if MAT_12_13 <> 0
+#@over d(log(MAT_n_12_13)) = (@year<=2019) * (dlog(CIexo_12_13)) + (@year>2019) *(dlog(Y_13) + (@year>2023)*(@year<=2030)*(Tech_coef_var_12_13 - d(SUBST_MAT_13)) + _
+#                                 (@year>2030)*(Tech_coef_var_2_12_13 - d(SUBST_MAT_13)) + d(SUBST_MAT_13) ) if MAT_12_13 <> 0
                                  
  @over MATD_12_13  = ( CIDexo_12_13 )  * ( @year <= 2019 )  + ( MATD_12_13{-1} * ( 1  + ( MAT_12_13 > 0 )  * ( d(MAT_12_13)  / MAT_12_13(-1)  + d(SUBST_MATD_12_13) ) ) - Prop_M_PAC * d(choc_PAC) * MATD_12_13{-1}/MAT_12_13{-1} ) * ( @year > 2019 )   
 
@@ -810,11 +813,11 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
  @over DISPINC_VAL_H01  = DISPINC_AI_VAL_H01  - IR_VAL_H01  - AIC_VAL_H01  + REDIS_VAL_H  + SUB_AUTO_VAL  + SUB_RENOV_VAL
 
 
-#-------------------- Endogénéisation de bonus_elec pour avoir un montant d'aide à l'électrification constant entre 2024 et 2030
+#-------------------- Endogï¿½nï¿½isation de bonus_elec pour avoir un montant d'aide ï¿½ l'ï¿½lectrification constant entre 2024 et 2030
 
 @over bonus_elec[h] = AME_Bonus_elec * R_bonus_elec + (1-AME_Bonus_elec)*(( @year <= 2023 )*R_bonus_elec + ( @year > 2023 )*(@year <= 2030)*(SUB_AUTO_elec*PGDP/(NewAUTO_elec[h]*@elem(PGDP,2023))) + (@year > 2030)*(bonus_elec[h]{-1}))
 
-# ------------------ Correction de la productivité des facteurs dans l'automobile
+# ------------------ Correction de la productivitï¿½ des facteurs dans l'automobile
  
  @over Prog_L_03 = (@year<=2022) * (1 + GR_Prog_L_03) * Prog_L_03{-1} + _
               (@year>2022) * ( Prog_L_03{-1} * (1 + dlog(Prog_L_VP) + GR_Prog_L_03))
@@ -826,11 +829,11 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
             
  PROG_K_VP  = (NewAUTO_th[h] * @elem( PnewAUTO_th[h]*NewAUTO[h]/K_03 , %baseyear) + NewAUTO_elec[h] * @elem(PAUTO_elec[h]*NewAUTO[h]/K_03 , %baseyear))/NewAUTO[h]
 
-#------------------ option surcoût du véhicule électrique ne correspond pas à une augmentation de la production en volume
+#------------------ option surcoï¿½t du vï¿½hicule ï¿½lectrique ne correspond pas ï¿½ une augmentation de la production en volume
 
-#gel# /!\ si cette option est active, il faut geler les lignes 779 à 787
+#gel# /!\ si cette option est active, il faut geler les lignes 779 ï¿½ 787
 #gel
-#gel#Sachant que le volume de la production est égal à  : 
+#gel#Sachant que le volume de la production est ï¿½gal ï¿½  : 
 #gel#    @over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl)+ sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h]) + _
 #gel#                      ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
 #gel#on remplace : 
@@ -839,14 +842,14 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
 #gel
  #gel@over PAUTO_elec[h,pcl] = PNewAUTO_th[h,pcl]
 #gel
-#gel# pour préserver l'équilibre comptable, il faut ajouter à l'équation EXP_03 une constante égale à  @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear) car à l'année de base, les prix sont normalisés à 1
+#gel# pour prï¿½server l'ï¿½quilibre comptable, il faut ajouter ï¿½ l'ï¿½quation EXP_03 une constante ï¿½gale ï¿½  @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear) car ï¿½ l'annï¿½e de base, les prix sont normalisï¿½s ï¿½ 1
 #gel
  #gel@over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + _
                    #gelsum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h] + @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear)) _
                    #gel+ ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
 #gel
-#gel# ainsi le volume de la production en euros constants n'inclu pas la valeur de la batterie électrique (à l'exception de celles des 1500 VE vendus en 2006), ni les surcoûts de production du véhicule électrique
-#gel# on remplace l'équation suivante : 
+#gel# ainsi le volume de la production en euros constants n'inclu pas la valeur de la batterie ï¿½lectrique (ï¿½ l'exception de celles des 1500 VE vendus en 2006), ni les surcoï¿½ts de production du vï¿½hicule ï¿½lectrique
+#gel# on remplace l'ï¿½quation suivante : 
 #gel                      
 #gel#@over dlog(PY_n_03) = 0.9*dlog(NCU_n_03) +(1-0.9)*@elem(dlog(NCU_n_03),%baseyear) + 0.15*(dlog(Y_03)-dlog(Y_e_03{-1})) _
 #gel#           + 0.01 * (log (NCU_n_03{-1}*(1+TMD_n_03{-1}))-log(PY_n_03{-1})) if Y_03 > 0  
@@ -870,7 +873,7 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
 
  ETS2 = ETSexo2 * PGDP/@elem(PGDP,2023)
  
- #-----------------  Energy efficiency credit tax for industries     (crédit d'impôt à l'efficacité énergétique dans l'industrie)
+ #-----------------  Energy efficiency credit tax for industries     (crï¿½dit d'impï¿½t ï¿½ l'efficacitï¿½ ï¿½nergï¿½tique dans l'industrie)
 
 CIEE[sinc] = (@year >2021)* T_TAX_CR[sinc] * PE[sinc]
 
@@ -879,7 +882,7 @@ TAX_CR_VAL[sinc] = - T_TAX_CR[sinc] * (d(E[sinc]/YQ[sinc])<=0) * PE[sinc]*d(E[si
 TAX_CR_VAL = sum(TAX_CR_VAL[sinc] on sinc)
         
 
-# calibrage du taux de crédit d'impôt avec 12.2 milliards de subventions pour une baisse espérée de 35MtCO2   activer AME_TCIEE_sinc et caler T_TAX_CR_sinc
+# calibrage du taux de crï¿½dit d'impï¿½t avec 12.2 milliards de subventions pour une baisse espï¿½rï¿½e de 35MtCO2   activer AME_TCIEE_sinc et caler T_TAX_CR_sinc
 
 
  EMS_SEC_sinc = sum(EMS_SEC[sinc] on sinc)
@@ -890,7 +893,7 @@ TAX_CR_VAL = sum(TAX_CR_VAL[sinc] on sinc)
   
  T_TAX_CR[sinc] =  0 + (1- AME_TCIEE_sinc)*(@year<=2030)*d(T_TAX_CR_sinc) + T_TAX_CR[sinc]{-1}
    
-# les process électriques ne sont pas éligibles au crédit d'impôt à l'efficacité énergétique (i.e = subvention à la décarbonation)
+# les process ï¿½lectriques ne sont pas ï¿½ligibles au crï¿½dit d'impï¿½t ï¿½ l'efficacitï¿½ ï¿½nergï¿½tique (i.e = subvention ï¿½ la dï¿½carbonation)
  
    PE_SECinc[ce] * E_SECinc[ce] = sum(PE[ce,sinc]*E[ce,sinc] on sinc)
    
@@ -909,7 +912,7 @@ TAX_CR_VAL = sum(TAX_CR_VAL[sinc] on sinc)
   @over d(PE_signal[23,sinc]) = d(PE_signal_23_sinc) + (@year> 2022)* (@year<= 2030) * d(tCIEE_sinc[23] * PE[23,sinc])
   @over d(PE_signal[24,sinc]) = d(PE_signal_24_sinc) + (@year> 2022)* (@year<= 2030) * d(tCIEE_sinc[24] * PE[24,sinc])  
 
-#------------------Suppression des retards dans l’industrie 
+#------------------Suppression des retards dans lï¿½industrie 
 
 #@over SUBST_K[sinc] = AME_tCIEE_sinc*( ADJUST(1  + 1  , 6)  * SUBST_K_n[sinc]  + ( 1  - ADJUST(1  + 1  , 6) )  * SUBST_K[sinc]{-1} ) + (1-AME_tCIEE_sinc)*SUBST_K_n[sinc] if K_n[sinc] <> 0
 #
@@ -967,7 +970,7 @@ TSYN_19 = @elem(TSYN_19 , 2006) + SUB_IRVE_VAL/(PY_19  * Y_19)
 
 
 
-# ---------------- Correction : choc_PAC_VAL doit être inclus dans EXP_HOUSING_Val
+# ---------------- Correction : choc_PAC_VAL doit ï¿½tre inclus dans EXP_HOUSING_Val
 
 @over EXP_HOUSING_Val[h,ecl] = ( @year > %baseyear ) * ( DEBT_REHAB_Val[h,ecl]{-1} * (R_I_REHAB[h,ecl]{-1} + R_RMBS_REHAB[h,ecl]{-1} ) _
                                                    + R_CASH_REHAB[h,ecl] * PREHAB[h,ecl] * REHAB[h,ecl] _
@@ -986,7 +989,7 @@ ARBINC_VAL[h] = DISPINC_VAL[h] - (PNEXP_H01  * NEXP[h] + EXP_HOUSING_Val[h] + Ex
                       (@year >  2019) * ((PEXP[co, h] * NEXP[co, h] + BetaExp[co, h] * _ 
                       ( ARBINC_VAL[h] * (1 - MPS_HH[h]) ))/PEXP[co, h]) if EXP[co, h] <> 0        
                                
- ##--------------- choc sur les produits manufacturés (hors 03, 13, 14, 15 et 18 qui ont leurs équations spécifiques)
+ ##--------------- choc sur les produits manufacturï¿½s (hors 03, 13, 14, 15 et 18 qui ont leurs ï¿½quations spï¿½cifiques)
                    
                 
 
@@ -1019,37 +1022,38 @@ ARBINC_VAL[h] = DISPINC_VAL[h] - (PNEXP_H01  * NEXP[h] + EXP_HOUSING_Val[h] + Ex
  BetaEXP_exo = sum((Choc_EXP[co]>0)*(BetaEXP_n[co, h]) on co) + sum((Choc_EXP[co]<0)*(BetaEXP_n[co, h]) on co)
  EXP_CES_VAL = sum((PEXP[co, h]*EXP_n[co, h] - PNEXP[co, h]*NEXP[co, h] ) on co)
                                             
- ##----------------------------- passager-kilomètre Avion 
+ ##----------------------------- passager-kilomï¿½tre Avion 
  
 @over d(log(Km_traveler[18, h])) =(@year>%baseyear)*(1.5*d(log((DISPINC_VAL[h]-choc_PAC_VAL)/PCH))-0.7*d(log(PCH_18)-log(PCH)) + choc_air_trafic) + _
                                 (@year<=%baseyear)*log(1+STEADYSTATE(2,1))
       
- ## passager-kilomètre Longue distance
+ ## passager-kilomï¿½tre Longue distance
  
 @over d(log(km_traveler_LD_h01)) =(@year>%baseyear)*(0.25*d(log((DISPINC_VAL[h]-choc_PAC_VAL)/PCH)) -0.4*((km_trav_auto_LD[h]{-1}/( km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
                              *d(log(PC_trav_14[h]/PCH)))  -0.4 *(km_traveler_14[h]{-1}/(km_traveler_14[h]{-1}+ km_trav_auto_LD[h]{-1})) _
                              * dlog( PC_trav_auto_LD[h]/PCH)) + (2006<@year)*(@year<2016)*trend_km_traveler_LD + _
                              (@year<=%baseyear)*log(1+STEADYSTATE(2,1)) 
  
- ## passager-kilomètre courte distance
+ ## passager-kilomï¿½tre courte distance
  
 @over d(log(km_traveler_CD_h01)) =(@year>%baseyear)*(0.25*d(log((DISPINC_VAL[h]-choc_PAC_VAL)/PCH)) -0.3*(km_trav_auto_CD[h]{-1}/( km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
                              *dlog(PC_trav_15[h]/PCH) - 0.3*dlog(PC_trav_auto_CD[h]/PCH) * km_traveler_15[h]{-1}/(km_traveler_15[h]{-1}+ km_trav_auto_CD[h]{-1})) _
                              + (2006<@year)*(@year<2016)*trend_km_traveler_CD + _
                              (@year<=%baseyear)*log(1+STEADYSTATE(2,1))  
 
-#------------------------- choc de productivité 
+#------------------------- choc de productivitï¿½ 
 
 GR_PROG_L[sne] = GR_PROG_L  
 
 PROG_L = PROG_L{-1}*(1+GR_PROG_L)   
     
-#---------------- distinction entre consommation énergétique spécifique et consommation de chauffage dans le résidentiel 
+#---------------- distinction entre consommation ï¿½nergï¿½tique spï¿½cifique et consommation de chauffage dans le rï¿½sidentiel 
  
+dlog(ENER_spe[h,ecl,ce]) = dlog(BUIL[h,ecl]+0.1) if ENER_spe[h,ecl,ce]<>0
                 
 ENER_spe[h,ecl] = sum(ENER_spe[h,ecl,ce] on ce)
 
-ENER_spe_val[h,ecl,ce] = PENER_BUIL[h,ecl,ce] * ENER_spe[h,ecl,ce]  if ENER_BUIL[h,ecl,ce] <>0   
+ENER_spe_val[h,ecl,ce] = PENER_BUIL[h,ecl,ce] * ENER_spe[h,ecl,ce]  if ENER_spe[h,ecl,ce] <>0   
 
 ENER_spe_val[h,ecl]  = sum(ENER_spe_val[h,ecl,ce] on ce )
 
@@ -1057,12 +1061,13 @@ ENER_spe_val[h,ecl]  = sum(ENER_spe_val[h,ecl,ce] on ce )
 
 @over ENERperM2[h, ecl, ce] = (ENERperM2[h, ecl, ce]{-1} - ENER_spe_m2[h,ecl,ce] ) *(1 + d(SUBST_BUIL[h, ecl, ce]) + TREND_E_BUIL[ce] +TREND_E_BUIL[ecl,ce]) + ENER_spe_m2[h,ecl,ce] if ENER_BUIL[h, ecl, ce] <> 0
 
+ENER_spe_m2[h,ecl,23] = ENER_spe[h,ecl,23] / (BUIL[h,ecl] + 0.1)
 
 
 
-#---------------- investissements tertiaire en EE exogènes
+#---------------- investissements tertiaire en EE exogï¿½nes
 
-## AME_renov[ster] est une indicatrice égale à 1 en AME et 0 en AMS
+## AME_renov[ster] est une indicatrice ï¿½gale ï¿½ 1 en AME et 0 en AMS
 
 @over dlog(I_MDE[ster]) = AME_renov[ster] *( 0.5 * dlog(I_MDE_n[ster]) + (1-0.5)* dlog(I_MDE[ster]{-1}) + 0.05 * (log(I_MDE_n[ster]{-1})-log(I_MDE[ster]{-1}))) _
                              + (1- AME_renov[ster]) * dlog(I_MDE_exo[ster])
@@ -1095,7 +1100,7 @@ ENER_spe_val[h,ecl]  = sum(ENER_spe_val[h,ecl,ce] on ce )
                   (1- AME_renov_20)*(K_E_des_n_20{-1}*(1 - tdec_20) + I_MDE_20)  
 
 
-# le terme sobre_19 correspond au choc de réduction du nombre de m par tête 
+# le terme sobre_19 correspond au choc de rï¿½duction du nombre de m par tï¿½te 
                         
 @over dlog(IA_n_19) = (@year<=2019) * ((IAexo_19>0)*(dlog(IAexo_19))) + (@year>2019) * _ 
                     (ADJUST(1, 1) * dlog(IA_19{-1}) + ADJUST(1, 2) * dlog(Y_e_19) + _ 
@@ -1126,15 +1131,15 @@ ENER_spe_val[h,ecl]  = sum(ENER_spe_val[h,ecl,ce] on ce )
                   #gel(1- AME_renov_19)*(K_E_des_n_19{-1}*(1 - tdec_19) + I_MDE_19)) 
 
                                              
- ##---------------- Calcul des subventions à l'achat d'automobiles
+ ##---------------- Calcul des subventions ï¿½ l'achat d'automobiles
  
- # Les formules précédentes, qui multiplient des R_SUB moyens par des prix moyens, étaient erronnées. Il faut calculer les montants de subventions classe par classe (d'énergie ou de prix) sans utiliser de taux de subvention moyen.
- # Le produit de deux moyennes n'est pas égal à la moyenne du produit, et ce que l'on veut ici c'est la moyenne du produit, ou plutôt la somme pondérée du produit (produit du R_SUB par le prix, dont la somme est calculée avec pondération par les nombre de ventes).
+ # Les formules prï¿½cï¿½dentes, qui multiplient des R_SUB moyens par des prix moyens, ï¿½taient erronnï¿½es. Il faut calculer les montants de subventions classe par classe (d'ï¿½nergie ou de prix) sans utiliser de taux de subvention moyen.
+ # Le produit de deux moyennes n'est pas ï¿½gal ï¿½ la moyenne du produit, et ce que l'on veut ici c'est la moyenne du produit, ou plutï¿½t la somme pondï¿½rï¿½e du produit (produit du R_SUB par le prix, dont la somme est calculï¿½e avec pondï¿½ration par les nombre de ventes).
  
  # Explicitation des erreurs 
  # test sub auto val
  # @over SUB_AUTO_VAL_H01_CA = R_SUB_AUTO_elec_H01  * NewAUTO_elec_H01 * PAUTO_elec_H01 + R_SUB_AUTO_th_H01_CA  * NewAUTO_th_H01_CA * PNewAUTO_th_H01_CA
- # ce test démontrait que SUB_AUTO_VAL_H01_CA n'a pas la même valeur qu'avec la formule suivante :
+ # ce test dï¿½montrait que SUB_AUTO_VAL_H01_CA n'a pas la mï¿½me valeur qu'avec la formule suivante :
  
  #SUB_AUTO_VAL_H01_CA  = R_SUB_AUTO_H01_CA  * PNewAUTO_H01_CA  * NewAUTO_H01_CA
  #
@@ -1142,19 +1147,19 @@ ENER_spe_val[h,ecl]  = sum(ENER_spe_val[h,ecl,ce] on ce )
  #
  #R_SUB_AUTO_H01_CA  * NewAUTO_H01_CA  = ( R_SUB_AUTO_elec_H01  * NewAUTO_elec_H01  + R_SUB_AUTO_th_H01_CA  * NewAUTO_th_H01_CA )
  #
- #-> développer les termes des deux lignes ci-dessus montre que SUB_AUTO_VAL_H01_CA est erroné car il contient des termes croisés insensés (mélangeant de l'elec et du thermique). Donc non seulement les sub_auto_elec_val et sub_auto_th_val sont faux (car ne prennent pas en compte les différences de prix entre classes) mais le sub_auto_val aussi puisqu'il se base sur sub_auto_val_ca (les sub_auto_val_cb jusqu'à cg sont bons car pas de mélange avec l'elec : SUB_AUTO_VAL_H01_CB  = R_SUB_AUTO_H01_CB  * PNewAUTO_H01_CB  * NewAUTO_H01_CB, avec R_SUB_AUTO_H01_CB égal à l'exogène R_SUB_AUTO_th_H01_CB).
+ #-> dï¿½velopper les termes des deux lignes ci-dessus montre que SUB_AUTO_VAL_H01_CA est erronï¿½ car il contient des termes croisï¿½s insensï¿½s (mï¿½langeant de l'elec et du thermique). Donc non seulement les sub_auto_elec_val et sub_auto_th_val sont faux (car ne prennent pas en compte les diffï¿½rences de prix entre classes) mais le sub_auto_val aussi puisqu'il se base sur sub_auto_val_ca (les sub_auto_val_cb jusqu'ï¿½ cg sont bons car pas de mï¿½lange avec l'elec : SUB_AUTO_VAL_H01_CB  = R_SUB_AUTO_H01_CB  * PNewAUTO_H01_CB  * NewAUTO_H01_CB, avec R_SUB_AUTO_H01_CB ï¿½gal ï¿½ l'exogï¿½ne R_SUB_AUTO_th_H01_CB).
  #
  #on peut modifier comme suit :
  #
  #@over SUB_AUTO_VAL_H01_CA = R_SUB_AUTO_elec_H01  * NewAUTO_elec_H01 * PAUTO_elec_H01 + R_SUB_AUTO_th_H01_CA  * NewAUTO_th_H01_CA * PNewAUTO_th_H01_CA
  #
- #mais cela reste problématique car PAUTO_elec_H01 est un prix moyen pondéré et R_SUB_AUTO_elec_H01 est un taux moyen pondéré ! (voir ci-dessous) on aura donc à nouveau des termes croisés qui ne devraient pas exister.
+ #mais cela reste problï¿½matique car PAUTO_elec_H01 est un prix moyen pondï¿½rï¿½ et R_SUB_AUTO_elec_H01 est un taux moyen pondï¿½rï¿½ ! (voir ci-dessous) on aura donc ï¿½ nouveau des termes croisï¿½s qui ne devraient pas exister.
  #
  #PAUTO_elec_H01  * NewAUTO_elec_H01  = 0  + PAUTO_elec_H01_CA  * NewAUTO_elec_H01_CA  + PAUTO_elec_H01_CB  * NewAUTO_elec_H01_CB  + PAUTO_elec_H01_CC  * NewAUTO_elec_H01_CC  + PAUTO_elec_H01_CD  * NewAUTO_elec_H01_CD  + PAUTO_elec_H01_CE  * NewAUTO_elec_H01_CE  + PAUTO_elec_H01_CF  * NewAUTO_elec_H01_CF  + PAUTO_elec_H01_CG  * NewAUTO_elec_H01_CG
  #
  #R_SUB_AUTO_elec_H01  = 0  + R_SUB_AUTO_elec_H01_CA  * phi_elec_H01_CA  + R_SUB_AUTO_elec_H01_CB  * phi_elec_H01_CB  + R_SUB_AUTO_elec_H01_CC  * phi_elec_H01_CC  + R_SUB_AUTO_elec_H01_CD  * phi_elec_H01_CD  + R_SUB_AUTO_elec_H01_CE  * phi_elec_H01_CE  + R_SUB_AUTO_elec_H01_CF  * phi_elec_H01_CF  + R_SUB_AUTO_elec_H01_CG  * phi_elec_H01_CG
 
- # Formules corrigées
+ # Formules corrigï¿½es
  
  SUB_AUTO_elec_VAL[h,pcl] = R_SUB_AUTO_elec[h,pcl] * PAUTO_elec[h,pcl] * NewAUTO_elec[h,pcl]
  
@@ -1166,14 +1171,14 @@ ENER_spe_val[h,ecl]  = sum(ENER_spe_val[h,ecl,ce] on ce )
  
  @over SUB_AUTO_VAL[h] = SUB_AUTO_elec_VAL[h] + SUB_AUTO_th_VAL[h]
  
- ##---------------- Distinction prix constants - prix courants pour l'énergie importée
+ ##---------------- Distinction prix constants - prix courants pour l'ï¿½nergie importï¿½e
  
 PWD[ce2] = PWD_constant[ce2]*(1.02)^(@year - %baseyear)
 # 
 # PWD[ce2] = PWD_constant[ce2]*PGDP
-# Tendance au plantage (notamment en 2020 baseline) dans la formulation avec PGDP, on remplace par 1.02 par an (c'est vérifié, c'est bien le taux de croissance annuel moyen de PGDP_0)
+# Tendance au plantage (notamment en 2020 baseline) dans la formulation avec PGDP, on remplace par 1.02 par an (c'est vï¿½rifiï¿½, c'est bien le taux de croissance annuel moyen de PGDP_0)
 
-##---------------- Acceleration du rythme d'extinction du nombre de véhicules thermiques après 2035
+##---------------- Acceleration du rythme d'extinction du nombre de vï¿½hicules thermiques aprï¿½s 2035
 # 
 #@over AUTO_th[h,DES,ecl] = ( @year > %baseyear )* (( @year <= 2035 ) *(delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1} ) + ( @year > 2035 ) * _
                             #((AME)*(delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1})+(1-AME)*(1/16 * @elem(AUTO_th[h,ecl],(@year=2035)))) + _
@@ -1183,7 +1188,7 @@ PWD[ce2] = PWD_constant[ce2]*(1.02)^(@year - %baseyear)
                          #( @year > 2035 ) *((AME)*(delta_AUTO[h,ecl,DES] * AUTO_th[h,ecl]{-1})+(1-AME)*(1/16 * @elem(AUTO_th[h,ecl],(@year=2035))))) + _
                          #( @year <= %baseyear ) * (AUTO_th[h,ecl]{-1} * STEADYSTATE(2,1))
 
-#----------------- introduction d'une aide à l'electrification des poids lourds bus et cars
+#----------------- introduction d'une aide ï¿½ l'electrification des poids lourds bus et cars
 
                      
 @over Trucks[ce,road] = phi_Trucks[ce,road] * Trucks[road] where ce  in %list_com_E \ 21
@@ -1238,9 +1243,9 @@ PNew_Trucks[road] * New_trucks[road] = sum( PNew_Trucks[ce,road] * New_trucks[ce
 
 PNew_Trucks_cst[road] * New_trucks[road] = sum( PNew_Trucks_cst[ce,road] * New_trucks[ce,road] on ce) 
 
-PNew_LUV[16] * New_LUV[16] = sum( PNew_LUV[ce,16] * New_LUV[ce,16] on ce)                  #PLUV est un prix réel en k€ 
+PNew_LUV[16] * New_LUV[16] = sum( PNew_LUV[ce,16] * New_LUV[ce,16] on ce)                  #PLUV est un prix rï¿½el en kï¿½ 
 
-PNew_LUV_cst[16] * New_LUV[16] = sum( PNew_LUV_cst[ce,16] * New_LUV[ce,16] on ce)                  #PLUV est un prix réel en k€
+PNew_LUV_cst[16] * New_LUV[16] = sum( PNew_LUV_cst[ce,16] * New_LUV[ce,16] on ce)                  #PLUV est un prix rï¿½el en kï¿½
 
 PTrucks[road] * Trucks[road]  = PNew_trucks[road] * New_trucks[road] + PTrucks[road]{-1} * Trucks[road]{-1}*(1-tdec[road])
 
@@ -1290,7 +1295,7 @@ PNew_Trucks[ce,road] = PNew_Trucks_cst[ce,road]*PMAT_03[road]
                          
                          
 ################## Correction bug 2026   NA generated for KM_AUTO_ELEC_H01_CF - Log of non positive number                      
-# le terme phi_elec_H01_CF est négatif en 2026  alors qu'il est égal à  =  phi_elec_e_H01_CF  / phi_elec_n_tot_H01 qui sont deux termes positifs. Pour renforcer la robustesse du modèle on écrit 
+# le terme phi_elec_H01_CF est nï¿½gatif en 2026  alors qu'il est ï¿½gal ï¿½  =  phi_elec_e_H01_CF  / phi_elec_n_tot_H01 qui sont deux termes positifs. Pour renforcer la robustesse du modï¿½le on ï¿½crit 
 
 @over phi_elec_H01_CF * phi_elec_n_tot_H01 =  phi_elec_e_H01_CF  
 @over phi_elec_e_H01_CF  = ( phi_elec_n_H01_CF > 0 )  * phi_elec_n_H01_CF  + ( phi_elec_n_H01_CF <= 0 )  * 0.001

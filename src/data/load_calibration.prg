@@ -103,4 +103,11 @@ subroutine load_calibration
   
   matrix(37,37) TECH_COEF_VAR_2                         ' Matrix of the TECHNICAL COEFFICIENT VARIATION  in choc scenario
   TECH_COEF_VAR_2.read(B3,s=technical_coef_var_2) {%data_calibration}
+
+  matrix(37,37) TECH_COEF_VAR_AMS                         ' Matrix of the TECHNICAL COEFFICIENT VARIATION
+  TECH_COEF_VAR_AMS.read(B3,s=technical_coef_var_ams) {%data_calibration}
+  
+  matrix(37,37) TECH_COEF_VAR_AMS2                      ' Matrix of the TECHNICAL COEFFICIENT VARIATION  in choc scenario
+  TECH_COEF_VAR_AMS2.read(B3,s=technical_coef_var_ams2) {%data_calibration}
+
 endsub

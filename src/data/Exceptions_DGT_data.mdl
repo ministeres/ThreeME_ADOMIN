@@ -463,3 +463,9 @@ W_S_ademe[s] := W_S[s]
 
 CIdgt[s] := E[s] + MAT[s]
 PCIdgt[s] * CIdgt[s] := PE[s] * E[s] + PMAT[s] * MAT[s]
+
+@over IA_n_des_14 := IA_notionnel_noshock_14  
+
+@over IA_n_14 := IA_n_des_14 
+
+@over IA_notionnel_noshock_14  := K_n_14 - K_n_14{-1}*(1-tdec_14{-1})

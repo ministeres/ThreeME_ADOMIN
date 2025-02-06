@@ -52,7 +52,7 @@ SUBST_IAD_12_2302 = ADJUST(13, 6) * SUBST_IAD_n_12_2302 + ( 1 - ADJUST(13, 6) ) 
 SUBST_IAD_12_2308 = ADJUST(13, 6) * SUBST_IAD_n_12_2308 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_12_2308(-1)
 d(SUBST_CHM_n_17) = - ES_LVL4_HH(1, 17) * d(log(PCHM_17) - log(PCHD_17)) * ( PCHD_17(-1) * CHD_17(-1) / ( PCH_17(-1) * CH_17(-1) ) )
 d(SUBST_CHM_n_16) = - ES_LVL4_HH(1, 16) * d(log(PCHM_16) - log(PCHD_16)) * ( PCHD_16(-1) * CHD_16(-1) / ( PCH_16(-1) * CH_16(-1) ) )
-d(log(MAT_n_08_20)) = ( @year <= 2019 ) * ( dlog(CIexo_08_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_08_20)) = ( @year <= 2019 ) * ( dlog(CIexo_08_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 d(SUBST_CHM_n_14) = - ES_LVL4_HH(1, 14) * d(log(PCHM_14) - log(PCHD_14)) * ( PCHD_14(-1) * CHD_14(-1) / ( PCH_14(-1) * CH_14(-1) ) )
 d(SUBST_CHM_n_12) = - ES_LVL4_HH(1, 12) * d(log(PCHM_12) - log(PCHD_12)) * ( PCHD_12(-1) * CHD_12(-1) / ( PCH_12(-1) * CH_12(-1) ) )
 d(SUBST_CHM_n_11) = - ES_LVL4_HH(1, 11) * d(log(PCHM_11) - log(PCHD_11)) * ( PCHD_11(-1) * CHD_11(-1) / ( PCH_11(-1) * CH_11(-1) ) )
@@ -510,7 +510,7 @@ d(log(PY_e_2308)) = 0.05 * d(log(PY_e_2308(-1))) + 0.65 * d(log(PY_2308(-1))) + 
 MC = MCD + MCM
 verif_E_oth_2202 = 0 + E_oth_21_2202 + E_oth_22_2202 + E_oth_23_2202 + E_oth_24_2202 - E_oth_2202
 verif_E_oth_2201 = 0 + E_oth_21_2201 + E_oth_22_2201 + E_oth_23_2201 + E_oth_24_2201 - E_oth_2201
-d(log(IA_notionnel_noshock_20)) = d(log(Y_20)) + ( 1 - AME_renov_20 ) * d(SUBST_K_20) - d(log(PROG_K_20)) + AME_renov_20 * ( d(SUBST_K_NE_20) )
+d(log(IA_notionnel_noshock_20)) = d(log(Y_20)) + ( AME_renov_20 ) * d(SUBST_K_20) - d(log(PROG_K_20)) + ( 1 - AME_renov_20 ) * ( d(SUBST_K_NE_20) )
 MT = MTD + MTM
 d(SUBST_BUIL_H01_CD_21) = ( @year > 2006 ) * ( 0 + - ES_BUILNRJ(4, cols_ce(21, 22)) * d(log(PEXP_21_H01 + PE_Signal_H_21) - log(PEXP_22_H01 + PE_Signal_H_22)) * ( EXP_BUIL_H01_CD_22(-1) ) / ( EXP_BUIL_H01_CD(-1) ) + - ES_BUILNRJ(4, cols_ce(21, 23)) * d(log(PEXP_21_H01 + PE_Signal_H_21) - log(PEXP_23_H01 + PE_Signal_H_23)) * ( EXP_BUIL_H01_CD_23(-1) ) / ( EXP_BUIL_H01_CD(-1) ) + - ES_BUILNRJ(4, cols_ce(21, 24)) * d(log(PEXP_21_H01 + PE_Signal_H_21) - log(PEXP_24_H01 + PE_Signal_H_24)) * ( EXP_BUIL_H01_CD_24(-1) ) / ( EXP_BUIL_H01_CD(-1) ) )
 d(SUBST_BUIL_H01_CD_23) = ( @year > 2006 ) * ( 0 + - ES_BUILNRJ(4, cols_ce(23, 21)) * d(log(PEXP_23_H01 + PE_Signal_H_23) - log(PEXP_21_H01 + PE_Signal_H_21)) * ( EXP_BUIL_H01_CD_21(-1) ) / ( EXP_BUIL_H01_CD(-1) ) + - ES_BUILNRJ(4, cols_ce(23, 22)) * d(log(PEXP_23_H01 + PE_Signal_H_23) - log(PEXP_22_H01 + PE_Signal_H_22)) * ( EXP_BUIL_H01_CD_22(-1) ) / ( EXP_BUIL_H01_CD(-1) ) + - ES_BUILNRJ(4, cols_ce(23, 24)) * d(log(PEXP_23_H01 + PE_Signal_H_23) - log(PEXP_24_H01 + PE_Signal_H_24)) * ( EXP_BUIL_H01_CD_24(-1) ) / ( EXP_BUIL_H01_CD(-1) ) )
@@ -691,12 +691,12 @@ CIDexo_18_03 = ( CIexo_18_03 - CIMexo_18_03 > 0 ) * ( CIexo_18_03 - CIMexo_18_03
 CIDexo_18_02 = ( CIexo_18_02 - CIMexo_18_02 > 0 ) * ( CIexo_18_02 - CIMexo_18_02 ) + ( CIexo_18_02 - CIMexo_18_02 <= 0 ) * 0.0001
 CIDexo_18_09 = ( CIexo_18_09 - CIMexo_18_09 > 0 ) * ( CIexo_18_09 - CIMexo_18_09 ) + ( CIexo_18_09 - CIMexo_18_09 <= 0 ) * 0.0001
 CIDexo_18_08 = ( CIexo_18_08 - CIMexo_18_08 > 0 ) * ( CIexo_18_08 - CIMexo_18_08 ) + ( CIexo_18_08 - CIMexo_18_08 <= 0 ) * 0.0001
-d(log(MAT_n_10_01)) = ( @year <= 2019 ) * ( dlog(CIexo_10_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_10_03)) = ( @year <= 2019 ) * ( dlog(CIexo_10_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_10_05)) = ( @year <= 2019 ) * ( dlog(CIexo_10_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_10_04)) = ( @year <= 2019 ) * ( dlog(CIexo_10_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_10_09)) = ( @year <= 2019 ) * ( dlog(CIexo_10_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_10_08)) = ( @year <= 2019 ) * ( dlog(CIexo_10_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_10_01)) = ( @year <= 2019 ) * ( dlog(CIexo_10_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_10_03)) = ( @year <= 2019 ) * ( dlog(CIexo_10_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_10_05)) = ( @year <= 2019 ) * ( dlog(CIexo_10_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_10_04)) = ( @year <= 2019 ) * ( dlog(CIexo_10_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_10_09)) = ( @year <= 2019 ) * ( dlog(CIexo_10_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_10_08)) = ( @year <= 2019 ) * ( dlog(CIexo_10_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
 R_SNF_21 = 1 / 4 * d(R_21) + ( 1 - 1 / 4 ) * R_SNF_21(-1)
 dlog(CIexo_09_19) = dlog(CIexo_09)
 dlog(CIexo_09_18) = dlog(CIexo_09)
@@ -945,7 +945,6 @@ d(SUBST_MATD_n_18_2401) = ( @year <= 2022 ) * ( - ES_CIM(32, 18) * d(log(PMATD_1
 d(SUBST_MATD_n_18_2406) = ( @year <= 2022 ) * ( - ES_CIM(37, 18) * d(log(PMATD_18) - log(PMATM_18)) * ( PMATM_18(-1) * MATM_18_2406(-1) / ( PMAT_18_2406(-1) * MAT_18_2406(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_18) - log(PMATM_18)) * ( PMATM_18(-1) * MATM_18_2406(-1) / ( PMAT_18_2406(-1) * MAT_18_2406(-1) ) ) )
 d(SUBST_MATD_n_18_2404) = ( @year <= 2022 ) * ( - ES_CIM(35, 18) * d(log(PMATD_18) - log(PMATM_18)) * ( PMATM_18(-1) * MATM_18_2404(-1) / ( PMAT_18_2404(-1) * MAT_18_2404(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_18) - log(PMATM_18)) * ( PMATM_18(-1) * MATM_18_2404(-1) / ( PMAT_18_2404(-1) * MAT_18_2404(-1) ) ) )
 d(SUBST_MATD_n_18_2405) = ( @year <= 2022 ) * ( - ES_CIM(36, 18) * d(log(PMATD_18) - log(PMATM_18)) * ( PMATM_18(-1) * MATM_18_2405(-1) / ( PMAT_18_2405(-1) * MAT_18_2405(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_18) - log(PMATM_18)) * ( PMATM_18(-1) * MATM_18_2405(-1) / ( PMAT_18_2405(-1) * MAT_18_2405(-1) ) ) )
-E_22_2304 = E_indus_22_2304 + E_oth_22_2304
 CID_10_2402 = MATD_10_2402
 CID_10_2403 = MATD_10_2403
 CID_10_2401 = MATD_10_2401
@@ -968,7 +967,7 @@ dlog(CIMexo_06_16) = dlog(QMexo_06)
 REC_VAL_SEC_TCO_22_01 = Ttco_22 * EMS_SEC_22_01 * ( 1 - EXO_22_01 )
 dlog(CIMexo_06_14) = dlog(QMexo_06)
 REC_VAL_SEC_TCO_22_03 = Ttco_22 * EMS_SEC_22_03 * ( 1 - EXO_22_03 )
-REC_VAL_SEC_TCO_22_04 = Ttco_22 * EMS_SEC_22_04 * ( 1 - EXO_22_04 )
+dlog(CIMexo_06_12) = dlog(QMexo_06)
 dlog(CIMexo_06_13) = dlog(QMexo_06)
 REC_VAL_SEC_TCO_22_06 = Ttco_22 * EMS_SEC_22_06 * ( 1 - EXO_22_06 )
 dlog(CIMexo_06_11) = dlog(QMexo_06)
@@ -1119,7 +1118,7 @@ d(log(IAM_des_n_12_02)) = 1.55 * dlog(QD_12) - 0.41 * ( log(IAM_des_n_12_02(-1))
 d(log(IAM_des_n_12_01)) = 1.55 * dlog(QD_12) - 0.41 * ( log(IAM_des_n_12_01(-1)) - log(IA_n_12_01(-1)) + 0.48 * ( log(PIAM_12(-1)) - log(PIAD_12(-1)) ) )
 dlog(CIMexo_14_06) = dlog(QMexo_14)
 d(log(EMS_SEC_24_2401)) = ( @year > 2006 ) * d(log(Q_Mtep_int_2401)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
-d(log(MAT_n_17_07)) = ( @year <= 2019 ) * ( dlog(CIexo_17_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_17_07)) = ( @year <= 2019 ) * ( dlog(CIexo_17_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
 DEBT_G_VAL = DEBT_G_VAL(-1) + BF_G_VAL
 PMAT_18_20 * MAT_18_20 = PMATD_18 * MATD_18_20 + PMATM_18 * MATM_18_20
 MAT_bis_dgt_03_20 = MATD_03_20 + MATM_03_20
@@ -1138,10 +1137,7 @@ IS_07 = @elem(TIS * PRF_07(-1), 2006) * RF_07(-1) * ( RF_07(-1) > 0 ) + 1e-08 * 
 IS_04 = @elem(TIS * PRF_04(-1), 2006) * RF_04(-1) * ( RF_04(-1) > 0 ) + 1e-08 * ( RF_04(-1) =< 0 )
 IS_05 = @elem(TIS * PRF_05(-1), 2006) * RF_05(-1) * ( RF_05(-1) > 0 ) + 1e-08 * ( RF_05(-1) =< 0 )
 SUBST_MATD_07_05 = ADJUST(9, 6) * SUBST_MATD_n_07_05 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_07_05(-1)
-ENER_spe_val_H01_CE_21 = PENER_BUIL_H01_CE_21 * ENER_spe_H01_CE_21
 ENER_spe_val_H01_CE_23 = PENER_BUIL_H01_CE_23 * ENER_spe_H01_CE_23
-ENER_spe_val_H01_CE_22 = PENER_BUIL_H01_CE_22 * ENER_spe_H01_CE_22
-ENER_spe_val_H01_CE_24 = PENER_BUIL_H01_CE_24 * ENER_spe_H01_CE_24
 d(SUBST_MATD_n_12_2202) = ( @year <= 2022 ) * ( - ES_CIM(23, 12) * d(log(PMATD_12) - log(PMATM_12)) * ( PMATM_12(-1) * MATM_12_2202(-1) / ( PMAT_12_2202(-1) * MAT_12_2202(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_12) - log(PMATM_12)) * ( PMATM_12(-1) * MATM_12_2202(-1) / ( PMAT_12_2202(-1) * MAT_12_2202(-1) ) ) )
 d(SUBST_MATD_n_12_2201) = ( @year <= 2022 ) * ( - ES_CIM(22, 12) * d(log(PMATD_12) - log(PMATM_12)) * ( PMATM_12(-1) * MATM_12_2201(-1) / ( PMAT_12_2201(-1) * MAT_12_2201(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_12) - log(PMATM_12)) * ( PMATM_12(-1) * MATM_12_2201(-1) / ( PMAT_12_2201(-1) * MAT_12_2201(-1) ) ) )
 PMAT_17_19 * MAT_17_19 = PMATD_17 * MATD_17_19 + PMATM_17 * MATM_17_19
@@ -1599,8 +1595,8 @@ MAT_bis_dgt_05_09 = MATD_05_09 + MATM_05_09
 MAT_bis_dgt_05_08 = MATD_05_08 + MATM_05_08
 Y_01_01 = PhiY_01_01 * YQ_01
 d(SUBST_E_22_20) = 0.8 * d(SUBST_E_n_22_20) + ( 1 - 0.8 ) * d(SUBST_E_22_20(-1))
-REDIS_VAL_SEC_ETS2_18 = REC_VAL_SEC_ETS2_18
-REDIS_VAL_SEC_ETS2_10 = REC_VAL_SEC_ETS2_10
+REDIS_VAL_SEC_ETS2_18 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_18
+REDIS_VAL_SEC_ETS2_10 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_10
 MATD_10_14 = ( CIDexo_10_14 ) * ( @year <= 2019 ) + ( ( MAT_10_14 - MATM_10_14 > 0 ) * ( MAT_10_14 - MATM_10_14 ) + ( MAT_10_14 - MATM_10_14 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_10_16 = ( CIDexo_10_16 ) * ( @year <= 2019 ) + ( ( MAT_10_16 - MATM_10_16 > 0 ) * ( MAT_10_16 - MATM_10_16 ) + ( MAT_10_16 - MATM_10_16 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_10_17 = ( CIDexo_10_17 ) * ( @year <= 2019 ) + ( ( MAT_10_17 - MATM_10_17 > 0 ) * ( MAT_10_17 - MATM_10_17 ) + ( MAT_10_17 - MATM_10_17 <= 0 ) * 0.0001 ) * ( @year > 2019 )
@@ -1746,8 +1742,8 @@ PMTD_16_12 = YQ_16 / ( YQ_16 + M_16 ) * PYQS_16 + M_16 / ( YQ_16 + M_16 ) * PMS_
 CU_n_des_20 * Y_20 = CK_20 * K_n_20 + CL_20 * L_n_20 * PROG_L_20 + ( PE_20 + PE_CEE_n_20 + PE_signal_bis_20 ) * E_n_20 + PMAT_20 * MAT_n_20
 CU_n_des_21 * Y_21 = CK_21 * K_n_21 + CL_21 * L_n_21 * PROG_L_21 + ( PE_21 + PE_CEE_n_21 + PE_signal_bis_21 ) * E_n_21 + PMAT_21 * MAT_n_21
 I_MDE_24_16 = PNew_Trucks_cst_24_16 * New_trucks_24_16 + PNew_LUV_cst_24_16 * New_LUV_24_16
-REDIS_VAL_SEC_TCO_2201 = REC_VAL_SEC_TCO_2201
-REDIS_VAL_SEC_TCO_2202 = REC_VAL_SEC_TCO_2202
+REDIS_VAL_SEC_TCO_2201 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2201
+REDIS_VAL_SEC_TCO_2202 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2202
 UC_M_auto_th_H01 = ( HOUSEHOLD_HYBRID_AUTO(219, 1) * PCH_03 / 100 * km_auto_th_H01 / ( auto_H01 - auto_elec_H01 ) ) / 1000
 PIA_13_09 * IA_13_09 = PIAD_13 * IAD_13_09 + PIAM_13 * IAM_13_09
 PIA_13_08 * IA_13_08 = PIAD_13 * IAD_13_08 + PIAM_13 * IAM_13_08
@@ -2060,8 +2056,8 @@ dlog(CIexo_14_11) = dlog(CIexo_14)
 dlog(CIexo_14_10) = dlog(CIexo_14)
 dlog(CIexo_14_13) = dlog(CIexo_14)
 dlog(CIexo_14_12) = dlog(CIexo_14)
-d(log(MAT_n_03_09)) = ( @year <= 2019 ) * ( dlog(CIexo_03_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_03_08)) = ( @year <= 2019 ) * ( dlog(CIexo_03_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_03_09)) = ( @year <= 2019 ) * ( dlog(CIexo_03_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_03_08)) = ( @year <= 2019 ) * ( dlog(CIexo_03_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
 dlog(CIexo_14_19) = dlog(CIexo_14)
 dlog(CIexo_14_18) = dlog(CIexo_14)
 PCID_08_2202 = PMATD_08
@@ -2153,6 +2149,9 @@ d(SUBST_XM_n_12) = - ES_X(12, 2) * d(log(PXM_12) - log(PXD_12)) * kappa_XD_dgt_1
 SUBST_MAT_17_2202 = ADJUST(6, 6) * SUBST_MAT_n_17_2202 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_2202(-1) )
 SUBST_MAT_17_2201 = ADJUST(6, 6) * SUBST_MAT_n_17_2201 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_2201(-1) )
 U_auto_th_H01 * @elem(NewAUTO_th_H01, 2006) = 0 + U_auto_th_H01_CA * @elem(NewAUTO_th_H01_CA, 2006) + U_auto_th_H01_CB * @elem(NewAUTO_th_H01_CB, 2006) + U_auto_th_H01_CC * @elem(NewAUTO_th_H01_CC, 2006) + U_auto_th_H01_CD * @elem(NewAUTO_th_H01_CD, 2006) + U_auto_th_H01_CE * @elem(NewAUTO_th_H01_CE, 2006) + U_auto_th_H01_CF * @elem(NewAUTO_th_H01_CF, 2006) + U_auto_th_H01_CG * @elem(NewAUTO_th_H01_CG, 2006)
+phiy_E_21_2308 = PhiY_ener_exo_21_2308 + Q_Mtep_FC_2308 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2302 = PhiY_ener_exo_21_2302 + Q_Mtep_FC_2302 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2303 = PhiY_ener_exo_21_2303 + Q_Mtep_FC_2303 / Q_Mtep_ef_tot_SOU_21
 phi_REHAB_n_H01_CE_CD = ( phi_REHAB_des_n_H01_CE_CD > 0 ) * phi_REHAB_des_n_H01_CE_CD
 IC_22_15 = PhiY_ener_22_2201
 IC_22_14 = PhiY_ener_22_2201
@@ -2304,18 +2303,18 @@ MATD_05_19 = ( CIDexo_05_19 ) * ( @year <= 2019 ) + ( ( MAT_05_19 - MATM_05_19 >
 d(SUBST_E_23_2301) = 0.8 * d(SUBST_E_n_23_2301) + ( 1 - 0.8 ) * d(SUBST_E_23_2301(-1))
 d(SUBST_E_23_2302) = 0.8 * d(SUBST_E_n_23_2302) + ( 1 - 0.8 ) * d(SUBST_E_23_2302(-1))
 d(SUBST_E_23_2303) = 0.8 * d(SUBST_E_n_23_2303) + ( 1 - 0.8 ) * d(SUBST_E_23_2303(-1))
-d(log(MAT_n_14_12)) = ( @year <= 2019 ) * ( dlog(CIexo_14_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_14_13)) = ( @year <= 2019 ) * ( dlog(CIexo_14_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_14_12)) = ( @year <= 2019 ) * ( dlog(CIexo_14_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_14_13)) = ( @year <= 2019 ) * ( dlog(CIexo_14_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 MAT_bis_dgt_11_19 = MATD_11_19 + MATM_11_19
-d(log(MAT_n_14_11)) = ( @year <= 2019 ) * ( dlog(CIexo_14_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_14_16)) = ( @year <= 2019 ) * ( dlog(CIexo_14_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_14_11)) = ( @year <= 2019 ) * ( dlog(CIexo_14_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_14_16)) = ( @year <= 2019 ) * ( dlog(CIexo_14_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
 PMAT_16_2201 * MAT_16_2201 = PMATD_16 * MATD_16_2201 + PMATM_16 * MATM_16_2201
-d(log(MAT_n_14_14)) = ( @year <= 2019 ) * ( dlog(CIexo_14_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_14_15)) = ( @year <= 2019 ) * ( dlog(CIexo_14_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_14_14)) = ( @year <= 2019 ) * ( dlog(CIexo_14_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_14_15)) = ( @year <= 2019 ) * ( dlog(CIexo_14_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
 MAT_bis_dgt_11_13 = MATD_11_13 + MATM_11_13
 MAT_bis_dgt_11_12 = MATD_11_12 + MATM_11_12
-d(log(MAT_n_14_18)) = ( @year <= 2019 ) * ( dlog(CIexo_14_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_14_19)) = ( @year <= 2019 ) * ( dlog(CIexo_14_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_14_18)) = ( @year <= 2019 ) * ( dlog(CIexo_14_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_14_19)) = ( @year <= 2019 ) * ( dlog(CIexo_14_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 MAT_bis_dgt_11_17 = MATD_11_17 + MATM_11_17
 MAT_bis_dgt_11_16 = MATD_11_16 + MATM_11_16
 MAT_bis_dgt_11_15 = MATD_11_15 + MATM_11_15
@@ -2329,16 +2328,16 @@ kappa_mat_dgt_15_2303 = ( PMAT_15_2303 * MAT_15_2303 / ( PMAT_2303 * MAT_2303 ) 
 kappa_mat_dgt_15_2301 = ( PMAT_15_2301 * MAT_15_2301 / ( PMAT_2301 * MAT_2301 ) )
 ED_24_2308 = ( ( 1 + d(E_24_2308) / E_24_2308(-1) + d(SUBST_ED_24_2308) ) * ED_24_2308(-1) ) * ( @year <= 2019 ) + ( ( E_24_2308 - EM_24_2308 > 0 ) * ( E_24_2308 - EM_24_2308 ) + ( E_24_2308 - EM_24_2308 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 kappa_mat_dgt_15_2308 = ( PMAT_15_2308 * MAT_15_2308 / ( PMAT_2308 * MAT_2308 ) )
-d(log(MAT_n_16_14)) = ( @year <= 2019 ) * ( dlog(CIexo_16_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_16_15)) = ( @year <= 2019 ) * ( dlog(CIexo_16_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_16_16)) = ( @year <= 2019 ) * ( dlog(CIexo_16_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_16_17)) = ( @year <= 2019 ) * ( dlog(CIexo_16_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_16_10)) = ( @year <= 2019 ) * ( dlog(CIexo_16_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_16_11)) = ( @year <= 2019 ) * ( dlog(CIexo_16_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_16_12)) = ( @year <= 2019 ) * ( dlog(CIexo_16_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_16_13)) = ( @year <= 2019 ) * ( dlog(CIexo_16_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_16_18)) = ( @year <= 2019 ) * ( dlog(CIexo_16_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_16_19)) = ( @year <= 2019 ) * ( dlog(CIexo_16_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_16_14)) = ( @year <= 2019 ) * ( dlog(CIexo_16_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_16_15)) = ( @year <= 2019 ) * ( dlog(CIexo_16_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_16_16)) = ( @year <= 2019 ) * ( dlog(CIexo_16_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_16_17)) = ( @year <= 2019 ) * ( dlog(CIexo_16_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_16_10)) = ( @year <= 2019 ) * ( dlog(CIexo_16_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_16_11)) = ( @year <= 2019 ) * ( dlog(CIexo_16_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_16_12)) = ( @year <= 2019 ) * ( dlog(CIexo_16_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_16_13)) = ( @year <= 2019 ) * ( dlog(CIexo_16_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_16_18)) = ( @year <= 2019 ) * ( dlog(CIexo_16_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_16_19)) = ( @year <= 2019 ) * ( dlog(CIexo_16_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 phi_E_indus_21_2302 * ( ( E_indus_des_2302 > 0 ) * E_indus_des_2302 + ( E_indus_des_2302 <= 0 ) ) = ( E_indus_des_2302 > 0 ) * E_indus_des_21_2302 + ( E_indus_des_2302 <= 0 ) * 0
 phi_E_indus_21_2303 * ( ( E_indus_des_2303 > 0 ) * E_indus_des_2303 + ( E_indus_des_2303 <= 0 ) ) = ( E_indus_des_2303 > 0 ) * E_indus_des_21_2303 + ( E_indus_des_2303 <= 0 ) * 0
 phi_E_indus_21_2301 * ( ( E_indus_des_2301 > 0 ) * E_indus_des_2301 + ( E_indus_des_2301 <= 0 ) ) = ( E_indus_des_2301 > 0 ) * E_indus_des_21_2301 + ( E_indus_des_2301 <= 0 ) * 0
@@ -2356,6 +2355,7 @@ d(log(CUR_test_02)) = 0.6 * d(log(CUR_bis_02)) + 0.4 * d(log(CUR_cible_02)) - 0.
 d(log(CUR_test_01)) = 0.6 * d(log(CUR_bis_01)) + 0.4 * d(log(CUR_cible_01)) - 0.6 * ( log(CUR_test_01(-1)) - log(CUR_cible_01(-1)) )
 d(log(CUR_test_09)) = 0.6 * d(log(CUR_bis_09)) + 0.4 * d(log(CUR_cible_09)) - 0.6 * ( log(CUR_test_09(-1)) - log(CUR_cible_09(-1)) )
 d(log(CUR_test_08)) = 0.6 * d(log(CUR_bis_08)) + 0.4 * d(log(CUR_cible_08)) - 0.6 * ( log(CUR_test_08(-1)) - log(CUR_cible_08(-1)) )
+phiy_ener_22_21 = phiy_E_22_21 / PhiY_E_22
 E_bis_dgt_23_18 = ED_23_18 + EM_23_18
 PMTM_17 * MTM_17 = - M_17 / ( YQ_17 + M_17 ) * ( 0 + PMTD_17_01 * MTD_17_01 + PMTM_17_01 * MTM_17_01 + PMTD_17_02 * MTD_17_02 + PMTM_17_02 * MTM_17_02 + PMTD_17_03 * MTD_17_03 + PMTM_17_03 * MTM_17_03 + PMTD_17_04 * MTD_17_04 + PMTM_17_04 * MTM_17_04 + PMTD_17_05 * MTD_17_05 + PMTM_17_05 * MTM_17_05 + PMTD_17_06 * MTD_17_06 + PMTM_17_06 * MTM_17_06 + PMTD_17_07 * MTD_17_07 + PMTM_17_07 * MTM_17_07 + PMTD_17_08 * MTD_17_08 + PMTM_17_08 * MTM_17_08 + PMTD_17_09 * MTD_17_09 + PMTM_17_09 * MTM_17_09 + PMTD_17_10 * MTD_17_10 + PMTM_17_10 * MTM_17_10 + PMTD_17_11 * MTD_17_11 + PMTM_17_11 * MTM_17_11 + PMTD_17_12 * MTD_17_12 + PMTM_17_12 * MTM_17_12 + PMTD_17_21 * MTD_17_21 + PMTM_17_21 * MTM_17_21 + PMTD_17_22 * MTD_17_22 + PMTM_17_22 * MTM_17_22 + PMTD_17_24 * MTD_17_24 + PMTM_17_24 * MTM_17_24 )
 IY_2402 = @elem(TIYN_2402, 2006) * Y_2402
@@ -2575,7 +2575,7 @@ phi_K_bis_2201 = K_2201 * CK_2201 / ( K_2201 * CK_2201 + L_2201 * PROG_L_2201 * 
 phi_K_bis_2202 = K_2202 * CK_2202 / ( K_2202 * CK_2202 + L_2202 * PROG_L_2202 * CL_2202 + E_2202 * ( PE_2202 + PE_CEE_2202 + PE_signal_bis_2202 ) + MAT_2202 * PMAT_2202 )
 AUTO_elec_D_H01_CB = AUTO_D
 AUTO_elec_D_H01_CC = AUTO_D
-E_oth_des_22_16 = E_oth_des_22_16(-1) * ( 1 + d(log(E_oth_n_16)) + d(SUBST_E_22_16) ) - Choc_E_oth_des_24_16
+E_oth_des_22_16 = E_oth_n_22_16
 AUTO_elec_D_H01_CA = AUTO_D
 AUTO_elec_D_H01_CF = AUTO_D
 AUTO_elec_D_H01_CG = AUTO_D
@@ -2596,23 +2596,23 @@ PCIM_24_2401 = PEM_24_2401
 PDS_10 = ( @year <= 2006 ) * PYQS_10 + ( @year > 2006 ) * ( ( PDSD_10 * DSD_10 + PDSM_10 * DSM_10 ) / ( DS_10 + 1 ) )
 verif_IA_dgt_05_20 = IA_n_05_20 - IA_bis_dgt_05_20
 d(log(E_oth_des_24_19)) = d(log(E_oth_19)) + d(SUBST_E_24_19)
-E_oth_des_24_16 = E_oth_des_24_16(-1) * ( 1 + d(log(E_oth_n_16)) + d(SUBST_E_24_16) ) + Choc_E_oth_des_24_16
-E_oth_des_24_17 = E_oth_des_24_17(-1) * ( 1 + d(log(E_oth_n_17)) + d(SUBST_E_24_17) ) + Choc_E_oth_des_24_17
+E_oth_des_24_16 = E_oth_n_24_16
+d(log(E_oth_des_24_17)) = d(log(E_oth_17)) + d(SUBST_E_24_17)
 d(log(E_oth_des_24_14)) = d(log(E_oth_14)) + d(SUBST_E_24_14)
-E_oth_des_24_15 = E_oth_des_24_15(-1) * ( 1 + d(log(E_oth_n_15)) + d(SUBST_E_24_15) ) + Choc_E_oth_des_24_15
+E_oth_des_24_15 = E_oth_n_24_15
 d(log(E_oth_des_24_12)) = d(log(E_oth_12)) + d(SUBST_E_24_12)
 d(log(E_oth_des_24_13)) = d(log(E_oth_13)) + d(SUBST_E_24_13)
 d(log(E_oth_des_24_10)) = d(log(E_oth_10)) + d(SUBST_E_24_10)
 d(log(E_oth_des_24_11)) = d(log(E_oth_11)) + d(SUBST_E_24_11)
 ED_22_2201 = ( ( 1 + d(E_22_2201) / E_22_2201(-1) + d(SUBST_ED_22_2201) ) * ED_22_2201(-1) ) * ( @year <= 2019 ) + ( ( E_22_2201 - EM_22_2201 > 0 ) * ( E_22_2201 - EM_22_2201 ) + ( E_22_2201 - EM_22_2201 <= 0 ) * 0.0001 ) * ( @year > 2019 )
-REDIS_VAL_SEC_ETS_07 = REC_VAL_SEC_ETS_07
-REDIS_VAL_SEC_ETS_06 = REC_VAL_SEC_ETS_06
-REDIS_VAL_SEC_ETS_05 = REC_VAL_SEC_ETS_05
-REDIS_VAL_SEC_ETS_04 = REC_VAL_SEC_ETS_04
+REDIS_VAL_SEC_ETS_07 = ( @year > 2024 ) * REC_VAL_SEC_ETS_07
+REDIS_VAL_SEC_ETS_06 = ( @year > 2024 ) * REC_VAL_SEC_ETS_06
+REDIS_VAL_SEC_ETS_05 = ( @year > 2024 ) * REC_VAL_SEC_ETS_05
+REDIS_VAL_SEC_ETS_04 = ( @year > 2024 ) * REC_VAL_SEC_ETS_04
 dlog(EXP_AUTO_elec_H01_CC) = dlog(KM_AUTO_elec_H01_CC) - dlog(prog_auto_elec)
 dlog(EXP_AUTO_elec_H01_CB) = dlog(KM_AUTO_elec_H01_CB) - dlog(prog_auto_elec)
 dlog(EXP_AUTO_elec_H01_CA) = dlog(KM_AUTO_elec_H01_CA) - dlog(prog_auto_elec)
-REDIS_VAL_SEC_ETS_08 = REC_VAL_SEC_ETS_08
+REDIS_VAL_SEC_ETS_08 = ( @year > 2024 ) * REC_VAL_SEC_ETS_08
 dlog(EXP_AUTO_elec_H01_CG) = dlog(KM_AUTO_elec_H01_CG) - dlog(prog_auto_elec)
 dlog(EXP_AUTO_elec_H01_CF) = dlog(KM_AUTO_elec_H01_CF) - dlog(prog_auto_elec)
 dlog(EXP_AUTO_elec_H01_CE) = dlog(KM_AUTO_elec_H01_CE) - dlog(prog_auto_elec)
@@ -2643,7 +2643,7 @@ KM_AUTO_H01_CA_23 = KM_AUTO_elec_H01
 d(log(EXP_e_23_H01)) = ADJUST(20 + 23, 2) * d(log(EXP_e_23_H01(-1))) + ADJUST(20 + 23, 3) * d(log(EXP_23_H01(-1))) + ADJUST(20 + 23, 4) * d(log(EXP_n_23_H01))
 KM_AUTO_H01_CA_21 = KM_AUTO_th_H01_CA_21
 d(log(MTD_14_24)) = d(log(YQ_24)) + d(SUBST_MTD_14_24)
-d(log(MAT_n_12_14)) = ( @year <= 2019 ) * ( dlog(CIexo_12_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_12_14)) = ( @year <= 2019 ) * ( dlog(CIexo_12_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
 dlog(CIexo_01_06) = dlog(CIexo_01)
 dlog(CIexo_01_01) = dlog(CIexo_01)
 dlog(CIexo_01_02) = dlog(CIexo_01)
@@ -2760,6 +2760,7 @@ IAM_des_19_20 = IAM_des_19_20(-1) * ( ( 1 + ( QMexo_19 > 0 ) * ( d(QMexo_19) / Q
 phi_E_indus_24_20 * ( ( E_indus_des_20 > 0 ) * E_indus_des_20 + ( E_indus_des_20 <= 0 ) ) = ( E_indus_des_20 > 0 ) * E_indus_des_24_20 + ( E_indus_des_20 <= 0 ) * 0
 phi_E_indus_24_21 * ( ( E_indus_des_21 > 0 ) * E_indus_des_21 + ( E_indus_des_21 <= 0 ) ) = ( E_indus_des_21 > 0 ) * E_indus_des_24_21 + ( E_indus_des_21 <= 0 ) * 0
 IA_24_07 = IAD_24_07 + IAM_24_07
+d(SUBST_MATM_n_19_2402) = - ES_CIM(33, 19) * d(log(PMATM_19) - log(PMATD_19)) * ( PMATD_19(-1) * MATD_19_2402(-1) / ( PMAT_19_2402(-1) * MAT_19_2402(-1) ) )
 CIM_08_08 = MATM_08_08
 CIM_08_09 = MATM_08_09
 CIM_08_06 = MATM_08_06
@@ -2851,6 +2852,7 @@ PCID_07_16 = PMATD_07
 PCID_07_17 = PMATD_07
 PCID_07_14 = PMATD_07
 PCID_07_15 = PMATD_07
+ENER_spe_m2_H01_CF_23 = ENER_spe_H01_CF_23 / ( BUIL_H01_CF + 0.1 )
 CIM_19_19 = MATM_19_19
 d(log(SM_e_04)) = 0.05 * d(log(SM_e_04(-1))) + 0.65 * d(log(SM_04(-1))) + 0.3 * d(log(SM_n_04))
 d(log(SM_e_05)) = 0.05 * d(log(SM_e_05(-1))) + 0.65 * d(log(SM_05(-1))) + 0.3 * d(log(SM_n_05))
@@ -2998,11 +3000,18 @@ PEM_23_2401 * EM_23_2401 = ( PMS_BTCO_23 * EM_23_2401 + TCO_VALM_23_2401 ) * ( 1
 CHD_15 = ( ( EXPexo_15 - CHM_15 > 0 ) * ( EXPexo_15 - CHM_15 ) + ( EXPexo_15 - CHM_15 =< 0 ) * ( 1e-05 ) ) * ( @year <= 2019 ) + ( CHD_15(-1) * ( 1 + d(EXP_15) / EXP_15(-1) + d(SUBST_CHD_15) ) ) * ( @year > 2019 )
 d(SUBST_MAT_n_2202) = - ES_KLEM(23, 3) * d(log(PMAT_2202) - log(CK_2202 / PROG_K_2202)) * phi_k_bis_2202(-1) - ES_KLEM(23, 5) * d(log(PMAT_2202) - log(CL_2202)) * phi_l_bis_2202(-1) - ES_KLEM(23, 6) * d(log(PMAT_2202) - log(( PE_2202 + PE_Signal_2202 + PE_CEE_2202 + PE_signal_bis_2202 ) / PROG_E_2202)) * phi_e_bis_2202(-1)
 d(SUBST_MAT_n_2201) = - ES_KLEM(22, 3) * d(log(PMAT_2201) - log(CK_2201 / PROG_K_2201)) * phi_k_bis_2201(-1) - ES_KLEM(22, 5) * d(log(PMAT_2201) - log(CL_2201)) * phi_l_bis_2201(-1) - ES_KLEM(22, 6) * d(log(PMAT_2201) - log(( PE_2201 + PE_Signal_2201 + PE_CEE_2201 + PE_signal_bis_2201 ) / PROG_E_2201)) * phi_e_bis_2201(-1)
-MAT_09_01 = ( @year <= 2019 ) * ( MATD_09_01 + MATM_09_01 ) + ( @year > 2019 ) * ( MAT_n_09_01 )
 d(SUBST_ED_n_21_21) = - ES_CIM(21, 20 + 1) * d(log(PED_21) - log(PEM_21)) * ( PEM_21(-1) * EM_21_21(-1) / ( PE_21_21(-1) * E_21_21(-1) ) )
 d(SUBST_ED_n_21_20) = - ES_CIM(20, 20 + 1) * d(log(PED_21) - log(PEM_21)) * ( PEM_21(-1) * EM_21_20(-1) / ( PE_21_20(-1) * E_21_20(-1) ) )
 PE_21_2304 * E_21_2304 = PED_21_2304 * ED_21_2304 + PEM_21_2304 * EM_21_2304
 d(SUBST_IAD_n_03_20) = - ES_IAM(20, 3) * d(log(PIAD_03) - log(PIAM_03)) * ( PIAM_03(-1) * IAM_03_20(-1) / ( PIA_03_20(-1) * IA_03_20(-1) ) )
+phiy_E_24_2308 = PhiY_ener_exo_24_2308 + Q_Mtep_FC_2308 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2305 = PhiY_ener_exo_24_2305 + Q_Mtep_FC_2305 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2304 = PhiY_ener_exo_24_2304 + Q_Mtep_FC_2304 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2307 = PhiY_ener_exo_24_2307 + Q_Mtep_FC_2307 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2306 = PhiY_ener_exo_24_2306 + Q_Mtep_FC_2306 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2301 = PhiY_ener_exo_24_2301 + Q_Mtep_FC_2301 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2303 = PhiY_ener_exo_24_2303 + Q_Mtep_FC_2303 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2302 = PhiY_ener_exo_24_2302 + Q_Mtep_FC_2302 / Q_Mtep_ef_tot_SOU_24
 EXP_AUTO_24 = 0 + EXP_AUTO_CA_24 + EXP_AUTO_CB_24
 EXP_AUTO_21 = 0
 EXP_AUTO_23 = 0 + EXP_AUTO_CA_23
@@ -3102,7 +3111,7 @@ d(SUBST_MAT_n_18_2201) = 0 + - ES_TRANSP_CI(22, cols_mat(18, 14)) * d(log(PMAT_1
 d(log(E_indus_n_10)) = d(log(Y_10)) + d(SUBST_E_10) - d(log(PROG_E_indus_10))
 UN_55 = 0 + UN_W_55 + UN_M_55
 PIA_13_2401 * IA_13_2401 = PIAD_13 * IAD_13_2401 + PIAM_13 * IAM_13_2401
-d(log(MAT_n_06_06)) = ( @year <= 2019 ) * ( dlog(CIexo_06_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_06_06)) = ( @year <= 2019 ) * ( dlog(CIexo_06_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
 PIA_13_2403 * IA_13_2403 = PIAD_13 * IAD_13_2403 + PIAM_13 * IAM_13_2403
 PIA_13_2402 * IA_13_2402 = PIAD_13 * IAD_13_2402 + PIAM_13 * IAM_13_2402
 PIA_13_2405 * IA_13_2405 = PIAD_13 * IAD_13_2405 + PIAM_13 * IAM_13_2405
@@ -3149,9 +3158,7 @@ d(log(PM_n_08)) = ( 0.32 * dlog(TC * PWD_08) + 0.1 * dlog(TC * PWD_08(-1)) + 0.4
 d(log(PM_n_09)) = ( 0.32 * dlog(TC * PWD_09) + 0.1 * dlog(TC * PWD_09(-1)) + 0.46 * dlog(PYQS_09) - 0.32 * ( log(PM_n_09(-1)) - 0.75 * log(PYQS_09(-1)) - ( 1 - 0.75 ) * log(TC * PWD_09(-1)) ) )
 ENER_BUIL_H01_24 = 0 + ENER_BUIL_H01_CB_24 + ENER_BUIL_H01_CC_24 + ENER_BUIL_H01_CD_24 + ENER_BUIL_H01_CE_24 + ENER_BUIL_H01_CF_24 + ENER_BUIL_H01_CG_24
 BetaEXP_n_02_H01 = ( @year <= 2019 ) * ( ( PEXP_02_H01 * EXP_n_02_H01 - PNEXP_02_H01 * NEXP_02_H01 ) / EXP_CES_VAL ) + ( @year > 2019 ) * ( ( choc_EXP_02 >= 0 ) * ( choc_EXP_02 <= 0 ) * ( BetaEXP_02_H01(-1) * ( 1 + ( 1 - ES_LES_CES(1, 1) ) * dlog(PEXP_02_H01 / PEXP_CES_H01) + choc_R_EXP_02 ) ) + ( choc_EXP_02 > 0 ) * ( ( PEXP_02_H01 * ( 1 + Choc_EXP_02 ) * EXP_n_02_H01(-1) - PNEXP_02_H01 * NEXP_02_H01 ) / ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) + ( choc_EXP_02 < 0 ) * ( ( PEXP_02_H01 * ( 1 + Choc_EXP_02 ) * EXP_n_02_H01(-1) - PNEXP_02_H01 * NEXP_02_H01 ) / ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) )
-ENER_spe_val_H01_CF_22 = PENER_BUIL_H01_CF_22 * ENER_spe_H01_CF_22
 ENER_spe_val_H01_CF_23 = PENER_BUIL_H01_CF_23 * ENER_spe_H01_CF_23
-ENER_spe_val_H01_CF_24 = PENER_BUIL_H01_CF_24 * ENER_spe_H01_CF_24
 ENER_BUIL_H01_21 = 0 + ENER_BUIL_H01_CC_21 + ENER_BUIL_H01_CD_21 + ENER_BUIL_H01_CE_21 + ENER_BUIL_H01_CF_21 + ENER_BUIL_H01_CG_21
 ENER_BUIL_H01_22 = 0 + ENER_BUIL_H01_CA_22 + ENER_BUIL_H01_CB_22 + ENER_BUIL_H01_CC_22 + ENER_BUIL_H01_CD_22 + ENER_BUIL_H01_CE_22 + ENER_BUIL_H01_CF_22 + ENER_BUIL_H01_CG_22
 ENER_BUIL_H01_23 = 0 + ENER_BUIL_H01_CA_23 + ENER_BUIL_H01_CB_23 + ENER_BUIL_H01_CC_23 + ENER_BUIL_H01_CD_23 + ENER_BUIL_H01_CE_23 + ENER_BUIL_H01_CF_23 + ENER_BUIL_H01_CG_23
@@ -3231,6 +3238,7 @@ SUBST_X_14 = 0.8 * SUBST_X_n_14 + ( 1 - 0.8 ) * ( SUBST_X_14(-1) )
 SUBST_X_16 = 0.8 * SUBST_X_n_16 + ( 1 - 0.8 ) * ( SUBST_X_16(-1) )
 SUBST_X_17 = 0.8 * SUBST_X_n_17 + ( 1 - 0.8 ) * ( SUBST_X_17(-1) )
 phi_MAT_n_13_20 * SUM_MAT_N_CM_20 = MAT_n_13_20
+phiy_ener_21_21 = phiy_E_21_21 / PhiY_E_21
 CIDexo_03_18 = ( CIexo_03_18 - CIMexo_03_18 > 0 ) * ( CIexo_03_18 - CIMexo_03_18 ) + ( CIexo_03_18 - CIMexo_03_18 <= 0 ) * 0.0001
 REC_VAL_SEC_ETS_22_2202 = PE_signal_ETS * PCH * EMS_SEC_22_2202 * EXO_22_2202
 REC_VAL_SEC_ETS_22_2201 = PE_signal_ETS * PCH * EMS_SEC_22_2201 * EXO_22_2201
@@ -3313,7 +3321,7 @@ CID_24_17 = ED_24_17
 CID_24_14 = ED_24_14
 CID_24_15 = ED_24_15
 E_oth_23_2401 = phi_E_oth_23_2401 * E_oth_2401
-Q_Mtep_ep_2303 = 0 + Q_Mtep_ep_23_2303
+verif_IA_dgt_16_07 = IA_n_16_07 - IA_bis_dgt_16_07
 PROG_L_08 = PROG_L_08(-1) * ( 1 + GR_PROG_L_08 + CHOC_L + CHOC_PGF )
 PMAT_09_2202 * MAT_09_2202 = PMATD_09 * MATD_09_2202 + PMATM_09 * MATM_09_2202
 PMAT_09_2201 * MAT_09_2201 = PMATD_09 * MATD_09_2201 + PMATM_09 * MATM_09_2201
@@ -3354,6 +3362,14 @@ d(log(WAPop_M_15)) = dlog(POP_TOT) - 0.5 * d(UNR_TOT)
 verif_IA_des_08 = IA_des_08 - I_MDE_n_08 - I_NE_n_08
 PCIM_11_2201 = PMATM_11
 PCIM_11_2202 = PMATM_11
+phiy_E_22_2308 = PhiY_ener_exo_22_2308 + Q_Mtep_FC_2308 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2303 = PhiY_ener_exo_22_2303 + Q_Mtep_FC_2303 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2302 = PhiY_ener_exo_22_2302 + Q_Mtep_FC_2302 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2301 = PhiY_ener_exo_22_2301 + Q_Mtep_FC_2301 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2307 = PhiY_ener_exo_22_2307 + Q_Mtep_FC_2307 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2306 = PhiY_ener_exo_22_2306 + Q_Mtep_FC_2306 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2305 = PhiY_ener_exo_22_2305 + Q_Mtep_FC_2305 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2304 = PhiY_ener_exo_22_2304 + Q_Mtep_FC_2304 / Q_Mtep_ef_tot_SOU_22
 IAM_03_18 = IAM_03_18(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_03_18 - IAM_des_03_18 > 0 ) * ( IAM_des_03_18 ) + ( IA_n_03_18 - IAM_des_03_18 <= 0 ) * ( IA_n_03_18 - 1e-05 ) ) * ( @year > 2019 )
 IAM_03_19 = IAM_03_19(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_03_19 - IAM_des_03_19 > 0 ) * ( IAM_des_03_19 ) + ( IA_n_03_19 - IAM_des_03_19 <= 0 ) * ( IA_n_03_19 - 1e-05 ) ) * ( @year > 2019 )
 PQM_18 * QM_18 = PCIM_18 * CIM_18 + PCHM_18 * CHM_18 + PGM_18 * GM_18 + PIM_18 * IM_18 + PXM_18 * XM_18 + PDSM_18 * DSM_18
@@ -3366,16 +3382,16 @@ PQM_10 * QM_10 = PCIM_10 * CIM_10 + PCHM_10 * CHM_10 + PGM_10 * GM_10 + PIM_10 *
 IAM_03_17 = IAM_03_17(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_03_17 - IAM_des_03_17 > 0 ) * ( IAM_des_03_17 ) + ( IA_n_03_17 - IAM_des_03_17 <= 0 ) * ( IA_n_03_17 - 1e-05 ) ) * ( @year > 2019 )
 PQM_12 * QM_12 = PCIM_12 * CIM_12 + PCHM_12 * CHM_12 + PGM_12 * GM_12 + PIM_12 * IM_12 + PXM_12 * XM_12 + PDSM_12 * DSM_12
 IAD_13_20 = ( ( IA_n_13_20 - IAM_13_20 > 0 ) * ( IA_n_13_20 - IAM_13_20 ) + ( IA_n_13_20 - IAM_13_20 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( IAD_13_20(-1) * ( 1 + ( IA_n_13_20 > 0 ) * ( d(IA_n_13_20) / IA_n_13_20(-1) + d(SUBST_IAD_13_20) ) ) ) * ( @year > 2019 )
-d(log(MAT_n_08_19)) = ( @year <= 2019 ) * ( dlog(CIexo_08_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_08_18)) = ( @year <= 2019 ) * ( dlog(CIexo_08_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_08_13)) = ( @year <= 2019 ) * ( dlog(CIexo_08_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_08_12)) = ( @year <= 2019 ) * ( dlog(CIexo_08_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_08_11)) = ( @year <= 2019 ) * ( dlog(CIexo_08_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_08_10)) = ( @year <= 2019 ) * ( dlog(CIexo_08_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_08_19)) = ( @year <= 2019 ) * ( dlog(CIexo_08_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_08_18)) = ( @year <= 2019 ) * ( dlog(CIexo_08_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_08_13)) = ( @year <= 2019 ) * ( dlog(CIexo_08_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_08_12)) = ( @year <= 2019 ) * ( dlog(CIexo_08_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_08_11)) = ( @year <= 2019 ) * ( dlog(CIexo_08_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_08_10)) = ( @year <= 2019 ) * ( dlog(CIexo_08_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
 d(SUBST_CHM_n_22) = - ES_LVL4_HH(1, 22) * d(log(PCHM_22) - log(PCHD_22)) * ( PCHD_22(-1) * CHD_22(-1) / ( PCH_22(-1) * CH_22(-1) ) )
-d(log(MAT_n_08_16)) = ( @year <= 2019 ) * ( dlog(CIexo_08_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_08_15)) = ( @year <= 2019 ) * ( dlog(CIexo_08_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_08_14)) = ( @year <= 2019 ) * ( dlog(CIexo_08_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_08_16)) = ( @year <= 2019 ) * ( dlog(CIexo_08_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_08_15)) = ( @year <= 2019 ) * ( dlog(CIexo_08_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_08_14)) = ( @year <= 2019 ) * ( dlog(CIexo_08_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
 IAM_05_10 = IAM_05_10(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_05_10 - IAM_des_05_10 > 0 ) * ( IAM_des_05_10 ) + ( IA_n_05_10 - IAM_des_05_10 <= 0 ) * ( IA_n_05_10 - 1e-05 ) ) * ( @year > 2019 )
 IAM_05_11 = IAM_05_11(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_05_11 - IAM_des_05_11 > 0 ) * ( IAM_des_05_11 ) + ( IA_n_05_11 - IAM_des_05_11 <= 0 ) * ( IA_n_05_11 - 1e-05 ) ) * ( @year > 2019 )
 IAM_05_12 = IAM_05_12(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_05_12 - IAM_des_05_12 > 0 ) * ( IAM_des_05_12 ) + ( IA_n_05_12 - IAM_des_05_12 <= 0 ) * ( IA_n_05_12 - 1e-05 ) ) * ( @year > 2019 )
@@ -3647,6 +3663,7 @@ PVAT_13 * VAT_13 = 0 + PVATD_13 * VATD_13 + PVATM_13 * VATM_13
 EXP_BUIL_H01 = 0 + EXP_BUIL_H01_CA + EXP_BUIL_H01_CB + EXP_BUIL_H01_CC + EXP_BUIL_H01_CD + EXP_BUIL_H01_CE + EXP_BUIL_H01_CF + EXP_BUIL_H01_CG
 d(log(IA_n_05_2201)) = d(log(IA_n_2201))
 d(log(IA_n_05_2202)) = d(log(IA_n_2202))
+IAD_13_08 = ( ( IA_n_13_08 - IAM_13_08 > 0 ) * ( IA_n_13_08 - IAM_13_08 ) + ( IA_n_13_08 - IAM_13_08 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( IAD_13_08(-1) * ( 1 + ( IA_n_13_08 > 0 ) * ( d(IA_n_13_08) / IA_n_13_08(-1) + d(SUBST_IAD_13_08) ) ) ) * ( @year > 2019 )
 CIM_17_2201 = MATM_17_2201
 CIM_17_2202 = MATM_17_2202
 d(log(MATM_des_n_07_04)) = 1.55 * dlog(QD_07) - 0.41 * ( log(MATM_des_n_07_04(-1)) - log(MAT_07_04(-1)) + 0.48 * ( log(PMATM_07(-1)) - log(PMATD_07(-1)) ) )
@@ -3687,30 +3704,30 @@ SUB_AUTO_VAL_H01_CF = R_SUB_AUTO_H01_CF * PNewAUTO_H01_CF * NewAUTO_H01_CF
 SUB_AUTO_VAL_H01_CA = R_SUB_AUTO_H01_CA * PNewAUTO_H01_CA * NewAUTO_H01_CA
 SUB_AUTO_VAL_H01_CC = R_SUB_AUTO_H01_CC * PNewAUTO_H01_CC * NewAUTO_H01_CC
 SUB_AUTO_VAL_H01_CB = R_SUB_AUTO_H01_CB * PNewAUTO_H01_CB * NewAUTO_H01_CB
-d(log(MAT_n_07_12)) = ( @year <= 2019 ) * ( dlog(CIexo_07_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_07_13)) = ( @year <= 2019 ) * ( dlog(CIexo_07_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_07_10)) = ( @year <= 2019 ) * ( dlog(CIexo_07_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_07_11)) = ( @year <= 2019 ) * ( dlog(CIexo_07_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_07_16)) = ( @year <= 2019 ) * ( dlog(CIexo_07_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_07_17)) = ( @year <= 2019 ) * ( dlog(CIexo_07_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_07_14)) = ( @year <= 2019 ) * ( dlog(CIexo_07_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_07_15)) = ( @year <= 2019 ) * ( dlog(CIexo_07_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_07_18)) = ( @year <= 2019 ) * ( dlog(CIexo_07_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_07_19)) = ( @year <= 2019 ) * ( dlog(CIexo_07_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_07_12)) = ( @year <= 2019 ) * ( dlog(CIexo_07_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_07_13)) = ( @year <= 2019 ) * ( dlog(CIexo_07_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_07_10)) = ( @year <= 2019 ) * ( dlog(CIexo_07_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_07_11)) = ( @year <= 2019 ) * ( dlog(CIexo_07_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_07_16)) = ( @year <= 2019 ) * ( dlog(CIexo_07_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_07_17)) = ( @year <= 2019 ) * ( dlog(CIexo_07_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_07_14)) = ( @year <= 2019 ) * ( dlog(CIexo_07_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_07_15)) = ( @year <= 2019 ) * ( dlog(CIexo_07_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_07_18)) = ( @year <= 2019 ) * ( dlog(CIexo_07_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_07_19)) = ( @year <= 2019 ) * ( dlog(CIexo_07_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 SUBST_MATD_14_15 = ADJUST(9, 6) * SUBST_MATD_n_14_15 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_14_15(-1)
-d(log(MAT_n_05_14)) = ( @year <= 2019 ) * ( dlog(CIexo_05_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_05_15)) = ( @year <= 2019 ) * ( dlog(CIexo_05_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_05_16)) = ( @year <= 2019 ) * ( dlog(CIexo_05_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_05_17)) = ( @year <= 2019 ) * ( dlog(CIexo_05_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_05_14)) = ( @year <= 2019 ) * ( dlog(CIexo_05_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_05_15)) = ( @year <= 2019 ) * ( dlog(CIexo_05_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_05_16)) = ( @year <= 2019 ) * ( dlog(CIexo_05_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_05_17)) = ( @year <= 2019 ) * ( dlog(CIexo_05_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
 MATM_des_19_08 = ( CIMexo_19_08 ) * ( @year <= 2019 ) + ( ( MATM_des_19_08(-1) * ( 1 + d(MATM_des_n_19_08) / MATM_des_n_19_08(-1) ) > 0 ) * ( MATM_des_19_08(-1) * ( 1 + d(MATM_des_n_19_08) / MATM_des_n_19_08(-1) ) ) + ( MATM_des_19_08(-1) * ( 1 + d(MATM_des_n_19_08) / MATM_des_n_19_08(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-d(log(MAT_n_05_11)) = ( @year <= 2019 ) * ( dlog(CIexo_05_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_05_12)) = ( @year <= 2019 ) * ( dlog(CIexo_05_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_05_13)) = ( @year <= 2019 ) * ( dlog(CIexo_05_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_05_11)) = ( @year <= 2019 ) * ( dlog(CIexo_05_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_05_12)) = ( @year <= 2019 ) * ( dlog(CIexo_05_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_05_13)) = ( @year <= 2019 ) * ( dlog(CIexo_05_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 MATM_des_19_04 = ( CIMexo_19_04 ) * ( @year <= 2019 ) + ( ( MATM_des_19_04(-1) * ( 1 + d(MATM_des_n_19_04) / MATM_des_n_19_04(-1) ) > 0 ) * ( MATM_des_19_04(-1) * ( 1 + d(MATM_des_n_19_04) / MATM_des_n_19_04(-1) ) ) + ( MATM_des_19_04(-1) * ( 1 + d(MATM_des_n_19_04) / MATM_des_n_19_04(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_19_05 = ( CIMexo_19_05 ) * ( @year <= 2019 ) + ( ( MATM_des_19_05(-1) * ( 1 + d(MATM_des_n_19_05) / MATM_des_n_19_05(-1) ) > 0 ) * ( MATM_des_19_05(-1) * ( 1 + d(MATM_des_n_19_05) / MATM_des_n_19_05(-1) ) ) + ( MATM_des_19_05(-1) * ( 1 + d(MATM_des_n_19_05) / MATM_des_n_19_05(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_19_06 = ( CIMexo_19_06 ) * ( @year <= 2019 ) + ( ( MATM_des_19_06(-1) * ( 1 + d(MATM_des_n_19_06) / MATM_des_n_19_06(-1) ) > 0 ) * ( MATM_des_19_06(-1) * ( 1 + d(MATM_des_n_19_06) / MATM_des_n_19_06(-1) ) ) + ( MATM_des_19_06(-1) * ( 1 + d(MATM_des_n_19_06) / MATM_des_n_19_06(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_19_07 = ( CIMexo_19_07 ) * ( @year <= 2019 ) + ( ( MATM_des_19_07(-1) * ( 1 + d(MATM_des_n_19_07) / MATM_des_n_19_07(-1) ) > 0 ) * ( MATM_des_19_07(-1) * ( 1 + d(MATM_des_n_19_07) / MATM_des_n_19_07(-1) ) ) + ( MATM_des_19_07(-1) * ( 1 + d(MATM_des_n_19_07) / MATM_des_n_19_07(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-d(log(MAT_n_05_18)) = ( @year <= 2019 ) * ( dlog(CIexo_05_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_05_18)) = ( @year <= 2019 ) * ( dlog(CIexo_05_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
 MATM_des_19_01 = ( CIMexo_19_01 ) * ( @year <= 2019 ) + ( ( MATM_des_19_01(-1) * ( 1 + d(MATM_des_n_19_01) / MATM_des_n_19_01(-1) ) > 0 ) * ( MATM_des_19_01(-1) * ( 1 + d(MATM_des_n_19_01) / MATM_des_n_19_01(-1) ) ) + ( MATM_des_19_01(-1) * ( 1 + d(MATM_des_n_19_01) / MATM_des_n_19_01(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_19_02 = ( CIMexo_19_02 ) * ( @year <= 2019 ) + ( ( MATM_des_19_02(-1) * ( 1 + d(MATM_des_n_19_02) / MATM_des_n_19_02(-1) ) > 0 ) * ( MATM_des_19_02(-1) * ( 1 + d(MATM_des_n_19_02) / MATM_des_n_19_02(-1) ) ) + ( MATM_des_19_02(-1) * ( 1 + d(MATM_des_n_19_02) / MATM_des_n_19_02(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_19_03 = ( CIMexo_19_03 ) * ( @year <= 2019 ) + ( ( MATM_des_19_03(-1) * ( 1 + d(MATM_des_n_19_03) / MATM_des_n_19_03(-1) ) > 0 ) * ( MATM_des_19_03(-1) * ( 1 + d(MATM_des_n_19_03) / MATM_des_n_19_03(-1) ) ) + ( MATM_des_19_03(-1) * ( 1 + d(MATM_des_n_19_03) / MATM_des_n_19_03(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -3759,6 +3776,14 @@ MATM_17_2302 = ( MAT_17_2302 - MATD_17_2302 > 0 ) * ( MAT_17_2302 - MATD_17_2302
 MATM_17_2303 = ( MAT_17_2303 - MATD_17_2303 > 0 ) * ( MAT_17_2303 - MATD_17_2303 ) + ( MAT_17_2303 - MATD_17_2303 =< 0 ) * ( 1e-05 )
 MATM_17_2308 = ( MAT_17_2308 - MATD_17_2308 > 0 ) * ( MAT_17_2308 - MATD_17_2308 ) + ( MAT_17_2308 - MATD_17_2308 =< 0 ) * ( 1e-05 )
 PMAT_12_20 * MAT_12_20 = PMATD_12 * MATD_12_20 + PMATM_12 * MATM_12_20
+phiy_ener_24_2308 = phiy_E_24_2308 / PhiY_E_24
+phiy_ener_24_2305 = phiy_E_24_2305 / PhiY_E_24
+phiy_ener_24_2304 = phiy_E_24_2304 / PhiY_E_24
+phiy_ener_24_2307 = phiy_E_24_2307 / PhiY_E_24
+phiy_ener_24_2306 = phiy_E_24_2306 / PhiY_E_24
+phiy_ener_24_2301 = phiy_E_24_2301 / PhiY_E_24
+phiy_ener_24_2303 = phiy_E_24_2303 / PhiY_E_24
+phiy_ener_24_2302 = phiy_E_24_2302 / PhiY_E_24
 d(log(IA_n_19_2304)) = d(log(IA_n_2304))
 d(log(IA_n_19_2305)) = d(log(IA_n_2305))
 d(log(IA_n_19_2306)) = d(log(IA_n_2306))
@@ -3823,11 +3848,13 @@ d(SUBST_MATD_n_17_2307) = ( @year <= 2022 ) * ( - ES_CIM(30, 17) * d(log(PMATD_1
 PCIM_19_2403 = PMATM_19
 PCIM_19_2402 = PMATM_19
 PCIM_19_2401 = PMATM_19
+DSM_base_08 = SUPPLY_USE_FOREIGN(8, 1 + NELEMSET(5, 1) + NELEMSET(7, 1) + NELEMSET(1, 1) + 5) * REAL_GDP_INDEX_DGT
 MAT_bis_dgt_16_09 = MATD_16_09 + MATM_16_09
 MAT_bis_dgt_16_08 = MATD_16_08 + MATM_16_08
 PCIM_19_2405 = PMATM_19
 PCIM_19_2404 = PMATM_19
 IA_19_2308 = IAD_19_2308 + IAM_19_2308
+phiy_ener_24_21 = phiy_E_24_21 / PhiY_E_24
 IA_19_2305 = IAD_19_2305 + IAM_19_2305
 IA_19_2304 = IAD_19_2304 + IAM_19_2304
 IA_19_2307 = IAD_19_2307 + IAM_19_2307
@@ -3860,7 +3887,7 @@ MATM_09_13 = ( CIMexo_09_13 ) * ( @year <= 2019 ) + ( ( MAT_09_13 - MATM_des_09_
 MATM_09_12 = ( CIMexo_09_12 ) * ( @year <= 2019 ) + ( ( MAT_09_12 - MATM_des_09_12 > 0 ) * ( MATM_des_09_12 ) + ( MAT_09_12 - MATM_des_09_12 <= 0 ) * ( MAT_09_12 - 1e-05 ) ) * ( @year > 2019 )
 MATM_09_11 = ( CIMexo_09_11 ) * ( @year <= 2019 ) + ( ( MAT_09_11 - MATM_des_09_11 > 0 ) * ( MATM_des_09_11 ) + ( MAT_09_11 - MATM_des_09_11 <= 0 ) * ( MAT_09_11 - 1e-05 ) ) * ( @year > 2019 )
 MATM_09_10 = ( CIMexo_09_10 ) * ( @year <= 2019 ) + ( ( MAT_09_10 - MATM_des_09_10 > 0 ) * ( MATM_des_09_10 ) + ( MAT_09_10 - MATM_des_09_10 <= 0 ) * ( MAT_09_10 - 1e-05 ) ) * ( @year > 2019 )
-MATM_09_17 = ( CIMexo_09_17 ) * ( @year <= 2019 ) + ( ( MAT_09_17 - MATM_des_09_17 > 0 ) * ( MATM_des_09_17 ) + ( MAT_09_17 - MATM_des_09_17 <= 0 ) * ( MAT_09_17 - 1e-05 ) ) * ( @year > 2019 )
+PEXPG_21 = PG_21
 PEXPG_20 = PG_20
 MATM_09_15 = ( CIMexo_09_15 ) * ( @year <= 2019 ) + ( ( MAT_09_15 - MATM_des_09_15 > 0 ) * ( MATM_des_09_15 ) + ( MAT_09_15 - MATM_des_09_15 <= 0 ) * ( MAT_09_15 - 1e-05 ) ) * ( @year > 2019 )
 PEXPG_22 = PG_22
@@ -4032,7 +4059,7 @@ CID_15_2402 = MATD_15_2402
 CID_15_2405 = MATD_15_2405
 CID_15_2404 = MATD_15_2404
 CID_15_2406 = MATD_15_2406
-REDIS_VAL_SEC_ETS2_08 = REC_VAL_SEC_ETS2_08
+REDIS_VAL_SEC_ETS2_08 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_08
 KM_AUTO_H01_CG_21 = KM_AUTO_th_H01_CG_21
 KM_AUTO_H01_CG_23 = 0
 KM_AUTO_H01_CG_22 = KM_AUTO_th_H01_CG_22
@@ -4256,7 +4283,7 @@ d(log(E_oth_des_21_06)) = d(log(E_oth_06)) + d(SUBST_E_21_06)
 d(log(E_oth_des_21_07)) = d(log(E_oth_07)) + d(SUBST_E_21_07)
 d(log(E_oth_des_21_05)) = d(log(E_oth_05)) + d(SUBST_E_21_05)
 d(log(E_oth_des_21_08)) = d(log(E_oth_08)) + d(SUBST_E_21_08)
-d(log(MAT_n_12_20)) = ( @year <= 2019 ) * ( dlog(CIexo_12_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_12_20)) = ( @year <= 2019 ) * ( dlog(CIexo_12_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 phi_MAT_n_20_02 * SUM_MAT_N_CM_02 = MAT_n_20_02
 phi_MAT_n_20_03 * SUM_MAT_N_CM_03 = MAT_n_20_03
 phi_MAT_n_20_01 * SUM_MAT_N_CM_01 = MAT_n_20_01
@@ -4415,21 +4442,21 @@ d(log(MATM_des_n_16_17)) = 0.25 * dlog(MATM_des_n_16_17(-1)) + 1.18 * dlog(QD_16
 d(log(MATM_des_n_16_16)) = 0.25 * dlog(MATM_des_n_16_16(-1)) + 1.18 * dlog(QD_16) - 0.34 * d(log(PMATM_16(-1)) - log(PMATD_16(-1))) - 0.49 * ( log(MATM_des_n_16_16(-1)) - log(MAT_16_16(-1)) + 0.69 * ( log(PMATM_16(-1)) - log(PMATD_16(-1)) ) )
 d(log(MATM_des_n_16_15)) = 0.25 * dlog(MATM_des_n_16_15(-1)) + 1.18 * dlog(QD_16) - 0.34 * d(log(PMATM_16(-1)) - log(PMATD_16(-1))) - 0.49 * ( log(MATM_des_n_16_15(-1)) - log(MAT_16_15(-1)) + 0.69 * ( log(PMATM_16(-1)) - log(PMATD_16(-1)) ) )
 d(log(MATM_des_n_16_14)) = 0.25 * dlog(MATM_des_n_16_14(-1)) + 1.18 * dlog(QD_16) - 0.34 * d(log(PMATM_16(-1)) - log(PMATD_16(-1))) - 0.49 * ( log(MATM_des_n_16_14(-1)) - log(MAT_16_14(-1)) + 0.69 * ( log(PMATM_16(-1)) - log(PMATD_16(-1)) ) )
-d(log(MAT_n_18_09)) = ( @year <= 2019 ) * ( dlog(CIexo_18_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_18_08)) = ( @year <= 2019 ) * ( dlog(CIexo_18_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_18_09)) = ( @year <= 2019 ) * ( dlog(CIexo_18_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_18_08)) = ( @year <= 2019 ) * ( dlog(CIexo_18_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
 d(log(MATM_des_n_10_13)) = 1.55 * dlog(QD_10) - 0.41 * ( log(MATM_des_n_10_13(-1)) - log(MAT_10_13(-1)) + 0.48 * ( log(PMATM_10(-1)) - log(PMATD_10(-1)) ) )
 d(log(MATM_des_n_10_12)) = 1.55 * dlog(QD_10) - 0.41 * ( log(MATM_des_n_10_12(-1)) - log(MAT_10_12(-1)) + 0.48 * ( log(PMATM_10(-1)) - log(PMATD_10(-1)) ) )
 d(log(MATM_des_n_10_14)) = 1.55 * dlog(QD_10) - 0.41 * ( log(MATM_des_n_10_14(-1)) - log(MAT_10_14(-1)) + 0.48 * ( log(PMATM_10(-1)) - log(PMATD_10(-1)) ) )
 d(log(MATM_des_n_10_17)) = 1.55 * dlog(QD_10) - 0.41 * ( log(MATM_des_n_10_17(-1)) - log(MAT_10_17(-1)) + 0.48 * ( log(PMATM_10(-1)) - log(PMATD_10(-1)) ) )
 d(log(MATM_des_n_10_16)) = 1.55 * dlog(QD_10) - 0.41 * ( log(MATM_des_n_10_16(-1)) - log(MAT_10_16(-1)) + 0.48 * ( log(PMATM_10(-1)) - log(PMATD_10(-1)) ) )
-d(log(MAT_n_18_01)) = ( @year <= 2019 ) * ( dlog(CIexo_18_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_18_01)) = ( @year <= 2019 ) * ( dlog(CIexo_18_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
 d(log(MATM_des_n_10_18)) = 1.55 * dlog(QD_10) - 0.41 * ( log(MATM_des_n_10_18(-1)) - log(MAT_10_18(-1)) + 0.48 * ( log(PMATM_10(-1)) - log(PMATD_10(-1)) ) )
-d(log(MAT_n_18_03)) = ( @year <= 2019 ) * ( dlog(CIexo_18_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_18_02)) = ( @year <= 2019 ) * ( dlog(CIexo_18_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_18_05)) = ( @year <= 2019 ) * ( dlog(CIexo_18_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_18_04)) = ( @year <= 2019 ) * ( dlog(CIexo_18_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_18_07)) = ( @year <= 2019 ) * ( dlog(CIexo_18_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_18_06)) = ( @year <= 2019 ) * ( dlog(CIexo_18_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_18_03)) = ( @year <= 2019 ) * ( dlog(CIexo_18_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_18_02)) = ( @year <= 2019 ) * ( dlog(CIexo_18_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_18_05)) = ( @year <= 2019 ) * ( dlog(CIexo_18_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_18_04)) = ( @year <= 2019 ) * ( dlog(CIexo_18_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_18_07)) = ( @year <= 2019 ) * ( dlog(CIexo_18_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_18_06)) = ( @year <= 2019 ) * ( dlog(CIexo_18_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
 MATD_09_09 = ( CIDexo_09_09 ) * ( @year <= 2019 ) + ( ( MAT_09_09 - MATM_09_09 > 0 ) * ( MAT_09_09 - MATM_09_09 ) + ( MAT_09_09 - MATM_09_09 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_09_08 = ( CIDexo_09_08 ) * ( @year <= 2019 ) + ( ( MAT_09_08 - MATM_09_08 > 0 ) * ( MAT_09_08 - MATM_09_08 ) + ( MAT_09_08 - MATM_09_08 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_09_01 = ( CIDexo_09_01 ) * ( @year <= 2019 ) + ( ( MAT_09_01 - MATM_09_01 > 0 ) * ( MAT_09_01 - MATM_09_01 ) + ( MAT_09_01 - MATM_09_01 <= 0 ) * 0.0001 ) * ( @year > 2019 )
@@ -4632,8 +4659,6 @@ PYQbis_04 * ( QD_04 - VATD_04 - OTHTD_04 - SUBD_04 - MCD_04 - MTD_04 - ENERTD_04
 PYQbis_05 * ( QD_05 - VATD_05 - OTHTD_05 - SUBD_05 - MCD_05 - MTD_05 - ENERTD_05 ) = PQD_05 * QD_05 - PVATD_05 * VATD_05 - POTHTD_05 * OTHTD_05 - PSUBD_05 * SUBD_05 - ( PMCD_05 * MCD_05 + PMTD_05 * MTD_05 ) - PENERTD_05 * ENERTD_05
 PYQbis_08 * ( QD_08 - VATD_08 - OTHTD_08 - SUBD_08 - MCD_08 - MTD_08 - ENERTD_08 ) = PQD_08 * QD_08 - PVATD_08 * VATD_08 - POTHTD_08 * OTHTD_08 - PSUBD_08 * SUBD_08 - ( PMCD_08 * MCD_08 + PMTD_08 * MTD_08 ) - PENERTD_08 * ENERTD_08
 PYQbis_09 * ( QD_09 - VATD_09 - OTHTD_09 - SUBD_09 - MCD_09 - MTD_09 - ENERTD_09 ) = PQD_09 * QD_09 - PVATD_09 * VATD_09 - POTHTD_09 * OTHTD_09 - PSUBD_09 * SUBD_09 - ( PMCD_09 * MCD_09 + PMTD_09 * MTD_09 ) - PENERTD_09 * ENERTD_09
-dlog(IA_n_noshock_03_16) = dlog(IA_n_16)
-dlog(IA_n_noshock_03_15) = dlog(IA_n_15)
 d(SUBST_MATD_n_03_02) = ( @year <= 2022 ) * ( - ES_CIM(2, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_02(-1) / ( PMAT_03_02(-1) * MAT_03_02(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_02(-1) / ( PMAT_03_02(-1) * MAT_03_02(-1) ) ) )
 d(SUBST_MATD_n_03_03) = ( @year <= 2022 ) * ( - ES_CIM(3, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_03(-1) / ( PMAT_03_03(-1) * MAT_03_03(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_03(-1) / ( PMAT_03_03(-1) * MAT_03_03(-1) ) ) )
 d(SUBST_MATD_n_03_01) = ( @year <= 2022 ) * ( - ES_CIM(1, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_01(-1) / ( PMAT_03_01(-1) * MAT_03_01(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_01(-1) / ( PMAT_03_01(-1) * MAT_03_01(-1) ) ) )
@@ -4651,7 +4676,9 @@ phi_E_oth_22_13 * ( ( E_oth_des_13 > 0 ) * E_oth_des_13 + ( E_oth_des_13 <= 0 ) 
 PMTD_16_21 = YQ_16 / ( YQ_16 + M_16 ) * PYQS_16 + M_16 / ( YQ_16 + M_16 ) * PMS_16
 CU_2201 * Y_2201 = CK_2201 * K_2201 + CL_2201 * L_2201 * PROG_L_2201 + PEner_2201 * Ener_2201 + PMAT_2201 * MAT_2201 + CEE_2201
 CU_2202 * Y_2202 = CK_2202 * K_2202 + CL_2202 * L_2202 * PROG_L_2202 + PEner_2202 * Ener_2202 + PMAT_2202 * MAT_2202 + CEE_2202
+phiy_E_23_2201 = PhiY_ener_exo_23_2201 + Q_Mtep_FC_2201 / Q_Mtep_ef_tot_SOU_23
 phi_n_MAT_18 = MAT_n_18 * PMAT_18 / ( K_n_18 * CK_18 + L_n_18 * PROG_L_18 * CL_18 + E_n_18 * ( PE_18 + PE_CEE_n_18 + PE_signal_bis_18 ) + MAT_n_18 * PMAT_18 )
+phiy_E_23_2202 = PhiY_ener_exo_23_2202 + Q_Mtep_FC_2202 / Q_Mtep_ef_tot_SOU_23
 verif_IA_01 = IA_01 - I_MDE_01 - I_NE_01
 verif_IA_03 = IA_03 - I_MDE_03 - I_NE_03
 verif_IA_02 = IA_02 - I_MDE_02 - I_NE_02
@@ -4729,7 +4756,7 @@ phi_E_oth_24_17 * ( ( E_oth_des_17 > 0 ) * E_oth_des_17 + ( E_oth_des_17 <= 0 ) 
 phi_E_oth_24_16 * ( ( E_oth_des_16 > 0 ) * E_oth_des_16 + ( E_oth_des_16 <= 0 ) ) = ( E_oth_des_16 > 0 ) * E_oth_des_24_16 + ( E_oth_des_16 <= 0 ) * 0
 phi_E_oth_24_15 * ( ( E_oth_des_15 > 0 ) * E_oth_des_15 + ( E_oth_des_15 <= 0 ) ) = ( E_oth_des_15 > 0 ) * E_oth_des_24_15 + ( E_oth_des_15 <= 0 ) * 0
 phi_E_oth_24_14 * ( ( E_oth_des_14 > 0 ) * E_oth_des_14 + ( E_oth_des_14 <= 0 ) ) = ( E_oth_des_14 > 0 ) * E_oth_des_24_14 + ( E_oth_des_14 <= 0 ) * 0
-REDIS_VAL_ETS2_H = REC_VAL_ETS2_HH
+REDIS_VAL_ETS2_H = 0 * ( @year > 2024 ) * REC_VAL_ETS2_HH
 PMAT_19_19 * MAT_19_19 = PMATD_19 * MATD_19_19 + PMATM_19 * MATM_19_19
 PMAT_19_18 * MAT_19_18 = PMATD_19 * MATD_19_18 + PMATM_19 * MATM_19_18
 IA_bis_dgt_19_18 = IAD_19_18 + IAM_19_18
@@ -4809,7 +4836,6 @@ R_SUB_H01_CA_CE = R_SUB_renov_H01_CA_CE + R_SUB_CEE_H01_CA_CE
 R_SUB_H01_CA_CD = R_SUB_renov_H01_CA_CD + R_SUB_CEE_H01_CA_CD
 R_SUB_H01_CA_CG = R_SUB_renov_H01_CA_CG + R_SUB_CEE_H01_CA_CG
 R_SUB_H01_CA_CF = R_SUB_renov_H01_CA_CF + R_SUB_CEE_H01_CA_CF
-d(SUBST_ED_n_23_04) = - ES_CIM(4, 20 + 3) * d(log(PED_23) - log(PEM_23)) * ( PEM_23(-1) * EM_23_04(-1) / ( PE_23_04(-1) * E_23_04(-1) ) )
 DISPINC_AI_VAL = ( W_S * L_S ) * ( 1 - ( TCSS + choc_tcss ) ) + SB_ROW * ( 1 - TCSS ) + ( W_SE * L_SE ) * ( 1 - ( TCSS_SE + choc_tcss_se ) ) + PRESOC_DOM_VAL + FW_VAL + TR_ROW_VAL
 PID_05 * ID_05 = 0 + PIAD_05 * IAD_05_01 + PIAD_05 * IAD_05_02 + PIAD_05 * IAD_05_03 + PIAD_05 * IAD_05_04 + PIAD_05 * IAD_05_05 + PIAD_05 * IAD_05_06 + PIAD_05 * IAD_05_07 + PIAD_05 * IAD_05_08 + PIAD_05 * IAD_05_09 + PIAD_05 * IAD_05_10 + PIAD_05 * IAD_05_11 + PIAD_05 * IAD_05_12 + PIAD_05 * IAD_05_13 + PIAD_05 * IAD_05_14 + PIAD_05 * IAD_05_15 + PIAD_05 * IAD_05_16 + PIAD_05 * IAD_05_17 + PIAD_05 * IAD_05_18 + PIAD_05 * IAD_05_19 + PIAD_05 * IAD_05_21 + PIAD_05 * IAD_05_2201 + PIAD_05 * IAD_05_2202 + PIAD_05 * IAD_05_2301 + PIAD_05 * IAD_05_2302 + PIAD_05 * IAD_05_2303 + PIAD_05 * IAD_05_2304 + PIAD_05 * IAD_05_2305 + PIAD_05 * IAD_05_2306 + PIAD_05 * IAD_05_2307 + PIAD_05 * IAD_05_2308 + PIAD_05 * IAD_05_2401 + PIAD_05 * IAD_05_2402 + PIAD_05 * IAD_05_2403 + PIAD_05 * IAD_05_2404 + PIAD_05 * IAD_05_2405 + PIAD_05 * IAD_05_2406
 PID_01 * ID_01 = 0 + PIAD_01 * IAD_01_01 + PIAD_01 * IAD_01_19 + PIAD_01 * IAD_01_20
@@ -4822,6 +4848,7 @@ d(log(CU_n_2405)) = ( @year <= 2019 ) * d(log(CU_n_des_2405)) + ( @year > 2019 )
 d(log(CU_n_2404)) = ( @year <= 2019 ) * d(log(CU_n_des_2404)) + ( @year > 2019 ) * d(log(CU_n_bis_2404))
 d(log(CU_n_2406)) = ( @year <= 2019 ) * d(log(CU_n_des_2406)) + ( @year > 2019 ) * d(log(CU_n_bis_2406))
 PMAT_07_11 * MAT_07_11 = PMATD_07 * MATD_07_11 + PMATM_07 * MATM_07_11
+ENER_spe_m2_H01_CB_23 = ENER_spe_H01_CB_23 / ( BUIL_H01_CB + 0.1 )
 d(SUBST_MAT_n_17_2402) = 0 + - ES_TRANSP_CI(33, cols_mat(17, 14)) * d(log(PMAT_17_2402) - log(PMAT_14_2402)) * kappa_mat_dgt_14_2402(-1) + - ES_TRANSP_CI(33, cols_mat(17, 15)) * d(log(PMAT_17_2402) - log(PMAT_15_2402)) * kappa_mat_dgt_15_2402(-1) + - ES_TRANSP_CI(33, cols_mat(17, 16)) * d(log(PMAT_17_2402) - log(PMAT_16_2402)) * kappa_mat_dgt_16_2402(-1) + - ES_TRANSP_CI(33, cols_mat(17, 18)) * d(log(PMAT_17_2402) - log(PMAT_18_2402)) * kappa_mat_dgt_18_2402(-1)
 XM = 0 + XM_03 + XM_04 + XM_05 + XM_09 + XM_10 + XM_12 + XM_22 + XM_23 + XM_24
 ER_Tertiary_elec = Q_Mtep_sec_23_19 + Q_Mtep_sec_23_20
@@ -4884,7 +4911,7 @@ PEner_10 * Ener_10 = 0 + PE_21_10 * E_21_10 + PE_23_10 * E_23_10 + PE_24_10 * E_
 PEner_11 * Ener_11 = 0 + PE_23_11 * E_23_11 + PE_24_11 * E_24_11
 PEner_12 * Ener_12 = 0 + PE_21_12 * E_21_12 + PE_22_12 * E_22_12 + PE_23_12 * E_23_12 + PE_24_12 * E_24_12
 PEner_13 * Ener_13 = 0 + PE_22_13 * E_22_13 + PE_23_13 * E_23_13 + PE_24_13 * E_24_13
-d(log(MAT_n_17_20)) = ( @year <= 2019 ) * ( dlog(CIexo_17_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_17_20)) = ( @year <= 2019 ) * ( dlog(CIexo_17_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 PEBE_06 * EBE_06 = PVA_06 * VA_06 - CL_06 * L_06 * PROG_L_06 - PIY_06 * IY_06 - PSY_06 * SY_06
 PEBE_07 * EBE_07 = PVA_07 * VA_07 - CL_07 * L_07 * PROG_L_07 - PIY_07 * IY_07 - PSY_07 * SY_07
 PEBE_04 * EBE_04 = PVA_04 * VA_04 - CL_04 * L_04 * PROG_L_04 - PIY_04 * IY_04 - PSY_04 * SY_04
@@ -4903,7 +4930,7 @@ d(log(IAM_des_n_03_13)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_13(-1))
 d(log(IAM_des_n_03_10)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_10(-1)) - log(IA_n_03_10(-1)) + 0.48 * ( log(PIAM_03(-1)) - log(PIAD_03(-1)) ) )
 PROG_K_2201 = PROG_K_2201(-1) * ( 1 + GR_PROG_K_2201 + CHOC_K + CHOC_PGF )
 d(log(IAM_des_n_03_16)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_16(-1)) - log(IA_n_03_16(-1)) + 0.48 * ( log(PIAM_03(-1)) - log(PIAD_03(-1)) ) )
-d(SUBST_E_n_12) = - eta_K_E_12 * d(log(( PE_12 + PE_Signal_12 + PE_CEE_12 + PE_signal_bis_12 + PE_signal_E_12 ) / PROG_E_12) - log(CK_12 / PROG_K_12)) * phi_k_bis_12(-1) - eta_L_E_12 * d(log(( PE_12 + PE_Signal_12 + PE_CEE_12 + PE_signal_bis_12 ) / PROG_E_12) - log(CL_12)) * phi_l_bis_12(-1) - ES_KLEM(12, 6) * d(log(( PE_12 + PE_Signal_12 + PE_CEE_12 + PE_signal_bis_12 ) / PROG_E_12) - log(PMAT_12)) * phi_mat_bis_12(-1)
+d(log(IAM_des_n_03_17)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_17(-1)) - log(IA_n_03_17(-1)) + 0.48 * ( log(PIAM_03(-1)) - log(PIAD_03(-1)) ) )
 d(log(IAM_des_n_03_14)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_14(-1)) - log(IA_n_03_14(-1)) + 0.48 * ( log(PIAM_03(-1)) - log(PIAD_03(-1)) ) )
 d(log(IAM_des_n_03_15)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_15(-1)) - log(IA_n_03_15(-1)) + 0.48 * ( log(PIAM_03(-1)) - log(PIAD_03(-1)) ) )
 d(log(IAM_des_n_03_18)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_18(-1)) - log(IA_n_03_18(-1)) + 0.48 * ( log(PIAM_03(-1)) - log(PIAD_03(-1)) ) )
@@ -4952,7 +4979,7 @@ TQETS_24_13 = Ttco_vol_24 * ( 1 - EXO_24_13 )
 TQETS_24_12 = Ttco_vol_24 * ( 1 - EXO_24_12 )
 TQETS_24_19 = Ttco_vol_24 * ( 1 - EXO_24_19 )
 TQETS_24_18 = Ttco_vol_24 * ( 1 - EXO_24_18 )
-Phi_CEE_2406 = PhiY_ENER_24_2406 * ENER_BUIL_24 / ENER_BUIL
+PROG_L_2306 = PROG_L_2306(-1) * ( 1 + GR_PROG_L_2306 + CHOC_L + CHOC_PGF )
 PE_24_11 * E_24_11 = PED_24_11 * ED_24_11 + PEM_24_11 * EM_24_11
 d(SUBST_MATM_n_17_2402) = - ES_CIM(33, 17) * d(log(PMATM_17) - log(PMATD_17)) * ( PMATD_17(-1) * MATD_17_2402(-1) / ( PMAT_17_2402(-1) * MAT_17_2402(-1) ) )
 d(SUBST_MATM_n_17_2403) = - ES_CIM(34, 17) * d(log(PMATM_17) - log(PMATD_17)) * ( PMATD_17(-1) * MATD_17_2403(-1) / ( PMAT_17_2403(-1) * MAT_17_2403(-1) ) )
@@ -5122,6 +5149,7 @@ K_FC_2406 = K_FC_2406(-1) * ( 1 - tdec_2406 ) + IA_FC_2406
 PMAT_03_2402 * MAT_03_2402 = PMATD_03 * MATD_03_2402 + PMATM_03 * MATM_03_2402
 d(log(E_indus_des_24_08)) = d(log(E_indus_08)) + d(SUBST_E_24_08)
 PMAT_03_2401 * MAT_03_2401 = PMATD_03 * MATD_03_2401 + PMATM_03 * MATM_03_2401
+d(log(W_S_dgt_18)) = ( 0.5 * d(log(P)) + 0.5 * d(log(P(-1))) + 0.42 * d(log(Y_18 / L_18)) - 0.7 * d(UnR_TOT) - 0.27 * ( log(( W_S_18(-1) ) / W_S_n_18(-1)) ) )
 d(log(EM_des_n_23_2401)) = 1.15 * d(log(QD_23)) - 0.96 * ( log(EM_des_n_23_2401(-1)) - log(E_23_2401(-1)) )
 d(log(km_auto_LD_H01)) = d(log(km_trav_auto_LD_H01)) - d(log(travperauto_LD_H01))
 SUBST_IAD_12_20 = ADJUST(13, 6) * SUBST_IAD_n_12_20 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_12_20(-1)
@@ -5286,12 +5314,12 @@ Y_12_2406 = PhiY_12_2406 * YQ_12
 Y_12_2405 = PhiY_12_2405 * YQ_12
 Y_12_2404 = PhiY_12_2404 * YQ_12
 PMAT_08_2301 * MAT_08_2301 = PMATD_08 * MATD_08_2301 + PMATM_08 * MATM_08_2301
-RF_net_2402 = @elem(PRF_2402(-1), 2006) * RF_2402(-1) - IS_2402 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2402(-1) + REC_VAL_SEC_ETS_2402(-1) + REDIS_VAL_SEC_ETS2_2402(-1) ) / PCH(-1)
-RF_net_2403 = @elem(PRF_2403(-1), 2006) * RF_2403(-1) - IS_2403 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2403(-1) + REC_VAL_SEC_ETS_2403(-1) + REDIS_VAL_SEC_ETS2_2403(-1) ) / PCH(-1)
-RF_net_2401 = @elem(PRF_2401(-1), 2006) * RF_2401(-1) - IS_2401 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2401(-1) + REC_VAL_SEC_ETS_2401(-1) + REDIS_VAL_SEC_ETS2_2401(-1) ) / PCH(-1)
-RF_net_2406 = @elem(PRF_2406(-1), 2006) * RF_2406(-1) - IS_2406 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2406(-1) + REC_VAL_SEC_ETS_2406(-1) + REDIS_VAL_SEC_ETS2_2406(-1) ) / PCH(-1)
-RF_net_2404 = @elem(PRF_2404(-1), 2006) * RF_2404(-1) - IS_2404 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2404(-1) + REC_VAL_SEC_ETS_2404(-1) + REDIS_VAL_SEC_ETS2_2404(-1) ) / PCH(-1)
-RF_net_2405 = @elem(PRF_2405(-1), 2006) * RF_2405(-1) - IS_2405 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2405(-1) + REC_VAL_SEC_ETS_2405(-1) + REDIS_VAL_SEC_ETS2_2405(-1) ) / PCH(-1)
+RF_net_2402 = @elem(PRF_2402(-1), 2006) * RF_2402(-1) - IS_2402 + ( REDIS_VAL_SEC_TCO_2402(-1) + REDIS_VAL_SEC_ETS_2402(-1) + REDIS_VAL_SEC_ETS2_2402(-1) ) / PCH(-1)
+RF_net_2403 = @elem(PRF_2403(-1), 2006) * RF_2403(-1) - IS_2403 + ( REDIS_VAL_SEC_TCO_2403(-1) + REDIS_VAL_SEC_ETS_2403(-1) + REDIS_VAL_SEC_ETS2_2403(-1) ) / PCH(-1)
+RF_net_2401 = @elem(PRF_2401(-1), 2006) * RF_2401(-1) - IS_2401 + ( REDIS_VAL_SEC_TCO_2401(-1) + REDIS_VAL_SEC_ETS_2401(-1) + REDIS_VAL_SEC_ETS2_2401(-1) ) / PCH(-1)
+RF_net_2406 = @elem(PRF_2406(-1), 2006) * RF_2406(-1) - IS_2406 + ( REDIS_VAL_SEC_TCO_2406(-1) + REDIS_VAL_SEC_ETS_2406(-1) + REDIS_VAL_SEC_ETS2_2406(-1) ) / PCH(-1)
+RF_net_2404 = @elem(PRF_2404(-1), 2006) * RF_2404(-1) - IS_2404 + ( REDIS_VAL_SEC_TCO_2404(-1) + REDIS_VAL_SEC_ETS_2404(-1) + REDIS_VAL_SEC_ETS2_2404(-1) ) / PCH(-1)
+RF_net_2405 = @elem(PRF_2405(-1), 2006) * RF_2405(-1) - IS_2405 + ( REDIS_VAL_SEC_TCO_2405(-1) + REDIS_VAL_SEC_ETS_2405(-1) + REDIS_VAL_SEC_ETS2_2405(-1) ) / PCH(-1)
 verif_MAT_dgt_02_20 = MAT_02_20 - MAT_bis_dgt_02_20
 PMAT_08_2302 * MAT_08_2302 = PMATD_08 * MATD_08_2302 + PMATM_08 * MATM_08_2302
 verif_MAT_dgt_11_19 = MAT_11_19 - MAT_bis_dgt_11_19
@@ -5331,7 +5359,7 @@ PMTM_12 * MTM_12 = 0 + PMTM_14_12 * MTM_14_12 + PMTM_16_12 * MTM_16_12 + PMTM_17
 d(SUBST_IAD_n_19_2404) = - ES_IAM(35, 19) * d(log(PIAD_19) - log(PIAM_19)) * ( PIAM_19(-1) * IAM_19_2404(-1) / ( PIA_19_2404(-1) * IA_19_2404(-1) ) )
 E_bis_dgt_23_10 = ED_23_10 + EM_23_10
 verif_MAT_dgt_04_20 = MAT_04_20 - MAT_bis_dgt_04_20
-d(log(MAT_n_09_08)) = ( @year <= 2019 ) * ( dlog(CIexo_09_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_09_08)) = ( @year <= 2019 ) * ( dlog(CIexo_09_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
 d(SUBST_MAT_n_17_2308) = 0 + - ES_TRANSP_CI(31, cols_mat(17, 14)) * d(log(PMAT_17_2308) - log(PMAT_14_2308)) * kappa_mat_dgt_14_2308(-1) + - ES_TRANSP_CI(31, cols_mat(17, 15)) * d(log(PMAT_17_2308) - log(PMAT_15_2308)) * kappa_mat_dgt_15_2308(-1) + - ES_TRANSP_CI(31, cols_mat(17, 16)) * d(log(PMAT_17_2308) - log(PMAT_16_2308)) * kappa_mat_dgt_16_2308(-1) + - ES_TRANSP_CI(31, cols_mat(17, 18)) * d(log(PMAT_17_2308) - log(PMAT_18_2308)) * kappa_mat_dgt_18_2308(-1)
 d(SUBST_MAT_n_17_2303) = 0 + - ES_TRANSP_CI(26, cols_mat(17, 14)) * d(log(PMAT_17_2303) - log(PMAT_14_2303)) * kappa_mat_dgt_14_2303(-1) + - ES_TRANSP_CI(26, cols_mat(17, 15)) * d(log(PMAT_17_2303) - log(PMAT_15_2303)) * kappa_mat_dgt_15_2303(-1) + - ES_TRANSP_CI(26, cols_mat(17, 16)) * d(log(PMAT_17_2303) - log(PMAT_16_2303)) * kappa_mat_dgt_16_2303(-1) + - ES_TRANSP_CI(26, cols_mat(17, 18)) * d(log(PMAT_17_2303) - log(PMAT_18_2303)) * kappa_mat_dgt_18_2303(-1)
 d(SUBST_MAT_n_17_2302) = 0 + - ES_TRANSP_CI(25, cols_mat(17, 14)) * d(log(PMAT_17_2302) - log(PMAT_14_2302)) * kappa_mat_dgt_14_2302(-1) + - ES_TRANSP_CI(25, cols_mat(17, 15)) * d(log(PMAT_17_2302) - log(PMAT_15_2302)) * kappa_mat_dgt_15_2302(-1) + - ES_TRANSP_CI(25, cols_mat(17, 16)) * d(log(PMAT_17_2302) - log(PMAT_16_2302)) * kappa_mat_dgt_16_2302(-1) + - ES_TRANSP_CI(25, cols_mat(17, 18)) * d(log(PMAT_17_2302) - log(PMAT_18_2302)) * kappa_mat_dgt_18_2302(-1)
@@ -5433,15 +5461,15 @@ d(log(W_S_ademe_16)) = ( ADJUST(18, 1) * d(log(W_S_n_16)) + ( 1 - ADJUST(18, 1) 
 d(log(W_S_ademe_17)) = ( ADJUST(18, 1) * d(log(W_S_n_17)) + ( 1 - ADJUST(18, 1) ) * d(log(W_S_17(-1))) - ADJUST(18, 2) * ( log(W_S_17(-1) / W_S_n_17(-1)) ) )
 d(log(W_S_ademe_14)) = ( ADJUST(18, 1) * d(log(W_S_n_14)) + ( 1 - ADJUST(18, 1) ) * d(log(W_S_14(-1))) - ADJUST(18, 2) * ( log(W_S_14(-1) / W_S_n_14(-1)) ) )
 d(log(W_S_ademe_15)) = ( ADJUST(18, 1) * d(log(W_S_n_15)) + ( 1 - ADJUST(18, 1) ) * d(log(W_S_15(-1))) - ADJUST(18, 2) * ( log(W_S_15(-1) / W_S_n_15(-1)) ) )
-d(log(MAT_n_06_08)) = ( @year <= 2019 ) * ( dlog(CIexo_06_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_06_09)) = ( @year <= 2019 ) * ( dlog(CIexo_06_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_06_02)) = ( @year <= 2019 ) * ( dlog(CIexo_06_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_06_03)) = ( @year <= 2019 ) * ( dlog(CIexo_06_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_06_01)) = ( @year <= 2019 ) * ( dlog(CIexo_06_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_06_08)) = ( @year <= 2019 ) * ( dlog(CIexo_06_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_06_09)) = ( @year <= 2019 ) * ( dlog(CIexo_06_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_06_02)) = ( @year <= 2019 ) * ( dlog(CIexo_06_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_06_03)) = ( @year <= 2019 ) * ( dlog(CIexo_06_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_06_01)) = ( @year <= 2019 ) * ( dlog(CIexo_06_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
 CU_20 * Y_20 = CK_20 * K_20 + CL_20 * L_20 * PROG_L_20 + PEner_20 * Ener_20 + PMAT_20 * MAT_20 + CEE_20
 CU_21 * Y_21 = CK_21 * K_21 + CL_21 * L_21 * PROG_L_21 + PEner_21 * Ener_21 + PMAT_21 * MAT_21 + CEE_21
-d(log(MAT_n_06_04)) = ( @year <= 2019 ) * ( dlog(CIexo_06_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_06_05)) = ( @year <= 2019 ) * ( dlog(CIexo_06_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_06_04)) = ( @year <= 2019 ) * ( dlog(CIexo_06_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_06_05)) = ( @year <= 2019 ) * ( dlog(CIexo_06_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
 PCIM_02_2202 = PMATM_02
 CSS_SE_20 * PCSS_SE_20 = ( TCSS_SE + choc_tcss_se ) * L_SE_20 * W_SE_20
 CSS_SE_21 * PCSS_SE_21 = ( TCSS_SE + choc_tcss_se ) * L_SE_21 * W_SE_21
@@ -5458,15 +5486,15 @@ CIM_03_2402 = MATM_03_2402
 CIM_03_2401 = MATM_03_2401
 verif_Q_Mtep_ep = Q_Mtep_ef + Q_Mtep_Losses + Q_Mtep_int + Q_Mtep_X - Q_Mtep_ep
 MAT_bis_dgt_19_20 = MATD_19_20 + MATM_19_20
-d(log(MAT_n_04_08)) = ( @year <= 2019 ) * ( dlog(CIexo_04_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_04_09)) = ( @year <= 2019 ) * ( dlog(CIexo_04_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_04_04)) = ( @year <= 2019 ) * ( dlog(CIexo_04_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_04_05)) = ( @year <= 2019 ) * ( dlog(CIexo_04_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_04_06)) = ( @year <= 2019 ) * ( dlog(CIexo_04_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_04_07)) = ( @year <= 2019 ) * ( dlog(CIexo_04_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_04_01)) = ( @year <= 2019 ) * ( dlog(CIexo_04_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_04_02)) = ( @year <= 2019 ) * ( dlog(CIexo_04_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_04_03)) = ( @year <= 2019 ) * ( dlog(CIexo_04_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_04_08)) = ( @year <= 2019 ) * ( dlog(CIexo_04_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_04_09)) = ( @year <= 2019 ) * ( dlog(CIexo_04_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_04_04)) = ( @year <= 2019 ) * ( dlog(CIexo_04_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_04_05)) = ( @year <= 2019 ) * ( dlog(CIexo_04_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_04_06)) = ( @year <= 2019 ) * ( dlog(CIexo_04_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_04_07)) = ( @year <= 2019 ) * ( dlog(CIexo_04_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_04_01)) = ( @year <= 2019 ) * ( dlog(CIexo_04_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_04_02)) = ( @year <= 2019 ) * ( dlog(CIexo_04_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_04_03)) = ( @year <= 2019 ) * ( dlog(CIexo_04_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
 d(SUBST_MATM_n_08_2304) = - ES_CIM(27, 8) * d(log(PMATM_08) - log(PMATD_08)) * ( PMATD_08(-1) * MATD_08_2304(-1) / ( PMAT_08_2304(-1) * MAT_08_2304(-1) ) )
 d(log(empl_M_15)) = d(log(L))
 d(PE_signal_23_06) = d(PE_signal_23_sinc) + ( @year > 2022 ) * ( @year <= 2030 ) * d(tCIEE_sinc_23 * PE_23_06)
@@ -5504,6 +5532,7 @@ IC_22_21 = PhiY_ener_22_2201
 PE_tot_FC_06 = PE_06 + PE_Signal_06 + PE_CEE_06 + PE_signal_bis_06 + PE_signal_FC_06
 PE_tot_FC_07 = PE_07 + PE_Signal_07 + PE_CEE_07 + PE_signal_bis_07 + PE_signal_FC_07
 d(SUBST_MATD_n_17_20) = ( @year <= 2022 ) * ( - ES_CIM(20, 17) * d(log(PMATD_17) - log(PMATM_17)) * ( PMATM_17(-1) * MATM_17_20(-1) / ( PMAT_17_20(-1) * MAT_17_20(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_17) - log(PMATM_17)) * ( PMATM_17(-1) * MATM_17_20(-1) / ( PMAT_17_20(-1) * MAT_17_20(-1) ) ) )
+phiy_E_23_21 = PhiY_ener_exo_23_21 + Q_Mtep_FC_21 / Q_Mtep_ef_tot_SOU_23
 PCIM_18 * CIM_18 = 0 + PCIM_18_01 * CIM_18_01 + PCIM_18_02 * CIM_18_02 + PCIM_18_03 * CIM_18_03 + PCIM_18_04 * CIM_18_04 + PCIM_18_05 * CIM_18_05 + PCIM_18_06 * CIM_18_06 + PCIM_18_07 * CIM_18_07 + PCIM_18_08 * CIM_18_08 + PCIM_18_09 * CIM_18_09 + PCIM_18_10 * CIM_18_10 + PCIM_18_11 * CIM_18_11 + PCIM_18_12 * CIM_18_12 + PCIM_18_13 * CIM_18_13 + PCIM_18_14 * CIM_18_14 + PCIM_18_15 * CIM_18_15 + PCIM_18_16 * CIM_18_16 + PCIM_18_17 * CIM_18_17 + PCIM_18_18 * CIM_18_18 + PCIM_18_19 * CIM_18_19 + PCIM_18_20 * CIM_18_20 + PCIM_18_2201 * CIM_18_2201 + PCIM_18_2202 * CIM_18_2202 + PCIM_18_2301 * CIM_18_2301 + PCIM_18_2302 * CIM_18_2302 + PCIM_18_2303 * CIM_18_2303 + PCIM_18_2304 * CIM_18_2304 + PCIM_18_2305 * CIM_18_2305 + PCIM_18_2306 * CIM_18_2306 + PCIM_18_2307 * CIM_18_2307 + PCIM_18_2308 * CIM_18_2308 + PCIM_18_2401 * CIM_18_2401 + PCIM_18_2402 * CIM_18_2402 + PCIM_18_2403 * CIM_18_2403 + PCIM_18_2404 * CIM_18_2404 + PCIM_18_2405 * CIM_18_2405 + PCIM_18_2406 * CIM_18_2406
 PCIM_19 * CIM_19 = 0 + PCIM_19_01 * CIM_19_01 + PCIM_19_02 * CIM_19_02 + PCIM_19_03 * CIM_19_03 + PCIM_19_04 * CIM_19_04 + PCIM_19_05 * CIM_19_05 + PCIM_19_06 * CIM_19_06 + PCIM_19_07 * CIM_19_07 + PCIM_19_08 * CIM_19_08 + PCIM_19_09 * CIM_19_09 + PCIM_19_10 * CIM_19_10 + PCIM_19_11 * CIM_19_11 + PCIM_19_12 * CIM_19_12 + PCIM_19_13 * CIM_19_13 + PCIM_19_14 * CIM_19_14 + PCIM_19_15 * CIM_19_15 + PCIM_19_16 * CIM_19_16 + PCIM_19_17 * CIM_19_17 + PCIM_19_18 * CIM_19_18 + PCIM_19_19 * CIM_19_19 + PCIM_19_20 * CIM_19_20 + PCIM_19_21 * CIM_19_21 + PCIM_19_2201 * CIM_19_2201 + PCIM_19_2202 * CIM_19_2202 + PCIM_19_2301 * CIM_19_2301 + PCIM_19_2302 * CIM_19_2302 + PCIM_19_2303 * CIM_19_2303 + PCIM_19_2304 * CIM_19_2304 + PCIM_19_2305 * CIM_19_2305 + PCIM_19_2306 * CIM_19_2306 + PCIM_19_2307 * CIM_19_2307 + PCIM_19_2308 * CIM_19_2308 + PCIM_19_2401 * CIM_19_2401 + PCIM_19_2402 * CIM_19_2402 + PCIM_19_2403 * CIM_19_2403 + PCIM_19_2404 * CIM_19_2404 + PCIM_19_2405 * CIM_19_2405 + PCIM_19_2406 * CIM_19_2406
 verif_phi_E_indus_2304 = 0 + phi_E_indus_21_2304 + phi_E_indus_22_2304 + phi_E_indus_23_2304 + phi_E_indus_24_2304 - 1 * ( E_indus_2304 > 0 )
@@ -5567,7 +5596,7 @@ d(SUBST_K_n_18) = - ES_KLEM(18, 1) * d(log(CK_18 / PROG_K_18) - log(CL_18)) * ph
 d(SUBST_K_n_19) = - ES_KLEM(19, 1) * d(log(CK_19 / PROG_K_19) - log(CL_19)) * phi_l_bis_19(-1) - eta_K_E_19 * d(log(CK_19 / PROG_K_19) - log(( PE_19 + PE_Signal_19 + PE_CEE_19 + PE_signal_bis_19 + PE_signal_FC_19 ) / PROG_E_19)) * phi_e_bis_19(-1) - ES_KLEM(19, 3) * d(log(CK_19 / PROG_K_19) - log(PMAT_19)) * phi_mat_bis_19(-1)
 IA_10_21 = IAD_10_21 + IAM_10_21
 IA_10_20 = IAD_10_20 + IAM_10_20
-d(log(MAT_n_01_20)) = ( @year <= 2019 ) * ( dlog(CIexo_01_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_01_20)) = ( @year <= 2019 ) * ( dlog(CIexo_01_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 MATM_14_06 = ( CIMexo_14_06 ) * ( @year <= 2019 ) + ( ( MAT_14_06 - MATM_des_14_06 > 0 ) * ( MATM_des_14_06 ) + ( MAT_14_06 - MATM_des_14_06 <= 0 ) * ( MAT_14_06 - 1e-05 ) ) * ( @year > 2019 )
 MATM_14_07 = ( CIMexo_14_07 ) * ( @year <= 2019 ) + ( ( MAT_14_07 - MATM_des_14_07 > 0 ) * ( MATM_des_14_07 ) + ( MAT_14_07 - MATM_des_14_07 <= 0 ) * ( MAT_14_07 - 1e-05 ) ) * ( @year > 2019 )
 MATM_14_04 = ( CIMexo_14_04 ) * ( @year <= 2019 ) + ( ( MAT_14_04 - MATM_des_14_04 > 0 ) * ( MATM_des_14_04 ) + ( MAT_14_04 - MATM_des_14_04 <= 0 ) * ( MAT_14_04 - 1e-05 ) ) * ( @year > 2019 )
@@ -5643,7 +5672,7 @@ d(log(PY_e_16)) = 0.05 * d(log(PY_e_16(-1))) + 0.65 * d(log(PY_16(-1))) + 0.3 * 
 d(log(PY_e_17)) = 0.05 * d(log(PY_e_17(-1))) + 0.65 * d(log(PY_17(-1))) + 0.3 * d(log(PY_n_17))
 d(log(PY_e_18)) = 0.05 * d(log(PY_e_18(-1))) + 0.65 * d(log(PY_18(-1))) + 0.3 * d(log(PY_n_18))
 d(log(PY_e_19)) = 0.05 * d(log(PY_e_19(-1))) + 0.65 * d(log(PY_19(-1))) + 0.3 * d(log(PY_n_19))
-d(log(MAT_n_14_20)) = ( @year <= 2019 ) * ( dlog(CIexo_14_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_14_20)) = ( @year <= 2019 ) * ( dlog(CIexo_14_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 dlog(CIMexo_12_20) = dlog(QMexo_12)
 VATD_01 = @elem(TVATD_01, 2006) * CHD_01 / ( 1 + @elem(TVATD_01, 2006) ) + @elem(TVATDOTH_01, 2006) * ( ID_01 + CID_01 + GD_01 ) / ( 1 + @elem(TVATDOTH_01, 2006) )
 VATD_03 = @elem(TVATD_03, 2006) * CHD_03 / ( 1 + @elem(TVATD_03, 2006) ) + @elem(TVATDOTH_03, 2006) * ( ID_03 + CID_03 + GD_03 ) / ( 1 + @elem(TVATDOTH_03, 2006) )
@@ -5677,7 +5706,7 @@ VA_10 = Y_10 - MAT_10 - Ener_10
 VA_11 = Y_11 - MAT_11 - Ener_11
 VA_12 = Y_12 - MAT_12 - Ener_12
 VA_13 = Y_13 - MAT_13 - Ener_13
-kappa_e_dgt_23_20 = ( PE_23_20 * E_23_20 / ( PEner_20 * Ener_20 ) )
+TCO_VALM_22_08 = TCO_VAL_22_08 * EM_22_08 / E_22_08
 EMS_SEC_01 = 0 + EMS_SEC_22_01 + EMS_SEC_24_01
 EMS_SEC_02 = 0 + EMS_SEC_22_02 + EMS_SEC_24_02
 EMS_SEC_03 = 0 + EMS_SEC_22_03 + EMS_SEC_24_03
@@ -5803,16 +5832,16 @@ verif_IA_des_19 = IA_des_19 - I_MDE_n_19 - I_NE_n_19
 verif_IA_des_18 = IA_des_18 - I_MDE_n_18 - I_NE_n_18
 PCID_17_20 = PMATD_17
 RENOV_VAL_apCEE_CG = 0 + PREHAB_h01_CG_CA * ( 1 - R_SUB_CEE_H01_CG_CA ) * REHAB_h01_CG_CA + PREHAB_h01_CG_CB * ( 1 - R_SUB_CEE_H01_CG_CB ) * REHAB_h01_CG_CB + PREHAB_h01_CG_CC * ( 1 - R_SUB_CEE_H01_CG_CC ) * REHAB_h01_CG_CC + PREHAB_h01_CG_CD * ( 1 - R_SUB_CEE_H01_CG_CD ) * REHAB_h01_CG_CD + PREHAB_h01_CG_CE * ( 1 - R_SUB_CEE_H01_CG_CE ) * REHAB_h01_CG_CE + PREHAB_h01_CG_CF * ( 1 - R_SUB_CEE_H01_CG_CF ) * REHAB_h01_CG_CF
-d(log(MAT_n_09_03)) = ( @year <= 2019 ) * ( dlog(CIexo_09_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_09_02)) = ( @year <= 2019 ) * ( dlog(CIexo_09_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_09_01)) = ( @year <= 2019 ) * ( dlog(CIexo_09_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_09_07)) = ( @year <= 2019 ) * ( dlog(CIexo_09_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_09_06)) = ( @year <= 2019 ) * ( dlog(CIexo_09_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_09_05)) = ( @year <= 2019 ) * ( dlog(CIexo_09_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_09_04)) = ( @year <= 2019 ) * ( dlog(CIexo_09_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_09_03)) = ( @year <= 2019 ) * ( dlog(CIexo_09_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_09_02)) = ( @year <= 2019 ) * ( dlog(CIexo_09_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_09_01)) = ( @year <= 2019 ) * ( dlog(CIexo_09_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_09_07)) = ( @year <= 2019 ) * ( dlog(CIexo_09_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_09_06)) = ( @year <= 2019 ) * ( dlog(CIexo_09_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_09_05)) = ( @year <= 2019 ) * ( dlog(CIexo_09_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_09_04)) = ( @year <= 2019 ) * ( dlog(CIexo_09_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
 CU_OPEX_06 * PY_06 * Y_06 = CL_06 * L_06 + PEner_06 * Ener_06 + PMAT_06 * MAT_06
 CU_OPEX_07 * PY_07 * Y_07 = CL_07 * L_07 + PEner_07 * Ener_07 + PMAT_07 * MAT_07
-d(log(MAT_n_09_09)) = ( @year <= 2019 ) * ( dlog(CIexo_09_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_09_09)) = ( @year <= 2019 ) * ( dlog(CIexo_09_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
 CU_OPEX_05 * PY_05 * Y_05 = CL_05 * L_05 + PEner_05 * Ener_05 + PMAT_05 * MAT_05
 CU_OPEX_02 * PY_02 * Y_02 = CL_02 * L_02 + PEner_02 * Ener_02 + PMAT_02 * MAT_02
 CU_OPEX_03 * PY_03 * Y_03 = CL_03 * L_03 + PEner_03 * Ener_03 + PMAT_03 * MAT_03
@@ -5878,7 +5907,7 @@ PCID_18_13 = PMATD_18
 PCID_18_10 = PMATD_18
 PCID_18_11 = PMATD_18
 TCO_VALM_22_09 = TCO_VAL_22_09 * EM_22_09 / E_22_09
-TCO_VALM_22_08 = TCO_VAL_22_08 * EM_22_08 / E_22_08
+kappa_e_dgt_23_20 = ( PE_23_20 * E_23_20 / ( PEner_20 * Ener_20 ) )
 TCO_VALM_22_03 = TCO_VAL_22_03 * EM_22_03 / E_22_03
 TCO_VALM_22_02 = TCO_VAL_22_02 * EM_22_02 / E_22_02
 TCO_VALM_22_01 = TCO_VAL_22_01 * EM_22_01 / E_22_01
@@ -6110,12 +6139,6 @@ d(log(MAT_05_2303)) = d(log(MAT_2303)) + d(SUBST_MAT_05_2303)
 d(log(MAT_05_2302)) = d(log(MAT_2302)) + d(SUBST_MAT_05_2302)
 d(log(MAT_05_2308)) = d(log(MAT_2308)) + d(SUBST_MAT_05_2308)
 IA_bis_dgt_09_20 = IAD_09_20 + IAM_09_20
-P_Mtep_2406 = Y_2406 / Q_Mtep_ef_tot_2406
-P_Mtep_2405 = Y_2405 / Q_Mtep_ef_tot_2405
-P_Mtep_2404 = Y_2404 / Q_Mtep_ef_tot_2404
-P_Mtep_2403 = Y_2403 / Q_Mtep_ef_tot_2403
-P_Mtep_2402 = Y_2402 / Q_Mtep_ef_tot_2402
-P_Mtep_2401 = Y_2401 / Q_Mtep_ef_tot_2401
 EXP_13_OTH_Val = 0 + EXP_13_OTH_Val_H01
 PCIM_22_2201 = PEM_22_2201
 phi_MAT_n_09_06 * SUM_MAT_N_CM_06 = MAT_n_09_06
@@ -6203,8 +6226,11 @@ d(SUBST_MATM_n_12_04) = - ES_CIM(4, 12) * d(log(PMATM_12) - log(PMATD_12)) * ( P
 d(log(IAD_19_2405)) = d(log(IA_n_19_2405)) + d(SUBST_IAD_19_2405)
 d(log(IAD_19_2404)) = d(log(IA_n_19_2404)) + d(SUBST_IAD_19_2404)
 PCIM_06_2308 = PMATM_06
-PhiY_E_24 = ( 0 + PhiY_E_24_2401 + PhiY_E_24_2402 + PhiY_E_24_2403 + PhiY_E_24_2404 + PhiY_E_24_2405 + PhiY_E_24_2406 )
+PhiY_E_24 = ( 0 + phiy_E_24_21 + phiy_E_24_2201 + phiy_E_24_2202 + phiy_E_24_2301 + phiy_E_24_2302 + phiy_E_24_2303 + phiy_E_24_2304 + phiy_E_24_2305 + phiy_E_24_2306 + phiy_E_24_2307 + phiy_E_24_2308 + phiy_E_24_2401 + phiy_E_24_2402 + phiy_E_24_2403 + phiy_E_24_2404 + phiy_E_24_2405 + phiy_E_24_2406 )
 PCIM_22_20 = PEM_22_20
+PhiY_E_22 = ( 0 + phiy_E_22_21 + phiy_E_22_2201 + phiy_E_22_2202 + phiy_E_22_2301 + phiy_E_22_2302 + phiy_E_22_2303 + phiy_E_22_2304 + phiy_E_22_2305 + phiy_E_22_2306 + phiy_E_22_2307 + phiy_E_22_2308 + phiy_E_22_2401 + phiy_E_22_2402 + phiy_E_22_2403 + phiy_E_22_2404 + phiy_E_22_2405 + phiy_E_22_2406 )
+PhiY_E_23 = ( 0 + phiy_E_23_21 + phiy_E_23_2201 + phiy_E_23_2202 + phiy_E_23_2301 + phiy_E_23_2302 + phiy_E_23_2303 + phiy_E_23_2304 + phiy_E_23_2305 + phiy_E_23_2306 + phiy_E_23_2307 + phiy_E_23_2308 + phiy_E_23_2401 + phiy_E_23_2402 + phiy_E_23_2403 + phiy_E_23_2404 + phiy_E_23_2405 + phiy_E_23_2406 )
+PhiY_E_21 = ( 0 + phiy_E_21_21 + phiy_E_21_2201 + phiy_E_21_2202 + phiy_E_21_2301 + phiy_E_21_2302 + phiy_E_21_2303 + phiy_E_21_2304 + phiy_E_21_2305 + phiy_E_21_2306 + phiy_E_21_2307 + phiy_E_21_2308 + phiy_E_21_2401 + phiy_E_21_2402 + phiy_E_21_2403 + phiy_E_21_2404 + phiy_E_21_2405 + phiy_E_21_2406 )
 PCIM_06_2301 = PMATM_06
 PCIM_06_2302 = PMATM_06
 PCIM_06_2303 = PMATM_06
@@ -6305,7 +6331,7 @@ MATM_06_2302 = ( MAT_06_2302 - MATD_06_2302 > 0 ) * ( MAT_06_2302 - MATD_06_2302
 MATM_06_2303 = ( MAT_06_2303 - MATD_06_2303 > 0 ) * ( MAT_06_2303 - MATD_06_2303 ) + ( MAT_06_2303 - MATD_06_2303 =< 0 ) * ( 1e-05 )
 MATM_06_2301 = ( MAT_06_2301 - MATD_06_2301 > 0 ) * ( MAT_06_2301 - MATD_06_2301 ) + ( MAT_06_2301 - MATD_06_2301 =< 0 ) * ( 1e-05 )
 dlog(CIMexo_06_15) = dlog(QMexo_06)
-dlog(CIMexo_06_12) = dlog(QMexo_06)
+REC_VAL_SEC_TCO_22_04 = Ttco_22 * EMS_SEC_22_04 * ( 1 - EXO_22_04 )
 REC_VAL_SEC_TCO_22_05 = Ttco_22 * EMS_SEC_22_05 * ( 1 - EXO_22_05 )
 dlog(CIMexo_01_01) = dlog(QMexo_01)
 dlog(CIMexo_01_02) = dlog(QMexo_01)
@@ -6359,6 +6385,7 @@ SUBST_MTD_16_06 = ADJUST(11, 6) * SUBST_MTD_n_16_06 + ( 1 - ADJUST(11, 6) ) * SU
 SUBST_MTD_16_01 = ADJUST(11, 6) * SUBST_MTD_n_16_01 + ( 1 - ADJUST(11, 6) ) * SUBST_MTD_16_01(-1)
 SUBST_MTD_16_03 = ADJUST(11, 6) * SUBST_MTD_n_16_03 + ( 1 - ADJUST(11, 6) ) * SUBST_MTD_16_03(-1)
 SUBST_MTD_16_02 = ADJUST(11, 6) * SUBST_MTD_n_16_02 + ( 1 - ADJUST(11, 6) ) * SUBST_MTD_16_02(-1)
+ENER_spe_m2_H01_CC_23 = ENER_spe_H01_CC_23 / ( BUIL_H01_CC + 0.1 )
 d(SUBST_MATM_n_16_07) = - ES_CIM(7, 16) * d(log(PMATM_16) - log(PMATD_16)) * ( PMATD_16(-1) * MATD_16_07(-1) / ( PMAT_16_07(-1) * MAT_16_07(-1) ) )
 SUBST_MTD_14_07 = ADJUST(11, 6) * SUBST_MTD_n_14_07 + ( 1 - ADJUST(11, 6) ) * SUBST_MTD_14_07(-1)
 SUBST_MTD_14_06 = ADJUST(11, 6) * SUBST_MTD_n_14_06 + ( 1 - ADJUST(11, 6) ) * SUBST_MTD_14_06(-1)
@@ -6398,6 +6425,8 @@ SUBST_IAD_19_2307 = ADJUST(13, 6) * SUBST_IAD_n_19_2307 + ( 1 - ADJUST(13, 6) ) 
 SUBST_IAD_19_2301 = ADJUST(13, 6) * SUBST_IAD_n_19_2301 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_2301(-1)
 SUBST_IAD_19_2302 = ADJUST(13, 6) * SUBST_IAD_n_19_2302 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_2302(-1)
 SUBST_IAD_19_2303 = ADJUST(13, 6) * SUBST_IAD_n_19_2303 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_2303(-1)
+verif_PhiY_ener_2201 = 1
+verif_PhiY_ener_2202 = 1
 d(SUBST_MTM_n_16_24) = 0 + - ES_TRANSP_MARG(24, cols_trsp(16, 14)) * d(log(PE_16) - log(PE_14)) * PMTM_14_24(-1) * MTM_14_24(-1) / ( PMTM_16_24(-1) * MTM_16_24(-1) + PMTM_14_24(-1) * MTM_14_24(-1) ) + - ES_TRANSP_MARG(24, cols_trsp(16, 17)) * d(log(PE_16) - log(PE_17)) * PMTM_17_24(-1) * MTM_17_24(-1) / ( PMTM_16_24(-1) * MTM_16_24(-1) + PMTM_17_24(-1) * MTM_17_24(-1) ) + - ES_TRANSP_MARG(24, cols_trsp(16, 18)) * d(log(PE_16) - log(PE_18)) * PMTM_18_24(-1) * MTM_18_24(-1) / ( PMTM_16_24(-1) * MTM_16_24(-1) + PMTM_18_24(-1) * MTM_18_24(-1) )
 d(SUBST_MTM_n_16_22) = 0 + - ES_TRANSP_MARG(22, cols_trsp(16, 14)) * d(log(PE_16) - log(PE_14)) * PMTM_14_22(-1) * MTM_14_22(-1) / ( PMTM_16_22(-1) * MTM_16_22(-1) + PMTM_14_22(-1) * MTM_14_22(-1) ) + - ES_TRANSP_MARG(22, cols_trsp(16, 17)) * d(log(PE_16) - log(PE_17)) * PMTM_17_22(-1) * MTM_17_22(-1) / ( PMTM_16_22(-1) * MTM_16_22(-1) + PMTM_17_22(-1) * MTM_17_22(-1) ) + - ES_TRANSP_MARG(22, cols_trsp(16, 18)) * d(log(PE_16) - log(PE_18)) * PMTM_18_22(-1) * MTM_18_22(-1) / ( PMTM_16_22(-1) * MTM_16_22(-1) + PMTM_18_22(-1) * MTM_18_22(-1) )
 d(SUBST_MTM_n_16_21) = 0 + - ES_TRANSP_MARG(21, cols_trsp(16, 14)) * d(log(PE_16) - log(PE_14)) * PMTM_14_21(-1) * MTM_14_21(-1) / ( PMTM_16_21(-1) * MTM_16_21(-1) + PMTM_14_21(-1) * MTM_14_21(-1) ) + - ES_TRANSP_MARG(21, cols_trsp(16, 17)) * d(log(PE_16) - log(PE_17)) * PMTM_17_21(-1) * MTM_17_21(-1) / ( PMTM_16_21(-1) * MTM_16_21(-1) + PMTM_17_21(-1) * MTM_17_21(-1) ) + - ES_TRANSP_MARG(21, cols_trsp(16, 18)) * d(log(PE_16) - log(PE_18)) * PMTM_18_21(-1) * MTM_18_21(-1) / ( PMTM_16_21(-1) * MTM_16_21(-1) + PMTM_18_21(-1) * MTM_18_21(-1) )
@@ -6414,7 +6443,7 @@ PEXP_BUIL_H01 * EXP_BUIL_H01 = 0 + PEXP_BUIL_H01_CA * EXP_BUIL_H01_CA + PEXP_BUI
 d(SUBST_MATD_n_02_14) = ( @year <= 2022 ) * ( - ES_CIM(14, 2) * d(log(PMATD_02) - log(PMATM_02)) * ( PMATM_02(-1) * MATM_02_14(-1) / ( PMAT_02_14(-1) * MAT_02_14(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_02) - log(PMATM_02)) * ( PMATM_02(-1) * MATM_02_14(-1) / ( PMAT_02_14(-1) * MAT_02_14(-1) ) ) )
 d(SUBST_MATD_n_02_15) = ( @year <= 2022 ) * ( - ES_CIM(15, 2) * d(log(PMATD_02) - log(PMATM_02)) * ( PMATM_02(-1) * MATM_02_15(-1) / ( PMAT_02_15(-1) * MAT_02_15(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_02) - log(PMATM_02)) * ( PMATM_02(-1) * MATM_02_15(-1) / ( PMAT_02_15(-1) * MAT_02_15(-1) ) ) )
 SY_2303 = @elem(TSYN_2303, 2006) * Y_2303
-REDIS_VAL_SEC_ETS_2201 = REC_VAL_SEC_ETS_2201
+REDIS_VAL_SEC_ETS_2201 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2201
 SY_2302 = @elem(TSYN_2302, 2006) * Y_2302
 d(SUBST_MATD_n_04_18) = ( @year <= 2022 ) * ( - ES_CIM(18, 4) * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_18(-1) / ( PMAT_04_18(-1) * MAT_04_18(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_18(-1) / ( PMAT_04_18(-1) * MAT_04_18(-1) ) ) )
 d(SUBST_MATD_n_04_19) = ( @year <= 2022 ) * ( - ES_CIM(19, 4) * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_19(-1) / ( PMAT_04_19(-1) * MAT_04_19(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_19(-1) / ( PMAT_04_19(-1) * MAT_04_19(-1) ) ) )
@@ -6425,7 +6454,7 @@ d(SUBST_MATD_n_04_10) = ( @year <= 2022 ) * ( - ES_CIM(10, 4) * d(log(PMATD_04) 
 d(SUBST_MATD_n_04_11) = ( @year <= 2022 ) * ( - ES_CIM(11, 4) * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_11(-1) / ( PMAT_04_11(-1) * MAT_04_11(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_11(-1) / ( PMAT_04_11(-1) * MAT_04_11(-1) ) ) )
 d(SUBST_MATD_n_04_12) = ( @year <= 2022 ) * ( - ES_CIM(12, 4) * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_12(-1) / ( PMAT_04_12(-1) * MAT_04_12(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_12(-1) / ( PMAT_04_12(-1) * MAT_04_12(-1) ) ) )
 d(SUBST_MATD_n_04_13) = ( @year <= 2022 ) * ( - ES_CIM(13, 4) * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_13(-1) / ( PMAT_04_13(-1) * MAT_04_13(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_13(-1) / ( PMAT_04_13(-1) * MAT_04_13(-1) ) ) )
-REDIS_VAL_SEC_ETS_2202 = REC_VAL_SEC_ETS_2202
+REDIS_VAL_SEC_ETS_2202 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2202
 d(log(Q_Mtep_SEC_22_08)) = ( @year > 2006 ) * d(log(E_oth_22_08)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
 d(log(Q_Mtep_SEC_22_09)) = ( @year > 2006 ) * d(log(E_oth_22_09)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
 d(log(Q_Mtep_SEC_22_01)) = ( @year > 2006 ) * d(log(E_oth_22_01)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
@@ -6477,8 +6506,13 @@ IA_08_13 = IAD_08_13 + IAM_08_13
 IA_08_12 = IAD_08_12 + IAM_08_12
 IA_08_11 = IAD_08_11 + IAM_08_11
 IA_08_10 = IAD_08_10 + IAM_08_10
-Phi_EXP_06_H01 = EXP_06_H01 / EXP_06
-IA_08_19 = IAD_08_19 + IAM_08_19
+phiy_ener_22_2307 = phiy_E_22_2307 / PhiY_E_22
+phiy_ener_22_2306 = phiy_E_22_2306 / PhiY_E_22
+phiy_ener_22_2305 = phiy_E_22_2305 / PhiY_E_22
+phiy_ener_22_2304 = phiy_E_22_2304 / PhiY_E_22
+phiy_ener_22_2303 = phiy_E_22_2303 / PhiY_E_22
+phiy_ener_22_2302 = phiy_E_22_2302 / PhiY_E_22
+phiy_ener_22_2301 = phiy_E_22_2301 / PhiY_E_22
 IA_08_18 = IAD_08_18 + IAM_08_18
 PNEXP_13_H01 = PEXP_13_H01
 phi_MAT_n_13_13 * SUM_MAT_N_CM_13 = MAT_n_13_13
@@ -6550,7 +6584,7 @@ CSS_SE_2405 * PCSS_SE_2405 = ( TCSS_SE + choc_tcss_se ) * L_SE_2405 * W_SE_2405
 CSS_SE_2402 * PCSS_SE_2402 = ( TCSS_SE + choc_tcss_se ) * L_SE_2402 * W_SE_2402
 CSS_SE_2403 * PCSS_SE_2403 = ( TCSS_SE + choc_tcss_se ) * L_SE_2403 * W_SE_2403
 CSS_SE_2401 * PCSS_SE_2401 = ( TCSS_SE + choc_tcss_se ) * L_SE_2401 * W_SE_2401
-verif_PhiY_ener_24 = 1 - ( 0 + PhiY_ener_24_2401 + PhiY_ener_24_2402 + PhiY_ener_24_2403 + PhiY_ener_24_2404 + PhiY_ener_24_2405 + PhiY_ener_24_2406 )
+verif_PhiY_ener_21 = 1
 E_indus_des_21 = 0 + E_indus_des_21_21 + E_indus_des_22_21 + E_indus_des_23_21 + E_indus_des_24_21
 E_indus_des_20 = 0 + E_indus_des_21_20 + E_indus_des_22_20 + E_indus_des_23_20 + E_indus_des_24_20
 d(SUBST_K_NE_n_20) = - ES_KLEM(20, 1) * d(log(CK_20 / PROG_K_20) - log(CL_20)) * phi_l_bis_20(-1) - 0 * d(log(CK_20 / PROG_K_20) - log(( PE_20 + PE_signal_20 + PE_CEE_20 + PE_signal_bis_20 ) / PROG_E_20)) * phi_e_bis_20(-1) - ES_KLEM(20, 3) * d(log(CK_20 / PROG_K_20) - log(PMAT_20)) * phi_mat_bis_20(-1)
@@ -6860,6 +6894,8 @@ PMAT_14_2404 * MAT_14_2404 = PMATD_14 * MATD_14_2404 + PMATM_14 * MATM_14_2404
 PMAT_14_2403 * MAT_14_2403 = PMATD_14 * MATD_14_2403 + PMATM_14 * MATM_14_2403
 PMAT_14_2402 * MAT_14_2402 = PMATD_14 * MATD_14_2402 + PMATM_14 * MATM_14_2402
 PMAT_14_2401 * MAT_14_2401 = PMATD_14 * MATD_14_2401 + PMATM_14 * MATM_14_2401
+phiy_ener_21_2202 = phiy_E_21_2202 / PhiY_E_21
+phiy_ener_21_2201 = phiy_E_21_2201 / PhiY_E_21
 CID_18_2201 = MATD_18_2201
 CID_18_2202 = MATD_18_2202
 E_21_11 = E_indus_21_11 + E_oth_21_11
@@ -6956,7 +6992,7 @@ PMAT_14_15 * MAT_14_15 = PMATD_14 * MATD_14_15 + PMATM_14 * MATM_14_15
 PMAT_14_16 * MAT_14_16 = PMATD_14 * MATD_14_16 + PMATM_14 * MATM_14_16
 PMAT_14_17 * MAT_14_17 = PMATD_14 * MATD_14_17 + PMATM_14 * MATM_14_17
 d(SUBST_E_n_24_2201) = 0 + - ES_NRJ(22, cols_ce(24, 21)) * d(log(PE_24_2201 + PE_Signal_24_2201 + PE_Signal_bis_24_2201) - log(PE_21_2201 + PE_Signal_21_2201 + PE_Signal_bis_21_2201)) * kappa_e_dgt_21_2201(-1) + - ES_NRJ(22, cols_ce(24, 22)) * d(log(PE_24_2201 + PE_Signal_24_2201 + PE_Signal_bis_24_2201) - log(PE_22_2201 + PE_Signal_22_2201 + PE_Signal_bis_22_2201)) * kappa_e_dgt_22_2201(-1) + - ES_NRJ(22, cols_ce(24, 23)) * d(log(PE_24_2201 + PE_Signal_24_2201 + PE_Signal_bis_24_2201) - log(PE_23_2201 + PE_Signal_23_2201 + PE_Signal_bis_23_2201)) * kappa_e_dgt_23_2201(-1)
-d(log(MAT_n_07_20)) = ( @year <= 2019 ) * ( dlog(CIexo_07_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_07_20)) = ( @year <= 2019 ) * ( dlog(CIexo_07_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 d(log(YCAP_09)) = phi_n_L_09(-1) * d(log(L_09 * PROG_L_09)) + phi_n_K_09(-1) * d(log(K_09 * PROG_K_09)) + phi_n_E_09(-1) * d(log(E_09 * PROG_E_09)) + phi_n_MAT_09(-1) * d(log(MAT_09))
 d(log(YCAP_08)) = phi_n_L_08(-1) * d(log(L_08 * PROG_L_08)) + phi_n_K_08(-1) * d(log(K_08 * PROG_K_08)) + phi_n_E_08(-1) * d(log(E_08 * PROG_E_08)) + phi_n_MAT_08(-1) * d(log(MAT_08))
 d(log(YCAP_01)) = phi_n_L_01(-1) * d(log(L_01 * PROG_L_01)) + phi_n_K_01(-1) * d(log(K_01 * PROG_K_01)) + phi_n_E_01(-1) * d(log(E_01 * PROG_E_01)) + phi_n_MAT_01(-1) * d(log(MAT_01))
@@ -7020,6 +7056,8 @@ PMAT_10_12 * MAT_10_12 = PMATD_10 * MATD_10_12 + PMATM_10 * MATM_10_12
 PMAT_10_13 * MAT_10_13 = PMATD_10 * MATD_10_13 + PMATM_10 * MATM_10_13
 PMAT_10_18 * MAT_10_18 = PMATD_10 * MATD_10_18 + PMATM_10 * MATM_10_18
 PMAT_10_19 * MAT_10_19 = PMATD_10 * MATD_10_19 + PMATM_10 * MATM_10_19
+phiy_ener_23_2201 = phiy_E_23_2201 / PhiY_E_23
+phiy_ener_23_2202 = phiy_E_23_2202 / PhiY_E_23
 PMAT_12_18 * MAT_12_18 = PMATD_12 * MATD_12_18 + PMATM_12 * MATM_12_18
 PMAT_12_19 * MAT_12_19 = PMATD_12 * MATD_12_19 + PMATM_12 * MATM_12_19
 ENER_BUIL_H01_CG = 0 + ENER_BUIL_H01_CG_21 + ENER_BUIL_H01_CG_22 + ENER_BUIL_H01_CG_23 + ENER_BUIL_H01_CG_24
@@ -7113,7 +7151,7 @@ phi_REHAB_n_H01_CF_CE = ( phi_REHAB_des_n_H01_CF_CE > 0 ) * phi_REHAB_des_n_H01_
 phi_REHAB_n_H01_CF_CA = ( phi_REHAB_des_n_H01_CF_CA > 0 ) * phi_REHAB_des_n_H01_CF_CA
 phi_REHAB_n_H01_CF_CB = ( phi_REHAB_des_n_H01_CF_CB > 0 ) * phi_REHAB_des_n_H01_CF_CB
 phi_REHAB_n_H01_CF_CC = ( phi_REHAB_des_n_H01_CF_CC > 0 ) * phi_REHAB_des_n_H01_CF_CC
-E_oth_des_23_18 = E_oth_des_23_18(-1) * ( 1 + d(log(E_oth_n_18)) + d(SUBST_E_23_18) ) + Choc_E_oth_des_23_18
+d(log(E_oth_des_23_18)) = d(log(E_oth_18)) + d(SUBST_E_23_18)
 d(SUBST_MATM_n_05_2306) = - ES_CIM(29, 5) * d(log(PMATM_05) - log(PMATD_05)) * ( PMATD_05(-1) * MATD_05_2306(-1) / ( PMAT_05_2306(-1) * MAT_05_2306(-1) ) )
 d(SUBST_MATM_n_05_2307) = - ES_CIM(30, 5) * d(log(PMATM_05) - log(PMATD_05)) * ( PMATD_05(-1) * MATD_05_2307(-1) / ( PMAT_05_2307(-1) * MAT_05_2307(-1) ) )
 d(SUBST_MATM_n_05_2304) = - ES_CIM(27, 5) * d(log(PMATM_05) - log(PMATD_05)) * ( PMATD_05(-1) * MATD_05_2304(-1) / ( PMAT_05_2304(-1) * MAT_05_2304(-1) ) )
@@ -7149,6 +7187,12 @@ d(SUBST_MATM_n_03_2401) = - ES_CIM(32, 3) * d(log(PMATM_03) - log(PMATD_03)) * (
 d(SUBST_MATM_n_03_2406) = - ES_CIM(37, 3) * d(log(PMATM_03) - log(PMATD_03)) * ( PMATD_03(-1) * MATD_03_2406(-1) / ( PMAT_03_2406(-1) * MAT_03_2406(-1) ) )
 d(SUBST_MATM_n_03_2405) = - ES_CIM(36, 3) * d(log(PMATM_03) - log(PMATD_03)) * ( PMATD_03(-1) * MATD_03_2405(-1) / ( PMAT_03_2405(-1) * MAT_03_2405(-1) ) )
 d(SUBST_MATM_n_03_2404) = - ES_CIM(35, 3) * d(log(PMATM_03) - log(PMATD_03)) * ( PMATD_03(-1) * MATD_03_2404(-1) / ( PMAT_03_2404(-1) * MAT_03_2404(-1) ) )
+phiy_ener_23_2406 = phiy_E_23_2406 / PhiY_E_23
+phiy_ener_23_2405 = phiy_E_23_2405 / PhiY_E_23
+phiy_ener_23_2404 = phiy_E_23_2404 / PhiY_E_23
+phiy_ener_23_2403 = phiy_E_23_2403 / PhiY_E_23
+phiy_ener_23_2402 = phiy_E_23_2402 / PhiY_E_23
+phiy_ener_23_2401 = phiy_E_23_2401 / PhiY_E_23
 PE_24_20 * E_24_20 = PED_24_20 * ED_24_20 + PEM_24_20 * EM_24_20
 ENER_H01 = @elem(PENER_BUIL_H01, 2006) * ENER_BUIL_H01 + EXP_AUTO_H01
 ENER = @elem(PENER_BUIL, 2006) * ENER_BUIL + EXP_AUTO
@@ -7556,10 +7600,17 @@ TCO_VAL_21_2402 = Ttco_21 * EMS_SEC_21_2402 * ( 1 - EXO_21_2402 ) + PE_signal_ET
 MS_03 = M_03 + OTHTM_03 + ENERTM_03 + SUBM_03 + MTM_03 + MCM_03
 KM_AUTO_H01 = km_auto_LD_H01 + km_auto_CD_H01
 SUBST_MATD_19_14 = ADJUST(9, 6) * SUBST_MATD_n_19_14 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_19_14(-1)
+phiy_ener_22_2401 = phiy_E_22_2401 / PhiY_E_22
+phiy_ener_22_2402 = phiy_E_22_2402 / PhiY_E_22
+phiy_ener_22_2403 = phiy_E_22_2403 / PhiY_E_22
+phiy_ener_22_2404 = phiy_E_22_2404 / PhiY_E_22
+phiy_ener_22_2405 = phiy_E_22_2405 / PhiY_E_22
+phiy_ener_22_2406 = phiy_E_22_2406 / PhiY_E_22
 PYQS_BTCO_21 * ( YQ_21 + OTHTD_21 + TICD_21 + SUBD_21 + MTD_21 + MCD_21 ) = PYQ_21 * YQ_21 + POTHTD_21 * OTHTD_21 + PTICD_21 * TICD_21 + PSUBD_21 * SUBD_21 + PMTD_21 * MTD_21 + PMCD_21 * MCD_21
 PYQS_BTCO_23 * ( YQ_23 + OTHTD_23 + TICD_23 + SUBD_23 + MTD_23 + MCD_23 ) = PYQ_23 * YQ_23 + POTHTD_23 * OTHTD_23 + PTICD_23 * TICD_23 + PSUBD_23 * SUBD_23 + PMTD_23 * MTD_23 + PMCD_23 * MCD_23
 PYQS_BTCO_22 * ( YQ_22 + OTHTD_22 + TICD_22 + SUBD_22 + MTD_22 + MCD_22 ) = PYQ_22 * YQ_22 + POTHTD_22 * OTHTD_22 + PTICD_22 * TICD_22 + PSUBD_22 * SUBD_22 + PMTD_22 * MTD_22 + PMCD_22 * MCD_22
 PYQS_BTCO_24 * ( YQ_24 + OTHTD_24 + TICD_24 + SUBD_24 + MTD_24 + MCD_24 ) = PYQ_24 * YQ_24 + POTHTD_24 * OTHTD_24 + PTICD_24 * TICD_24 + PSUBD_24 * SUBD_24 + PMTD_24 * MTD_24 + PMCD_24 * MCD_24
+phiy_ener_21_2307 = phiy_E_21_2307 / PhiY_E_21
 CIM_23_2308 = EM_23_2308
 CIM_23_2306 = EM_23_2306
 CIM_23_2307 = EM_23_2307
@@ -7599,8 +7650,8 @@ GR_PROG_E_11 = alpha_PROG_E_11 + alpha_PROG_E_PE * ( ( log(PE_11) - log(PCH) > 0
 d(log(MATM_des_n_14_20)) = 0.25 * dlog(MATM_des_n_14_20(-1)) + 1.18 * dlog(QD_14) - 0.34 * d(log(PMATM_14(-1)) - log(PMATD_14(-1))) - 0.49 * ( log(MATM_des_n_14_20(-1)) - log(MAT_14_20(-1)) + 0.69 * ( log(PMATM_14(-1)) - log(PMATD_14(-1)) ) )
 GR_PROG_E_18 = alpha_PROG_E_18 + alpha_PROG_E_PE * ( ( log(PE_18) - log(PCH) > 0 ) * d(log(PE_18) - log(PCH)) )
 GR_PROG_E_19 = alpha_PROG_E_19 + alpha_PROG_E_PE * ( ( log(PE_19) - log(PCH) > 0 ) * d(log(PE_19) - log(PCH)) )
-d(log(MAT_n_11_10)) = ( @year <= 2019 ) * ( dlog(CIexo_11_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_11_13)) = ( @year <= 2019 ) * ( dlog(CIexo_11_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_11_10)) = ( @year <= 2019 ) * ( dlog(CIexo_11_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_11_13)) = ( @year <= 2019 ) * ( dlog(CIexo_11_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 CIM_22_19 = EM_22_19
 CIM_22_18 = EM_22_18
 PMCM_09 = PMCD_09
@@ -7673,7 +7724,7 @@ PCIM_10_2406 = PMATM_10
 CU_OPEX_2403 * PY_2403 * Y_2403 = CL_2403 * L_2403 + PEner_2403 * Ener_2403 + PMAT_2403 * MAT_2403
 TCSE = PCSE * CSE / ( L_S * W_S )
 PNew_LUV_23_15 = PNew_LUV_cst_23_15 * PMAT_03_15
-d(log(MAT_n_13_17)) = ( @year <= 2019 ) * ( dlog(CIexo_13_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_13_17)) = ( @year <= 2019 ) * ( dlog(CIexo_13_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
 PG_20 * G_20 = PGD_20 * GD_20 + PGM_20 * GM_20
 PG_24 * G_24 = PGD_24 * GD_24 + PGM_24 * GM_24
 U_REHAB_H01_CB_CA = ( UC_E_H01_CB(-1) - UC_E_H01_CA(-1) ) - ( ( 1 - R_SUB_H01_CB_CA(-1) ) * PREHAB_H01_CB_CA(-1) )
@@ -7684,6 +7735,7 @@ d(log(E_oth_des_23_20)) = d(log(E_oth_20)) + d(SUBST_E_23_20)
 dlog(E_oth_des_23_21) = dlog(E_oth_21) + d(SUBST_E_23_21) + ( @year > 2006 ) * d(Q_Mtep_in_23_21) / E_23_21(-1)
 E_oth_des_2202 = 0 + E_oth_des_21_2202 + E_oth_des_22_2202 + E_oth_des_23_2202 + E_oth_des_24_2202
 E_oth_des_2201 = 0 + E_oth_des_21_2201 + E_oth_des_22_2201 + E_oth_des_23_2201 + E_oth_des_24_2201
+ENER_spe_m2_H01_CE_23 = ENER_spe_H01_CE_23 / ( BUIL_H01_CE + 0.1 )
 verif_IA_dgt_04_10 = IA_n_04_10 - IA_bis_dgt_04_10
 verif_IA_dgt_04_11 = IA_n_04_11 - IA_bis_dgt_04_11
 verif_IA_dgt_04_12 = IA_n_04_12 - IA_bis_dgt_04_12
@@ -7907,7 +7959,7 @@ CIDexo_16_12 = ( CIexo_16_12 - CIMexo_16_12 > 0 ) * ( CIexo_16_12 - CIMexo_16_12
 CIDexo_16_13 = ( CIexo_16_13 - CIMexo_16_13 > 0 ) * ( CIexo_16_13 - CIMexo_16_13 ) + ( CIexo_16_13 - CIMexo_16_13 <= 0 ) * 0.0001
 IA_notionnel_05 = IA_notionnel_noshock_05 + ( @year > 2019 ) * ( Choc_CSC_niv_05 )
 IA_notionnel_04 = IA_notionnel_noshock_04 + ( @year > 2019 ) * ( Choc_CSC_niv_04 )
-IA_notionnel_07 = IA_notionnel_noshock_07 + ( @year > 2019 ) * ( Choc_CSC_niv_07 )
+d(log(MAT_14_2402)) = d(log(MAT_2402)) + d(SUBST_MAT_14_2402) + log(1 + modal_shift_freight * MAT_16_2402(-1) / MAT_14_2402(-1))
 d(log(MAT_14_2403)) = d(log(MAT_2403)) + d(SUBST_MAT_14_2403) + log(1 + modal_shift_freight * MAT_16_2403(-1) / MAT_14_2403(-1))
 IA_notionnel_01 = IA_notionnel_noshock_01 + ( @year > 2019 ) * ( Choc_CSC_niv_01 )
 d(log(MAT_14_2405)) = d(log(MAT_2405)) + d(SUBST_MAT_14_2405) + log(1 + modal_shift_freight * MAT_16_2405(-1) / MAT_14_2405(-1))
@@ -8007,19 +8059,19 @@ IR_VAL = 0 + IR_VAL_H01
 PNew_Trucks_21_15 = PNew_Trucks_cst_21_15 * PMAT_03_15
 PNew_Trucks_21_16 = PNew_Trucks_cst_21_16 * PMAT_03_16
 CU_MWH_PGDP_2405 = CU_MTEP_PGDP_2405 * 0.086
-d(log(MAT_n_15_15)) = ( @year <= 2019 ) * ( dlog(CIexo_15_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_15_15)) = ( @year <= 2019 ) * ( dlog(CIexo_15_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
 PCIM_04_08 = PMATM_04
-d(log(MAT_n_15_17)) = ( @year <= 2019 ) * ( dlog(CIexo_15_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_15_16)) = ( @year <= 2019 ) * ( dlog(CIexo_15_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_15_17)) = ( @year <= 2019 ) * ( dlog(CIexo_15_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_15_16)) = ( @year <= 2019 ) * ( dlog(CIexo_15_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
 phi_E_2307 = ( E_2307 * PE_2307 + CEE_2307 ) / ( CU_2307 * Y_2307 )
-d(log(MAT_n_15_10)) = ( @year <= 2019 ) * ( dlog(CIexo_15_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_15_10)) = ( @year <= 2019 ) * ( dlog(CIexo_15_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
 phi_E_2305 = ( E_2305 * PE_2305 + CEE_2305 ) / ( CU_2305 * Y_2305 )
-d(log(MAT_n_15_12)) = ( @year <= 2019 ) * ( dlog(CIexo_15_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_15_12)) = ( @year <= 2019 ) * ( dlog(CIexo_15_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
 PCIM_04_01 = PMATM_04
 PCIM_04_03 = PMATM_04
 PCIM_04_02 = PMATM_04
 PCIM_04_05 = PMATM_04
-d(log(MAT_n_15_18)) = ( @year <= 2019 ) * ( dlog(CIexo_15_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_15_18)) = ( @year <= 2019 ) * ( dlog(CIexo_15_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
 PCIM_04_07 = PMATM_04
 PCIM_04_06 = PMATM_04
 d(log(IA_notionnel_noshock_09)) = dlog(Y_09) + d(SUBST_K_09) - dlog(PROG_K_09) + ADJUST(1, 3) * ( log(K_n_09(-1)) - log(K_09(-1)) )
@@ -8045,16 +8097,16 @@ EXO_22_2202 = EXO_ETS
 EXO_22_2201 = EXO_ETS
 CU_CAPEX_2201 * PY_2201 * Y_2201 = CK_2201 * K_2201
 CU_CAPEX_2202 * PY_2202 * Y_2202 = CK_2202 * K_2202
-d(log(MAT_n_17_19)) = ( @year <= 2019 ) * ( dlog(CIexo_17_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_17_18)) = ( @year <= 2019 ) * ( dlog(CIexo_17_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_17_17)) = ( @year <= 2019 ) * ( dlog(CIexo_17_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_17_16)) = ( @year <= 2019 ) * ( dlog(CIexo_17_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_17_15)) = ( @year <= 2019 ) * ( dlog(CIexo_17_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_17_14)) = ( @year <= 2019 ) * ( dlog(CIexo_17_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_17_13)) = ( @year <= 2019 ) * ( dlog(CIexo_17_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_17_19)) = ( @year <= 2019 ) * ( dlog(CIexo_17_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_17_18)) = ( @year <= 2019 ) * ( dlog(CIexo_17_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_17_17)) = ( @year <= 2019 ) * ( dlog(CIexo_17_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_17_16)) = ( @year <= 2019 ) * ( dlog(CIexo_17_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_17_15)) = ( @year <= 2019 ) * ( dlog(CIexo_17_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_17_14)) = ( @year <= 2019 ) * ( dlog(CIexo_17_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_17_13)) = ( @year <= 2019 ) * ( dlog(CIexo_17_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 G_03 = GD_03 + GM_03
-d(log(MAT_n_17_11)) = ( @year <= 2019 ) * ( dlog(CIexo_17_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_17_10)) = ( @year <= 2019 ) * ( dlog(CIexo_17_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_17_11)) = ( @year <= 2019 ) * ( dlog(CIexo_17_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_17_10)) = ( @year <= 2019 ) * ( dlog(CIexo_17_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
 d(FISC) = STEADYSTATE(58, 1) * ( DP_G_VAL - @elem(DP_G_VAL, 2006) ) - STEADYSTATE(59, 1) * ( UNR_TOT - ( @elem(UNR_TOT, 2006) + DNAIRU ) )
 phi_K_2402 = K_2402 * CK_2402 / ( CU_2402 * Y_2402 )
 phi_K_2403 = K_2403 * CK_2403 / ( CU_2403 * Y_2403 )
@@ -8281,6 +8333,7 @@ PTICD_23 * TICD_23 = TTICD_23 * YQ_23
 PTICD_22 * TICD_22 = TTICD_22 * YQ_22
 SUBST_MTD_14_05 = ADJUST(11, 6) * SUBST_MTD_n_14_05 + ( 1 - ADJUST(11, 6) ) * SUBST_MTD_14_05(-1)
 SUBST_MTD_14_04 = ADJUST(11, 6) * SUBST_MTD_n_14_04 + ( 1 - ADJUST(11, 6) ) * SUBST_MTD_14_04(-1)
+dlog(ENER_spe_H01_CG_23) = dlog(BUIL_H01_CG + 0.1)
 SM_n_18 = STEADYSTATE(50, 1) * ( CIM_18 + CHM_18 + GM_18 + IM_18 + XM_18 )
 SM_n_19 = STEADYSTATE(50, 1) * ( CIM_19 + CHM_19 + GM_19 + IM_19 + XM_19 )
 SM_n_12 = STEADYSTATE(50, 1) * ( CIM_12 + CHM_12 + GM_12 + IM_12 + XM_12 )
@@ -8312,6 +8365,7 @@ phi_L_bis_2403 = L_2403 * PROG_L_2403 * CL_2403 / ( K_2403 * CK_2403 + L_2403 * 
 d(log(IA_n_des_02)) = d(IMP_BUD_niv_bis_02) + ( ADJUST(1, 1) * dlog(IA_n_des_02(-1)) + 1.8 * dlog(Y_02) + 0.28 * ( log(IA_notionnel_02(-1)) + IMP_BUD_niv_bis_02(-1) - log(IA_n_des_02(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_02) )
 phi_L_bis_2401 = L_2401 * PROG_L_2401 * CL_2401 / ( K_2401 * CK_2401 + L_2401 * PROG_L_2401 * CL_2401 + E_2401 * ( PE_2401 + PE_CEE_2401 + PE_signal_bis_2401 ) + MAT_2401 * PMAT_2401 )
 BUIL_24_CG = BUIL_CG * ENER_BUIL_h01_CG_24 / ENER_BUIL_h01_CG
+dlog(ENER_spe_H01_CC_23) = dlog(BUIL_H01_CC + 0.1)
 BUIL_24_CF = BUIL_CF * ENER_BUIL_h01_CF_24 / ENER_BUIL_h01_CF
 BUIL_24_CE = BUIL_CE * ENER_BUIL_h01_CE_24 / ENER_BUIL_h01_CE
 AUTO_H01_CG_24 = AUTO_H01_CG * SHARE_AUTO_H01_CG_24
@@ -8383,7 +8437,7 @@ d(SUBST_IAD_n_12_2406) = - ES_IAM(37, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( P
 d(SUBST_IAD_n_12_2405) = - ES_IAM(36, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_2405(-1) / ( PIA_12_2405(-1) * IA_12_2405(-1) ) )
 d(SUBST_IAD_n_12_2404) = - ES_IAM(35, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_2404(-1) / ( PIA_12_2404(-1) * IA_12_2404(-1) ) )
 MAT_03_08 = ( @year <= 2019 ) * ( MATD_03_08 + MATM_03_08 ) + ( @year > 2019 ) * ( MAT_n_03_08 )
-d(SUBST_IAD_n_12_2402) = - ES_IAM(33, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_2402(-1) / ( PIA_12_2402(-1) * IA_12_2402(-1) ) )
+MAT_03_09 = ( @year <= 2019 ) * ( MATD_03_09 + MATM_03_09 ) + ( @year > 2019 ) * ( MAT_n_03_09 )
 d(SUBST_IAD_n_12_2401) = - ES_IAM(32, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_2401(-1) / ( PIA_12_2401(-1) * IA_12_2401(-1) ) )
 MAT_03_04 = ( @year <= 2019 ) * ( MATD_03_04 + MATM_03_04 ) + ( @year > 2019 ) * ( MAT_n_03_04 )
 MAT_03_05 = ( @year <= 2019 ) * ( MATD_03_05 + MATM_03_05 ) + ( @year > 2019 ) * ( MAT_n_03_05 )
@@ -8490,15 +8544,15 @@ SUBST_IAD_19_2401 = ADJUST(13, 6) * SUBST_IAD_n_19_2401 + ( 1 - ADJUST(13, 6) ) 
 SUBST_IAD_19_2406 = ADJUST(13, 6) * SUBST_IAD_n_19_2406 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_2406(-1)
 SUBST_IAD_19_2405 = ADJUST(13, 6) * SUBST_IAD_n_19_2405 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_2405(-1)
 SUBST_IAD_19_2404 = ADJUST(13, 6) * SUBST_IAD_n_19_2404 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_2404(-1)
-d(log(MAT_n_20_02)) = ( @year <= 2019 ) * ( dlog(CIexo_20_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_20_03)) = ( @year <= 2019 ) * ( dlog(CIexo_20_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_20_01)) = ( @year <= 2019 ) * ( dlog(CIexo_20_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_20_06)) = ( @year <= 2019 ) * ( dlog(CIexo_20_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_20_07)) = ( @year <= 2019 ) * ( dlog(CIexo_20_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_20_04)) = ( @year <= 2019 ) * ( dlog(CIexo_20_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_20_05)) = ( @year <= 2019 ) * ( dlog(CIexo_20_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_20_08)) = ( @year <= 2019 ) * ( dlog(CIexo_20_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_20_09)) = ( @year <= 2019 ) * ( dlog(CIexo_20_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_20_02)) = ( @year <= 2019 ) * ( dlog(CIexo_20_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_20_03)) = ( @year <= 2019 ) * ( dlog(CIexo_20_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_20_01)) = ( @year <= 2019 ) * ( dlog(CIexo_20_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_20_06)) = ( @year <= 2019 ) * ( dlog(CIexo_20_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_20_07)) = ( @year <= 2019 ) * ( dlog(CIexo_20_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_20_04)) = ( @year <= 2019 ) * ( dlog(CIexo_20_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_20_05)) = ( @year <= 2019 ) * ( dlog(CIexo_20_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_20_08)) = ( @year <= 2019 ) * ( dlog(CIexo_20_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_20_09)) = ( @year <= 2019 ) * ( dlog(CIexo_20_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
 share_elec = share_elec_H01
 AIC_VAL = 0 + AIC_VAL_H01
 d(log(EM_des_n_23_09)) = 1.15 * d(log(QD_23)) - 0.96 * ( log(EM_des_n_23_09(-1)) - log(E_23_09(-1)) )
@@ -8529,7 +8583,7 @@ PCIM_11_10 = PMATM_11
 PCIM_11_11 = PMATM_11
 dlog(CIexo_20_03) = dlog(CIexo_20)
 PCIM_11_13 = PMATM_11
-SUBST_MAT_16_2308 = ADJUST(6, 6) * SUBST_MAT_n_16_2308 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_16_2308(-1) )
+MATD_03_20 = ( CIDexo_03_20 ) * ( @year <= 2019 ) + ( ( MAT_03_20 - MATM_03_20 > 0 ) * ( MAT_03_20 - MATM_03_20 ) + ( MAT_03_20 - MATM_03_20 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 SUBST_MATM_18_2402 = ADJUST(10, 6) * SUBST_MATM_n_18_2402 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_18_2402(-1)
 Q_Mtep_SEC_SOU_21 = 0 + Q_Mtep_SEC_21_01 + Q_Mtep_SEC_21_02 + Q_Mtep_SEC_21_03 + Q_Mtep_SEC_21_04 + Q_Mtep_SEC_21_05 + Q_Mtep_SEC_21_06 + Q_Mtep_SEC_21_07 + Q_Mtep_SEC_21_08 + Q_Mtep_SEC_21_09 + Q_Mtep_SEC_21_10 + Q_Mtep_SEC_21_11 + Q_Mtep_SEC_21_12 + Q_Mtep_SEC_21_13 + Q_Mtep_SEC_21_14 + Q_Mtep_SEC_21_15 + Q_Mtep_SEC_21_16 + Q_Mtep_SEC_21_17 + Q_Mtep_SEC_21_18 + Q_Mtep_SEC_21_19 + Q_Mtep_SEC_21_20
 Q_Mtep_SEC_SOU_22 = 0 + Q_Mtep_SEC_22_01 + Q_Mtep_SEC_22_02 + Q_Mtep_SEC_22_03 + Q_Mtep_SEC_22_04 + Q_Mtep_SEC_22_05 + Q_Mtep_SEC_22_06 + Q_Mtep_SEC_22_07 + Q_Mtep_SEC_22_08 + Q_Mtep_SEC_22_09 + Q_Mtep_SEC_22_10 + Q_Mtep_SEC_22_11 + Q_Mtep_SEC_22_12 + Q_Mtep_SEC_22_13 + Q_Mtep_SEC_22_14 + Q_Mtep_SEC_22_15 + Q_Mtep_SEC_22_16 + Q_Mtep_SEC_22_17 + Q_Mtep_SEC_22_18 + Q_Mtep_SEC_22_19 + Q_Mtep_SEC_22_20
@@ -8571,6 +8625,7 @@ GR_PROG_E_2201 = alpha_PROG_E_2201 + alpha_PROG_E_PE * ( ( log(PE_2201) - log(PC
 d(SUBST_MATD_n_02_17) = ( @year <= 2022 ) * ( - ES_CIM(17, 2) * d(log(PMATD_02) - log(PMATM_02)) * ( PMATM_02(-1) * MATM_02_17(-1) / ( PMAT_02_17(-1) * MAT_02_17(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_02) - log(PMATM_02)) * ( PMATM_02(-1) * MATM_02_17(-1) / ( PMAT_02_17(-1) * MAT_02_17(-1) ) ) )
 CH_bis_dgt_04 = CHD_04 + CHM_04
 EXO_21_2302 = EXO_ETS
+MATD_19_03 = ( CIDexo_19_03 ) * ( @year <= 2019 ) + ( ( MAT_19_03 - MATM_19_03 > 0 ) * ( MAT_19_03 - MATM_19_03 ) + ( MAT_19_03 - MATM_19_03 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 CH_bis_dgt_06 = CHD_06 + CHM_06
 EXO_21_2306 = EXO_ETS
 EXO_21_2305 = EXO_ETS
@@ -8580,7 +8635,7 @@ SUBST_MATD_07_2402 = ADJUST(9, 6) * SUBST_MATD_n_07_2402 + ( 1 - ADJUST(9, 6) ) 
 SUBST_IAM_05_2302 = ADJUST(14, 6) * SUBST_IAM_n_05_2302 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2302(-1)
 SUBST_IAM_05_2303 = ADJUST(14, 6) * SUBST_IAM_n_05_2303 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2303(-1)
 SUBST_IAM_05_2304 = ADJUST(14, 6) * SUBST_IAM_n_05_2304 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2304(-1)
-verif_phi_REHAB_H01_CG = sum_phi_REHAB_H01_CG - 1
+d(log(IA_n_12_2201)) = d(log(IA_n_2201))
 d(log(IA_n_12_2202)) = d(log(IA_n_2202))
 SUBST_IAM_05_2307 = ADJUST(14, 6) * SUBST_IAM_n_05_2307 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2307(-1)
 SUBST_IAM_05_2308 = ADJUST(14, 6) * SUBST_IAM_n_05_2308 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2308(-1)
@@ -8623,6 +8678,7 @@ Ttco_signal = ( ( 0 + Ttco_signal_21 * ( EMS_SECSOU_21 + EMS_HH_21 ) + Ttco_sign
 IA_bis_dgt_17_04 = IAD_17_04 + IAM_17_04
 IA_bis_dgt_17_09 = IAD_17_09 + IAM_17_09
 IA_bis_dgt_17_08 = IAD_17_08 + IAM_17_08
+PE_13 = PEner_13
 MAT_bis_dgt_09_20 = MATD_09_20 + MATM_09_20
 SUBST_MAT_17_2306 = ADJUST(6, 6) * SUBST_MAT_n_17_2306 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_2306(-1) )
 CU_15 * Y_15 = CK_15 * K_15 + CL_15 * L_15 * PROG_L_15 + PEner_15 * Ener_15 + PMAT_15 * MAT_15 + CEE_15
@@ -8635,7 +8691,7 @@ CU_13 * Y_13 = CK_13 * K_13 + CL_13 * L_13 * PROG_L_13 + PEner_13 * Ener_13 + PM
 CU_12 * Y_12 = CK_12 * K_12 + CL_12 * L_12 * PROG_L_12 + PEner_12 * Ener_12 + PMAT_12 * MAT_12 + CEE_12
 CU_19 * Y_19 = CK_19 * K_19 + CL_19 * L_19 * PROG_L_19 + PEner_19 * Ener_19 + PMAT_19 * MAT_19 + CEE_19
 CU_18 * Y_18 = CK_18 * K_18 + CL_18 * L_18 * PROG_L_18 + PEner_18 * Ener_18 + PMAT_18 * MAT_18 + CEE_18
-SUBST_MAT_17_2301 = ADJUST(6, 6) * SUBST_MAT_n_17_2301 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_2301(-1) )
+d(R_20) = d(R) + d(R_exo_20)
 Q_Mtep_ef_tot_2401 = 0 + Q_Mtep_ef_tot_24_2401
 Q_Mtep_ef_tot_2403 = 0 + Q_Mtep_ef_tot_24_2403
 Q_Mtep_ef_tot_2402 = 0 + Q_Mtep_ef_tot_24_2402
@@ -8711,12 +8767,12 @@ PYQ_20 * YQ_20 = 0 + PY_20 * Y_20_20
 PYQ_23 * YQ_23 = 0 + PY_12 * Y_23_12 + PY_2301 * Y_23_2301 + PY_2302 * Y_23_2302 + PY_2303 * Y_23_2303 + PY_2304 * Y_23_2304 + PY_2305 * Y_23_2305 + PY_2306 * Y_23_2306 + PY_2307 * Y_23_2307 + PY_2308 * Y_23_2308
 PYQ_22 * YQ_22 = 0 + PY_01 * Y_22_01 + PY_2201 * Y_22_2201 + PY_2202 * Y_22_2202
 CL_S_03 = W_S_03 * ( 1 + TCSE_03 ) / PROG_L_03
-CL_S_02 = W_S_02 * ( 1 + TCSE_02 ) / PROG_L_02
+d(log(MAT_n_21)) = d(log(Y_21)) + d(SUBST_MAT_21)
 PMS_09 * MS_09 = PM_09 * M_09 + POTHTM_09 * OTHTM_09 + PENERTM_09 * ENERTM_09 + PSUBM_09 * SUBM_09 + PMTM_09 * MTM_09 + PMCM_09 * MCM_09
 PMS_08 * MS_08 = PM_08 * M_08 + POTHTM_08 * OTHTM_08 + PENERTM_08 * ENERTM_08 + PSUBM_08 * SUBM_08 + PMTM_08 * MTM_08 + PMCM_08 * MCM_08
 CL_S_06 = W_S_06 * ( 1 + TCSE_06 ) / PROG_L_06
 PMS_05 * MS_05 = PM_05 * M_05 + POTHTM_05 * OTHTM_05 + PENERTM_05 * ENERTM_05 + PSUBM_05 * SUBM_05 + PMTM_05 * MTM_05 + PMCM_05 * MCM_05
-PMS_04 * MS_04 = PM_04 * M_04 + POTHTM_04 * OTHTM_04 + PENERTM_04 * ENERTM_04 + PSUBM_04 * SUBM_04 + PMTM_04 * MTM_04 + PMCM_04 * MCM_04
+CL_S_08 = W_S_08 * ( 1 + TCSE_08 ) / PROG_L_08
 d(log(IAM_des_n_12_20)) = 1.55 * dlog(QD_12) - 0.41 * ( log(IAM_des_n_12_20(-1)) - log(IA_n_12_20(-1)) + 0.48 * ( log(PIAM_12(-1)) - log(PIAD_12(-1)) ) )
 PMAT_18_03 * MAT_18_03 = PMATD_18 * MATD_18_03 + PMATM_18 * MATM_18_03
 PMAT_18_02 * MAT_18_02 = PMATD_18 * MATD_18_02 + PMATM_18 * MATM_18_02
@@ -8983,8 +9039,11 @@ SUBST_IAD_12_2202 = ADJUST(13, 6) * SUBST_IAD_n_12_2202 + ( 1 - ADJUST(13, 6) ) 
 SUBST_MAT_21 = 0.8 * SUBST_MAT_n_21 + ( 1 - 0.8 ) * SUBST_MAT_21(-1)
 SUBST_MAT_20 = 0.8 * SUBST_MAT_n_20 + ( 1 - 0.8 ) * SUBST_MAT_20(-1)
 ER_elec = 0 + Q_Mtep_ef_2301 + Q_Mtep_ef_2302 + Q_Mtep_ef_2303 + Q_Mtep_ef_2304 + Q_Mtep_ef_2305 + Q_Mtep_ef_2306 + Q_Mtep_ef_2307 + Q_Mtep_ef_2308
-DSM_base_08 = SUPPLY_USE_FOREIGN(8, 1 + NELEMSET(5, 1) + NELEMSET(7, 1) + NELEMSET(1, 1) + 5) * REAL_GDP_INDEX_DGT
-phi_MAT_n_18_13 * SUM_MAT_N_CM_13 = MAT_n_18_13
+phiy_E_23_2402 = PhiY_ener_exo_23_2402 + Q_Mtep_FC_2402 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2401 = PhiY_ener_exo_23_2401 + Q_Mtep_FC_2401 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2406 = PhiY_ener_exo_23_2406 + Q_Mtep_FC_2406 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2405 = PhiY_ener_exo_23_2405 + Q_Mtep_FC_2405 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2404 = PhiY_ener_exo_23_2404 + Q_Mtep_FC_2404 / Q_Mtep_ef_tot_SOU_23
 PMAT_01_2308 * MAT_01_2308 = PMATD_01 * MATD_01_2308 + PMATM_01 * MATM_01_2308
 PMAT_01_2306 * MAT_01_2306 = PMATD_01 * MATD_01_2306 + PMATM_01 * MATM_01_2306
 PMAT_01_2307 * MAT_01_2307 = PMATD_01 * MATD_01_2307 + PMATM_01 * MATM_01_2307
@@ -9034,7 +9093,7 @@ d(SUBST_MAT_n_17_07) = 0 + - ES_TRANSP_CI(7, cols_mat(17, 14)) * d(log(PMAT_17_0
 d(SUBST_MAT_n_17_08) = 0 + - ES_TRANSP_CI(8, cols_mat(17, 14)) * d(log(PMAT_17_08) - log(PMAT_14_08)) * kappa_mat_dgt_14_08(-1) + - ES_TRANSP_CI(8, cols_mat(17, 15)) * d(log(PMAT_17_08) - log(PMAT_15_08)) * kappa_mat_dgt_15_08(-1) + - ES_TRANSP_CI(8, cols_mat(17, 16)) * d(log(PMAT_17_08) - log(PMAT_16_08)) * kappa_mat_dgt_16_08(-1) + - ES_TRANSP_CI(8, cols_mat(17, 18)) * d(log(PMAT_17_08) - log(PMAT_18_08)) * kappa_mat_dgt_18_08(-1)
 d(SUBST_MAT_n_17_09) = 0 + - ES_TRANSP_CI(9, cols_mat(17, 14)) * d(log(PMAT_17_09) - log(PMAT_14_09)) * kappa_mat_dgt_14_09(-1) + - ES_TRANSP_CI(9, cols_mat(17, 15)) * d(log(PMAT_17_09) - log(PMAT_15_09)) * kappa_mat_dgt_15_09(-1) + - ES_TRANSP_CI(9, cols_mat(17, 16)) * d(log(PMAT_17_09) - log(PMAT_16_09)) * kappa_mat_dgt_16_09(-1) + - ES_TRANSP_CI(9, cols_mat(17, 18)) * d(log(PMAT_17_09) - log(PMAT_18_09)) * kappa_mat_dgt_18_09(-1)
 NCU_n_03 * Y_03 = CU_n_03 * Y_03 + PIY_03 * IY_03 + PSY_03 * SY_03 + PIS_03 * IS_03
-d(log(MAT_n_12_09)) = ( @year <= 2019 ) * ( dlog(CIexo_12_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_12_09)) = ( @year <= 2019 ) * ( dlog(CIexo_12_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
 NCU_n_08 * Y_08 = CU_n_08 * Y_08 + PIY_08 * IY_08 + PSY_08 * SY_08 + PIS_08 * IS_08
 NCU_n_09 * Y_09 = CU_n_09 * Y_09 + PIY_09 * IY_09 + PSY_09 * SY_09 + PIS_09 * IS_09
 d(log(E_oth_des_21_20)) = d(log(E_oth_20)) + d(SUBST_E_21_20)
@@ -9100,7 +9159,7 @@ EM_23_07 = ( ( E_23_07 - ED_23_07 > 0 ) * ( E_23_07 - ED_23_07 ) + ( E_23_07 - E
 TIS_2303 = TIS_exo_2303 - ( choc_IS(-1) * PY_2303(-1) * Y_2303(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2303 ) / ( PRF_2303(-1) * RF_2303(-1) + 1e-07 )
 EM_23_05 = ( ( E_23_05 - ED_23_05 > 0 ) * ( E_23_05 - ED_23_05 ) + ( E_23_05 - ED_23_05 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_05 - EM_des_23_05 > 0 ) * ( EM_des_23_05 ) + ( E_23_05 - EM_des_23_05 <= 0 ) * ( E_23_05 - 1e-05 ) ) * ( @year > 2019 )
 EM_23_04 = ( ( E_23_04 - ED_23_04 > 0 ) * ( E_23_04 - ED_23_04 ) + ( E_23_04 - ED_23_04 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_04 - EM_des_23_04 > 0 ) * ( EM_des_23_04 ) + ( E_23_04 - EM_des_23_04 <= 0 ) * ( E_23_04 - 1e-05 ) ) * ( @year > 2019 )
-TIS_2306 = TIS_exo_2306 - ( choc_IS(-1) * PY_2306(-1) * Y_2306(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2306 ) / ( PRF_2306(-1) * RF_2306(-1) + 1e-07 )
+EM_23_03 = ( ( E_23_03 - ED_23_03 > 0 ) * ( E_23_03 - ED_23_03 ) + ( E_23_03 - ED_23_03 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_03 - EM_des_23_03 > 0 ) * ( EM_des_23_03 ) + ( E_23_03 - EM_des_23_03 <= 0 ) * ( E_23_03 - 1e-05 ) ) * ( @year > 2019 )
 EM_23_02 = ( ( E_23_02 - ED_23_02 > 0 ) * ( E_23_02 - ED_23_02 ) + ( E_23_02 - ED_23_02 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_02 - EM_des_23_02 > 0 ) * ( EM_des_23_02 ) + ( E_23_02 - EM_des_23_02 <= 0 ) * ( E_23_02 - 1e-05 ) ) * ( @year > 2019 )
 TIS_2304 = TIS_exo_2304 - ( choc_IS(-1) * PY_2304(-1) * Y_2304(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2304 ) / ( PRF_2304(-1) * RF_2304(-1) + 1e-07 )
 TIS_2305 = TIS_exo_2305 - ( choc_IS(-1) * PY_2305(-1) * Y_2305(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2305 ) / ( PRF_2305(-1) * RF_2305(-1) + 1e-07 )
@@ -9133,7 +9192,6 @@ PMTM_16_22 = PMTD_16_22
 PMTM_17_03 = PMTD_17_03
 PMTM_17_04 = PMTD_17_04
 TCO_VALD_22_2302 = TCO_VAL_22_2302 * ED_22_2302 / E_22_2302
-PCID_18_2402 = PMATD_18
 PMTM_17_06 = PMTD_17_06
 PMTM_17_07 = PMTD_17_07
 kappa_mat_dgt_16_20 = ( PMAT_16_20 * MAT_16_20 / ( PMAT_20 * MAT_20 ) )
@@ -9203,7 +9261,9 @@ dlog(CIexo_18_16) = dlog(CIexo_18)
 I_MDE_n_20 = K_E_n_20 - K_E_n_20(-1) * ( 1 - tdec_20 )
 I_MDE_n_21 = K_E_n_21 - K_E_n_21(-1) * ( 1 - tdec_21 )
 d(SUBST_MATD_n_05_2302) = ( @year <= 2022 ) * ( - ES_CIM(25, 5) * d(log(PMATD_05) - log(PMATM_05)) * ( PMATM_05(-1) * MATM_05_2302(-1) / ( PMAT_05_2302(-1) * MAT_05_2302(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_05) - log(PMATM_05)) * ( PMATM_05(-1) * MATM_05_2302(-1) / ( PMAT_05_2302(-1) * MAT_05_2302(-1) ) ) )
+Phi_EXP_06_H01 = EXP_06_H01 / EXP_06
 MT_18 = MTD_18 + MTM_18
+IA_08_19 = IAD_08_19 + IAM_08_19
 MT_14 = MTD_14 + MTM_14
 SUBST_MATD_18_20 = ADJUST(9, 6) * SUBST_MATD_n_18_20 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_18_20(-1)
 MT_16 = MTD_16 + MTM_16
@@ -9307,7 +9367,7 @@ PCIM_22_17 = PEM_22_17
 PCIM_22_14 = PEM_22_14
 PCIM_01_2302 = PMATM_01
 MAT_09_03 = ( @year <= 2019 ) * ( MATD_09_03 + MATM_09_03 ) + ( @year > 2019 ) * ( MAT_n_09_03 )
-verif_MAT_dgt_18_20 = MAT_18_20 - MAT_bis_dgt_18_20
+MAT_09_01 = ( @year <= 2019 ) * ( MATD_09_01 + MATM_09_01 ) + ( @year > 2019 ) * ( MAT_n_09_01 )
 dlog(EMS_SEC_indus_21_10) = dlog(Q_Mtep_indus_21_10 * IC_21_10)
 verif_E_indus_2308 = 0 + E_indus_21_2308 + E_indus_22_2308 + E_indus_23_2308 + E_indus_24_2308 - E_indus_2308
 verif_E_indus_2301 = 0 + E_indus_21_2301 + E_indus_22_2301 + E_indus_23_2301 + E_indus_24_2301 - E_indus_2301
@@ -9405,14 +9465,14 @@ PRF_2202 * RF_2202 = PEBE_2202 * EBE_2202 - PK_2202(-1) * Tdec_2202 * K_2202(-1)
 PRF_2201 * RF_2201 = PEBE_2201 * EBE_2201 - PK_2201(-1) * Tdec_2201 * K_2201(-1)
 REC_VAL_SEC_ETS2_21_19 = ETS2_19 * PCH * EMS_SEC_21_19 * ( 1 - EXO_21_19 )
 PNewAUTO_th_H01 * NewAUTO_th_H01 = 0 + PNewAUTO_th_H01_CA * NewAUTO_th_H01_CA + PNewAUTO_th_H01_CB * NewAUTO_th_H01_CB + PNewAUTO_th_H01_CC * NewAUTO_th_H01_CC + PNewAUTO_th_H01_CD * NewAUTO_th_H01_CD + PNewAUTO_th_H01_CE * NewAUTO_th_H01_CE + PNewAUTO_th_H01_CF * NewAUTO_th_H01_CF + PNewAUTO_th_H01_CG * NewAUTO_th_H01_CG
-SUB_FC_08 = TSUB_FC_08 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_08
-SUB_FC_09 = TSUB_FC_09 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_09
-SUB_FC_06 = TSUB_FC_06 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_06
-SUB_FC_07 = TSUB_FC_07 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_07
+SUB_FC_08 = TSUB_FC_08 * P / 1.21 * dQ_Mtep_FC_08
+SUB_FC_09 = TSUB_FC_09 * P / 1.21 * dQ_Mtep_FC_09
+SUB_FC_06 = TSUB_FC_06 * P / 1.21 * dQ_Mtep_FC_06
+SUB_FC_07 = TSUB_FC_07 * P / 1.21 * dQ_Mtep_FC_07
 REC_VAL_SEC_ETS2_21_17 = ETS2_17 * PCH * EMS_SEC_21_17 * ( 1 - EXO_21_17 )
 REC_VAL_SEC_ETS2_21_16 = ETS2_16 * PCH * EMS_SEC_21_16 * ( 1 - EXO_21_16 )
-SUB_FC_02 = TSUB_FC_02 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_02
-SUB_FC_03 = TSUB_FC_03 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_03
+SUB_FC_02 = TSUB_FC_02 * P / 1.21 * dQ_Mtep_FC_02
+SUB_FC_03 = TSUB_FC_03 * P / 1.21 * dQ_Mtep_FC_03
 verif_IA_dgt_08_09 = IA_n_08_09 - IA_bis_dgt_08_09
 verif_IA_dgt_08_08 = IA_n_08_08 - IA_bis_dgt_08_08
 ETS2_20 = ETSexo2_20
@@ -9506,11 +9566,11 @@ dlog(CIexo_19_07) = dlog(CIexo_19)
 dlog(CIexo_19_06) = dlog(CIexo_19)
 d(SUBST_IAM_n_03_17) = ( @year <= 2022 ) * ( - ES_IAM(17, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_17(-1) / ( PIA_03_17(-1) * IA_03_17(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_17(-1) / ( PIA_03_17(-1) * IA_03_17(-1) ) ) )
 d(SUBST_IAM_n_03_16) = ( @year <= 2022 ) * ( - ES_IAM(16, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_16(-1) / ( PIA_03_16(-1) * IA_03_16(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_16(-1) / ( PIA_03_16(-1) * IA_03_16(-1) ) ) )
-REDIS_VAL_SEC_ETS_2405 = REC_VAL_SEC_ETS_2405
+REDIS_VAL_SEC_ETS_2405 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2405
 d(SUBST_IAM_n_03_14) = ( @year <= 2022 ) * ( - ES_IAM(14, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_14(-1) / ( PIA_03_14(-1) * IA_03_14(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_14(-1) / ( PIA_03_14(-1) * IA_03_14(-1) ) ) )
-REDIS_VAL_SEC_ETS_2403 = REC_VAL_SEC_ETS_2403
+REDIS_VAL_SEC_ETS_2403 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2403
 CHD_09 = ( ( EXP_09 - CHM_09 > 0 ) * ( EXP_09 - CHM_09 ) + ( EXP_09 - CHM_09 =< 0 ) * ( 1e-05 ) ) * ( @year <= 2019 ) + ( ( EXP_09 - CHM_09 > 0 ) * ( EXP_09 - CHM_09 ) + ( EXP_09 - CHM_09 <= 0 ) * 1e-05 ) * ( @year > 2019 )
-REDIS_VAL_SEC_ETS_2401 = REC_VAL_SEC_ETS_2401
+REDIS_VAL_SEC_ETS_2401 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2401
 d(SUBST_IAM_n_03_10) = ( @year <= 2022 ) * ( - ES_IAM(10, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_10(-1) / ( PIA_03_10(-1) * IA_03_10(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_10(-1) / ( PIA_03_10(-1) * IA_03_10(-1) ) ) )
 CHD_04 = ( ( EXP_04 - CHM_04 > 0 ) * ( EXP_04 - CHM_04 ) + ( EXP_04 - CHM_04 =< 0 ) * ( 1e-05 ) ) * ( @year <= 2019 ) + ( ( EXP_04 - CHM_04 > 0 ) * ( EXP_04 - CHM_04 ) + ( EXP_04 - CHM_04 <= 0 ) * 1e-05 ) * ( @year > 2019 )
 CHD_05 = ( ( EXP_05 - CHM_05 > 0 ) * ( EXP_05 - CHM_05 ) + ( EXP_05 - CHM_05 =< 0 ) * ( 1e-05 ) ) * ( @year <= 2019 ) + ( ( EXP_05 - CHM_05 > 0 ) * ( EXP_05 - CHM_05 ) + ( EXP_05 - CHM_05 <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -9571,6 +9631,12 @@ phi_MAT_n_09_16 * SUM_MAT_N_CM_16 = MAT_n_09_16
 phi_MAT_n_09_17 * SUM_MAT_N_CM_17 = MAT_n_09_17
 phi_MAT_n_09_18 * SUM_MAT_N_CM_18 = MAT_n_09_18
 phi_MAT_n_09_19 * SUM_MAT_N_CM_19 = MAT_n_09_19
+phiy_E_22_2404 = PhiY_ener_exo_22_2404 + Q_Mtep_FC_2404 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2405 = PhiY_ener_exo_22_2405 + Q_Mtep_FC_2405 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2406 = PhiY_ener_exo_22_2406 + Q_Mtep_FC_2406 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2401 = PhiY_ener_exo_22_2401 + Q_Mtep_FC_2401 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2402 = PhiY_ener_exo_22_2402 + Q_Mtep_FC_2402 / Q_Mtep_ef_tot_SOU_22
+phiy_E_22_2403 = PhiY_ener_exo_22_2403 + Q_Mtep_FC_2403 / Q_Mtep_ef_tot_SOU_22
 verif_K_n_15 = K_n_15 - K_NE_n_15 - K_E_n_15
 verif_K_n_14 = K_n_14 - K_NE_n_14 - K_E_n_14
 verif_K_n_17 = K_n_17 - K_NE_n_17 - K_E_n_17
@@ -9774,14 +9840,14 @@ PWD_21 = PWD_constant_21 * PGDP + choc_fossile_21
 PWD_22 = PWD_constant_22 * PGDP + choc_fossile_22
 CIM_16_03 = MATM_16_03
 d(SUBST_E_21_2401) = 0.8 * d(SUBST_E_n_21_2401) + ( 1 - 0.8 ) * d(SUBST_E_21_2401(-1))
-d(log(MAT_n_11_08)) = ( @year <= 2019 ) * ( dlog(CIexo_11_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_11_09)) = ( @year <= 2019 ) * ( dlog(CIexo_11_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_11_06)) = ( @year <= 2019 ) * ( dlog(CIexo_11_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_11_07)) = ( @year <= 2019 ) * ( dlog(CIexo_11_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_11_04)) = ( @year <= 2019 ) * ( dlog(CIexo_11_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_11_05)) = ( @year <= 2019 ) * ( dlog(CIexo_11_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_11_02)) = ( @year <= 2019 ) * ( dlog(CIexo_11_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_11_03)) = ( @year <= 2019 ) * ( dlog(CIexo_11_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_11_08)) = ( @year <= 2019 ) * ( dlog(CIexo_11_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_11_09)) = ( @year <= 2019 ) * ( dlog(CIexo_11_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_11_06)) = ( @year <= 2019 ) * ( dlog(CIexo_11_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_11_07)) = ( @year <= 2019 ) * ( dlog(CIexo_11_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_11_04)) = ( @year <= 2019 ) * ( dlog(CIexo_11_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_11_05)) = ( @year <= 2019 ) * ( dlog(CIexo_11_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_11_02)) = ( @year <= 2019 ) * ( dlog(CIexo_11_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_11_03)) = ( @year <= 2019 ) * ( dlog(CIexo_11_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
 PMAT_02_17 * MAT_02_17 = PMATD_02 * MATD_02_17 + PMATM_02 * MATM_02_17
 PMAT_02_16 * MAT_02_16 = PMATD_02 * MATD_02_16 + PMATM_02 * MATM_02_16
 PMAT_02_15 * MAT_02_15 = PMATD_02 * MATD_02_15 + PMATM_02 * MATM_02_15
@@ -9792,15 +9858,15 @@ PMAT_02_11 * MAT_02_11 = PMATD_02 * MATD_02_11 + PMATM_02 * MATM_02_11
 PMAT_02_10 * MAT_02_10 = PMATD_02 * MATD_02_10 + PMATM_02 * MATM_02_10
 PMAT_02_19 * MAT_02_19 = PMATD_02 * MATD_02_19 + PMATM_02 * MATM_02_19
 PMAT_02_18 * MAT_02_18 = PMATD_02 * MATD_02_18 + PMATM_02 * MATM_02_18
-d(log(MAT_n_13_01)) = ( @year <= 2019 ) * ( dlog(CIexo_13_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_13_02)) = ( @year <= 2019 ) * ( dlog(CIexo_13_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_13_03)) = ( @year <= 2019 ) * ( dlog(CIexo_13_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_13_04)) = ( @year <= 2019 ) * ( dlog(CIexo_13_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_13_05)) = ( @year <= 2019 ) * ( dlog(CIexo_13_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_13_06)) = ( @year <= 2019 ) * ( dlog(CIexo_13_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_13_07)) = ( @year <= 2019 ) * ( dlog(CIexo_13_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_13_08)) = ( @year <= 2019 ) * ( dlog(CIexo_13_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_13_09)) = ( @year <= 2019 ) * ( dlog(CIexo_13_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_13_01)) = ( @year <= 2019 ) * ( dlog(CIexo_13_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_13_02)) = ( @year <= 2019 ) * ( dlog(CIexo_13_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_13_03)) = ( @year <= 2019 ) * ( dlog(CIexo_13_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_13_04)) = ( @year <= 2019 ) * ( dlog(CIexo_13_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_13_05)) = ( @year <= 2019 ) * ( dlog(CIexo_13_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_13_06)) = ( @year <= 2019 ) * ( dlog(CIexo_13_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_13_07)) = ( @year <= 2019 ) * ( dlog(CIexo_13_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_13_08)) = ( @year <= 2019 ) * ( dlog(CIexo_13_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_13_09)) = ( @year <= 2019 ) * ( dlog(CIexo_13_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
 TCO_VALM_22_2401 = TCO_VAL_22_2401 * EM_22_2401 / E_22_2401
 d(log(CUR_test_21)) = 0.6 * d(log(CUR_bis_21)) + 0.4 * d(log(CUR_cible_21)) - 0.6 * ( log(CUR_test_21(-1)) - log(CUR_cible_21(-1)) )
 d(log(CUR_test_20)) = 0.6 * d(log(CUR_bis_20)) + 0.4 * d(log(CUR_cible_20)) - 0.6 * ( log(CUR_test_20(-1)) - log(CUR_cible_20(-1)) )
@@ -9895,12 +9961,12 @@ IA_21_20 = IAD_21_20 + IAM_21_20
 d(SUBST_MATD_n_12_15) = ( @year <= 2022 ) * ( - ES_CIM(15, 12) * d(log(PMATD_12) - log(PMATM_12)) * ( PMATM_12(-1) * MATM_12_15(-1) / ( PMAT_12_15(-1) * MAT_12_15(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_12) - log(PMATM_12)) * ( PMATM_12(-1) * MATM_12_15(-1) / ( PMAT_12_15(-1) * MAT_12_15(-1) ) ) )
 d(SUBST_MTM_n_14_04) = 0 + - ES_TRANSP_MARG(4, cols_trsp(14, 16)) * d(log(PE_14) - log(PE_16)) * PMTM_16_04(-1) * MTM_16_04(-1) / ( PMTM_14_04(-1) * MTM_14_04(-1) + PMTM_16_04(-1) * MTM_16_04(-1) ) + - ES_TRANSP_MARG(4, cols_trsp(14, 17)) * d(log(PE_14) - log(PE_17)) * PMTM_17_04(-1) * MTM_17_04(-1) / ( PMTM_14_04(-1) * MTM_14_04(-1) + PMTM_17_04(-1) * MTM_17_04(-1) ) + - ES_TRANSP_MARG(4, cols_trsp(14, 18)) * d(log(PE_14) - log(PE_18)) * PMTM_18_04(-1) * MTM_18_04(-1) / ( PMTM_14_04(-1) * MTM_14_04(-1) + PMTM_18_04(-1) * MTM_18_04(-1) )
 d(SUBST_MTM_n_14_09) = 0 + - ES_TRANSP_MARG(9, cols_trsp(14, 16)) * d(log(PE_14) - log(PE_16)) * PMTM_16_09(-1) * MTM_16_09(-1) / ( PMTM_14_09(-1) * MTM_14_09(-1) + PMTM_16_09(-1) * MTM_16_09(-1) ) + - ES_TRANSP_MARG(9, cols_trsp(14, 17)) * d(log(PE_14) - log(PE_17)) * PMTM_17_09(-1) * MTM_17_09(-1) / ( PMTM_14_09(-1) * MTM_14_09(-1) + PMTM_17_09(-1) * MTM_17_09(-1) ) + - ES_TRANSP_MARG(9, cols_trsp(14, 18)) * d(log(PE_14) - log(PE_18)) * PMTM_18_09(-1) * MTM_18_09(-1) / ( PMTM_14_09(-1) * MTM_14_09(-1) + PMTM_18_09(-1) * MTM_18_09(-1) )
-K_nFC_2401 = K_nFC_2401(-1) * ( 1 + dlog(Y_nFC_2401) + d(SUBST_K_2401) - dlog(PROG_K_2401) )
-K_nFC_2402 = K_nFC_2402(-1) * ( 1 + dlog(Y_nFC_2402) + d(SUBST_K_2402) - dlog(PROG_K_2402) )
-K_nFC_2403 = K_nFC_2403(-1) * ( 1 + dlog(Y_nFC_2403) + d(SUBST_K_2403) - dlog(PROG_K_2403) )
-K_nFC_2404 = K_nFC_2404(-1) * ( 1 + dlog(Y_nFC_2404) + d(SUBST_K_2404) - dlog(PROG_K_2404) )
-K_nFC_2405 = K_nFC_2405(-1) * ( 1 + dlog(Y_nFC_2405) + d(SUBST_K_2405) - dlog(PROG_K_2405) )
-K_nFC_2406 = K_nFC_2406(-1) * ( 1 + dlog(Y_nFC_2406) + d(SUBST_K_2406) - dlog(PROG_K_2406) )
+K_nFC_2401 = K_nFC_2401(-1) * ( 1 + dlog(Y_nFC_2401) + d(SUBST_K_2401) - GR_PROG_K_2401 )
+K_nFC_2402 = K_nFC_2402(-1) * ( 1 + dlog(Y_nFC_2402) + d(SUBST_K_2402) - GR_PROG_K_2402 )
+K_nFC_2403 = K_nFC_2403(-1) * ( 1 + dlog(Y_nFC_2403) + d(SUBST_K_2403) - GR_PROG_K_2403 )
+K_nFC_2404 = K_nFC_2404(-1) * ( 1 + dlog(Y_nFC_2404) + d(SUBST_K_2404) - GR_PROG_K_2404 )
+K_nFC_2405 = K_nFC_2405(-1) * ( 1 + dlog(Y_nFC_2405) + d(SUBST_K_2405) - GR_PROG_K_2405 )
+K_nFC_2406 = K_nFC_2406(-1) * ( 1 + dlog(Y_nFC_2406) + d(SUBST_K_2406) - GR_PROG_K_2406 )
 d(log(IA_n_03_2401)) = d(log(IA_n_2401))
 d(log(IA_n_03_2402)) = d(log(IA_n_2402))
 d(log(IA_n_03_2403)) = d(log(IA_n_2403))
@@ -9938,7 +10004,7 @@ E_n_11 = E_indus_n_11 + E_oth_n_11
 E_n_12 = E_indus_n_12 + E_oth_n_12
 E_n_13 = E_indus_n_13 + E_oth_n_13
 d(log(EM_des_n_22_20)) = 1.15 * d(log(QD_22)) - 0.96 * ( log(EM_des_n_22_20(-1)) - log(E_22_20(-1)) )
-d(log(MAT_n_19_20)) = ( @year <= 2019 ) * ( dlog(CIexo_19_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_19_20)) = ( @year <= 2019 ) * ( dlog(CIexo_19_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 d(log(MATD_16_2202)) = d(log(MAT_16_2202)) + d(SUBST_MATD_16_2202)
 d(log(MATD_16_2201)) = d(log(MAT_16_2201)) + d(SUBST_MATD_16_2201)
 verif_IA_dgt_05_08 = IA_n_05_08 - IA_bis_dgt_05_08
@@ -9950,7 +10016,7 @@ verif_IA_dgt_05_04 = IA_n_05_04 - IA_bis_dgt_05_04
 verif_IA_dgt_05_05 = IA_n_05_05 - IA_bis_dgt_05_05
 verif_IA_dgt_05_06 = IA_n_05_06 - IA_bis_dgt_05_06
 verif_IA_dgt_05_07 = IA_n_05_07 - IA_bis_dgt_05_07
-REDIS_VAL_SEC_ETS_21 = REC_VAL_SEC_ETS_21
+REDIS_VAL_SEC_ETS_21 = ( @year > 2024 ) * REC_VAL_SEC_ETS_21
 d(log(WAPop_M_65)) = dlog(POP_TOT) - 0.5 * d(UNR_TOT)
 EMS_SEC_tot_24_02 = EMS_SEC_24_02 + EMS_SEC_indus_24_02
 ER_Auto_Elec = AUTO_elec
@@ -10071,6 +10137,7 @@ CID_10_12 = MATD_10_12
 CID_10_19 = MATD_10_19
 CID_10_18 = MATD_10_18
 REC_VAL_SEC_TCO_22_2307 = Ttco_22 * EMS_SEC_22_2307 * ( 1 - EXO_22_2307 )
+verif_phi_REHAB_H01_CG = sum_phi_REHAB_H01_CG - 1
 SUBST_EM_23_2401 = ADJUST(8, 6) * SUBST_EM_n_23_2401 + ( 1 - ADJUST(8, 6) ) * SUBST_EM_23_2401(-1)
 CIM_08_20 = MATM_08_20
 ETS2 = ETSexo2 * PGDP / @elem(PGDP, 2023)
@@ -10238,8 +10305,9 @@ PCSS_SE_2406 = PCH_19
 SUBST_MATM_08_18 = ADJUST(10, 6) * SUBST_MATM_n_08_18 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_08_18(-1)
 SUBST_MATM_08_19 = ADJUST(10, 6) * SUBST_MATM_n_08_19 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_08_19(-1)
 EM_des_22_12 = ( ( E_22_12 - ED_22_12 > 0 ) * ( E_22_12 - ED_22_12 ) + ( E_22_12 - ED_22_12 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_22_12(-1) * ( 1 + d(EM_des_n_22_12) / EM_des_n_22_12(-1) ) > 0 ) * ( EM_des_22_12(-1) * ( 1 + d(EM_des_n_22_12) / EM_des_n_22_12(-1) ) ) + ( EM_des_22_12(-1) * ( 1 + d(EM_des_n_22_12) / EM_des_n_22_12(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
+phiy_E_24_21 = PhiY_ener_exo_24_21 + Q_Mtep_FC_21 / Q_Mtep_ef_tot_SOU_24
 EM_des_22_13 = ( ( E_22_13 - ED_22_13 > 0 ) * ( E_22_13 - ED_22_13 ) + ( E_22_13 - ED_22_13 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_22_13(-1) * ( 1 + d(EM_des_n_22_13) / EM_des_n_22_13(-1) ) > 0 ) * ( EM_des_22_13(-1) * ( 1 + d(EM_des_n_22_13) / EM_des_n_22_13(-1) ) ) + ( EM_des_22_13(-1) * ( 1 + d(EM_des_n_22_13) / EM_des_n_22_13(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-d(log(MAT_n_02_20)) = ( @year <= 2019 ) * ( dlog(CIexo_02_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_02_20)) = ( @year <= 2019 ) * ( dlog(CIexo_02_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 CIM_05_2308 = MATM_05_2308
 EM_des_22_16 = ( ( E_22_16 - ED_22_16 > 0 ) * ( E_22_16 - ED_22_16 ) + ( E_22_16 - ED_22_16 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_22_16(-1) * ( 1 + d(EM_des_n_22_16) / EM_des_n_22_16(-1) ) > 0 ) * ( EM_des_22_16(-1) * ( 1 + d(EM_des_n_22_16) / EM_des_n_22_16(-1) ) ) + ( EM_des_22_16(-1) * ( 1 + d(EM_des_n_22_16) / EM_des_n_22_16(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 EM_des_22_17 = ( ( E_22_17 - ED_22_17 > 0 ) * ( E_22_17 - ED_22_17 ) + ( E_22_17 - ED_22_17 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_22_17(-1) * ( 1 + d(EM_des_n_22_17) / EM_des_n_22_17(-1) ) > 0 ) * ( EM_des_22_17(-1) * ( 1 + d(EM_des_n_22_17) / EM_des_n_22_17(-1) ) ) + ( EM_des_22_17(-1) * ( 1 + d(EM_des_n_22_17) / EM_des_n_22_17(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -10297,7 +10365,7 @@ d(SUBST_ED_n_23_01) = - ES_CIM(1, 20 + 3) * d(log(PED_23) - log(PEM_23)) * ( PEM
 d(SUBST_ED_n_23_07) = - ES_CIM(7, 20 + 3) * d(log(PED_23) - log(PEM_23)) * ( PEM_23(-1) * EM_23_07(-1) / ( PE_23_07(-1) * E_23_07(-1) ) )
 d(SUBST_ED_n_23_06) = - ES_CIM(6, 20 + 3) * d(log(PED_23) - log(PEM_23)) * ( PEM_23(-1) * EM_23_06(-1) / ( PE_23_06(-1) * E_23_06(-1) ) )
 d(SUBST_ED_n_23_05) = - ES_CIM(5, 20 + 3) * d(log(PED_23) - log(PEM_23)) * ( PEM_23(-1) * EM_23_05(-1) / ( PE_23_05(-1) * E_23_05(-1) ) )
-EM_23_01 = ( ( E_23_01 - ED_23_01 > 0 ) * ( E_23_01 - ED_23_01 ) + ( E_23_01 - ED_23_01 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_01 - EM_des_23_01 > 0 ) * ( EM_des_23_01 ) + ( E_23_01 - EM_des_23_01 <= 0 ) * ( E_23_01 - 1e-05 ) ) * ( @year > 2019 )
+d(SUBST_ED_n_23_04) = - ES_CIM(4, 20 + 3) * d(log(PED_23) - log(PEM_23)) * ( PEM_23(-1) * EM_23_04(-1) / ( PE_23_04(-1) * E_23_04(-1) ) )
 verif_E_indus_10 = 0 + E_indus_21_10 + E_indus_22_10 + E_indus_23_10 + E_indus_24_10 - E_indus_10
 verif_E_indus_11 = 0 + E_indus_21_11 + E_indus_22_11 + E_indus_23_11 + E_indus_24_11 - E_indus_11
 verif_E_indus_12 = 0 + E_indus_21_12 + E_indus_22_12 + E_indus_23_12 + E_indus_24_12 - E_indus_12
@@ -10315,12 +10383,12 @@ d(SUBST_E_n_16) = - eta_K_E_16 * d(log(( PE_16 + PE_Signal_16 + PE_CEE_16 + PE_s
 d(SUBST_E_n_17) = - eta_K_E_17 * d(log(( PE_17 + PE_Signal_17 + PE_CEE_17 + PE_signal_bis_17 + PE_signal_E_17 ) / PROG_E_17) - log(CK_17 / PROG_K_17)) * phi_k_bis_17(-1) - eta_L_E_17 * d(log(( PE_17 + PE_Signal_17 + PE_CEE_17 + PE_signal_bis_17 ) / PROG_E_17) - log(CL_17)) * phi_l_bis_17(-1) - ES_KLEM(17, 6) * d(log(( PE_17 + PE_Signal_17 + PE_CEE_17 + PE_signal_bis_17 ) / PROG_E_17) - log(PMAT_17)) * phi_mat_bis_17(-1)
 d(SUBST_E_n_10) = - eta_K_E_10 * d(log(( PE_10 + PE_Signal_10 + PE_CEE_10 + PE_signal_bis_10 + PE_signal_E_10 ) / PROG_E_10) - log(CK_10 / PROG_K_10)) * phi_k_bis_10(-1) - eta_L_E_10 * d(log(( PE_10 + PE_Signal_10 + PE_CEE_10 + PE_signal_bis_10 ) / PROG_E_10) - log(CL_10)) * phi_l_bis_10(-1) - ES_KLEM(10, 6) * d(log(( PE_10 + PE_Signal_10 + PE_CEE_10 + PE_signal_bis_10 ) / PROG_E_10) - log(PMAT_10)) * phi_mat_bis_10(-1)
 d(SUBST_E_n_11) = - eta_K_E_11 * d(log(( PE_11 + PE_Signal_11 + PE_CEE_11 + PE_signal_bis_11 + PE_signal_E_11 ) / PROG_E_11) - log(CK_11 / PROG_K_11)) * phi_k_bis_11(-1) - eta_L_E_11 * d(log(( PE_11 + PE_Signal_11 + PE_CEE_11 + PE_signal_bis_11 ) / PROG_E_11) - log(CL_11)) * phi_l_bis_11(-1) - ES_KLEM(11, 6) * d(log(( PE_11 + PE_Signal_11 + PE_CEE_11 + PE_signal_bis_11 ) / PROG_E_11) - log(PMAT_11)) * phi_mat_bis_11(-1)
-d(SUBST_MATM_n_19_2402) = - ES_CIM(33, 19) * d(log(PMATM_19) - log(PMATD_19)) * ( PMATD_19(-1) * MATD_19_2402(-1) / ( PMAT_19_2402(-1) * MAT_19_2402(-1) ) )
+d(SUBST_E_n_12) = - eta_K_E_12 * d(log(( PE_12 + PE_Signal_12 + PE_CEE_12 + PE_signal_bis_12 + PE_signal_E_12 ) / PROG_E_12) - log(CK_12 / PROG_K_12)) * phi_k_bis_12(-1) - eta_L_E_12 * d(log(( PE_12 + PE_Signal_12 + PE_CEE_12 + PE_signal_bis_12 ) / PROG_E_12) - log(CL_12)) * phi_l_bis_12(-1) - ES_KLEM(12, 6) * d(log(( PE_12 + PE_Signal_12 + PE_CEE_12 + PE_signal_bis_12 ) / PROG_E_12) - log(PMAT_12)) * phi_mat_bis_12(-1)
 d(SUBST_E_n_13) = - eta_K_E_13 * d(log(( PE_13 + PE_Signal_13 + PE_CEE_13 + PE_signal_bis_13 + PE_signal_E_13 ) / PROG_E_13) - log(CK_13 / PROG_K_13)) * phi_k_bis_13(-1) - eta_L_E_13 * d(log(( PE_13 + PE_Signal_13 + PE_CEE_13 + PE_signal_bis_13 ) / PROG_E_13) - log(CL_13)) * phi_l_bis_13(-1) - ES_KLEM(13, 6) * d(log(( PE_13 + PE_Signal_13 + PE_CEE_13 + PE_signal_bis_13 ) / PROG_E_13) - log(PMAT_13)) * phi_mat_bis_13(-1)
 d(SUBST_E_n_18) = - eta_K_E_18 * d(log(( PE_18 + PE_Signal_18 + PE_CEE_18 + PE_signal_bis_18 + PE_signal_E_18 ) / PROG_E_18) - log(CK_18 / PROG_K_18)) * phi_k_bis_18(-1) - eta_L_E_18 * d(log(( PE_18 + PE_Signal_18 + PE_CEE_18 + PE_signal_bis_18 ) / PROG_E_18) - log(CL_18)) * phi_l_bis_18(-1) - ES_KLEM(18, 6) * d(log(( PE_18 + PE_Signal_18 + PE_CEE_18 + PE_signal_bis_18 ) / PROG_E_18) - log(PMAT_18)) * phi_mat_bis_18(-1)
 d(SUBST_E_n_19) = - eta_K_E_19 * d(log(( PE_19 + PE_Signal_19 + PE_CEE_19 + PE_signal_bis_19 + PE_signal_E_19 ) / PROG_E_19) - log(CK_19 / PROG_K_19)) * phi_k_bis_19(-1) - eta_L_E_19 * d(log(( PE_19 + PE_Signal_19 + PE_CEE_19 + PE_signal_bis_19 ) / PROG_E_19) - log(CL_19)) * phi_l_bis_19(-1) - ES_KLEM(19, 6) * d(log(( PE_19 + PE_Signal_19 + PE_CEE_19 + PE_signal_bis_19 ) / PROG_E_19) - log(PMAT_19)) * phi_mat_bis_19(-1)
 PROG_L_2308 = PROG_L_2308(-1) * ( 1 + GR_PROG_L_2308 + CHOC_L + CHOC_PGF )
-PROG_L_2306 = PROG_L_2306(-1) * ( 1 + GR_PROG_L_2306 + CHOC_L + CHOC_PGF )
+Phi_CEE_2406 = PhiY_ENER_24_2406 * ENER_BUIL_24 / ENER_BUIL
 PROG_L_2307 = PROG_L_2307(-1) * ( 1 + GR_PROG_L_2307 + CHOC_L + CHOC_PGF )
 Phi_CEE_2404 = PhiY_ENER_24_2404 * ENER_BUIL_24 / ENER_BUIL
 PROG_L_2305 = PROG_L_2305(-1) * ( 1 + GR_PROG_L_2305 + CHOC_L + CHOC_PGF )
@@ -10625,7 +10693,12 @@ d(log(BetaExp_14_H01)) = ( 1 - ES_LESCES ) * d(log(PEXP_14_H01 / PEXP_CES_H01))
 MAT_13_09 = ( @year <= 2019 ) * ( MATD_13_09 + MATM_13_09 ) + ( @year > 2019 ) * ( MAT_n_13_09 )
 MAT_13_08 = ( @year <= 2019 ) * ( MATD_13_08 + MATM_13_08 ) + ( @year > 2019 ) * ( MAT_n_13_08 )
 CID_04_09 = MATD_04_09
-CID_04_08 = MATD_04_08
+phiy_E_21_2405 = PhiY_ener_exo_21_2405 + Q_Mtep_FC_2405 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2404 = PhiY_ener_exo_21_2404 + Q_Mtep_FC_2404 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2406 = PhiY_ener_exo_21_2406 + Q_Mtep_FC_2406 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2401 = PhiY_ener_exo_21_2401 + Q_Mtep_FC_2401 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2403 = PhiY_ener_exo_21_2403 + Q_Mtep_FC_2403 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2402 = PhiY_ener_exo_21_2402 + Q_Mtep_FC_2402 / Q_Mtep_ef_tot_SOU_21
 verif_PhiY_ef_tot_21 = 0 + PhiY_ef_tot_21_21 - 1
 verif_PhiY_ef_tot_22 = 0 + PhiY_ef_tot_22_2201 + PhiY_ef_tot_22_2202 - 1
 verif_PhiY_ef_tot_23 = 0 + PhiY_ef_tot_23_2301 + PhiY_ef_tot_23_2302 + PhiY_ef_tot_23_2303 + PhiY_ef_tot_23_2304 + PhiY_ef_tot_23_2305 + PhiY_ef_tot_23_2306 + PhiY_ef_tot_23_2307 + PhiY_ef_tot_23_2308 - 1
@@ -10664,6 +10737,7 @@ CID_12_2304 = MATD_12_2304
 PCID_19_2201 = PMATD_19
 PCID_19_2202 = PMATD_19
 d(SUBST_MATM_n_18_2308) = - ES_CIM(31, 18) * d(log(PMATM_18) - log(PMATD_18)) * ( PMATD_18(-1) * MATD_18_2308(-1) / ( PMAT_18_2308(-1) * MAT_18_2308(-1) ) )
+SUBST_IAD_05_10 = ADJUST(13, 6) * SUBST_IAD_n_05_10 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_10(-1)
 d(SUBST_MATM_n_18_2301) = - ES_CIM(24, 18) * d(log(PMATM_18) - log(PMATD_18)) * ( PMATD_18(-1) * MATD_18_2301(-1) / ( PMAT_18_2301(-1) * MAT_18_2301(-1) ) )
 d(SUBST_MATM_n_18_2302) = - ES_CIM(25, 18) * d(log(PMATM_18) - log(PMATD_18)) * ( PMATD_18(-1) * MATD_18_2302(-1) / ( PMAT_18_2302(-1) * MAT_18_2302(-1) ) )
 d(SUBST_MATM_n_18_2303) = - ES_CIM(26, 18) * d(log(PMATM_18) - log(PMATD_18)) * ( PMATD_18(-1) * MATD_18_2303(-1) / ( PMAT_18_2303(-1) * MAT_18_2303(-1) ) )
@@ -10686,9 +10760,9 @@ d(SUBST_MATM_n_19_2305) = - ES_CIM(28, 19) * d(log(PMATM_19) - log(PMATD_19)) * 
 d(SUBST_MATM_n_19_2304) = - ES_CIM(27, 19) * d(log(PMATM_19) - log(PMATD_19)) * ( PMATD_19(-1) * MATD_19_2304(-1) / ( PMAT_19_2304(-1) * MAT_19_2304(-1) ) )
 d(log(E_oth_des_23_19)) = d(log(E_oth_19)) + d(SUBST_E_23_19)
 Phi_EXP_09_H01 = EXP_09_H01 / EXP_09
-E_oth_des_23_17 = E_oth_des_23_17(-1) * ( 1 + d(log(E_oth_17)) + d(SUBST_E_23_17) ) + Choc_E_oth_des_23_17
-d(log(E_oth_des_23_16)) = d(log(E_oth_16)) + d(SUBST_E_23_16)
-d(log(E_oth_des_23_15)) = d(log(E_oth_15)) + d(SUBST_E_23_15)
+d(log(E_oth_des_23_17)) = d(log(E_oth_17)) + d(SUBST_E_23_17)
+E_oth_des_23_16 = E_oth_n_23_16
+E_oth_des_23_15 = E_oth_n_23_15
 d(log(E_oth_des_23_14)) = d(log(E_oth_14)) + d(SUBST_E_23_14)
 d(log(E_oth_des_23_13)) = d(log(E_oth_13)) + d(SUBST_E_23_13)
 d(log(E_oth_des_23_12)) = d(log(E_oth_12)) + d(SUBST_E_23_12)
@@ -10921,7 +10995,7 @@ MATM_14_2302 = ( MAT_14_2302 - MATD_14_2302 > 0 ) * ( MAT_14_2302 - MATD_14_2302
 MATM_14_2308 = ( MAT_14_2308 - MATD_14_2308 > 0 ) * ( MAT_14_2308 - MATD_14_2308 ) + ( MAT_14_2308 - MATD_14_2308 =< 0 ) * ( 1e-05 )
 d(log(MCD_22)) = d(log(YQ_22))
 d(log(MCD_21)) = d(log(YQ_21))
-MATD_03_20 = ( CIDexo_03_20 ) * ( @year <= 2019 ) + ( ( MAT_03_20 - MATM_03_20 > 0 ) * ( MAT_03_20 - MATM_03_20 ) + ( MAT_03_20 - MATM_03_20 <= 0 ) * 0.0001 ) * ( @year > 2019 )
+SUBST_MAT_16_2308 = ADJUST(6, 6) * SUBST_MAT_n_16_2308 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_16_2308(-1) )
 d(log(MCD_24)) = d(log(YQ_24))
 SUBST_MAT_16_2305 = ADJUST(6, 6) * SUBST_MAT_n_16_2305 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_16_2305(-1) )
 SUBST_MAT_16_2304 = ADJUST(6, 6) * SUBST_MAT_n_16_2304 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_16_2304(-1) )
@@ -10946,7 +11020,7 @@ SUBST_MAT_17_2305 = ADJUST(6, 6) * SUBST_MAT_n_17_2305 + ( 1 - ADJUST(6, 6) ) * 
 SUBST_MAT_17_2302 = ADJUST(6, 6) * SUBST_MAT_n_17_2302 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_2302(-1) )
 SUBST_MAT_17_2303 = ADJUST(6, 6) * SUBST_MAT_n_17_2303 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_2303(-1) )
 d(R_21) = d(R) + d(R_exo_21)
-d(R_20) = d(R) + d(R_exo_20)
+SUBST_MAT_17_2301 = ADJUST(6, 6) * SUBST_MAT_n_17_2301 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_2301(-1) )
 SUBST_IAD_03_19 = ADJUST(13, 6) * SUBST_IAD_n_03_19 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_03_19(-1)
 SUBST_IAD_03_18 = ADJUST(13, 6) * SUBST_IAD_n_03_18 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_03_18(-1)
 SUBST_IAD_03_17 = ADJUST(13, 6) * SUBST_IAD_n_03_17 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_03_17(-1)
@@ -11164,12 +11238,12 @@ PCID_15_2405 = PMATD_15
 PCID_15_2402 = PMATD_15
 PCID_15_2403 = PMATD_15
 PCID_15_2401 = PMATD_15
-dlog(K_n_2405) = dlog(Y_2405) + d(SUBST_K_2405) - dlog(PROG_K_2405)
-dlog(K_n_2404) = dlog(Y_2404) + d(SUBST_K_2404) - dlog(PROG_K_2404)
-dlog(K_n_2406) = dlog(Y_2406) + d(SUBST_K_2406) - dlog(PROG_K_2406)
-dlog(K_n_2401) = dlog(Y_2401) + d(SUBST_K_2401) - dlog(PROG_K_2401)
-dlog(K_n_2403) = dlog(Y_2403) + d(SUBST_K_2403) - dlog(PROG_K_2403)
-dlog(K_n_2402) = dlog(Y_2402) + d(SUBST_K_2402) - dlog(PROG_K_2402)
+K_n_2405 = K_2405
+K_n_2404 = K_2404
+K_n_2406 = K_2406
+K_n_2401 = K_2401
+K_n_2403 = K_2403
+K_n_2402 = K_2402
 d(SUBST_MAT_n_18_2405) = 0 + - ES_TRANSP_CI(36, cols_mat(18, 14)) * d(log(PMAT_18_2405) - log(PMAT_14_2405)) * kappa_mat_dgt_14_2405(-1) + - ES_TRANSP_CI(36, cols_mat(18, 15)) * d(log(PMAT_18_2405) - log(PMAT_15_2405)) * kappa_mat_dgt_15_2405(-1) + - ES_TRANSP_CI(36, cols_mat(18, 16)) * d(log(PMAT_18_2405) - log(PMAT_16_2405)) * kappa_mat_dgt_16_2405(-1) + - ES_TRANSP_CI(36, cols_mat(18, 17)) * d(log(PMAT_18_2405) - log(PMAT_17_2405)) * kappa_mat_dgt_17_2405(-1)
 Q_Mtep_Losses_2301 = 0 + Q_Mtep_Losses_23_2301
 TCO_VALD_21_08 = TCO_VAL_21_08 * ED_21_08 / E_21_08
@@ -11433,14 +11507,14 @@ GR_PROG_L_17 = GR_PROG_L
 GR_PROG_L_16 = GR_PROG_L
 GR_PROG_L_19 = GR_PROG_L
 GR_PROG_L_18 = GR_PROG_L
-REDIS_VAL_SEC_ETS2_2308 = REC_VAL_SEC_ETS2_2308
-REDIS_VAL_SEC_ETS2_2307 = REC_VAL_SEC_ETS2_2307
-REDIS_VAL_SEC_ETS2_2306 = REC_VAL_SEC_ETS2_2306
-REDIS_VAL_SEC_ETS2_2305 = REC_VAL_SEC_ETS2_2305
-REDIS_VAL_SEC_ETS2_2304 = REC_VAL_SEC_ETS2_2304
-REDIS_VAL_SEC_ETS2_2303 = REC_VAL_SEC_ETS2_2303
-REDIS_VAL_SEC_ETS2_2302 = REC_VAL_SEC_ETS2_2302
-REDIS_VAL_SEC_ETS2_2301 = REC_VAL_SEC_ETS2_2301
+REDIS_VAL_SEC_ETS2_2308 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2308
+REDIS_VAL_SEC_ETS2_2307 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2307
+REDIS_VAL_SEC_ETS2_2306 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2306
+REDIS_VAL_SEC_ETS2_2305 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2305
+REDIS_VAL_SEC_ETS2_2304 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2304
+REDIS_VAL_SEC_ETS2_2303 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2303
+REDIS_VAL_SEC_ETS2_2302 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2302
+REDIS_VAL_SEC_ETS2_2301 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2301
 New_LUV_23_15 = LUV_23_15 - LUV_23_15(-1) * ( 1 - tdec_15 )
 New_LUV_23_16 = LUV_23_16 - LUV_23_16(-1) * ( 1 - tdec_16 )
 CU_des_2401 * Y_2401 = CK_2401 * K_2401 + CL_2401 * L_2401 * PROG_L_2401 + ( PEner_2401 + PE_CEE_2401 + PE_signal_bis_2401 ) * Ener_2401 + PMAT_2401 * MAT_2401
@@ -11676,10 +11750,10 @@ Phi_EXP_19_H01 = EXP_19_H01 / EXP_19
 MATD_09_20 = ( CIDexo_09_20 ) * ( @year <= 2019 ) + ( ( MAT_09_20 - MATM_09_20 > 0 ) * ( MAT_09_20 - MATM_09_20 ) + ( MAT_09_20 - MATM_09_20 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 PTAX_05 * TAX_05 = PVAT_05 * VAT_05 + PENERT_05 * ENERT_05 + POTHT_05 * OTHT_05
 CL_S_2303 = W_S_2303 * ( 1 + TCSE_2303 ) / PROG_L_2303
-PhiY_E_24_2402 = PhiY_ener_exo_24_2402 + Q_Mtep_FC_2402 / Q_Mtep_ef_tot_SOU_24
-PhiY_E_24_2403 = PhiY_ener_exo_24_2403 + Q_Mtep_FC_2403 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2402 = PhiY_ener_exo_24_2402 + Q_Mtep_FC_2402 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2403 = PhiY_ener_exo_24_2403 + Q_Mtep_FC_2403 / Q_Mtep_ef_tot_SOU_24
 E_indus_des_2302 = 0 + E_indus_des_21_2302 + E_indus_des_22_2302 + E_indus_des_23_2302 + E_indus_des_24_2302
-PhiY_E_24_2401 = PhiY_ener_exo_24_2401 + Q_Mtep_FC_2401 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2401 = PhiY_ener_exo_24_2401 + Q_Mtep_FC_2401 / Q_Mtep_ef_tot_SOU_24
 E_indus_des_2304 = 0 + E_indus_des_21_2304 + E_indus_des_22_2304 + E_indus_des_23_2304 + E_indus_des_24_2304
 E_indus_des_2305 = 0 + E_indus_des_21_2305 + E_indus_des_22_2305 + E_indus_des_23_2305 + E_indus_des_24_2305
 E_indus_des_2306 = 0 + E_indus_des_21_2306 + E_indus_des_22_2306 + E_indus_des_23_2306 + E_indus_des_24_2306
@@ -11737,12 +11811,12 @@ sum_phi_REHAB_H01_CB = 0 + phi_REHAB_H01_CB_CA
 sum_phi_REHAB_H01_CC = 0 + phi_REHAB_H01_CC_CA + phi_REHAB_H01_CC_CB
 REC_VAL_SEC_ETS_24_18 = PE_signal_ETS * PCH * EMS_SEC_24_18 * EXO_24_18
 Y_12_12 = PhiY_12_12 * YQ_12
-SUB_FC_2402 = TSUB_FC_2402 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_2402
-SUB_FC_2403 = TSUB_FC_2403 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_2403
-SUB_FC_2401 = TSUB_FC_2401 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_2401
-SUB_FC_2406 = TSUB_FC_2406 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_2406
-SUB_FC_2404 = TSUB_FC_2404 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_2404
-SUB_FC_2405 = TSUB_FC_2405 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_2405
+SUB_FC_2402 = TSUB_FC_2402 * P / 1.21 * dQ_Mtep_FC_2402
+SUB_FC_2403 = TSUB_FC_2403 * P / 1.21 * dQ_Mtep_FC_2403
+SUB_FC_2401 = TSUB_FC_2401 * P / 1.21 * dQ_Mtep_FC_2401
+SUB_FC_2406 = TSUB_FC_2406 * P / 1.21 * dQ_Mtep_FC_2406
+SUB_FC_2404 = TSUB_FC_2404 * P / 1.21 * dQ_Mtep_FC_2404
+SUB_FC_2405 = TSUB_FC_2405 * P / 1.21 * dQ_Mtep_FC_2405
 CIM_03_20 = MATM_03_20
 d(log(MATD_20_2308)) = d(log(MAT_20_2308)) + d(SUBST_MATD_20_2308)
 log(EXP_01_H01) = log(EXP_n_01_H01) * ( @year <= 2019 ) + ( log(EXP_01_H01(-1)) + d(log(EXP_des_01_H01)) ) * ( @year > 2019 )
@@ -11789,12 +11863,12 @@ MATM_05_2308 = ( MAT_05_2308 - MATD_05_2308 > 0 ) * ( MAT_05_2308 - MATD_05_2308
 GM_12 = GM_12(-1) * ( ( 1 + ( QMexo_12 > 0 ) * ( d(QMexo_12) / QMexo_12(-1) ) ) ) * ( @year <= 2019 ) + ( ( EXPG_12 - GM_des_12 > 0 ) * ( GM_des_12 ) + ( EXPG_12 - GM_des_12 <= 0 ) * ( EXPG_12 - 1e-05 ) ) * ( @year > 2019 )
 GM_14 = GM_14(-1) * ( ( 1 + ( QMexo_14 > 0 ) * ( d(QMexo_14) / QMexo_14(-1) ) ) ) * ( @year <= 2019 ) + ( ( GM_14(-1) * ( 1 + d(GM_n_14) / GM_n_14(-1) ) > 0 ) * ( GM_14(-1) * ( 1 + d(GM_n_14) / GM_n_14(-1) ) ) + ( GM_14(-1) * ( 1 + d(GM_n_14) / GM_n_14(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 GM_16 = GM_16(-1) * ( ( 1 + ( QMexo_16 > 0 ) * ( d(QMexo_16) / QMexo_16(-1) ) ) ) * ( @year <= 2019 ) + ( ( GM_16(-1) * ( 1 + d(GM_n_16) / GM_n_16(-1) ) > 0 ) * ( GM_16(-1) * ( 1 + d(GM_n_16) / GM_n_16(-1) ) ) + ( GM_16(-1) * ( 1 + d(GM_n_16) / GM_n_16(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-REDIS_VAL_SEC_ETS2_2401 = REC_VAL_SEC_ETS2_2401
-REDIS_VAL_SEC_ETS2_2402 = REC_VAL_SEC_ETS2_2402
-REDIS_VAL_SEC_ETS2_2403 = REC_VAL_SEC_ETS2_2403
-REDIS_VAL_SEC_ETS2_2404 = REC_VAL_SEC_ETS2_2404
-REDIS_VAL_SEC_ETS2_2405 = REC_VAL_SEC_ETS2_2405
-REDIS_VAL_SEC_ETS2_2406 = REC_VAL_SEC_ETS2_2406
+REDIS_VAL_SEC_ETS2_2401 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2401
+REDIS_VAL_SEC_ETS2_2402 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2402
+REDIS_VAL_SEC_ETS2_2403 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2403
+REDIS_VAL_SEC_ETS2_2404 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2404
+REDIS_VAL_SEC_ETS2_2405 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2405
+REDIS_VAL_SEC_ETS2_2406 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2406
 log(E_oth_2308) = ADJUST(2 + 1, 1) * log(E_oth_n_2308) + ( 1 - ADJUST(2 + 1, 1) ) * ( log(E_oth_2308(-1)) + d(log(E_oth_e_2308)) )
 d(SUBST_MAT_n_18_2306) = 0 + - ES_TRANSP_CI(29, cols_mat(18, 14)) * d(log(PMAT_18_2306) - log(PMAT_14_2306)) * kappa_mat_dgt_14_2306(-1) + - ES_TRANSP_CI(29, cols_mat(18, 15)) * d(log(PMAT_18_2306) - log(PMAT_15_2306)) * kappa_mat_dgt_15_2306(-1) + - ES_TRANSP_CI(29, cols_mat(18, 16)) * d(log(PMAT_18_2306) - log(PMAT_16_2306)) * kappa_mat_dgt_16_2306(-1) + - ES_TRANSP_CI(29, cols_mat(18, 17)) * d(log(PMAT_18_2306) - log(PMAT_17_2306)) * kappa_mat_dgt_17_2306(-1)
 d(SUBST_MAT_n_18_2307) = 0 + - ES_TRANSP_CI(30, cols_mat(18, 14)) * d(log(PMAT_18_2307) - log(PMAT_14_2307)) * kappa_mat_dgt_14_2307(-1) + - ES_TRANSP_CI(30, cols_mat(18, 15)) * d(log(PMAT_18_2307) - log(PMAT_15_2307)) * kappa_mat_dgt_15_2307(-1) + - ES_TRANSP_CI(30, cols_mat(18, 16)) * d(log(PMAT_18_2307) - log(PMAT_16_2307)) * kappa_mat_dgt_16_2307(-1) + - ES_TRANSP_CI(30, cols_mat(18, 17)) * d(log(PMAT_18_2307) - log(PMAT_17_2307)) * kappa_mat_dgt_17_2307(-1)
@@ -11814,7 +11888,6 @@ dlog(E_oth_des_23_2401) = dlog(E_oth_2401) + d(SUBST_E_23_2401) + ( @year > 2006
 phi_E_bis_2301 = ( E_2301 * ( PE_2301 + PE_CEE_2301 + PE_signal_bis_2301 ) ) / ( K_2301 * CK_2301 + L_2301 * PROG_L_2301 * CL_2301 + E_2301 * ( PE_2301 + PE_CEE_2301 + PE_signal_bis_2301 ) + MAT_2301 * PMAT_2301 )
 IS_19 = @elem(TIS * PRF_19(-1), 2006) * RF_19(-1) * ( RF_19(-1) > 0 ) + 1e-08 * ( RF_19(-1) =< 0 )
 IS_18 = @elem(TIS * PRF_18(-1), 2006) * RF_18(-1) * ( RF_18(-1) > 0 ) + 1e-08 * ( RF_18(-1) =< 0 )
-SUBST_IAM_05_2305 = ADJUST(14, 6) * SUBST_IAM_n_05_2305 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2305(-1)
 IS_11 = @elem(TIS * PRF_11(-1), 2006) * RF_11(-1) * ( RF_11(-1) > 0 ) + 1e-08 * ( RF_11(-1) =< 0 )
 IS_10 = @elem(TIS * PRF_10(-1), 2006) * RF_10(-1) * ( RF_10(-1) > 0 ) + 1e-08 * ( RF_10(-1) =< 0 )
 IS_13 = @elem(TIS * PRF_13(-1), 2006) * RF_13(-1) * ( RF_13(-1) > 0 ) + 1e-08 * ( RF_13(-1) =< 0 )
@@ -12272,7 +12345,7 @@ MATM_08_2201 = ( MAT_08_2201 - MATD_08_2201 > 0 ) * ( MAT_08_2201 - MATD_08_2201
 MATM_08_2202 = ( MAT_08_2202 - MATD_08_2202 > 0 ) * ( MAT_08_2202 - MATD_08_2202 ) + ( MAT_08_2202 - MATD_08_2202 =< 0 ) * ( 1e-05 )
 Q_Mtep_LUV_23_16 = Mtep_per_LUV_23_16 * LUV_23_16 * 1000
 PNEXP_24_H01 = PEXP_24_H01
-REDIS_VAL_SEC_ETS2_21 = REC_VAL_SEC_ETS2_21
+REDIS_VAL_SEC_ETS2_21 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_21
 IAM_des_05_19 = IAM_des_05_19(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( IAM_des_05_19(-1) * ( 1 + d(IAM_des_n_05_19) / IAM_des_n_05_19(-1) ) > 0 ) * ( IAM_des_05_19(-1) * ( 1 + d(IAM_des_n_05_19) / IAM_des_n_05_19(-1) ) ) + ( IAM_des_05_19(-1) * ( 1 + d(IAM_des_n_05_19) / IAM_des_n_05_19(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 IAM_des_05_18 = IAM_des_05_18(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( IAM_des_05_18(-1) * ( 1 + d(IAM_des_n_05_18) / IAM_des_n_05_18(-1) ) > 0 ) * ( IAM_des_05_18(-1) * ( 1 + d(IAM_des_n_05_18) / IAM_des_n_05_18(-1) ) ) + ( IAM_des_05_18(-1) * ( 1 + d(IAM_des_n_05_18) / IAM_des_n_05_18(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 IAM_des_05_11 = IAM_des_05_11(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( IAM_des_05_11(-1) * ( 1 + d(IAM_des_n_05_11) / IAM_des_n_05_11(-1) ) > 0 ) * ( IAM_des_05_11(-1) * ( 1 + d(IAM_des_n_05_11) / IAM_des_n_05_11(-1) ) ) + ( IAM_des_05_11(-1) * ( 1 + d(IAM_des_n_05_11) / IAM_des_n_05_11(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -12339,15 +12412,15 @@ dlog(PNewAUTO_th_H01_CG) = dlog(PCH_03)
 dlog(PNewAUTO_th_H01_CD) = dlog(PCH_03)
 dlog(PNewAUTO_th_H01_CE) = dlog(PCH_03)
 ER_Trans_Public_elec = 0 + Q_Mtep_sec_23_14 + Q_Mtep_sec_23_15 + Q_Mtep_sec_23_16 + Q_Mtep_sec_23_17 + Q_Mtep_sec_23_18
-RF_net_08 = @elem(PRF_08(-1), 2006) * RF_08(-1) - IS_08 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_08(-1) + REC_VAL_SEC_ETS_08(-1) + REDIS_VAL_SEC_ETS2_08(-1) ) / PCH(-1)
-RF_net_09 = @elem(PRF_09(-1), 2006) * RF_09(-1) - IS_09 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_09(-1) + REC_VAL_SEC_ETS_09(-1) + REDIS_VAL_SEC_ETS2_09(-1) ) / PCH(-1)
-RF_net_06 = @elem(PRF_06(-1), 2006) * RF_06(-1) - IS_06 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_06(-1) + REC_VAL_SEC_ETS_06(-1) + REDIS_VAL_SEC_ETS2_06(-1) ) / PCH(-1)
-RF_net_07 = @elem(PRF_07(-1), 2006) * RF_07(-1) - IS_07 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_07(-1) + REC_VAL_SEC_ETS_07(-1) + REDIS_VAL_SEC_ETS2_07(-1) ) / PCH(-1)
-RF_net_04 = @elem(PRF_04(-1), 2006) * RF_04(-1) - IS_04 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_04(-1) + REC_VAL_SEC_ETS_04(-1) + REDIS_VAL_SEC_ETS2_04(-1) ) / PCH(-1)
-RF_net_05 = @elem(PRF_05(-1), 2006) * RF_05(-1) - IS_05 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_05(-1) + REC_VAL_SEC_ETS_05(-1) + REDIS_VAL_SEC_ETS2_05(-1) ) / PCH(-1)
-RF_net_02 = @elem(PRF_02(-1), 2006) * RF_02(-1) - IS_02 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_02(-1) + REC_VAL_SEC_ETS_02(-1) + REDIS_VAL_SEC_ETS2_02(-1) ) / PCH(-1)
-RF_net_03 = @elem(PRF_03(-1), 2006) * RF_03(-1) - IS_03 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_03(-1) + REC_VAL_SEC_ETS_03(-1) + REDIS_VAL_SEC_ETS2_03(-1) ) / PCH(-1)
-RF_net_01 = @elem(PRF_01(-1), 2006) * RF_01(-1) - IS_01 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_01(-1) + REC_VAL_SEC_ETS_01(-1) + REDIS_VAL_SEC_ETS2_01(-1) ) / PCH(-1)
+RF_net_08 = @elem(PRF_08(-1), 2006) * RF_08(-1) - IS_08 + ( REDIS_VAL_SEC_TCO_08(-1) + REDIS_VAL_SEC_ETS_08(-1) + REDIS_VAL_SEC_ETS2_08(-1) ) / PCH(-1)
+RF_net_09 = @elem(PRF_09(-1), 2006) * RF_09(-1) - IS_09 + ( REDIS_VAL_SEC_TCO_09(-1) + REDIS_VAL_SEC_ETS_09(-1) + REDIS_VAL_SEC_ETS2_09(-1) ) / PCH(-1)
+RF_net_06 = @elem(PRF_06(-1), 2006) * RF_06(-1) - IS_06 + ( REDIS_VAL_SEC_TCO_06(-1) + REDIS_VAL_SEC_ETS_06(-1) + REDIS_VAL_SEC_ETS2_06(-1) ) / PCH(-1)
+RF_net_07 = @elem(PRF_07(-1), 2006) * RF_07(-1) - IS_07 + ( REDIS_VAL_SEC_TCO_07(-1) + REDIS_VAL_SEC_ETS_07(-1) + REDIS_VAL_SEC_ETS2_07(-1) ) / PCH(-1)
+RF_net_04 = @elem(PRF_04(-1), 2006) * RF_04(-1) - IS_04 + ( REDIS_VAL_SEC_TCO_04(-1) + REDIS_VAL_SEC_ETS_04(-1) + REDIS_VAL_SEC_ETS2_04(-1) ) / PCH(-1)
+RF_net_05 = @elem(PRF_05(-1), 2006) * RF_05(-1) - IS_05 + ( REDIS_VAL_SEC_TCO_05(-1) + REDIS_VAL_SEC_ETS_05(-1) + REDIS_VAL_SEC_ETS2_05(-1) ) / PCH(-1)
+RF_net_02 = @elem(PRF_02(-1), 2006) * RF_02(-1) - IS_02 + ( REDIS_VAL_SEC_TCO_02(-1) + REDIS_VAL_SEC_ETS_02(-1) + REDIS_VAL_SEC_ETS2_02(-1) ) / PCH(-1)
+RF_net_03 = @elem(PRF_03(-1), 2006) * RF_03(-1) - IS_03 + ( REDIS_VAL_SEC_TCO_03(-1) + REDIS_VAL_SEC_ETS_03(-1) + REDIS_VAL_SEC_ETS2_03(-1) ) / PCH(-1)
+RF_net_01 = @elem(PRF_01(-1), 2006) * RF_01(-1) - IS_01 + ( REDIS_VAL_SEC_TCO_01(-1) + REDIS_VAL_SEC_ETS_01(-1) + REDIS_VAL_SEC_ETS2_01(-1) ) / PCH(-1)
 Choc_CSC_niv_09 = CSC_cost * EMS_CSC_09
 Choc_CSC_niv_08 = CSC_cost * EMS_CSC_08
 Choc_CSC_niv_07 = CSC_cost * EMS_CSC_07
@@ -12382,12 +12455,12 @@ PGD_20 = PYQS_20 * ( ( 1 + TvatDoth_20 ) / ( 1 + @elem(TvatDoth_20, 2006) ) )
 phi_MAT_bis_2406 = MAT_2406 * PMAT_2406 / ( K_2406 * CK_2406 + L_2406 * PROG_L_2406 * CL_2406 + E_2406 * ( PE_2406 + PE_CEE_2406 + PE_signal_bis_2406 ) + MAT_2406 * PMAT_2406 )
 EM_24_08 = ( ( E_24_08 - ED_24_08 > 0 ) * ( E_24_08 - ED_24_08 ) + ( E_24_08 - ED_24_08 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_24_08 - EM_des_24_08 > 0 ) * ( EM_des_24_08 ) + ( E_24_08 - EM_des_24_08 <= 0 ) * ( E_24_08 - 1e-05 ) ) * ( @year > 2019 )
 EM_24_07 = ( ( E_24_07 - ED_24_07 > 0 ) * ( E_24_07 - ED_24_07 ) + ( E_24_07 - ED_24_07 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_24_07 - EM_des_24_07 > 0 ) * ( EM_des_24_07 ) + ( E_24_07 - EM_des_24_07 <= 0 ) * ( E_24_07 - 1e-05 ) ) * ( @year > 2019 )
-d(log(MAT_n_03_01)) = ( @year <= 2019 ) * ( dlog(CIexo_03_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_03_01)) = ( @year <= 2019 ) * ( dlog(CIexo_03_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
 dlog(CIexo_14_14) = dlog(CIexo_14)
-d(log(MAT_n_03_03)) = ( @year <= 2019 ) * ( dlog(CIexo_03_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_03_03)) = ( @year <= 2019 ) * ( dlog(CIexo_03_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
 PMTM_14_09 = PMTD_14_09
 PMTM_14_08 = PMTD_14_08
-d(log(MAT_n_03_02)) = ( @year <= 2019 ) * ( dlog(CIexo_03_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_03_02)) = ( @year <= 2019 ) * ( dlog(CIexo_03_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
 CID_10_2308 = MATD_10_2308
 CID_10_2305 = MATD_10_2305
 CID_10_2304 = MATD_10_2304
@@ -12402,7 +12475,7 @@ MC_18 = MCM_18 + MCD_18
 MC_15 = MCM_15 + MCD_15
 MC_14 = MCM_14 + MCD_14
 MC_17 = MCM_17 + MCD_17
-d(log(MAT_n_03_06)) = ( @year <= 2019 ) * ( dlog(CIexo_03_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_03_06)) = ( @year <= 2019 ) * ( dlog(CIexo_03_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
 MC_11 = MCM_11 + MCD_11
 MC_10 = MCM_10 + MCD_10
 MC_13 = MCM_13 + MCD_13
@@ -12459,7 +12532,7 @@ EM_22_07 = ( ( E_22_07 - ED_22_07 > 0 ) * ( E_22_07 - ED_22_07 ) + ( E_22_07 - E
 EM_22_01 = ( ( E_22_01 - ED_22_01 > 0 ) * ( E_22_01 - ED_22_01 ) + ( E_22_01 - ED_22_01 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_22_01 - EM_des_22_01 > 0 ) * ( EM_des_22_01 ) + ( E_22_01 - EM_des_22_01 <= 0 ) * ( E_22_01 - 1e-05 ) ) * ( @year > 2019 )
 EM_22_02 = ( ( E_22_02 - ED_22_02 > 0 ) * ( E_22_02 - ED_22_02 ) + ( E_22_02 - ED_22_02 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_22_02 - EM_des_22_02 > 0 ) * ( EM_des_22_02 ) + ( E_22_02 - EM_des_22_02 <= 0 ) * ( E_22_02 - 1e-05 ) ) * ( @year > 2019 )
 EM_22_03 = ( ( E_22_03 - ED_22_03 > 0 ) * ( E_22_03 - ED_22_03 ) + ( E_22_03 - ED_22_03 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_22_03 - EM_des_22_03 > 0 ) * ( EM_des_22_03 ) + ( E_22_03 - EM_des_22_03 <= 0 ) * ( E_22_03 - 1e-05 ) ) * ( @year > 2019 )
-REDIS_VAL_SEC_ETS2 = REC_VAL_SEC_ETS2
+REDIS_VAL_SEC_ETS2 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2
 CIDexo_02_07 = ( CIexo_02_07 - CIMexo_02_07 > 0 ) * ( CIexo_02_07 - CIMexo_02_07 ) + ( CIexo_02_07 - CIMexo_02_07 <= 0 ) * 0.0001
 CIDexo_02_04 = ( CIexo_02_04 - CIMexo_02_04 > 0 ) * ( CIexo_02_04 - CIMexo_02_04 ) + ( CIexo_02_04 - CIMexo_02_04 <= 0 ) * 0.0001
 CIDexo_02_05 = ( CIexo_02_05 - CIMexo_02_05 > 0 ) * ( CIexo_02_05 - CIMexo_02_05 ) + ( CIexo_02_05 - CIMexo_02_05 <= 0 ) * 0.0001
@@ -12525,6 +12598,8 @@ EM_des_23_08 = ( ( E_23_08 - ED_23_08 > 0 ) * ( E_23_08 - ED_23_08 ) + ( E_23_08
 EM_des_23_09 = ( ( E_23_09 - ED_23_09 > 0 ) * ( E_23_09 - ED_23_09 ) + ( E_23_09 - ED_23_09 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_23_09(-1) * ( 1 + d(EM_des_n_23_09) / EM_des_n_23_09(-1) ) > 0 ) * ( EM_des_23_09(-1) * ( 1 + d(EM_des_n_23_09) / EM_des_n_23_09(-1) ) ) + ( EM_des_23_09(-1) * ( 1 + d(EM_des_n_23_09) / EM_des_n_23_09(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 d(log(IA_n_19_2201)) = d(log(IA_n_2201))
 d(log(IA_n_19_2202)) = d(log(IA_n_2202))
+phiy_ener_24_2201 = phiy_E_24_2201 / PhiY_E_24
+phiy_ener_24_2202 = phiy_E_24_2202 / PhiY_E_24
 DIV_HH_VAL = 0.8 * DIV_HH_VAL_n + ( 1 - 0.8 ) * DIV_HH_VAL(-1) + 0 * d(DIV_HH_VAL_e)
 MATM_17_2201 = ( MAT_17_2201 - MATD_17_2201 > 0 ) * ( MAT_17_2201 - MATD_17_2201 ) + ( MAT_17_2201 - MATD_17_2201 =< 0 ) * ( 1e-05 )
 MATM_17_2202 = ( MAT_17_2202 - MATD_17_2202 > 0 ) * ( MAT_17_2202 - MATD_17_2202 ) + ( MAT_17_2202 - MATD_17_2202 =< 0 ) * ( 1e-05 )
@@ -12756,7 +12831,7 @@ dlog(CIMexo_18_10) = dlog(QMexo_18)
 dlog(CIMexo_18_13) = dlog(QMexo_18)
 dlog(CIMexo_18_12) = dlog(QMexo_18)
 SUBST_K_NE_2301 = 0.8 * SUBST_K_NE_n_2301 + ( 1 - 0.8 ) * SUBST_K_NE_2301(-1)
-d(log(MAT_n_04_20)) = ( @year <= 2019 ) * ( dlog(CIexo_04_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_04_20)) = ( @year <= 2019 ) * ( dlog(CIexo_04_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 PCID_09_2403 = PMATD_09
 PCID_09_2402 = PMATD_09
 PCID_09_2401 = PMATD_09
@@ -12889,9 +12964,9 @@ SUBST_MATD_02_19 = ADJUST(9, 6) * SUBST_MATD_n_02_19 + ( 1 - ADJUST(9, 6) ) * SU
 SUBST_MATD_02_18 = ADJUST(9, 6) * SUBST_MATD_n_02_18 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_02_18(-1)
 E_indus_des_2301 = 0 + E_indus_des_21_2301 + E_indus_des_22_2301 + E_indus_des_23_2301 + E_indus_des_24_2301
 E_indus_des_2303 = 0 + E_indus_des_21_2303 + E_indus_des_22_2303 + E_indus_des_23_2303 + E_indus_des_24_2303
-PhiY_E_24_2406 = PhiY_ener_exo_24_2406 + Q_Mtep_FC_2406 / Q_Mtep_ef_tot_SOU_24
-PhiY_E_24_2404 = PhiY_ener_exo_24_2404 + Q_Mtep_FC_2404 / Q_Mtep_ef_tot_SOU_24
-PhiY_E_24_2405 = PhiY_ener_exo_24_2405 + Q_Mtep_FC_2405 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2406 = PhiY_ener_exo_24_2406 + Q_Mtep_FC_2406 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2404 = PhiY_ener_exo_24_2404 + Q_Mtep_FC_2404 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2405 = PhiY_ener_exo_24_2405 + Q_Mtep_FC_2405 / Q_Mtep_ef_tot_SOU_24
 IA_10_09 = IAD_10_09 + IAM_10_09
 IA_10_08 = IAD_10_08 + IAM_10_08
 IA_10_05 = IAD_10_05 + IAM_10_05
@@ -12963,28 +13038,28 @@ TAX_CR_VAL_2406 = SUB_FC_2406
 TAX_CR_VAL_2401 = SUB_FC_2401
 TAX_CR_VAL_2403 = SUB_FC_2403
 TAX_CR_VAL_2402 = SUB_FC_2402
-d(log(MAT_n_14_09)) = ( @year <= 2019 ) * ( dlog(CIexo_14_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_14_08)) = ( @year <= 2019 ) * ( dlog(CIexo_14_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_14_09)) = ( @year <= 2019 ) * ( dlog(CIexo_14_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_14_08)) = ( @year <= 2019 ) * ( dlog(CIexo_14_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
 MAT_bis_dgt_11_20 = MATD_11_20 + MATM_11_20
-d(log(MAT_n_14_05)) = ( @year <= 2019 ) * ( dlog(CIexo_14_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_14_04)) = ( @year <= 2019 ) * ( dlog(CIexo_14_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_14_07)) = ( @year <= 2019 ) * ( dlog(CIexo_14_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_14_06)) = ( @year <= 2019 ) * ( dlog(CIexo_14_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_14_01)) = ( @year <= 2019 ) * ( dlog(CIexo_14_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_14_03)) = ( @year <= 2019 ) * ( dlog(CIexo_14_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_14_02)) = ( @year <= 2019 ) * ( dlog(CIexo_14_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_14_05)) = ( @year <= 2019 ) * ( dlog(CIexo_14_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_14_04)) = ( @year <= 2019 ) * ( dlog(CIexo_14_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_14_07)) = ( @year <= 2019 ) * ( dlog(CIexo_14_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_14_06)) = ( @year <= 2019 ) * ( dlog(CIexo_14_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_14_01)) = ( @year <= 2019 ) * ( dlog(CIexo_14_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_14_03)) = ( @year <= 2019 ) * ( dlog(CIexo_14_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_14_02)) = ( @year <= 2019 ) * ( dlog(CIexo_14_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
 d(log(IA_n_13_2402)) = d(log(IA_n_2402))
 Y_04_12 = PhiY_04_12 * YQ_04
 DEP_VAL = CL_S_20 * L_S_20 * PROG_L_20 + R_G(-1) * DEBT_G_VAL(-1) + PRESOC_VAL + SUB_RENOV_VAL + SUB_AUTO_VAL + REDIS_VAL_TCO_H + REDIS_VAL_SEC_TCO + REDIS_VAL_SEC_ETS + REDIS_VAL_ETS2_H + REDIS_VAL_SEC_ETS2 + PE_20 * E_20 + PMAT_20 * MAT_20 + PIY_20 * IY_20 + PIA_20 * IA_20 + ( PG * G - PG_20 * G_20 ) - ( ( PSUB * SUB - PSUB_01 * SUB_01 ) + ( PSY * SY - PSY_01 * SY_01 ) )
-d(log(MAT_n_16_07)) = ( @year <= 2019 ) * ( dlog(CIexo_16_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_16_06)) = ( @year <= 2019 ) * ( dlog(CIexo_16_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_16_05)) = ( @year <= 2019 ) * ( dlog(CIexo_16_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_16_04)) = ( @year <= 2019 ) * ( dlog(CIexo_16_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_16_03)) = ( @year <= 2019 ) * ( dlog(CIexo_16_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_16_02)) = ( @year <= 2019 ) * ( dlog(CIexo_16_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_16_01)) = ( @year <= 2019 ) * ( dlog(CIexo_16_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_16_09)) = ( @year <= 2019 ) * ( dlog(CIexo_16_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_16_08)) = ( @year <= 2019 ) * ( dlog(CIexo_16_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_16_07)) = ( @year <= 2019 ) * ( dlog(CIexo_16_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_16_06)) = ( @year <= 2019 ) * ( dlog(CIexo_16_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_16_05)) = ( @year <= 2019 ) * ( dlog(CIexo_16_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_16_04)) = ( @year <= 2019 ) * ( dlog(CIexo_16_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_16_03)) = ( @year <= 2019 ) * ( dlog(CIexo_16_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_16_02)) = ( @year <= 2019 ) * ( dlog(CIexo_16_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_16_01)) = ( @year <= 2019 ) * ( dlog(CIexo_16_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_16_09)) = ( @year <= 2019 ) * ( dlog(CIexo_16_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_16_08)) = ( @year <= 2019 ) * ( dlog(CIexo_16_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
 REC_VAL_SEC_ETS_21_2405 = PE_signal_ETS * PCH * EMS_SEC_21_2405 * EXO_21_2405
 REC_VAL_SEC_ETS_21_2404 = PE_signal_ETS * PCH * EMS_SEC_21_2404 * EXO_21_2404
 REC_VAL_SEC_ETS_21_2406 = PE_signal_ETS * PCH * EMS_SEC_21_2406 * EXO_21_2406
@@ -13112,7 +13187,7 @@ PCID_17_06 = PMATD_17
 PCID_17_07 = PMATD_17
 CU_OPEX_20 * PY_20 * Y_20 = CL_20 * L_20 + PEner_20 * Ener_20 + PMAT_20 * MAT_20
 CU_OPEX_21 * PY_21 * Y_21 = CL_21 * L_21 + PEner_21 * Ener_21 + PMAT_21 * MAT_21
-d(log(MAT_n_09_20)) = ( @year <= 2019 ) * ( dlog(CIexo_09_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_09_20)) = ( @year <= 2019 ) * ( dlog(CIexo_09_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 PCID_15_02 = PMATD_15
 PCID_15_03 = PMATD_15
 PCID_15_06 = PMATD_15
@@ -13201,7 +13276,7 @@ verif_MAT_dgt_16_10 = MAT_16_10 - MAT_bis_dgt_16_10
 verif_MAT_dgt_16_11 = MAT_16_11 - MAT_bis_dgt_16_11
 EXP_n_16_H01 = ( @year <= 2019 ) * ( ( @year <= 2006 ) * ( @elem(EXP_n_16_H01, 2006) * ( 1 + STEADYSTATE(2, 1) ) ^ ( @year - 2006 ) ) + ( @year > 2006 ) * ( EXP_n_16_H01(-1) * EXPexo_16 / EXPexo_16(-1) ) ) + ( @year > 2019 ) * ( ( Choc_EXP_16 <= 0 ) * ( Choc_EXP_16 >= 0 ) * ( ( PEXP_16_H01 * NEXP_16_H01 + BetaExp_16_H01 * ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) / PEXP_16_H01 ) + ( Choc_EXP_16 < 0 ) * ( ( 1 + Choc_EXP_16 ) * EXP_n_16_H01(-1) ) + ( Choc_EXP_16 > 0 ) * ( ( 1 + Choc_EXP_16 ) * EXP_n_16_H01(-1) ) )
 verif_IA_dgt_17_16 = IA_n_17_16 - IA_bis_dgt_17_16
-REDIS_VAL_SEC_ETS_10 = REC_VAL_SEC_ETS_10
+REDIS_VAL_SEC_ETS_10 = ( @year > 2024 ) * REC_VAL_SEC_ETS_10
 d(log(E_oth_des_24_03)) = d(log(E_oth_03)) + d(SUBST_E_24_03)
 verif_IA_dgt_17_17 = IA_n_17_17 - IA_bis_dgt_17_17
 d(log(E_oth_des_24_05)) = d(log(E_oth_05)) + d(SUBST_E_24_05)
@@ -13404,7 +13479,6 @@ K_n_2305 = ( @year < 2021 ) * ( K_n_2305(-1) * ( 1 + dlog(Y_2305) + d(SUBST_K_23
 XM_24 = ( X_24 - XD_24 > 0 ) * ( X_24 - XD_24 ) + ( X_24 - XD_24 <= 0 ) * ( 1e-05 )
 d(SUBST_MATD_n_06_03) = ( @year <= 2022 ) * ( - ES_CIM(3, 6) * d(log(PMATD_06) - log(PMATM_06)) * ( PMATM_06(-1) * MATM_06_03(-1) / ( PMAT_06_03(-1) * MAT_06_03(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_06) - log(PMATM_06)) * ( PMATM_06(-1) * MATM_06_03(-1) / ( PMAT_06_03(-1) * MAT_06_03(-1) ) ) )
 ENER_spe_val_H01_CA_23 = PENER_BUIL_H01_CA_23 * ENER_spe_H01_CA_23
-ENER_spe_val_H01_CA_22 = PENER_BUIL_H01_CA_22 * ENER_spe_H01_CA_22
 d(log(E_oth_des_24_09)) = d(log(E_oth_09)) + d(SUBST_E_24_09)
 phi_n_L_18 = L_n_18 * PROG_L_18 * CL_18 / ( K_n_18 * CK_18 + L_n_18 * PROG_L_18 * CL_18 + E_n_18 * ( PE_18 + PE_CEE_n_18 + PE_signal_bis_18 ) + MAT_n_18 * PMAT_18 )
 phi_n_L_17 = L_n_17 * PROG_L_17 * CL_17 / ( K_n_17 * CK_17 + L_n_17 * PROG_L_17 * CL_17 + E_n_17 * ( PE_17 + PE_CEE_n_17 + PE_signal_bis_17 ) + MAT_n_17 * PMAT_17 )
@@ -13612,6 +13686,7 @@ d(log(CUR_test_2403)) = 0.6 * d(log(CUR_bis_2403)) + 0.4 * d(log(CUR_cible_2403)
 d(log(CUR_test_2402)) = 0.6 * d(log(CUR_bis_2402)) + 0.4 * d(log(CUR_cible_2402)) - 0.6 * ( log(CUR_test_2402(-1)) - log(CUR_cible_2402(-1)) )
 d(log(CUR_test_2401)) = 0.6 * d(log(CUR_bis_2401)) + 0.4 * d(log(CUR_cible_2401)) - 0.6 * ( log(CUR_test_2401(-1)) - log(CUR_cible_2401(-1)) )
 verif_MAT_dgt_10_19 = MAT_10_19 - MAT_bis_dgt_10_19
+phiy_ener_22_2308 = phiy_E_22_2308 / PhiY_E_22
 d(log(CUR_test_2406)) = 0.6 * d(log(CUR_bis_2406)) + 0.4 * d(log(CUR_cible_2406)) - 0.6 * ( log(CUR_test_2406(-1)) - log(CUR_cible_2406(-1)) )
 d(log(CUR_test_2405)) = 0.6 * d(log(CUR_bis_2405)) + 0.4 * d(log(CUR_cible_2405)) - 0.6 * ( log(CUR_test_2405(-1)) - log(CUR_cible_2405(-1)) )
 d(log(CUR_test_2404)) = 0.6 * d(log(CUR_bis_2404)) + 0.4 * d(log(CUR_cible_2404)) - 0.6 * ( log(CUR_test_2404(-1)) - log(CUR_cible_2404(-1)) )
@@ -13906,11 +13981,11 @@ E_indus_des_03 = 0 + E_indus_des_21_03 + E_indus_des_22_03 + E_indus_des_23_03 +
 E_indus_des_02 = 0 + E_indus_des_21_02 + E_indus_des_22_02 + E_indus_des_23_02 + E_indus_des_24_02
 E_indus_des_01 = 0 + E_indus_des_21_01 + E_indus_des_22_01 + E_indus_des_23_01 + E_indus_des_24_01
 PNew_LUV_24_16 = PNew_LUV_cst_24_16 * PMAT_03_16
-d(log(MAT_n_14_10)) = ( @year <= 2019 ) * ( dlog(CIexo_14_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_14_10)) = ( @year <= 2019 ) * ( dlog(CIexo_14_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
 E_indus_des_09 = 0 + E_indus_des_21_09 + E_indus_des_22_09 + E_indus_des_23_09 + E_indus_des_24_09
 E_indus_des_08 = 0 + E_indus_des_21_08 + E_indus_des_22_08 + E_indus_des_23_08 + E_indus_des_24_08
 MAT_bis_dgt_11_18 = MATD_11_18 + MATM_11_18
-d(log(MAT_n_14_17)) = ( @year <= 2019 ) * ( dlog(CIexo_14_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_14_17)) = ( @year <= 2019 ) * ( dlog(CIexo_14_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_14_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_14_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_14_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_14_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
 d(log(MATM_des_n_04_10)) = 1.55 * dlog(QD_04) - 0.41 * ( log(MATM_des_n_04_10(-1)) - log(MAT_04_10(-1)) + 0.48 * ( log(PMATM_04(-1)) - log(PMATD_04(-1)) ) )
 d(log(MATM_des_n_04_11)) = 1.55 * dlog(QD_04) - 0.41 * ( log(MATM_des_n_04_11(-1)) - log(MAT_04_11(-1)) + 0.48 * ( log(PMATM_04(-1)) - log(PMATD_04(-1)) ) )
 d(log(MATM_des_n_04_12)) = 1.55 * dlog(QD_04) - 0.41 * ( log(MATM_des_n_04_12(-1)) - log(MAT_04_12(-1)) + 0.48 * ( log(PMATM_04(-1)) - log(PMATD_04(-1)) ) )
@@ -13990,9 +14065,14 @@ EFER_n_2405 = E_n_2405 / Y_2405
 EFER_n_2404 = E_n_2404 / Y_2404
 EFER_n_2403 = E_n_2403 / Y_2403
 dlog(CIexo_17_02) = dlog(CIexo_17)
-d(log(MAT_n_12_02)) = ( @year <= 2019 ) * ( dlog(CIexo_12_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_12_02)) = ( @year <= 2019 ) * ( dlog(CIexo_12_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
 SUBST_MTM_16_09 = ADJUST(12, 6) * SUBST_MTM_n_16_09 + ( 1 - ADJUST(12, 6) ) * SUBST_MTM_16_09(-1)
-SUBST_IAD_05_10 = ADJUST(13, 6) * SUBST_IAD_n_05_10 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_10(-1)
+verif_PhiY_ener_2403 = 1
+verif_PhiY_ener_2402 = 1
+verif_PhiY_ener_2401 = 1
+verif_PhiY_ener_2406 = 1
+verif_PhiY_ener_2405 = 1
+verif_PhiY_ener_2404 = 1
 d(SUBST_IAM_n_03_2404) = ( @year <= 2022 ) * ( - ES_IAM(35, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_2404(-1) / ( PIA_03_2404(-1) * IA_03_2404(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_2404(-1) / ( PIA_03_2404(-1) * IA_03_2404(-1) ) ) )
 T_TAX_CR_03 = 0 + ( 1 - AME_TCIEE_sinc ) * ( @year <= 2030 ) * d(T_TAX_CR_sinc) + T_TAX_CR_03(-1)
 d(SUBST_IAM_n_05_2301) = ( @year <= 2022 ) * ( - ES_IAM(24, 5) * d(log(PIAM_05) - log(PIAD_05)) * ( PIAD_05(-1) * IAD_05_2301(-1) / ( PIA_05_2301(-1) * IA_05_2301(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_05) - log(PIAD_05)) * ( PIAD_05(-1) * IAD_05_2301(-1) / ( PIA_05_2301(-1) * IA_05_2301(-1) ) ) )
@@ -14158,19 +14238,19 @@ d(log(MAT_16_2305)) = d(log(MAT_2305)) + d(SUBST_MAT_16_2305) + log(1 - modal_sh
 d(log(MAT_16_2304)) = d(log(MAT_2304)) + d(SUBST_MAT_16_2304) + log(1 - modal_shift_freight * ( 1 + 1 / 4 ) * MAT_16_2304(-1) / MAT_16_2304(-1))
 d(log(MAT_16_2307)) = d(log(MAT_2307)) + d(SUBST_MAT_16_2307) + log(1 - modal_shift_freight * ( 1 + 1 / 4 ) * MAT_16_2307(-1) / MAT_16_2307(-1))
 d(log(MAT_16_2306)) = d(log(MAT_2306)) + d(SUBST_MAT_16_2306) + log(1 - modal_shift_freight * ( 1 + 1 / 4 ) * MAT_16_2306(-1) / MAT_16_2306(-1))
-REDIS_VAL_SEC_TCO_07 = REC_VAL_SEC_TCO_07
-REDIS_VAL_SEC_TCO_06 = REC_VAL_SEC_TCO_06
-REDIS_VAL_SEC_TCO_05 = REC_VAL_SEC_TCO_05
-REDIS_VAL_SEC_TCO_04 = REC_VAL_SEC_TCO_04
-REDIS_VAL_SEC_TCO_03 = REC_VAL_SEC_TCO_03
-REDIS_VAL_SEC_TCO_02 = REC_VAL_SEC_TCO_02
-REDIS_VAL_SEC_TCO_01 = REC_VAL_SEC_TCO_01
+REDIS_VAL_SEC_TCO_07 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_07
+REDIS_VAL_SEC_TCO_06 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_06
+REDIS_VAL_SEC_TCO_05 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_05
+REDIS_VAL_SEC_TCO_04 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_04
+REDIS_VAL_SEC_TCO_03 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_03
+REDIS_VAL_SEC_TCO_02 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_02
+REDIS_VAL_SEC_TCO_01 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_01
 CIM_08_2402 = MATM_08_2402
 CIM_08_2403 = MATM_08_2403
 CIM_08_2401 = MATM_08_2401
 CIM_08_2406 = MATM_08_2406
-REDIS_VAL_SEC_TCO_09 = REC_VAL_SEC_TCO_09
-REDIS_VAL_SEC_TCO_08 = REC_VAL_SEC_TCO_08
+REDIS_VAL_SEC_TCO_09 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_09
+REDIS_VAL_SEC_TCO_08 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_08
 PEM_22_2201 * EM_22_2201 = ( PMS_BTCO_22 * EM_22_2201 + TCO_VALM_22_2201 ) * ( 1 + TvatMoth_22 ) / ( 1 + @elem(TvatMoth_22, 2006) )
 MATD_17_20 = ( CIDexo_17_20 ) * ( @year <= 2019 ) + ( ( MAT_17_20 - MATM_17_20 > 0 ) * ( MAT_17_20 - MATM_17_20 ) + ( MAT_17_20 - MATM_17_20 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 IAM_des_03_08 = IAM_des_03_08(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( IAM_des_03_08(-1) * ( 1 + d(IAM_des_n_03_08) / IAM_des_n_03_08(-1) ) > 0 ) * ( IAM_des_03_08(-1) * ( 1 + d(IAM_des_n_03_08) / IAM_des_n_03_08(-1) ) ) + ( IAM_des_03_08(-1) * ( 1 + d(IAM_des_n_03_08) / IAM_des_n_03_08(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -14192,7 +14272,7 @@ REC_VAL_SEC_ETS_22_2402 = PE_signal_ETS * PCH * EMS_SEC_22_2402 * EXO_22_2402
 REC_VAL_SEC_ETS_22_2403 = PE_signal_ETS * PCH * EMS_SEC_22_2403 * EXO_22_2403
 IAM_des_01_01 = IAM_des_01_01(-1) * ( ( 1 + ( QMexo_01 > 0 ) * ( d(QMexo_01) / QMexo_01(-1) ) ) ) * ( @year <= 2019 ) + ( ( IAM_des_01_01(-1) * ( 1 + d(IAM_des_n_01_01) / IAM_des_n_01_01(-1) ) > 0 ) * ( IAM_des_01_01(-1) * ( 1 + d(IAM_des_n_01_01) / IAM_des_n_01_01(-1) ) ) + ( IAM_des_01_01(-1) * ( 1 + d(IAM_des_n_01_01) / IAM_des_n_01_01(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 SUBST_MAT_15_03 = ADJUST(6, 6) * SUBST_MAT_n_15_03 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_15_03(-1) )
-REDIS_VAL_TCO_H = REC_VAL_TCO_HH
+REDIS_VAL_TCO_H = 0 * ( @year > 2024 ) * REC_VAL_TCO_HH
 d(SUBST_MTD_n_17_24) = 0 + - ES_TRANSP_MARG(24, cols_trsp(17, 14)) * d(log(PE_17) - log(PE_14)) * PMTD_14_24(-1) * MTD_14_24(-1) / ( PMTD_17_24(-1) * MTD_17_24(-1) + PMTD_14_24(-1) * MTD_14_24(-1) ) + - ES_TRANSP_MARG(24, cols_trsp(17, 16)) * d(log(PE_17) - log(PE_16)) * PMTD_16_24(-1) * MTD_16_24(-1) / ( PMTD_17_24(-1) * MTD_17_24(-1) + PMTD_16_24(-1) * MTD_16_24(-1) ) + - ES_TRANSP_MARG(24, cols_trsp(17, 18)) * d(log(PE_17) - log(PE_18)) * PMTD_18_24(-1) * MTD_18_24(-1) / ( PMTD_17_24(-1) * MTD_17_24(-1) + PMTD_18_24(-1) * MTD_18_24(-1) )
 d(SUBST_MTD_n_17_21) = 0 + - ES_TRANSP_MARG(21, cols_trsp(17, 14)) * d(log(PE_17) - log(PE_14)) * PMTD_14_21(-1) * MTD_14_21(-1) / ( PMTD_17_21(-1) * MTD_17_21(-1) + PMTD_14_21(-1) * MTD_14_21(-1) ) + - ES_TRANSP_MARG(21, cols_trsp(17, 16)) * d(log(PE_17) - log(PE_16)) * PMTD_16_21(-1) * MTD_16_21(-1) / ( PMTD_17_21(-1) * MTD_17_21(-1) + PMTD_16_21(-1) * MTD_16_21(-1) ) + - ES_TRANSP_MARG(21, cols_trsp(17, 18)) * d(log(PE_17) - log(PE_18)) * PMTD_18_21(-1) * MTD_18_21(-1) / ( PMTD_17_21(-1) * MTD_17_21(-1) + PMTD_18_21(-1) * MTD_18_21(-1) )
 UnR_W = Un_W / LF_W
@@ -14310,28 +14390,28 @@ verif_IA_dgt_19_16 = IA_n_19_16 - IA_bis_dgt_19_16
 verif_IA_dgt_19_17 = IA_n_19_17 - IA_bis_dgt_19_17
 dlog(km_traveler_15_H01) = ( @year > 2006 ) * ( d(log(km_traveler_CD_H01)) + 0.2 * ( km_trav_auto_CD_H01(-1) / ( km_traveler_15_H01(-1) + km_trav_auto_CD_H01(-1) ) ) * d(log(PC_trav_auto_CD_H01) - log(pc_trav_15_H01 + PC_Trav_15_signal)) + teletravail + choc_TCSP ) + ( @year <= 2006 ) * log(1 + STEADYSTATE(2, 1))
 verif_IA_dgt_19_19 = IA_n_19_19 - IA_bis_dgt_19_19
-d(log(MAT_n_07_09)) = ( @year <= 2019 ) * ( dlog(CIexo_07_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_07_08)) = ( @year <= 2019 ) * ( dlog(CIexo_07_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_07_05)) = ( @year <= 2019 ) * ( dlog(CIexo_07_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_07_04)) = ( @year <= 2019 ) * ( dlog(CIexo_07_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_07_07)) = ( @year <= 2019 ) * ( dlog(CIexo_07_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_07_06)) = ( @year <= 2019 ) * ( dlog(CIexo_07_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_07_01)) = ( @year <= 2019 ) * ( dlog(CIexo_07_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_07_03)) = ( @year <= 2019 ) * ( dlog(CIexo_07_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_07_02)) = ( @year <= 2019 ) * ( dlog(CIexo_07_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_07_09)) = ( @year <= 2019 ) * ( dlog(CIexo_07_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_07_08)) = ( @year <= 2019 ) * ( dlog(CIexo_07_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_07_05)) = ( @year <= 2019 ) * ( dlog(CIexo_07_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_07_04)) = ( @year <= 2019 ) * ( dlog(CIexo_07_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_07_07)) = ( @year <= 2019 ) * ( dlog(CIexo_07_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_07_06)) = ( @year <= 2019 ) * ( dlog(CIexo_07_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_07_01)) = ( @year <= 2019 ) * ( dlog(CIexo_07_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_07_03)) = ( @year <= 2019 ) * ( dlog(CIexo_07_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_07_02)) = ( @year <= 2019 ) * ( dlog(CIexo_07_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_07_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_07_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_07_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_07_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
 d(phi_REHAB_des_n_H01_CC_CB) = ( @year > 2007 ) * d(EXP_U_REHAB_H01_CC_CB / SUM_EXP_U_REHAB_H01_CC)
 d(phi_REHAB_des_n_H01_CC_CA) = ( @year > 2007 ) * d(EXP_U_REHAB_H01_CC_CA / SUM_EXP_U_REHAB_H01_CC)
-d(log(MAT_n_05_07)) = ( @year <= 2019 ) * ( dlog(CIexo_05_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_05_06)) = ( @year <= 2019 ) * ( dlog(CIexo_05_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_05_05)) = ( @year <= 2019 ) * ( dlog(CIexo_05_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_05_04)) = ( @year <= 2019 ) * ( dlog(CIexo_05_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_05_03)) = ( @year <= 2019 ) * ( dlog(CIexo_05_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_05_02)) = ( @year <= 2019 ) * ( dlog(CIexo_05_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_05_01)) = ( @year <= 2019 ) * ( dlog(CIexo_05_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_05_07)) = ( @year <= 2019 ) * ( dlog(CIexo_05_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_05_06)) = ( @year <= 2019 ) * ( dlog(CIexo_05_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_05_05)) = ( @year <= 2019 ) * ( dlog(CIexo_05_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_05_04)) = ( @year <= 2019 ) * ( dlog(CIexo_05_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_05_03)) = ( @year <= 2019 ) * ( dlog(CIexo_05_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_05_02)) = ( @year <= 2019 ) * ( dlog(CIexo_05_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_05_01)) = ( @year <= 2019 ) * ( dlog(CIexo_05_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
 verif_phi_E_indus_21 = 0 + phi_E_indus_21_21 + phi_E_indus_22_21 + phi_E_indus_23_21 + phi_E_indus_24_21 - 1 * ( E_indus_21 > 0 )
 verif_phi_E_indus_20 = 0 + phi_E_indus_21_20 + phi_E_indus_22_20 + phi_E_indus_23_20 + phi_E_indus_24_20 - 1 * ( E_indus_20 > 0 )
-d(log(MAT_n_05_09)) = ( @year <= 2019 ) * ( dlog(CIexo_05_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_05_08)) = ( @year <= 2019 ) * ( dlog(CIexo_05_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_05_09)) = ( @year <= 2019 ) * ( dlog(CIexo_05_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_05_08)) = ( @year <= 2019 ) * ( dlog(CIexo_05_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
 IA_13_19 = IAD_13_19 + IAM_13_19
 IA_13_18 = IAD_13_18 + IAM_13_18
 IA_13_13 = IAD_13_13 + IAM_13_13
@@ -14769,18 +14849,18 @@ log(PY_06) = ( @year <= 2019 ) * ( ADJUST(17, 1) * log(PY_n_06) + ( 1 - ADJUST(1
 log(PY_09) = ( @year <= 2019 ) * ( ADJUST(17, 1) * log(PY_n_09) + ( 1 - ADJUST(17, 1) ) * ( log(PY_09(-1)) + d(log(PY_e_09)) ) ) + ( @year > 2019 ) * ( log(PY_09(-1)) + d(log(PY_des_09)) )
 log(PY_08) = ( @year <= 2019 ) * ( ADJUST(17, 1) * log(PY_n_08) + ( 1 - ADJUST(17, 1) ) * ( log(PY_08(-1)) + d(log(PY_e_08)) ) ) + ( @year > 2019 ) * ( log(PY_08(-1)) + d(log(PY_des_08)) )
 MAT_bis_dgt_12_20 = MATD_12_20 + MATM_12_20
-d(log(MAT_n_12_18)) = ( @year <= 2019 ) * ( dlog(CIexo_12_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_12_19)) = ( @year <= 2019 ) * ( dlog(CIexo_12_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_12_18)) = ( @year <= 2019 ) * ( dlog(CIexo_12_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_12_19)) = ( @year <= 2019 ) * ( dlog(CIexo_12_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 d(log(E_oth_des_21_10)) = d(log(E_oth_10)) + d(SUBST_E_21_10)
 d(log(E_oth_des_21_12)) = d(log(E_oth_12)) + d(SUBST_E_21_12)
-d(log(MAT_n_12_10)) = ( @year <= 2019 ) * ( dlog(CIexo_12_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_12_11)) = ( @year <= 2019 ) * ( dlog(CIexo_12_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_12_12)) = ( @year <= 2019 ) * ( dlog(CIexo_12_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_12_13)) = ( @year <= 2019 ) * ( dlog(CIexo_12_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_12_10)) = ( @year <= 2019 ) * ( dlog(CIexo_12_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_12_11)) = ( @year <= 2019 ) * ( dlog(CIexo_12_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_12_12)) = ( @year <= 2019 ) * ( dlog(CIexo_12_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_12_13)) = ( @year <= 2019 ) * ( dlog(CIexo_12_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 d(log(E_oth_des_21_19)) = d(log(E_oth_19)) + d(SUBST_E_21_19)
-d(log(MAT_n_12_15)) = ( @year <= 2019 ) * ( dlog(CIexo_12_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_12_16)) = ( @year <= 2019 ) * ( dlog(CIexo_12_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_12_17)) = ( @year <= 2019 ) * ( dlog(CIexo_12_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_12_15)) = ( @year <= 2019 ) * ( dlog(CIexo_12_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_12_16)) = ( @year <= 2019 ) * ( dlog(CIexo_12_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_12_17)) = ( @year <= 2019 ) * ( dlog(CIexo_12_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
 phi_MAT_n_20_15 * SUM_MAT_N_CM_15 = MAT_n_20_15
 phi_MAT_n_20_14 * SUM_MAT_N_CM_14 = MAT_n_20_14
 phi_MAT_n_20_17 * SUM_MAT_N_CM_17 = MAT_n_20_17
@@ -15000,9 +15080,9 @@ REC_VAL_SEC_ETS2_22_15 = ETS2_15 * PCH * EMS_SEC_22_15 * ( 1 - EXO_22_15 )
 REC_VAL_SEC_ETS2_22_16 = ETS2_16 * PCH * EMS_SEC_22_16 * ( 1 - EXO_22_16 )
 REC_VAL_SEC_ETS2_22_17 = ETS2_17 * PCH * EMS_SEC_22_17 * ( 1 - EXO_22_17 )
 d(log(E_oth_des_22_14)) = d(log(E_oth_14)) + d(SUBST_E_22_14)
-E_oth_des_22_15 = E_oth_des_22_15(-1) * ( 1 + d(log(E_oth_n_15)) + d(SUBST_E_22_15) ) - Choc_E_oth_des_24_15
+E_oth_des_22_15 = E_oth_n_22_15
 verif_IA_dgt_09_20 = IA_n_09_20 - IA_bis_dgt_09_20
-E_oth_des_22_17 = E_oth_des_22_17(-1) * ( 1 + d(log(E_oth_n_17)) + d(SUBST_E_22_17) ) - Choc_E_oth_des_24_17 - Choc_E_oth_des_23_17
+d(log(E_oth_des_22_17)) = d(log(E_oth_17)) + d(SUBST_E_22_17)
 d(log(E_oth_des_22_12)) = d(log(E_oth_12)) + d(SUBST_E_22_12)
 PEBE_2406 * EBE_2406 = PVA_2406 * VA_2406 - CL_2406 * L_2406 * PROG_L_2406 - PIY_2406 * IY_2406 - PSY_2406 * SY_2406
 PEBE_2404 * EBE_2404 = PVA_2404 * VA_2404 - CL_2404 * L_2404 * PROG_L_2404 - PIY_2404 * IY_2404 - PSY_2404 * SY_2404
@@ -15010,7 +15090,7 @@ PEBE_2405 * EBE_2405 = PVA_2405 * VA_2405 - CL_2405 * L_2405 * PROG_L_2405 - PIY
 PEBE_2402 * EBE_2402 = PVA_2402 * VA_2402 - CL_2402 * L_2402 * PROG_L_2402 - PIY_2402 * IY_2402 - PSY_2402 * SY_2402
 PEBE_2403 * EBE_2403 = PVA_2403 * VA_2403 - CL_2403 * L_2403 * PROG_L_2403 - PIY_2403 * IY_2403 - PSY_2403 * SY_2403
 PEBE_2401 * EBE_2401 = PVA_2401 * VA_2401 - CL_2401 * L_2401 * PROG_L_2401 - PIY_2401 * IY_2401 - PSY_2401 * SY_2401
-E_oth_des_22_18 = E_oth_des_22_18(-1) * ( 1 + d(log(E_oth_n_18)) + d(SUBST_E_22_18) ) - Choc_E_oth_des_24_18 - Choc_E_oth_des_23_18
+d(log(E_oth_des_22_18)) = d(log(E_oth_18)) + d(SUBST_E_22_18)
 d(SUBST_L_n_12) = - ES_KLEM(12, 1) * d(log(CL_12) - log(CK_12 / PROG_K_12)) * phi_k_bis_12(-1) - eta_L_E_12 * d(log(CL_12) - log(( PE_12 + PE_Signal_12 + PE_CEE_12 + PE_signal_bis_12 ) / PROG_E_12)) * phi_e_bis_12(-1) - ES_KLEM(12, 5) * d(log(CL_12) - log(PMAT_12)) * phi_mat_bis_12(-1)
 EXP_n_04_H01 = ( @year <= 2019 ) * ( ( @year <= 2006 ) * ( @elem(EXP_n_04_H01, 2006) * ( 1 + STEADYSTATE(2, 1) ) ^ ( @year - 2006 ) ) + ( @year > 2006 ) * ( EXP_n_04_H01(-1) * EXPexo_04 / EXPexo_04(-1) ) ) + ( @year > 2019 ) * ( ( Choc_EXP_04 <= 0 ) * ( Choc_EXP_04 >= 0 ) * ( ( PEXP_04_H01 * NEXP_04_H01 + BetaExp_04_H01 * ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) / PEXP_04_H01 ) + ( Choc_EXP_04 < 0 ) * ( ( 1 + Choc_EXP_04 ) * EXP_n_04_H01(-1) ) + ( Choc_EXP_04 > 0 ) * ( ( 1 + Choc_EXP_04 ) * EXP_n_04_H01(-1) ) )
 d(SUBST_EM_n_21_08) = - ES_CIM(8, 20 + 1) * d(log(PEM_21) - log(PED_21)) * ( PED_21(-1) * ED_21_08(-1) / ( PE_21_08(-1) * E_21_08(-1) ) )
@@ -15049,7 +15129,7 @@ EBE_20 = VA_20 - ( CL_20 / PEBE_20 ) * L_20 * PROG_L_20 - IY_20 - SY_20
 Q_Mtep_int = 0 + Q_Mtep_int_2201 + Q_Mtep_int_2301 + Q_Mtep_int_2302 + Q_Mtep_int_2303 + Q_Mtep_int_2304 + Q_Mtep_int_2307 + Q_Mtep_int_2308 + Q_Mtep_int_2401 + Q_Mtep_int_2404
 E_bis_dgt_22_21 = ED_22_21 + EM_22_21
 E_bis_dgt_22_20 = ED_22_20 + EM_22_20
-E_oth_des_24_18 = E_oth_des_24_18(-1) * ( 1 + d(log(E_oth_n_18)) + d(SUBST_E_24_18) ) + Choc_E_oth_des_24_18
+d(log(E_oth_des_24_18)) = d(log(E_oth_18)) + d(SUBST_E_24_18)
 d(log(W_S_n_2401)) = 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_2401)) - 1.8 * d(UnR_TOT(-1))
 verif_MAT_dgt_01_14 = MAT_01_14 - MAT_bis_dgt_01_14
 verif_MAT_dgt_01_15 = MAT_01_15 - MAT_bis_dgt_01_15
@@ -15080,7 +15160,7 @@ PCID_01_2303 = PMATD_01
 phi_n_L_20 = L_n_20 * PROG_L_20 * CL_20 / ( K_n_20 * CK_20 + L_n_20 * PROG_L_20 * CL_20 + E_n_20 * ( PE_20 + PE_CEE_n_20 + PE_signal_bis_20 ) + MAT_n_20 * PMAT_20 )
 phi_n_L_21 = L_n_21 * PROG_L_21 * CL_21 / ( K_n_21 * CK_21 + L_n_21 * PROG_L_21 * CL_21 + E_n_21 * ( PE_21 + PE_CEE_n_21 + PE_signal_bis_21 ) + MAT_n_21 * PMAT_21 )
 PNEXP_12_H01 = PEXP_12_H01
-REDIS_VAL_SEC_ETS_09 = REC_VAL_SEC_ETS_09
+REDIS_VAL_SEC_ETS_09 = ( @year > 2024 ) * REC_VAL_SEC_ETS_09
 E_2404 = E_indus_2404 + E_oth_2404
 E_2405 = E_indus_2405 + E_oth_2405
 E_2406 = E_indus_2406 + E_oth_2406
@@ -15146,11 +15226,9 @@ d(AUTO_elec_H01_CD) = ( @year > 2006 ) * ( NewAUTO_H01 * share_elec_H01 * phi_el
 d(AUTO_elec_H01_CC) = ( @year > 2006 ) * ( NewAUTO_H01 * share_elec_H01 * phi_elec_H01_CC - delta_AUTO_H01_CA_DES * AUTO_elec_H01_CC(-1) ) + ( @year <= 2006 ) * ( AUTO_elec_H01_CC(-1) * STEADYSTATE(2, 1) )
 d(AUTO_elec_H01_CB) = ( @year > 2006 ) * ( NewAUTO_H01 * share_elec_H01 * phi_elec_H01_CB - delta_AUTO_H01_CA_DES * AUTO_elec_H01_CB(-1) ) + ( @year <= 2006 ) * ( AUTO_elec_H01_CB(-1) * STEADYSTATE(2, 1) )
 d(AUTO_elec_H01_CA) = ( @year > 2006 ) * ( NewAUTO_H01 * share_elec_H01 * phi_elec_H01_CA - delta_AUTO_H01_CA_DES * AUTO_elec_H01_CA(-1) ) + ( @year <= 2006 ) * ( AUTO_elec_H01_CA(-1) * STEADYSTATE(2, 1) )
-ENER_spe_val_H01_CD_22 = PENER_BUIL_H01_CD_22 * ENER_spe_H01_CD_22
 ENER_spe_val_H01_CD_23 = PENER_BUIL_H01_CD_23 * ENER_spe_H01_CD_23
 ER_Tertiary_oil = Q_Mtep_sec_22_19 + Q_Mtep_sec_22_20
 Q_Mtep_int_2401 = 0 + Q_Mtep_int_24_2401
-ENER_spe_val_H01_CD_21 = PENER_BUIL_H01_CD_21 * ENER_spe_H01_CD_21
 Q_Mtep_int_2404 = 0 + Q_Mtep_int_24_2404
 Q_Mtep_Nener_22_2305 = Q_Mtep_indus_22 * PhiY_indus_22_2305
 Q_Mtep_Nener_22_2306 = Q_Mtep_indus_22 * PhiY_indus_22_2306
@@ -15199,6 +15277,14 @@ EFER_n_14 = E_n_14 / Y_14
 EFER_n_15 = E_n_15 / Y_15
 EFER_n_16 = E_n_16 / Y_16
 EFER_n_17 = E_n_17 / Y_17
+phiy_E_23_2304 = PhiY_ener_exo_23_2304 + Q_Mtep_FC_2304 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2305 = PhiY_ener_exo_23_2305 + Q_Mtep_FC_2305 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2306 = PhiY_ener_exo_23_2306 + Q_Mtep_FC_2306 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2307 = PhiY_ener_exo_23_2307 + Q_Mtep_FC_2307 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2301 = PhiY_ener_exo_23_2301 + Q_Mtep_FC_2301 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2302 = PhiY_ener_exo_23_2302 + Q_Mtep_FC_2302 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2303 = PhiY_ener_exo_23_2303 + Q_Mtep_FC_2303 / Q_Mtep_ef_tot_SOU_23
+phiy_E_23_2308 = PhiY_ener_exo_23_2308 + Q_Mtep_FC_2308 / Q_Mtep_ef_tot_SOU_23
 PYQbis_11 * ( QD_11 - VATD_11 - OTHTD_11 - SUBD_11 - MCD_11 - MTD_11 - ENERTD_11 ) = PQD_11 * QD_11 - PVATD_11 * VATD_11 - POTHTD_11 * OTHTD_11 - PSUBD_11 * SUBD_11 - ( PMCD_11 * MCD_11 + PMTD_11 * MTD_11 ) - PENERTD_11 * ENERTD_11
 PYQbis_10 * ( QD_10 - VATD_10 - OTHTD_10 - SUBD_10 - MCD_10 - MTD_10 - ENERTD_10 ) = PQD_10 * QD_10 - PVATD_10 * VATD_10 - POTHTD_10 * OTHTD_10 - PSUBD_10 * SUBD_10 - ( PMCD_10 * MCD_10 + PMTD_10 * MTD_10 ) - PENERTD_10 * ENERTD_10
 PYQbis_13 * ( QD_13 - VATD_13 - OTHTD_13 - SUBD_13 - MCD_13 - MTD_13 - ENERTD_13 ) = PQD_13 * QD_13 - PVATD_13 * VATD_13 - POTHTD_13 * OTHTD_13 - PSUBD_13 * SUBD_13 - ( PMCD_13 * MCD_13 + PMTD_13 * MTD_13 ) - PENERTD_13 * ENERTD_13
@@ -15209,6 +15295,8 @@ PYQbis_17 * ( QD_17 - VATD_17 - OTHTD_17 - SUBD_17 - MCD_17 - MTD_17 - ENERTD_17
 PYQbis_16 * ( QD_16 - VATD_16 - OTHTD_16 - SUBD_16 - MCD_16 - MTD_16 - ENERTD_16 ) = PQD_16 * QD_16 - PVATD_16 * VATD_16 - POTHTD_16 * OTHTD_16 - PSUBD_16 * SUBD_16 - ( PMCD_16 * MCD_16 + PMTD_16 * MTD_16 ) - PENERTD_16 * ENERTD_16
 PYQbis_19 * ( QD_19 - VATD_19 - OTHTD_19 - SUBD_19 - MCD_19 - MTD_19 - ENERTD_19 ) = PQD_19 * QD_19 - PVATD_19 * VATD_19 - POTHTD_19 * OTHTD_19 - PSUBD_19 * SUBD_19 - ( PMCD_19 * MCD_19 + PMTD_19 * MTD_19 ) - PENERTD_19 * ENERTD_19
 PYQbis_18 * ( QD_18 - VATD_18 - OTHTD_18 - SUBD_18 - MCD_18 - MTD_18 - ENERTD_18 ) = PQD_18 * QD_18 - PVATD_18 * VATD_18 - POTHTD_18 * OTHTD_18 - PSUBD_18 * SUBD_18 - ( PMCD_18 * MCD_18 + PMTD_18 * MTD_18 ) - PENERTD_18 * ENERTD_18
+phiy_ener_22_2202 = phiy_E_22_2202 / PhiY_E_22
+phiy_ener_22_2201 = phiy_E_22_2201 / PhiY_E_22
 PhiY_ef_tot_21_21 = Q_Mtep_ef_tot_21_21 / Q_Mtep_ef_tot_SOU_21
 verif_phi_input_2401 = 1 - phi_K_2401 - phi_L_2401 - phi_E_2401 - phi_MAT_2401
 verif_phi_input_2402 = 1 - phi_K_2402 - phi_L_2402 - phi_E_2402 - phi_MAT_2402
@@ -15352,7 +15440,7 @@ SUBST_MATD_08_2401 = ADJUST(9, 6) * SUBST_MATD_n_08_2401 + ( 1 - ADJUST(9, 6) ) 
 SUBST_MATD_08_2406 = ADJUST(9, 6) * SUBST_MATD_n_08_2406 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_08_2406(-1)
 SUBST_MATD_08_2404 = ADJUST(9, 6) * SUBST_MATD_n_08_2404 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_08_2404(-1)
 SUBST_MATD_08_2405 = ADJUST(9, 6) * SUBST_MATD_n_08_2405 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_08_2405(-1)
-d(log(MAT_n_20_15)) = ( @year <= 2019 ) * ( dlog(CIexo_20_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_20_15)) = ( @year <= 2019 ) * ( dlog(CIexo_20_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
 PCIM_04_20 = PMATM_04
 d(SUBST_ED_n_22_13) = - ES_CIM(13, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM_22(-1) * EM_22_13(-1) / ( PE_22_13(-1) * E_22_13(-1) ) )
 d(SUBST_ED_n_22_12) = - ES_CIM(12, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM_22(-1) * EM_22_12(-1) / ( PE_22_12(-1) * E_22_12(-1) ) )
@@ -15414,7 +15502,7 @@ K_n_18 = ( 1 - Tdec_18 ) * K_n_18(-1) + IA_notionnel_18 + IMP_BUD_niv_18 + IMP_B
 K_n_19 = ( 1 - Tdec_19 ) * K_n_19(-1) + IA_notionnel_19 + IMP_BUD_niv_19 + IMP_BUD_niv_MDE_19
 dlog(K_n_16) = ( @year <= 2019 ) * ( K_n_16 > 0 ) * dlog(K_16) + ( @year > 2019 ) * dlog(K_16)
 K_n_17 = ( 1 - Tdec_17 ) * K_n_17(-1) + IA_notionnel_17 + IMP_BUD_niv_17 + IMP_BUD_niv_MDE_17
-K_n_14 = ( 1 - Tdec_14 ) * K_n_14(-1) + IA_notionnel_14 + IMP_BUD_niv_14 + IMP_BUD_niv_MDE_14
+d(log(K_n_14)) = ( @year <= 2019 ) * ( K_n_14 > 0 ) * ( dlog(K_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + 0 * d(SUBST_K_14) - dlog(PROG_K_14) + Choc_CSC_14 + IMP_BUD_14 * GDP(-1) / IA_14(-1) )
 dlog(K_n_15) = ( @year <= 2019 ) * ( K_n_15 > 0 ) * dlog(K_15) + ( @year > 2019 ) * dlog(K_15)
 K_n_12 = ( 1 - Tdec_12 ) * K_n_12(-1) + IA_notionnel_12 + IMP_BUD_niv_12 + IMP_BUD_niv_MDE_12
 K_n_13 = ( 1 - Tdec_13 ) * K_n_13(-1) + IA_notionnel_13 + IMP_BUD_niv_13 + IMP_BUD_niv_MDE_13
@@ -15573,9 +15661,16 @@ PMAT_14_2306 * MAT_14_2306 = PMATD_14 * MATD_14_2306 + PMATM_14 * MATM_14_2306
 PMAT_14_2307 * MAT_14_2307 = PMATD_14 * MATD_14_2307 + PMATM_14 * MATM_14_2307
 PMAT_14_2308 * MAT_14_2308 = PMATD_14 * MATD_14_2308 + PMATM_14 * MATM_14_2308
 SUBST_IAD_05_11 = ADJUST(13, 6) * SUBST_IAD_n_05_11 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_11(-1)
+phiy_ener_21_2308 = phiy_E_21_2308 / PhiY_E_21
 SUBST_MAT_15_2201 = ADJUST(6, 6) * SUBST_MAT_n_15_2201 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_15_2201(-1) )
 SUBST_MAT_15_2202 = ADJUST(6, 6) * SUBST_MAT_n_15_2202 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_15_2202(-1) )
+phiy_ener_21_2302 = phiy_E_21_2302 / PhiY_E_21
+phiy_ener_21_2303 = phiy_E_21_2303 / PhiY_E_21
+phiy_ener_21_2301 = phiy_E_21_2301 / PhiY_E_21
+phiy_ener_21_2306 = phiy_E_21_2306 / PhiY_E_21
 SUBST_IAD_05_13 = ADJUST(13, 6) * SUBST_IAD_n_05_13 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_13(-1)
+phiy_ener_21_2304 = phiy_E_21_2304 / PhiY_E_21
+phiy_ener_21_2305 = phiy_E_21_2305 / PhiY_E_21
 SUBST_IAD_05_14 = ADJUST(13, 6) * SUBST_IAD_n_05_14 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_14(-1)
 SUBST_IAD_05_17 = ADJUST(13, 6) * SUBST_IAD_n_05_17 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_17(-1)
 phi_MAT_n_19_08 * SUM_MAT_N_CM_08 = MAT_n_19_08
@@ -15892,17 +15987,17 @@ PCIM_18_2403 = PMATM_18
 PCIM_18_2404 = PMATM_18
 PCIM_18_2405 = PMATM_18
 PCIM_18_2406 = PMATM_18
-d(log(MAT_n_06_15)) = ( @year <= 2019 ) * ( dlog(CIexo_06_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_06_14)) = ( @year <= 2019 ) * ( dlog(CIexo_06_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_06_17)) = ( @year <= 2019 ) * ( dlog(CIexo_06_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_06_16)) = ( @year <= 2019 ) * ( dlog(CIexo_06_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_06_11)) = ( @year <= 2019 ) * ( dlog(CIexo_06_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_06_15)) = ( @year <= 2019 ) * ( dlog(CIexo_06_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_06_14)) = ( @year <= 2019 ) * ( dlog(CIexo_06_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_06_17)) = ( @year <= 2019 ) * ( dlog(CIexo_06_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_06_16)) = ( @year <= 2019 ) * ( dlog(CIexo_06_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_06_11)) = ( @year <= 2019 ) * ( dlog(CIexo_06_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
 REC_VAL_SEC_TCO_22_2306 = Ttco_22 * EMS_SEC_22_2306 * ( 1 - EXO_22_2306 )
-d(log(MAT_n_06_13)) = ( @year <= 2019 ) * ( dlog(CIexo_06_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_06_12)) = ( @year <= 2019 ) * ( dlog(CIexo_06_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_06_13)) = ( @year <= 2019 ) * ( dlog(CIexo_06_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_06_12)) = ( @year <= 2019 ) * ( dlog(CIexo_06_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
 REC_VAL_SEC_TCO_22_2308 = Ttco_22 * EMS_SEC_22_2308 * ( 1 - EXO_22_2308 )
-d(log(MAT_n_06_19)) = ( @year <= 2019 ) * ( dlog(CIexo_06_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_06_18)) = ( @year <= 2019 ) * ( dlog(CIexo_06_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_06_19)) = ( @year <= 2019 ) * ( dlog(CIexo_06_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_06_18)) = ( @year <= 2019 ) * ( dlog(CIexo_06_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
 Q_Mtep_Nener_24_2308 = Q_Mtep_indus_24 * PhiY_indus_24_2308
 Q_Mtep_Nener_24_2306 = Q_Mtep_indus_24 * PhiY_indus_24_2306
 Q_Mtep_Nener_24_2307 = Q_Mtep_indus_24 * PhiY_indus_24_2307
@@ -15918,15 +16013,15 @@ phi_L_bis_2202 = L_2202 * PROG_L_2202 * CL_2202 / ( K_2202 * CK_2202 + L_2202 * 
 SUBST_MATD_03_2202 = ADJUST(9, 6) * SUBST_MATD_n_03_2202 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_03_2202(-1)
 TCO_VAL_SEC_21 = 0 + TCO_VAL_21_21 + TCO_VAL_22_21 + TCO_VAL_24_21
 TCO_VAL_SEC_20 = 0 + TCO_VAL_21_20 + TCO_VAL_22_20 + TCO_VAL_24_20
-d(log(MAT_n_04_19)) = ( @year <= 2019 ) * ( dlog(CIexo_04_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_04_18)) = ( @year <= 2019 ) * ( dlog(CIexo_04_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_04_17)) = ( @year <= 2019 ) * ( dlog(CIexo_04_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_04_16)) = ( @year <= 2019 ) * ( dlog(CIexo_04_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_04_14)) = ( @year <= 2019 ) * ( dlog(CIexo_04_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_04_13)) = ( @year <= 2019 ) * ( dlog(CIexo_04_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_04_12)) = ( @year <= 2019 ) * ( dlog(CIexo_04_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_04_11)) = ( @year <= 2019 ) * ( dlog(CIexo_04_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_04_10)) = ( @year <= 2019 ) * ( dlog(CIexo_04_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_04_19)) = ( @year <= 2019 ) * ( dlog(CIexo_04_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_04_18)) = ( @year <= 2019 ) * ( dlog(CIexo_04_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_04_17)) = ( @year <= 2019 ) * ( dlog(CIexo_04_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_04_16)) = ( @year <= 2019 ) * ( dlog(CIexo_04_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_04_14)) = ( @year <= 2019 ) * ( dlog(CIexo_04_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_04_13)) = ( @year <= 2019 ) * ( dlog(CIexo_04_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_04_12)) = ( @year <= 2019 ) * ( dlog(CIexo_04_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_04_11)) = ( @year <= 2019 ) * ( dlog(CIexo_04_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_04_10)) = ( @year <= 2019 ) * ( dlog(CIexo_04_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_04_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_04_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_04_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_04_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
 dlog(E_oth_des_22_2401) = dlog(E_oth_2401) + d(SUBST_E_22_2401) + ( @year > 2006 ) * d(Q_Mtep_in_22_2401) / E_22_2401(-1)
 d(log(empl_M_20)) = d(log(L))
 d(log(empl_M_25)) = d(log(L))
@@ -16018,10 +16113,10 @@ PCSE_19 = PCH_19
 d(SUBST_K_n_21) = - ES_KLEM(21, 1) * d(log(CK_21 / PROG_K_21) - log(CL_21)) * phi_l_bis_21(-1) - eta_K_E_21 * d(log(CK_21 / PROG_K_21) - log(( PE_21 + PE_Signal_21 + PE_CEE_21 + PE_signal_bis_21 + PE_signal_FC_21 ) / PROG_E_21)) * phi_e_bis_21(-1) - ES_KLEM(21, 3) * d(log(CK_21 / PROG_K_21) - log(PMAT_21)) * phi_mat_bis_21(-1)
 d(SUBST_K_n_20) = - ES_KLEM(20, 1) * d(log(CK_20 / PROG_K_20) - log(CL_20)) * phi_l_bis_20(-1) - eta_K_E_20 * d(log(CK_20 / PROG_K_20) - log(( PE_20 + PE_Signal_20 + PE_CEE_20 + PE_signal_bis_20 + PE_signal_FC_20 ) / PROG_E_20)) * phi_e_bis_20(-1) - ES_KLEM(20, 3) * d(log(CK_20 / PROG_K_20) - log(PMAT_20)) * phi_mat_bis_20(-1)
 MAT_bis_dgt_01_20 = MATD_01_20 + MATM_01_20
-d(log(MAT_n_01_19)) = ( @year <= 2019 ) * ( dlog(CIexo_01_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_01_12)) = ( @year <= 2019 ) * ( dlog(CIexo_01_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_01_13)) = ( @year <= 2019 ) * ( dlog(CIexo_01_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_01_17)) = ( @year <= 2019 ) * ( dlog(CIexo_01_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_01_19)) = ( @year <= 2019 ) * ( dlog(CIexo_01_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_01_12)) = ( @year <= 2019 ) * ( dlog(CIexo_01_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_01_13)) = ( @year <= 2019 ) * ( dlog(CIexo_01_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_01_17)) = ( @year <= 2019 ) * ( dlog(CIexo_01_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
 dlog(CIMexo_16_19) = dlog(QMexo_16)
 dlog(CIMexo_16_18) = dlog(QMexo_16)
 dlog(CIMexo_16_17) = dlog(QMexo_16)
@@ -16517,6 +16612,7 @@ IA_bis_dgt_02_05 = IAD_02_05 + IAM_02_05
 IA_bis_dgt_02_04 = IAD_02_04 + IAM_02_04
 IA_bis_dgt_02_07 = IAD_02_07 + IAM_02_07
 IA_bis_dgt_02_06 = IAD_02_06 + IAM_02_06
+ENER_spe_m2_H01_CD_23 = ENER_spe_H01_CD_23 / ( BUIL_H01_CD + 0.1 )
 PCSS_21 = PCH_19
 PCSS_20 = PCH_19
 REC_VAL_SEC_ETS_24_2404 = PE_signal_ETS * PCH * EMS_SEC_24_2404 * EXO_24_2404
@@ -16524,19 +16620,19 @@ REC_VAL_SEC_ETS_24_2405 = PE_signal_ETS * PCH * EMS_SEC_24_2405 * EXO_24_2405
 PNEXP_19_H01 = PEXP_19_H01
 REC_VAL_SEC_ETS_24_2403 = PE_signal_ETS * PCH * EMS_SEC_24_2403 * EXO_24_2403
 REC_VAL_SEC_ETS_24_2401 = PE_signal_ETS * PCH * EMS_SEC_24_2401 * EXO_24_2401
-RF_net_2305 = @elem(PRF_2305(-1), 2006) * RF_2305(-1) - IS_2305 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2305(-1) + REC_VAL_SEC_ETS_2305(-1) + REDIS_VAL_SEC_ETS2_2305(-1) ) / PCH(-1)
-RF_net_2304 = @elem(PRF_2304(-1), 2006) * RF_2304(-1) - IS_2304 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2304(-1) + REC_VAL_SEC_ETS_2304(-1) + REDIS_VAL_SEC_ETS2_2304(-1) ) / PCH(-1)
-RF_net_2307 = @elem(PRF_2307(-1), 2006) * RF_2307(-1) - IS_2307 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2307(-1) + REC_VAL_SEC_ETS_2307(-1) + REDIS_VAL_SEC_ETS2_2307(-1) ) / PCH(-1)
-RF_net_2306 = @elem(PRF_2306(-1), 2006) * RF_2306(-1) - IS_2306 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2306(-1) + REC_VAL_SEC_ETS_2306(-1) + REDIS_VAL_SEC_ETS2_2306(-1) ) / PCH(-1)
-RF_net_2301 = @elem(PRF_2301(-1), 2006) * RF_2301(-1) - IS_2301 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2301(-1) + REC_VAL_SEC_ETS_2301(-1) + REDIS_VAL_SEC_ETS2_2301(-1) ) / PCH(-1)
-RF_net_2303 = @elem(PRF_2303(-1), 2006) * RF_2303(-1) - IS_2303 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2303(-1) + REC_VAL_SEC_ETS_2303(-1) + REDIS_VAL_SEC_ETS2_2303(-1) ) / PCH(-1)
-RF_net_2302 = @elem(PRF_2302(-1), 2006) * RF_2302(-1) - IS_2302 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2302(-1) + REC_VAL_SEC_ETS_2302(-1) + REDIS_VAL_SEC_ETS2_2302(-1) ) / PCH(-1)
+RF_net_2305 = @elem(PRF_2305(-1), 2006) * RF_2305(-1) - IS_2305 + ( REDIS_VAL_SEC_TCO_2305(-1) + REDIS_VAL_SEC_ETS_2305(-1) + REDIS_VAL_SEC_ETS2_2305(-1) ) / PCH(-1)
+RF_net_2304 = @elem(PRF_2304(-1), 2006) * RF_2304(-1) - IS_2304 + ( REDIS_VAL_SEC_TCO_2304(-1) + REDIS_VAL_SEC_ETS_2304(-1) + REDIS_VAL_SEC_ETS2_2304(-1) ) / PCH(-1)
+RF_net_2307 = @elem(PRF_2307(-1), 2006) * RF_2307(-1) - IS_2307 + ( REDIS_VAL_SEC_TCO_2307(-1) + REDIS_VAL_SEC_ETS_2307(-1) + REDIS_VAL_SEC_ETS2_2307(-1) ) / PCH(-1)
+RF_net_2306 = @elem(PRF_2306(-1), 2006) * RF_2306(-1) - IS_2306 + ( REDIS_VAL_SEC_TCO_2306(-1) + REDIS_VAL_SEC_ETS_2306(-1) + REDIS_VAL_SEC_ETS2_2306(-1) ) / PCH(-1)
+RF_net_2301 = @elem(PRF_2301(-1), 2006) * RF_2301(-1) - IS_2301 + ( REDIS_VAL_SEC_TCO_2301(-1) + REDIS_VAL_SEC_ETS_2301(-1) + REDIS_VAL_SEC_ETS2_2301(-1) ) / PCH(-1)
+RF_net_2303 = @elem(PRF_2303(-1), 2006) * RF_2303(-1) - IS_2303 + ( REDIS_VAL_SEC_TCO_2303(-1) + REDIS_VAL_SEC_ETS_2303(-1) + REDIS_VAL_SEC_ETS2_2303(-1) ) / PCH(-1)
+RF_net_2302 = @elem(PRF_2302(-1), 2006) * RF_2302(-1) - IS_2302 + ( REDIS_VAL_SEC_TCO_2302(-1) + REDIS_VAL_SEC_ETS_2302(-1) + REDIS_VAL_SEC_ETS2_2302(-1) ) / PCH(-1)
 IA_bis_dgt_09_17 = IAD_09_17 + IAM_09_17
 IA_bis_dgt_09_16 = IAD_09_16 + IAM_09_16
 IA_bis_dgt_09_15 = IAD_09_15 + IAM_09_15
 IA_bis_dgt_09_14 = IAD_09_14 + IAM_09_14
 IA_bis_dgt_09_13 = IAD_09_13 + IAM_09_13
-RF_net_2308 = @elem(PRF_2308(-1), 2006) * RF_2308(-1) - IS_2308 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2308(-1) + REC_VAL_SEC_ETS_2308(-1) + REDIS_VAL_SEC_ETS2_2308(-1) ) / PCH(-1)
+RF_net_2308 = @elem(PRF_2308(-1), 2006) * RF_2308(-1) - IS_2308 + ( REDIS_VAL_SEC_TCO_2308(-1) + REDIS_VAL_SEC_ETS_2308(-1) + REDIS_VAL_SEC_ETS2_2308(-1) ) / PCH(-1)
 IA_bis_dgt_09_11 = IAD_09_11 + IAM_09_11
 IA_bis_dgt_09_10 = IAD_09_10 + IAM_09_10
 d(SUBST_GD_n_20) = ( @year <= 2022 ) * ( - ES_GOV(1, 20) * d(log(PGD_20) - log(PGM_20)) * ( PGM_20(-1) * GM_20(-1) / ( PG_20(-1) * G_20(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PGD_20) - log(PGM_20)) * ( PGM_20(-1) * GM_20(-1) / ( PG_20(-1) * G_20(-1) ) ) )
@@ -16858,8 +16954,7 @@ PCID_14_2302 = PMATD_14
 PCID_14_2303 = PMATD_14
 PCID_14_2301 = PMATD_14
 PCID_14_2308 = PMATD_14
-REDIS_VAL_SEC_TCO = REC_VAL_SEC_TCO
-PMAT_08_2305 * MAT_08_2305 = PMATD_08 * MATD_08_2305 + PMATM_08 * MATM_08_2305
+REDIS_VAL_SEC_TCO = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO
 IA_11_2201 = IAD_11_2201 + IAM_11_2201
 IA_11_2202 = IAD_11_2202 + IAM_11_2202
 d(SUBST_MATD_n_04_20) = ( @year <= 2022 ) * ( - ES_CIM(20, 4) * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_20(-1) / ( PMAT_04_20(-1) * MAT_04_20(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_04) - log(PMATM_04)) * ( PMATM_04(-1) * MATM_04_20(-1) / ( PMAT_04_20(-1) * MAT_04_20(-1) ) ) )
@@ -17144,7 +17239,7 @@ dlog(CIexo_08_19) = dlog(CIexo_08)
 d(log(E_indus_des_22_08)) = d(log(E_indus_08)) + d(SUBST_E_22_08)
 PMTM_14_01 = PMTD_14_01
 IAM_des_05_08 = IAM_des_05_08(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( IAM_des_05_08(-1) * ( 1 + d(IAM_des_n_05_08) / IAM_des_n_05_08(-1) ) > 0 ) * ( IAM_des_05_08(-1) * ( 1 + d(IAM_des_n_05_08) / IAM_des_n_05_08(-1) ) ) + ( IAM_des_05_08(-1) * ( 1 + d(IAM_des_n_05_08) / IAM_des_n_05_08(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-d(log(MAT_n_13_20)) = ( @year <= 2019 ) * ( dlog(CIexo_13_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_13_20)) = ( @year <= 2019 ) * ( dlog(CIexo_13_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 TMD_2202 = ADJUST(75, 1) * TMD_n_2202 + ( 1 - ADJUST(75, 1) ) * TMD_2202(-1)
 PMTM_14_03 = PMTD_14_03
 TMD_2201 = ADJUST(75, 1) * TMD_n_2201 + ( 1 - ADJUST(75, 1) ) * TMD_2201(-1)
@@ -17173,6 +17268,7 @@ PMAT_02_2306 * MAT_02_2306 = PMATD_02 * MATD_02_2306 + PMATM_02 * MATM_02_2306
 PMAT_02_2305 * MAT_02_2305 = PMATD_02 * MATD_02_2305 + PMATM_02 * MATM_02_2305
 PMAT_02_2304 * MAT_02_2304 = PMATD_02 * MATD_02_2304 + PMATM_02 * MATM_02_2304
 PMAT_02_2308 * MAT_02_2308 = PMATD_02 * MATD_02_2308 + PMATM_02 * MATM_02_2308
+dlog(ENER_spe_H01_CE_23) = dlog(BUIL_H01_CE + 0.1)
 d(log(W_S_dgt_2401)) = ( 1 * d(log(P)) + 0.42 * d(log(PROG_L_2401)) - 0.7 * d(UnR_TOT) - 0.27 * ( log(( W_S_2401(-1) ) / W_S_n_2401(-1)) ) )
 EMS_SEC_tot_21_12 = EMS_SEC_21_12 + EMS_SEC_indus_21_12
 EMS_SEC_tot_21_13 = EMS_SEC_21_13 + EMS_SEC_indus_21_13
@@ -17200,7 +17296,7 @@ CH_04 = CHD_04 + CHM_04
 PCIM_17_14 = PMATM_17
 PCIM_17_15 = PMATM_17
 EM_des_23_2308 = ( ( E_23_2308 - ED_23_2308 > 0 ) * ( E_23_2308 - ED_23_2308 ) + ( E_23_2308 - ED_23_2308 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_23_2308(-1) * ( 1 + d(EM_des_n_23_2308) / EM_des_n_23_2308(-1) ) > 0 ) * ( EM_des_23_2308(-1) * ( 1 + d(EM_des_n_23_2308) / EM_des_n_23_2308(-1) ) ) + ( EM_des_23_2308(-1) * ( 1 + d(EM_des_n_23_2308) / EM_des_n_23_2308(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-EM_des_23_2305 = ( ( E_23_2305 - ED_23_2305 > 0 ) * ( E_23_2305 - ED_23_2305 ) + ( E_23_2305 - ED_23_2305 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_23_2305(-1) * ( 1 + d(EM_des_n_23_2305) / EM_des_n_23_2305(-1) ) > 0 ) * ( EM_des_23_2305(-1) * ( 1 + d(EM_des_n_23_2305) / EM_des_n_23_2305(-1) ) ) + ( EM_des_23_2305(-1) * ( 1 + d(EM_des_n_23_2305) / EM_des_n_23_2305(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
+PMAT_08_2305 * MAT_08_2305 = PMATD_08 * MATD_08_2305 + PMATM_08 * MATM_08_2305
 EM_des_23_2304 = ( ( E_23_2304 - ED_23_2304 > 0 ) * ( E_23_2304 - ED_23_2304 ) + ( E_23_2304 - ED_23_2304 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_23_2304(-1) * ( 1 + d(EM_des_n_23_2304) / EM_des_n_23_2304(-1) ) > 0 ) * ( EM_des_23_2304(-1) * ( 1 + d(EM_des_n_23_2304) / EM_des_n_23_2304(-1) ) ) + ( EM_des_23_2304(-1) * ( 1 + d(EM_des_n_23_2304) / EM_des_n_23_2304(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 EM_des_23_2307 = ( ( E_23_2307 - ED_23_2307 > 0 ) * ( E_23_2307 - ED_23_2307 ) + ( E_23_2307 - ED_23_2307 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_23_2307(-1) * ( 1 + d(EM_des_n_23_2307) / EM_des_n_23_2307(-1) ) > 0 ) * ( EM_des_23_2307(-1) * ( 1 + d(EM_des_n_23_2307) / EM_des_n_23_2307(-1) ) ) + ( EM_des_23_2307(-1) * ( 1 + d(EM_des_n_23_2307) / EM_des_n_23_2307(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 EM_des_23_2306 = ( ( E_23_2306 - ED_23_2306 > 0 ) * ( E_23_2306 - ED_23_2306 ) + ( E_23_2306 - ED_23_2306 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_23_2306(-1) * ( 1 + d(EM_des_n_23_2306) / EM_des_n_23_2306(-1) ) > 0 ) * ( EM_des_23_2306(-1) * ( 1 + d(EM_des_n_23_2306) / EM_des_n_23_2306(-1) ) ) + ( EM_des_23_2306(-1) * ( 1 + d(EM_des_n_23_2306) / EM_des_n_23_2306(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -17260,6 +17356,7 @@ d(log(IA_n_12_2306)) = d(log(IA_n_2306))
 d(log(IA_n_12_2301)) = d(log(IA_n_2301))
 d(log(IA_n_12_2303)) = d(log(IA_n_2303))
 d(log(IA_n_12_2302)) = d(log(IA_n_2302))
+EM_des_23_2305 = ( ( E_23_2305 - ED_23_2305 > 0 ) * ( E_23_2305 - ED_23_2305 ) + ( E_23_2305 - ED_23_2305 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( EM_des_23_2305(-1) * ( 1 + d(EM_des_n_23_2305) / EM_des_n_23_2305(-1) ) > 0 ) * ( EM_des_23_2305(-1) * ( 1 + d(EM_des_n_23_2305) / EM_des_n_23_2305(-1) ) ) + ( EM_des_23_2305(-1) * ( 1 + d(EM_des_n_23_2305) / EM_des_n_23_2305(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 SUBST_GM_03 = 0.8 * SUBST_GM_n_03 + ( 1 - 0.8 ) * ( SUBST_GM_03(-1) )
 ENER_BUIL_H01_CG_24 = ENERperM2_H01_CG_24 * BUIL_H01_CG
 ENER_BUIL_H01_CG_22 = ENERperM2_H01_CG_22 * BUIL_H01_CG
@@ -17330,15 +17427,15 @@ Q_Mtep_ef_tot_2302 = 0 + Q_Mtep_ef_tot_23_2302
 Q_Mtep_ef_tot_2303 = 0 + Q_Mtep_ef_tot_23_2303
 IC_22_2202 = PhiY_ener_22_2201
 Q_Mtep_ef_tot_2301 = 0 + Q_Mtep_ef_tot_23_2301
-d(log(MAT_n_19_06)) = ( @year <= 2019 ) * ( dlog(CIexo_19_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_19_07)) = ( @year <= 2019 ) * ( dlog(CIexo_19_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_19_04)) = ( @year <= 2019 ) * ( dlog(CIexo_19_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_19_05)) = ( @year <= 2019 ) * ( dlog(CIexo_19_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_19_02)) = ( @year <= 2019 ) * ( dlog(CIexo_19_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_19_03)) = ( @year <= 2019 ) * ( dlog(CIexo_19_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_19_01)) = ( @year <= 2019 ) * ( dlog(CIexo_19_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_19_08)) = ( @year <= 2019 ) * ( dlog(CIexo_19_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_19_09)) = ( @year <= 2019 ) * ( dlog(CIexo_19_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_19_06)) = ( @year <= 2019 ) * ( dlog(CIexo_19_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_19_07)) = ( @year <= 2019 ) * ( dlog(CIexo_19_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_19_04)) = ( @year <= 2019 ) * ( dlog(CIexo_19_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_19_05)) = ( @year <= 2019 ) * ( dlog(CIexo_19_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_19_02)) = ( @year <= 2019 ) * ( dlog(CIexo_19_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_19_03)) = ( @year <= 2019 ) * ( dlog(CIexo_19_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_19_01)) = ( @year <= 2019 ) * ( dlog(CIexo_19_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_19_08)) = ( @year <= 2019 ) * ( dlog(CIexo_19_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_19_09)) = ( @year <= 2019 ) * ( dlog(CIexo_19_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
 PCID_05_20 = PMATD_05
 d(log(MATD_07_2201)) = d(log(MAT_07_2201)) + d(SUBST_MATD_07_2201)
 d(log(MATD_07_2202)) = d(log(MAT_07_2202)) + d(SUBST_MATD_07_2202)
@@ -17648,15 +17745,15 @@ IA_21_08 = IAD_21_08 + IAM_21_08
 verif_MAT_dgt_05_17 = MAT_05_17 - MAT_bis_dgt_05_17
 IA_21_05 = IAD_21_05 + IAM_21_05
 EXO_22_08 = EXO_ETS
-d(log(MAT_n_02_08)) = ( @year <= 2019 ) * ( dlog(CIexo_02_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_02_09)) = ( @year <= 2019 ) * ( dlog(CIexo_02_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_02_06)) = ( @year <= 2019 ) * ( dlog(CIexo_02_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_02_07)) = ( @year <= 2019 ) * ( dlog(CIexo_02_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_02_04)) = ( @year <= 2019 ) * ( dlog(CIexo_02_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_02_05)) = ( @year <= 2019 ) * ( dlog(CIexo_02_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_02_02)) = ( @year <= 2019 ) * ( dlog(CIexo_02_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_02_03)) = ( @year <= 2019 ) * ( dlog(CIexo_02_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_02_01)) = ( @year <= 2019 ) * ( dlog(CIexo_02_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_02_08)) = ( @year <= 2019 ) * ( dlog(CIexo_02_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_02_09)) = ( @year <= 2019 ) * ( dlog(CIexo_02_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_02_06)) = ( @year <= 2019 ) * ( dlog(CIexo_02_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_02_07)) = ( @year <= 2019 ) * ( dlog(CIexo_02_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_02_04)) = ( @year <= 2019 ) * ( dlog(CIexo_02_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_02_05)) = ( @year <= 2019 ) * ( dlog(CIexo_02_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_02_02)) = ( @year <= 2019 ) * ( dlog(CIexo_02_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_02_03)) = ( @year <= 2019 ) * ( dlog(CIexo_02_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_02_01)) = ( @year <= 2019 ) * ( dlog(CIexo_02_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
 PMAT_15_17 * MAT_15_17 = PMATD_15 * MATD_15_17 + PMATM_15 * MATM_15_17
 PMAT_15_16 * MAT_15_16 = PMATD_15 * MATD_15_16 + PMATM_15 * MATM_15_16
 PMAT_15_15 * MAT_15_15 = PMATD_15 * MATD_15_15 + PMATM_15 * MATM_15_15
@@ -17893,6 +17990,7 @@ OTHTM_19 = @elem(TOTHTM_19, 2006) * M_19
 OTHTM_12 = @elem(TOTHTM_12, 2006) * M_12
 OTHTM_10 = @elem(TOTHTM_10, 2006) * M_10
 OTHTM_11 = @elem(TOTHTM_11, 2006) * M_11
+phiy_ener_23_21 = phiy_E_23_21 / PhiY_E_23
 PMTM_17_24 = PMTD_17_24
 PMTM_17_22 = PMTD_17_22
 PMTM_17_21 = PMTD_17_21
@@ -17974,7 +18072,7 @@ d(SUBST_MATD_n_10_2302) = ( @year <= 2022 ) * ( - ES_CIM(25, 10) * d(log(PMATD_1
 eta_L_E_08 = 0.5 * eta_L_E_des_08 + ( 1 - 0.5 ) * eta_L_E_08(-1) + 0.02 * ( eta_L_E_des_08(-1) - eta_L_E_08(-1) )
 d(log(MAT_14_2401)) = d(log(MAT_2401)) + d(SUBST_MAT_14_2401) + log(1 + modal_shift_freight * MAT_16_2401(-1) / MAT_14_2401(-1))
 MAT_13_20 = ( @year <= 2019 ) * ( MATD_13_20 + MATM_13_20 ) + ( @year > 2019 ) * ( MAT_n_13_20 )
-d(log(MAT_14_2402)) = d(log(MAT_2402)) + d(SUBST_MAT_14_2402) + log(1 + modal_shift_freight * MAT_16_2402(-1) / MAT_14_2402(-1))
+IA_notionnel_07 = IA_notionnel_noshock_07 + ( @year > 2019 ) * ( Choc_CSC_niv_07 )
 IA_03_2405 = IAD_03_2405 + IAM_03_2405
 IA_03_2404 = IAD_03_2404 + IAM_03_2404
 IA_03_2406 = IAD_03_2406 + IAM_03_2406
@@ -18040,7 +18138,7 @@ d(SUBST_MTD_n_14_07) = 0 + - ES_TRANSP_MARG(7, cols_trsp(14, 16)) * d(log(PE_14)
 d(SUBST_MTD_n_14_04) = 0 + - ES_TRANSP_MARG(4, cols_trsp(14, 16)) * d(log(PE_14) - log(PE_16)) * PMTD_16_04(-1) * MTD_16_04(-1) / ( PMTD_14_04(-1) * MTD_14_04(-1) + PMTD_16_04(-1) * MTD_16_04(-1) ) + - ES_TRANSP_MARG(4, cols_trsp(14, 17)) * d(log(PE_14) - log(PE_17)) * PMTD_17_04(-1) * MTD_17_04(-1) / ( PMTD_14_04(-1) * MTD_14_04(-1) + PMTD_17_04(-1) * MTD_17_04(-1) ) + - ES_TRANSP_MARG(4, cols_trsp(14, 18)) * d(log(PE_14) - log(PE_18)) * PMTD_18_04(-1) * MTD_18_04(-1) / ( PMTD_14_04(-1) * MTD_14_04(-1) + PMTD_18_04(-1) * MTD_18_04(-1) )
 d(SUBST_MTD_n_14_05) = 0 + - ES_TRANSP_MARG(5, cols_trsp(14, 16)) * d(log(PE_14) - log(PE_16)) * PMTD_16_05(-1) * MTD_16_05(-1) / ( PMTD_14_05(-1) * MTD_14_05(-1) + PMTD_16_05(-1) * MTD_16_05(-1) ) + - ES_TRANSP_MARG(5, cols_trsp(14, 17)) * d(log(PE_14) - log(PE_17)) * PMTD_17_05(-1) * MTD_17_05(-1) / ( PMTD_14_05(-1) * MTD_14_05(-1) + PMTD_17_05(-1) * MTD_17_05(-1) ) + - ES_TRANSP_MARG(5, cols_trsp(14, 18)) * d(log(PE_14) - log(PE_18)) * PMTD_18_05(-1) * MTD_18_05(-1) / ( PMTD_14_05(-1) * MTD_14_05(-1) + PMTD_18_05(-1) * MTD_18_05(-1) )
 EXPH = 0 + EXP_H01
-EXPG = ( 1 + ADJUST(69, 1) * ( d(log(EXPG_trend)) - STEADYSTATE(62, 1) * ( DP_G_VAL - DP_G_VAL_n ) * PGDP(-1) * GDP(-1) / ( PG(-1) * EXPG(-1) ) ) + ( 1 - ADJUST(69, 1) ) * dlog(EXPG(-1)) ) * EXPG(-1) - 0 + choc_G_01 * G_01 + choc_G_02 * G_02 + choc_G_03 * G_03 + choc_G_04 * G_04 + choc_G_05 * G_05 + choc_G_06 * G_06 + choc_G_07 * G_07 + choc_G_08 * G_08 + choc_G_09 * G_09 + choc_G_10 * G_10 + choc_G_11 * G_11 + choc_G_12 * G_12 + choc_G_13 * G_13 + choc_G_14 * G_14 + choc_G_15 * G_15 + choc_G_16 * G_16 + choc_G_17 * G_17 + choc_G_18 * G_18 + choc_G_19 * G_19 + choc_G_20 * G_20 + choc_G_21 * G_21 + choc_G_22 * G_22 + choc_G_23 * G_23 + choc_G_24 * G_24
+EXPG = ( 1 + ADJUST(69, 1) * ( d(log(EXPG_trend)) - STEADYSTATE(62, 1) * ( DP_G_VAL - DP_G_VAL_n ) * PGDP(-1) * GDP(-1) / ( PG(-1) * EXPG(-1) ) ) + ( 1 - ADJUST(69, 1) ) * dlog(EXPG(-1)) ) * EXPG(-1) - 0 + choc_G_01 * G_01 + choc_G_02 * G_02 + choc_G_03 * G_03 + choc_G_04 * G_04 + choc_G_05 * G_05 + choc_G_06 * G_06 + choc_G_07 * G_07 + choc_G_08 * G_08 + choc_G_09 * G_09 + choc_G_10 * G_10 + choc_G_11 * G_11 + choc_G_12 * G_12 + choc_G_13 * G_13 + choc_G_14 * G_14 + choc_G_15 * G_15 + choc_G_16 * G_16 + choc_G_17 * G_17 + choc_G_18 * G_18 + choc_G_19 * G_19 + choc_G_20 * G_20 + choc_G_21 * G_21 + choc_G_22 * G_22 + choc_G_23 * G_23 + choc_G_24 * G_24 + choc_G * 0.01 * GDP(-1) * PGDP(-1)
 d(log(L_e_2308)) = 0.05 * d(log(L_e_2308(-1))) + 0.65 * d(log(L_2308(-1))) + 0.3 * d(log(L_n_2308))
 d(log(L_e_2302)) = 0.05 * d(log(L_e_2302(-1))) + 0.65 * d(log(L_2302(-1))) + 0.3 * d(log(L_n_2302))
 d(log(L_e_2303)) = 0.05 * d(log(L_e_2303(-1))) + 0.65 * d(log(L_2303(-1))) + 0.3 * d(log(L_n_2303))
@@ -18204,7 +18302,6 @@ PCID_07_2405 = PMATD_07
 PCID_07_2404 = PMATD_07
 PCID_07_2406 = PMATD_07
 ER_Auto_th = AUTO_th
-ENER_spe_val_H01_CF_21 = PENER_BUIL_H01_CF_21 * ENER_spe_H01_CF_21
 CID_09_17 = MATD_09_17
 CID_09_16 = MATD_09_16
 CID_09_15 = MATD_09_15
@@ -18350,6 +18447,7 @@ PCID_19_2404 = PMATD_19
 PCID_19_2405 = PMATD_19
 CID_01_20 = MATD_01_20
 BetaEXP_n_05_H01 = ( @year <= 2019 ) * ( ( PEXP_05_H01 * EXP_n_05_H01 - PNEXP_05_H01 * NEXP_05_H01 ) / EXP_CES_VAL ) + ( @year > 2019 ) * ( ( choc_EXP_05 >= 0 ) * ( choc_EXP_05 <= 0 ) * ( BetaEXP_05_H01(-1) * ( 1 + ( 1 - ES_LES_CES(1, 1) ) * dlog(PEXP_05_H01 / PEXP_CES_H01) + choc_R_EXP_05 ) ) + ( choc_EXP_05 > 0 ) * ( ( PEXP_05_H01 * ( 1 + Choc_EXP_05 ) * EXP_n_05_H01(-1) - PNEXP_05_H01 * NEXP_05_H01 ) / ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) + ( choc_EXP_05 < 0 ) * ( ( PEXP_05_H01 * ( 1 + Choc_EXP_05 ) * EXP_n_05_H01(-1) - PNEXP_05_H01 * NEXP_05_H01 ) / ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) )
+PQM_16 * QM_16 = PCIM_16 * CIM_16 + PCHM_16 * CHM_16 + PGM_16 * GM_16 + PIM_16 * IM_16 + PXM_16 * XM_16 + PDSM_16 * DSM_16
 d(log(IA_n_01_01)) = d(log(IA_n_01))
 CAPEX_2402 = CK_2402 * K_2402 / P
 CAPEX_2403 = CK_2403 * K_2403 / P
@@ -18468,7 +18566,7 @@ REC_VAL_SEC_TCO_21_2305 = Ttco_21 * EMS_SEC_21_2305 * ( 1 - EXO_21_2305 )
 REC_VAL_SEC_TCO_21_2308 = Ttco_21 * EMS_SEC_21_2308 * ( 1 - EXO_21_2308 )
 phi_MAT_n_08_20 * SUM_MAT_N_CM_20 = MAT_n_08_20
 SUBST_MATD_05_03 = ADJUST(9, 6) * SUBST_MATD_n_05_03 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_05_03(-1)
-d(log(MAT_n_15_20)) = ( @year <= 2019 ) * ( dlog(CIexo_15_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_15_20)) = ( @year <= 2019 ) * ( dlog(CIexo_15_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 PCIM_04_18 = PMATM_04
 PCIM_04_19 = PMATM_04
 PCIM_04_12 = PMATM_04
@@ -18623,14 +18721,14 @@ dlog(PXD_22) = dlog(PYQS_22)
 dlog(PXD_21) = dlog(PYQS_21)
 dlog(PXD_20) = dlog(PYQS_20)
 ENERperM2_H01_CD_24 = ( ENERperM2_H01_CD_24(-1) - ENER_spe_m2_H01_CD_24 ) * ( 1 + d(SUBST_BUIL_H01_CD_24) + TREND_E_BUIL_24 + TREND_E_BUIL_CD_24 ) + ENER_spe_m2_H01_CD_24
-d(log(MAT_n_10_17)) = ( @year <= 2019 ) * ( dlog(CIexo_10_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_10_14)) = ( @year <= 2019 ) * ( dlog(CIexo_10_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_10_12)) = ( @year <= 2019 ) * ( dlog(CIexo_10_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_10_13)) = ( @year <= 2019 ) * ( dlog(CIexo_10_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_10_17)) = ( @year <= 2019 ) * ( dlog(CIexo_10_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_10_14)) = ( @year <= 2019 ) * ( dlog(CIexo_10_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_10_12)) = ( @year <= 2019 ) * ( dlog(CIexo_10_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_10_13)) = ( @year <= 2019 ) * ( dlog(CIexo_10_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 ENERperM2_H01_CD_22 = ( ENERperM2_H01_CD_22(-1) - ENER_spe_m2_H01_CD_22 ) * ( 1 + d(SUBST_BUIL_H01_CD_22) + TREND_E_BUIL_22 + TREND_E_BUIL_CD_22 ) + ENER_spe_m2_H01_CD_22
 ENERperM2_H01_CD_23 = ( ENERperM2_H01_CD_23(-1) - ENER_spe_m2_H01_CD_23 ) * ( 1 + d(SUBST_BUIL_H01_CD_23) + TREND_E_BUIL_23 + TREND_E_BUIL_CD_23 ) + ENER_spe_m2_H01_CD_23
-d(log(MAT_n_10_18)) = ( @year <= 2019 ) * ( dlog(CIexo_10_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_10_19)) = ( @year <= 2019 ) * ( dlog(CIexo_10_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_10_18)) = ( @year <= 2019 ) * ( dlog(CIexo_10_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_10_19)) = ( @year <= 2019 ) * ( dlog(CIexo_10_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 d(log(MTM_17_24)) = d(log(M_24)) + d(SUBST_MTM_17_24)
 d(log(MTM_17_21)) = d(log(M_21)) + d(SUBST_MTM_17_21)
 d(log(MTM_17_22)) = d(log(M_22)) + d(SUBST_MTM_17_22)
@@ -18661,30 +18759,30 @@ DSD_base_24 = SUPPLY_USE_DOM(24, ( NELEMSET(1, 1) + 1 ) + NELEMSET(5, 1) + NELEM
 PCIM_04_09 = PMATM_04
 dlog(CK_a_08) = 0.8 * dlog(CK_a_08(-1)) + ( 1 - 0.8 ) * dlog(CK_08) + 0.01 * ( log(CK_08(-1)) - log(CK_a_08(-1)) )
 PCIM_01_08 = PMATM_01
-d(log(MAT_n_15_14)) = ( @year <= 2019 ) * ( dlog(CIexo_15_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_15_14)) = ( @year <= 2019 ) * ( dlog(CIexo_15_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
 PCIM_01_06 = PMATM_01
 dlog(CK_a_09) = 0.8 * dlog(CK_a_09(-1)) + ( 1 - 0.8 ) * dlog(CK_09) + 0.01 * ( log(CK_09(-1)) - log(CK_a_09(-1)) )
 PCIM_01_02 = PMATM_01
 phi_E_2301 = ( E_2301 * PE_2301 + CEE_2301 ) / ( CU_2301 * Y_2301 )
 PCIM_01_01 = PMATM_01
 dlog(CK_a_06) = 0.8 * dlog(CK_a_06(-1)) + ( 1 - 0.8 ) * dlog(CK_06) + 0.01 * ( log(CK_06(-1)) - log(CK_a_06(-1)) )
-d(log(IA_n_des_19)) = d(IMP_BUD_niv_bis_19) + ( ADJUST(1, 1) * dlog(IA_n_des_19(-1)) + 1.8 * dlog(Y_19) + 0.28 * ( log(IA_notionnel_19(-1)) + IMP_BUD_niv_bis_19(-1) - log(IA_n_des_19(-1)) ) + ADJUST(1, 4) * 0 * AME_renov_19 * d(SUBST_K_19) + ( 1 - AME_renov_19 ) * ( 0 * d(SUBST_K_NE_19) ) )
+d(log(IA_n_des_19)) = d(IMP_BUD_niv_bis_19) + ( ADJUST(1, 1) * dlog(IA_n_des_19(-1)) + 1.8 * dlog(Y_19) + 0.28 * ( log(IA_notionnel_19(-1)) + IMP_BUD_niv_bis_19(-1) - log(IA_n_des_19(-1)) ) + ADJUST(1, 4) * 0 * ( AME_renov_19 ) * d(SUBST_K_19) + ( 1 - AME_renov_19 ) * ( d(SUBST_K_NE_19) ) )
 dlog(CK_a_07) = 0.8 * dlog(CK_a_07(-1)) + ( 1 - 0.8 ) * dlog(CK_07) + 0.01 * ( log(CK_07(-1)) - log(CK_a_07(-1)) )
 d(log(IA_n_des_17)) = d(IMP_BUD_niv_bis_17) + ( ADJUST(1, 1) * dlog(IA_n_des_17(-1)) + 1.8 * dlog(Y_17) + 0.28 * ( log(IA_notionnel_17(-1)) + IMP_BUD_niv_bis_17(-1) - log(IA_n_des_17(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_17) )
-d(log(MAT_n_15_11)) = ( @year <= 2019 ) * ( dlog(CIexo_15_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(IA_n_des_15)) = d(IMP_BUD_niv_bis_15) + ( ADJUST(1, 1) * dlog(IA_n_des_15(-1)) + 1.8 * dlog(Y_15) + 0.28 * ( log(IA_notionnel_15(-1)) + IMP_BUD_niv_bis_15(-1) - log(IA_n_des_15(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_15) )
-d(log(IA_n_des_14)) = d(IMP_BUD_niv_bis_14) + ( ADJUST(1, 1) * dlog(IA_n_des_14(-1)) + 1.8 * dlog(Y_14) + 0.28 * ( log(IA_notionnel_14(-1)) + IMP_BUD_niv_bis_14(-1) - log(IA_n_des_14(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_14) )
+d(log(MAT_n_15_11)) = ( @year <= 2019 ) * ( dlog(CIexo_15_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+IA_n_des_15 = IA_15
+IA_n_des_14 = IA_notionnel_noshock_14
 d(log(IA_n_des_13)) = d(IMP_BUD_niv_bis_13) + ( ADJUST(1, 1) * dlog(IA_n_des_13(-1)) + 1.8 * dlog(Y_13) + 0.28 * ( log(IA_notionnel_13(-1)) + IMP_BUD_niv_bis_13(-1) - log(IA_n_des_13(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_13) )
 d(log(IA_n_des_12)) = d(IMP_BUD_niv_bis_12) + ( ADJUST(1, 1) * dlog(IA_n_des_12(-1)) + 1.8 * dlog(Y_12) + 0.28 * ( log(IA_notionnel_12(-1)) + IMP_BUD_niv_bis_12(-1) - log(IA_n_des_12(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_12) )
 d(log(IA_n_des_11)) = d(IMP_BUD_niv_bis_11) + ( ADJUST(1, 1) * dlog(IA_n_des_11(-1)) + 1.8 * dlog(Y_11) + 0.28 * ( log(IA_notionnel_11(-1)) + IMP_BUD_niv_bis_11(-1) - log(IA_n_des_11(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_11) )
 phi_E_2306 = ( E_2306 * PE_2306 + CEE_2306 ) / ( CU_2306 * Y_2306 )
 AUTO_verif = 0 + AUTO_verif_H01
-d(log(MAT_n_15_13)) = ( @year <= 2019 ) * ( dlog(CIexo_15_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_15_13)) = ( @year <= 2019 ) * ( dlog(CIexo_15_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 phi_E_2304 = ( E_2304 * PE_2304 + CEE_2304 ) / ( CU_2304 * Y_2304 )
 IA_20_20 = IAD_20_20 + IAM_20_20
 IA_20_21 = IAD_20_21 + IAM_20_21
 phi_E_2308 = ( E_2308 * PE_2308 + CEE_2308 ) / ( CU_2308 * Y_2308 )
-d(log(MAT_n_15_19)) = ( @year <= 2019 ) * ( dlog(CIexo_15_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_15_19)) = ( @year <= 2019 ) * ( dlog(CIexo_15_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 PCIM_04_04 = PMATM_04
 CAPEX_2308 = CK_2308 * K_2308 / P
 CAPEX_2305 = CK_2305 * K_2305 / P
@@ -18849,15 +18947,15 @@ dlog(EXP_e_06_H01) = ( @year <= 2019 ) * ( dlog(EXP_n_06_H01) ) + ( @year > 2019
 Ttco_vol_signal_21 = Ttco_signal_21 / PGDP
 Ttco_vol_signal_24 = Ttco_signal_24 / PGDP
 AIC_VAL_H01 = TAIC_H01 * DISPINC_AI_VAL_H01
-d(log(MAT_n_20_19)) = ( @year <= 2019 ) * ( dlog(CIexo_20_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_20_18)) = ( @year <= 2019 ) * ( dlog(CIexo_20_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_20_19)) = ( @year <= 2019 ) * ( dlog(CIexo_20_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_20_18)) = ( @year <= 2019 ) * ( dlog(CIexo_20_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
 CU_CAPEX_2406 * PY_2406 * Y_2406 = CK_2406 * K_2406
-d(log(MAT_n_20_14)) = ( @year <= 2019 ) * ( dlog(CIexo_20_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_20_17)) = ( @year <= 2019 ) * ( dlog(CIexo_20_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_20_14)) = ( @year <= 2019 ) * ( dlog(CIexo_20_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_20_17)) = ( @year <= 2019 ) * ( dlog(CIexo_20_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
 CU_CAPEX_2405 * PY_2405 * Y_2405 = CK_2405 * K_2405
-d(log(MAT_n_20_11)) = ( @year <= 2019 ) * ( dlog(CIexo_20_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_20_11)) = ( @year <= 2019 ) * ( dlog(CIexo_20_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
 CU_CAPEX_2403 * PY_2403 * Y_2403 = CK_2403 * K_2403
-d(log(MAT_n_20_13)) = ( @year <= 2019 ) * ( dlog(CIexo_20_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_20_13)) = ( @year <= 2019 ) * ( dlog(CIexo_20_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 CU_CAPEX_2401 * PY_2401 * Y_2401 = CK_2401 * K_2401
 dlog(CIexo_20_02) = dlog(CIexo_20)
 EXP_BUIL_H01_CE = 0 + EXP_BUIL_H01_CE_21 + EXP_BUIL_H01_CE_22 + EXP_BUIL_H01_CE_23 + EXP_BUIL_H01_CE_24
@@ -18902,7 +19000,7 @@ PGM_16 = PMS_16 * ( ( 1 + TvatMoth_16 ) / ( 1 + @elem(TvatMoth_16, 2006) ) )
 CL_18 * L_18 = CL_S_18 * L_S_18 + CL_SE_18 * L_SE_18
 CL_19 * L_19 = CL_S_19 * L_S_19 + CL_SE_19 * L_SE_19
 CIM_24 = 0 + CIM_24_07 + CIM_24_08 + CIM_24_2201 + CIM_24_2401
-d(log(MAT_n_17_12)) = ( @year <= 2019 ) * ( dlog(CIexo_17_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_17_12)) = ( @year <= 2019 ) * ( dlog(CIexo_17_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
 PMAT_02_14 * MAT_02_14 = PMATD_02 * MATD_02_14 + PMATM_02 * MATM_02_14
 PCIM_18_13 = PMATM_18
 PCIM_18_12 = PMATM_18
@@ -19143,8 +19241,6 @@ phi_E_2402 = ( E_2402 * PE_2402 + CEE_2402 ) / ( CU_2402 * Y_2402 )
 phi_E_2403 = ( E_2403 * PE_2403 + CEE_2403 ) / ( CU_2403 * Y_2403 )
 choc_tcse_20 = - choc_cse / ( L_S * W_S )
 choc_tcse_21 = - choc_cse / ( L_S * W_S )
-ENER_spe_val_H01_CB_24 = PENER_BUIL_H01_CB_24 * ENER_spe_H01_CB_24
-ENER_spe_val_H01_CB_22 = PENER_BUIL_H01_CB_22 * ENER_spe_H01_CB_22
 ENER_spe_val_H01_CB_23 = PENER_BUIL_H01_CB_23 * ENER_spe_H01_CB_23
 MATM_14_2402 = ( MAT_14_2402 - MATD_14_2402 > 0 ) * ( MAT_14_2402 - MATD_14_2402 ) + ( MAT_14_2402 - MATD_14_2402 =< 0 ) * ( 1e-05 )
 VAT_21 = 0 + VATD_21 + VATM_21
@@ -19202,8 +19298,6 @@ d(SUBST_K_NE_n_2308) = - ES_KLEM(31, 1) * d(log(CK_2308 / PROG_K_2308) - log(CL_
 IA_bis_dgt_10_14 = IAD_10_14 + IAM_10_14
 verif_IA_dgt_14_20 = IA_n_14_20 - IA_bis_dgt_14_20
 IA_bis_dgt_10_16 = IAD_10_16 + IAM_10_16
-dlog(IA_n_noshock_12_15) = dlog(IA_n_15)
-dlog(IA_n_noshock_12_16) = dlog(IA_n_16)
 SY_2308 = @elem(TSYN_2308, 2006) * Y_2308
 IA_01_2308 = IAD_01_2308 + IAM_01_2308
 IA_01_2304 = IAD_01_2304 + IAM_01_2304
@@ -19227,7 +19321,12 @@ OTHTD_01 = @elem(TOTHTD_01, 2006) * YQ_01
 ER_Indus_gas = 0 + Q_Mtep_sec_24_02 + Q_Mtep_sec_24_03 + Q_Mtep_sec_24_04 + Q_Mtep_sec_24_05 + Q_Mtep_sec_24_06 + Q_Mtep_sec_24_07 + Q_Mtep_sec_24_08 + Q_Mtep_sec_24_09 + Q_Mtep_sec_24_10 + Q_Mtep_sec_24_11 + Q_Mtep_sec_24_12 + Q_Mtep_sec_24_13
 TCO_VALD_24_20 = TCO_VAL_24_20 * ED_24_20 / E_24_20
 PQM_14 * QM_14 = PCIM_14 * CIM_14 + PCHM_14 * CHM_14 + PGM_14 * GM_14 + PIM_14 * IM_14 + PXM_14 * XM_14 + PDSM_14 * DSM_14
-PQM_16 * QM_16 = PCIM_16 * CIM_16 + PCHM_16 * CHM_16 + PGM_16 * GM_16 + PIM_16 * IM_16 + PXM_16 * XM_16 + PDSM_16 * DSM_16
+Y_nFC_2406 = ( Q_Mtep_FC_2406 / Q_Mtep_ef_tot_24_2406 < 1 ) * ( 1 - Q_Mtep_FC_2406 / Q_Mtep_ef_tot_24_2406 ) * Y_2406 + ( Q_Mtep_FC_2406 / Q_Mtep_ef_tot_24_2406 >= 1 ) * 0.99 * Y_2406
+Y_nFC_2404 = ( Q_Mtep_FC_2404 / Q_Mtep_ef_tot_24_2404 < 1 ) * ( 1 - Q_Mtep_FC_2404 / Q_Mtep_ef_tot_24_2404 ) * Y_2404 + ( Q_Mtep_FC_2404 / Q_Mtep_ef_tot_24_2404 >= 1 ) * 0.99 * Y_2404
+Y_nFC_2405 = ( Q_Mtep_FC_2405 / Q_Mtep_ef_tot_24_2405 < 1 ) * ( 1 - Q_Mtep_FC_2405 / Q_Mtep_ef_tot_24_2405 ) * Y_2405 + ( Q_Mtep_FC_2405 / Q_Mtep_ef_tot_24_2405 >= 1 ) * 0.99 * Y_2405
+Y_nFC_2402 = ( Q_Mtep_FC_2402 / Q_Mtep_ef_tot_24_2402 < 1 ) * ( 1 - Q_Mtep_FC_2402 / Q_Mtep_ef_tot_24_2402 ) * Y_2402 + ( Q_Mtep_FC_2402 / Q_Mtep_ef_tot_24_2402 >= 1 ) * 0.99 * Y_2402
+Y_nFC_2403 = ( Q_Mtep_FC_2403 / Q_Mtep_ef_tot_24_2403 < 1 ) * ( 1 - Q_Mtep_FC_2403 / Q_Mtep_ef_tot_24_2403 ) * Y_2403 + ( Q_Mtep_FC_2403 / Q_Mtep_ef_tot_24_2403 >= 1 ) * 0.99 * Y_2403
+Y_nFC_2401 = ( Q_Mtep_FC_2401 / Q_Mtep_ef_tot_24_2401 < 1 ) * ( 1 - Q_Mtep_FC_2401 / Q_Mtep_ef_tot_24_2401 ) * Y_2401 + ( Q_Mtep_FC_2401 / Q_Mtep_ef_tot_24_2401 >= 1 ) * 0.99 * Y_2401
 CID_20_16 = MATD_20_16
 CID_20_17 = MATD_20_17
 CID_20_14 = MATD_20_14
@@ -19268,15 +19367,20 @@ IAD_12_17 = ( IA_n_12_17 - IAM_12_17 > 0 ) * ( IA_n_12_17 - IAM_12_17 ) + ( IA_n
 IAD_12_16 = ( IA_n_12_16 - IAM_12_16 > 0 ) * ( IA_n_12_16 - IAM_12_16 ) + ( IA_n_12_16 - IAM_12_16 <= 0 ) * 1e-05
 IAD_12_19 = ( IA_n_12_19 - IAM_12_19 > 0 ) * ( IA_n_12_19 - IAM_12_19 ) + ( IA_n_12_19 - IAM_12_19 <= 0 ) * 1e-05
 IAD_12_18 = ( IA_n_12_18 - IAM_12_18 > 0 ) * ( IA_n_12_18 - IAM_12_18 ) + ( IA_n_12_18 - IAM_12_18 <= 0 ) * 1e-05
+phiy_E_21_2301 = PhiY_ener_exo_21_2301 + Q_Mtep_FC_2301 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2306 = PhiY_ener_exo_21_2306 + Q_Mtep_FC_2306 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2307 = PhiY_ener_exo_21_2307 + Q_Mtep_FC_2307 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2304 = PhiY_ener_exo_21_2304 + Q_Mtep_FC_2304 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2305 = PhiY_ener_exo_21_2305 + Q_Mtep_FC_2305 / Q_Mtep_ef_tot_SOU_21
 d(log(MATD_17_2201)) = d(log(MAT_17_2201)) + d(SUBST_MATD_17_2201)
 d(log(MATD_17_2202)) = d(log(MAT_17_2202)) + d(SUBST_MATD_17_2202)
-REDIS_VAL_SEC_TCO_2403 = REC_VAL_SEC_TCO_2403
-REDIS_VAL_SEC_TCO_2402 = REC_VAL_SEC_TCO_2402
-REDIS_VAL_SEC_TCO_2401 = REC_VAL_SEC_TCO_2401
-REDIS_VAL_SEC_TCO_2406 = REC_VAL_SEC_TCO_2406
-REDIS_VAL_SEC_TCO_2405 = REC_VAL_SEC_TCO_2405
-REDIS_VAL_SEC_TCO_2404 = REC_VAL_SEC_TCO_2404
-d(log(MAT_n_08_17)) = ( @year <= 2019 ) * ( dlog(CIexo_08_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+REDIS_VAL_SEC_TCO_2403 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2403
+REDIS_VAL_SEC_TCO_2402 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2402
+REDIS_VAL_SEC_TCO_2401 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2401
+REDIS_VAL_SEC_TCO_2406 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2406
+REDIS_VAL_SEC_TCO_2405 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2405
+REDIS_VAL_SEC_TCO_2404 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2404
+d(log(MAT_n_08_17)) = ( @year <= 2019 ) * ( dlog(CIexo_08_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
 E_23_2201 = E_indus_23_2201 + E_oth_23_2201
 E_23_2202 = E_indus_23_2202 + E_oth_23_2202
 IA_21_2405 = IAD_21_2405 + IAM_21_2405
@@ -19440,6 +19544,7 @@ PIA_03_2406 * IA_03_2406 = PIAD_03 * IAD_03_2406 + PIAM_03 * IAM_03_2406
 PIA_03_2401 * IA_03_2401 = PIAD_03 * IAD_03_2401 + PIAM_03 * IAM_03_2401
 PIA_03_2402 * IA_03_2402 = PIAD_03 * IAD_03_2402 + PIAM_03 * IAM_03_2402
 PIA_03_2403 * IA_03_2403 = PIAD_03 * IAD_03_2403 + PIAM_03 * IAM_03_2403
+ENER_spe_m2_H01_CG_23 = ENER_spe_H01_CG_23 / ( BUIL_H01_CG + 0.1 )
 INT_VAL_H01 = PHI_DIS_INT_H01 * INT_VAL
 PVATM_01 * VATM_01 = TVATM_01 * ( PCHM_01 * CHM_01 ) / ( 1 + TVATM_01 ) + TVATMOTH_01 * ( PIM_01 * IM_01 + PCIM_01 * CIM_01 + PGM_01 * GM_01 ) / ( 1 + TVATMOTH_01 )
 PVATM_03 * VATM_03 = TVATM_03 * ( PCHM_03 * CHM_03 ) / ( 1 + TVATM_03 ) + TVATMOTH_03 * ( PIM_03 * IM_03 + PCIM_03 * CIM_03 + PGM_03 * GM_03 ) / ( 1 + TVATMOTH_03 )
@@ -19534,12 +19639,12 @@ MATD_12_01 = ( CIDexo_12_01 ) * ( @year <= 2019 ) + ( ( MAT_12_01 - MATM_12_01 >
 CU_MTEP_PGDP_2305 = ( CU_2305 * Y_2305 ) / ( PGDP * Q_mtep_ef_tot_2305 )
 MATD_12_03 = ( CIDexo_12_03 ) * ( @year <= 2019 ) + ( MATD_12_03(-1) * ( 1 + ( MAT_12_03 > 0 ) * ( d(MAT_12_03) / MAT_12_03(-1) + d(SUBST_MATD_12_03) ) ) - ( 1 - AME_battery ) * ( CHD_03 / CH_03 ) * d(Pbattery * Newauto_elec_H01 / 1000) ) * ( @year > 2019 )
 CU_MTEP_PGDP_2307 = ( CU_2307 * Y_2307 ) / ( PGDP * Q_mtep_ef_tot_2307 )
-REDIS_VAL_SEC_ETS2_04 = REC_VAL_SEC_ETS2_04
-REDIS_VAL_SEC_ETS2_05 = REC_VAL_SEC_ETS2_05
-REDIS_VAL_SEC_ETS2_06 = REC_VAL_SEC_ETS2_06
-REDIS_VAL_SEC_ETS2_07 = REC_VAL_SEC_ETS2_07
+REDIS_VAL_SEC_ETS2_04 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_04
+REDIS_VAL_SEC_ETS2_05 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_05
+REDIS_VAL_SEC_ETS2_06 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_06
+REDIS_VAL_SEC_ETS2_07 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_07
 Q_Mtep_SEC = 0 + Q_Mtep_SEC_SOU_21 + Q_Mtep_SEC_SOU_22 + Q_Mtep_SEC_SOU_23 + Q_Mtep_SEC_SOU_24
-REDIS_VAL_SEC_ETS2_09 = REC_VAL_SEC_ETS2_09
+REDIS_VAL_SEC_ETS2_09 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_09
 dlog(CIexo_12_10) = dlog(CIexo_12)
 MT_03 = MTD_03 + MTM_03
 MT_02 = MTD_02 + MTM_02
@@ -19588,8 +19693,8 @@ TCSE_bis_17 = @elem(TCSE_17, 2006)
 TCSE_bis_16 = @elem(TCSE_16, 2006)
 TCSE_bis_15 = @elem(TCSE_15, 2006)
 TCSE_bis_14 = @elem(TCSE_14, 2006)
-RF_net_20 = @elem(PRF_20(-1), 2006) * RF_20(-1) - IS_20 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_20(-1) + REC_VAL_SEC_ETS_20(-1) + REDIS_VAL_SEC_ETS2_20(-1) ) / PCH(-1)
-RF_net_21 = @elem(PRF_21(-1), 2006) * RF_21(-1) - IS_21 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_21(-1) + REC_VAL_SEC_ETS_21(-1) + REDIS_VAL_SEC_ETS2_21(-1) ) / PCH(-1)
+RF_net_20 = @elem(PRF_20(-1), 2006) * RF_20(-1) - IS_20 + ( REDIS_VAL_SEC_TCO_20(-1) + REDIS_VAL_SEC_ETS_20(-1) + REDIS_VAL_SEC_ETS2_20(-1) ) / PCH(-1)
+RF_net_21 = @elem(PRF_21(-1), 2006) * RF_21(-1) - IS_21 + ( REDIS_VAL_SEC_TCO_21(-1) + REDIS_VAL_SEC_ETS_21(-1) + REDIS_VAL_SEC_ETS2_21(-1) ) / PCH(-1)
 PYQS_SM = 0 + YQS_01 * PYQS_01 / YQS_SM + YQS_02 * PYQS_02 / YQS_SM + YQS_03 * PYQS_03 / YQS_SM + YQS_04 * PYQS_04 / YQS_SM + YQS_05 * PYQS_05 / YQS_SM + YQS_06 * PYQS_06 / YQS_SM + YQS_07 * PYQS_07 / YQS_SM + YQS_08 * PYQS_08 / YQS_SM + YQS_09 * PYQS_09 / YQS_SM + YQS_10 * PYQS_10 / YQS_SM + YQS_11 * PYQS_11 / YQS_SM + YQS_12 * PYQS_12 / YQS_SM + YQS_13 * PYQS_13 / YQS_SM + YQS_14 * PYQS_14 / YQS_SM + YQS_15 * PYQS_15 / YQS_SM + YQS_16 * PYQS_16 / YQS_SM + YQS_17 * PYQS_17 / YQS_SM + YQS_18 * PYQS_18 / YQS_SM + YQS_19 * PYQS_19 / YQS_SM
 Choc_CSC_niv_20 = CSC_cost * EMS_CSC_20
 d(log(L_des_13)) = 0.2 * d(log(L_des_13(-1))) + 0.49 * d(log(Y_13)) - 0.5 * d(log(CL_13 * PROG_L_13 / PY_13)) - 0.64 * ( log(L_des_13(-1)) - log(L_n_13(-1)) )
@@ -19753,7 +19858,7 @@ d(log(W_S_dgt_14)) = ( 0.5 * d(log(P)) + 0.5 * d(log(P(-1))) + 0.42 * d(log(Y_14
 d(log(W_S_dgt_17)) = ( 0.5 * d(log(P)) + 0.5 * d(log(P(-1))) + 0.42 * d(log(Y_17 / L_17)) - 0.7 * d(UnR_TOT) - 0.27 * ( log(( W_S_17(-1) ) / W_S_n_17(-1)) ) )
 d(log(W_S_dgt_16)) = ( 0.5 * d(log(P)) + 0.5 * d(log(P(-1))) + 0.42 * d(log(Y_16 / L_16)) - 0.7 * d(UnR_TOT) - 0.27 * ( log(( W_S_16(-1) ) / W_S_n_16(-1)) ) )
 d(log(W_S_dgt_19)) = ( 0.5 * d(log(P)) + 0.5 * d(log(P(-1))) + 0.42 * d(log(Y_19 / L_19)) - 0.7 * d(UnR_TOT) - 0.27 * ( log(( W_S_19(-1) ) / W_S_n_19(-1)) ) )
-d(log(W_S_dgt_18)) = ( 0.5 * d(log(P)) + 0.5 * d(log(P(-1))) + 0.42 * d(log(Y_18 / L_18)) - 0.7 * d(UnR_TOT) - 0.27 * ( log(( W_S_18(-1) ) / W_S_n_18(-1)) ) )
+ENER_spe_m2_H01_CA_23 = ENER_spe_H01_CA_23 / ( BUIL_H01_CA + 0.1 )
 SUBST_XD_19 = 0.8 * SUBST_XD_n_19 + ( 1 - 0.8 ) * ( SUBST_XD_19(-1) )
 d(SUBST_L_n_2303) = - ES_KLEM(26, 1) * d(log(CL_2303) - log(CK_2303 / PROG_K_2303)) * phi_k_bis_2303(-1) - eta_L_E_2303 * d(log(CL_2303) - log(( PE_2303 + PE_Signal_2303 + PE_CEE_2303 + PE_signal_bis_2303 ) / PROG_E_2303)) * phi_e_bis_2303(-1) - ES_KLEM(26, 5) * d(log(CL_2303) - log(PMAT_2303)) * phi_mat_bis_2303(-1)
 d(SUBST_L_n_2302) = - ES_KLEM(25, 1) * d(log(CL_2302) - log(CK_2302 / PROG_K_2302)) * phi_k_bis_2302(-1) - eta_L_E_2302 * d(log(CL_2302) - log(( PE_2302 + PE_Signal_2302 + PE_CEE_2302 + PE_signal_bis_2302 ) / PROG_E_2302)) * phi_e_bis_2302(-1) - ES_KLEM(25, 5) * d(log(CL_2302) - log(PMAT_2302)) * phi_mat_bis_2302(-1)
@@ -19767,10 +19872,10 @@ d(SUBST_L_n_2308) = - ES_KLEM(31, 1) * d(log(CL_2308) - log(CK_2308 / PROG_K_230
 Verif_MC_18 = MC_18 - MCD_18 - MCM_18
 imitation_H01 = coeffBassimit_H01
 MATD_06_20 = ( CIDexo_06_20 ) * ( @year <= 2019 ) + ( ( MAT_06_20 - MATM_06_20 > 0 ) * ( MAT_06_20 - MATM_06_20 ) + ( MAT_06_20 - MATM_06_20 <= 0 ) * 0.0001 ) * ( @year > 2019 )
-SUB_FC_11 = TSUB_FC_11 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_11
-SUB_FC_10 = TSUB_FC_10 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_10
-SUB_FC_13 = TSUB_FC_13 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_13
-SUB_FC_12 = TSUB_FC_12 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_12
+SUB_FC_11 = TSUB_FC_11 * P / 1.21 * dQ_Mtep_FC_11
+SUB_FC_10 = TSUB_FC_10 * P / 1.21 * dQ_Mtep_FC_10
+SUB_FC_13 = TSUB_FC_13 * P / 1.21 * dQ_Mtep_FC_13
+SUB_FC_12 = TSUB_FC_12 * P / 1.21 * dQ_Mtep_FC_12
 verif_IA_dgt_08_14 = IA_n_08_14 - IA_bis_dgt_08_14
 verif_IA_dgt_08_15 = IA_n_08_15 - IA_bis_dgt_08_15
 verif_IA_dgt_08_16 = IA_n_08_16 - IA_bis_dgt_08_16
@@ -19986,17 +20091,17 @@ dlog(CIexo_14_06) = dlog(CIexo_14)
 dlog(CIexo_14_07) = dlog(CIexo_14)
 dlog(CIexo_14_04) = dlog(CIexo_14)
 dlog(CIexo_14_05) = dlog(CIexo_14)
-d(log(MAT_n_03_16)) = ( @year <= 2019 ) * ( dlog(CIexo_03_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_03_17)) = ( @year <= 2019 ) * ( dlog(CIexo_03_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_03_14)) = ( @year <= 2019 ) * ( dlog(CIexo_03_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_03_15)) = ( @year <= 2019 ) * ( dlog(CIexo_03_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_03_12)) = ( @year <= 2019 ) * ( dlog(CIexo_03_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_03_13)) = ( @year <= 2019 ) * ( dlog(CIexo_03_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_03_10)) = ( @year <= 2019 ) * ( dlog(CIexo_03_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_03_11)) = ( @year <= 2019 ) * ( dlog(CIexo_03_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_03_16)) = ( @year <= 2019 ) * ( dlog(CIexo_03_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_03_17)) = ( @year <= 2019 ) * ( dlog(CIexo_03_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_03_14)) = ( @year <= 2019 ) * ( dlog(CIexo_03_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_03_15)) = ( @year <= 2019 ) * ( dlog(CIexo_03_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_03_12)) = ( @year <= 2019 ) * ( dlog(CIexo_03_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_03_13)) = ( @year <= 2019 ) * ( dlog(CIexo_03_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_03_10)) = ( @year <= 2019 ) * ( dlog(CIexo_03_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_03_11)) = ( @year <= 2019 ) * ( dlog(CIexo_03_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
 AUTO_elec_D_H01_CD = AUTO_D
-d(log(MAT_n_03_18)) = ( @year <= 2019 ) * ( dlog(CIexo_03_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_03_19)) = ( @year <= 2019 ) * ( dlog(CIexo_03_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_03_18)) = ( @year <= 2019 ) * ( dlog(CIexo_03_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_03_19)) = ( @year <= 2019 ) * ( dlog(CIexo_03_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 verif_K_n_08 = K_n_08 - K_NE_n_08 - K_E_n_08
 verif_K_n_09 = K_n_09 - K_NE_n_09 - K_E_n_09
 verif_K_n_02 = K_n_02 - K_NE_n_02 - K_E_n_02
@@ -20142,9 +20247,9 @@ d(log(MATM_des_n_11_05)) = 1.55 * dlog(QD_11) - 0.41 * ( log(MATM_des_n_11_05(-1
 d(log(MATM_des_n_11_04)) = 1.55 * dlog(QD_11) - 0.41 * ( log(MATM_des_n_11_04(-1)) - log(MAT_11_04(-1)) + 0.48 * ( log(PMATM_11(-1)) - log(PMATD_11(-1)) ) )
 CIDexo_13_20 = ( CIexo_13_20 - CIMexo_13_20 > 0 ) * ( CIexo_13_20 - CIMexo_13_20 ) + ( CIexo_13_20 - CIMexo_13_20 <= 0 ) * 0.0001
 d(log(MATM_des_n_11_06)) = 1.55 * dlog(QD_11) - 0.41 * ( log(MATM_des_n_11_06(-1)) - log(MAT_11_06(-1)) + 0.48 * ( log(PMATM_11(-1)) - log(PMATD_11(-1)) ) )
-REDIS_VAL_SEC_ETS2_2202 = REC_VAL_SEC_ETS2_2202
+REDIS_VAL_SEC_ETS2_2202 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2202
 IA_07_2308 = IAD_07_2308 + IAM_07_2308
-REDIS_VAL_SEC_ETS2_2201 = REC_VAL_SEC_ETS2_2201
+REDIS_VAL_SEC_ETS2_2201 = 0 * ( @year > 2024 ) * REC_VAL_SEC_ETS2_2201
 IA_07_2306 = IAD_07_2306 + IAM_07_2306
 IA_07_2307 = IAD_07_2307 + IAM_07_2307
 IA_07_2304 = IAD_07_2304 + IAM_07_2304
@@ -20215,12 +20320,12 @@ MAT_bis_dgt_11_07 = MATD_11_07 + MATM_11_07
 MAT_bis_dgt_11_01 = MATD_11_01 + MATM_11_01
 MAT_bis_dgt_11_02 = MATD_11_02 + MATM_11_02
 MAT_bis_dgt_11_03 = MATD_11_03 + MATM_11_03
-d(log(MAT_n_11_19)) = ( @year <= 2019 ) * ( dlog(CIexo_11_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_11_11)) = ( @year <= 2019 ) * ( dlog(CIexo_11_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_11_19)) = ( @year <= 2019 ) * ( dlog(CIexo_11_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_11_11)) = ( @year <= 2019 ) * ( dlog(CIexo_11_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
 PNew_LUV_21_15 = PNew_LUV_cst_21_15 * PMAT_03_15
 PNew_LUV_21_16 = PNew_LUV_cst_21_16 * PMAT_03_16
-d(log(MAT_n_11_12)) = ( @year <= 2019 ) * ( dlog(CIexo_11_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_16_20)) = ( @year <= 2019 ) * ( dlog(CIexo_16_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_11_12)) = ( @year <= 2019 ) * ( dlog(CIexo_11_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_11_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_11_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_11_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_11_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_16_20)) = ( @year <= 2019 ) * ( dlog(CIexo_16_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_16_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_16_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_16_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_16_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 SUBST_GD_19 = 0.8 * SUBST_GD_n_19 + ( 1 - 0.8 ) * ( SUBST_GD_19(-1) )
 PMAT_02_01 * MAT_02_01 = PMATD_02 * MATD_02_01 + PMATM_02 * MATM_02_01
 PMAT_02_02 * MAT_02_02 = PMATD_02 * MATD_02_02 + PMATM_02 * MATM_02_02
@@ -20232,15 +20337,15 @@ PMAT_02_07 * MAT_02_07 = PMATD_02 * MATD_02_07 + PMATM_02 * MATM_02_07
 PMAT_02_08 * MAT_02_08 = PMATD_02 * MATD_02_08 + PMATM_02 * MATM_02_08
 PMAT_02_09 * MAT_02_09 = PMATD_02 * MATD_02_09 + PMATM_02 * MATM_02_09
 PNew_LUV_23_16 = PNew_LUV_cst_23_16 * PMAT_03_16
-d(log(MAT_n_13_12)) = ( @year <= 2019 ) * ( dlog(CIexo_13_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_13_11)) = ( @year <= 2019 ) * ( dlog(CIexo_13_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_13_10)) = ( @year <= 2019 ) * ( dlog(CIexo_13_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_13_12)) = ( @year <= 2019 ) * ( dlog(CIexo_13_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_13_11)) = ( @year <= 2019 ) * ( dlog(CIexo_13_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_13_10)) = ( @year <= 2019 ) * ( dlog(CIexo_13_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
 CU_OPEX_2406 * PY_2406 * Y_2406 = CL_2406 * L_2406 + PEner_2406 * Ener_2406 + PMAT_2406 * MAT_2406
-d(log(MAT_n_13_16)) = ( @year <= 2019 ) * ( dlog(CIexo_13_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_13_15)) = ( @year <= 2019 ) * ( dlog(CIexo_13_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_13_14)) = ( @year <= 2019 ) * ( dlog(CIexo_13_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_13_19)) = ( @year <= 2019 ) * ( dlog(CIexo_13_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_13_18)) = ( @year <= 2019 ) * ( dlog(CIexo_13_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_13_16)) = ( @year <= 2019 ) * ( dlog(CIexo_13_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_13_15)) = ( @year <= 2019 ) * ( dlog(CIexo_13_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_13_14)) = ( @year <= 2019 ) * ( dlog(CIexo_13_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_13_19)) = ( @year <= 2019 ) * ( dlog(CIexo_13_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_13_18)) = ( @year <= 2019 ) * ( dlog(CIexo_13_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
 d(SUBST_E_23_18) = 0.8 * d(SUBST_E_n_23_18) + ( 1 - 0.8 ) * d(SUBST_E_23_18(-1))
 d(SUBST_E_23_19) = 0.8 * d(SUBST_E_n_23_19) + ( 1 - 0.8 ) * d(SUBST_E_23_19(-1))
 d(SUBST_E_23_14) = 0.8 * d(SUBST_E_n_23_14) + ( 1 - 0.8 ) * d(SUBST_E_23_14(-1))
@@ -20545,7 +20650,7 @@ d(log(X_n_des_23)) = d(log(WD_23)) + d(SUBST_X_23)
 d(log(X_n_des_22)) = d(log(WD_22)) + d(SUBST_X_22)
 d(SUBST_MATD_n_03_13) = ( @year <= 2022 ) * ( - ES_CIM(13, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_13(-1) / ( PMAT_03_13(-1) * MAT_03_13(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_13(-1) / ( PMAT_03_13(-1) * MAT_03_13(-1) ) ) )
 d(SUBST_MATD_n_03_12) = ( @year <= 2022 ) * ( - ES_CIM(12, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_12(-1) / ( PMAT_03_12(-1) * MAT_03_12(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_12(-1) / ( PMAT_03_12(-1) * MAT_03_12(-1) ) ) )
-d(SUBST_MATD_n_03_19) = ( @year <= 2022 ) * ( - ES_CIM(19, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_19(-1) / ( PMAT_03_19(-1) * MAT_03_19(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_19(-1) / ( PMAT_03_19(-1) * MAT_03_19(-1) ) ) )
+phi_E_oth_22_02 * ( ( E_oth_des_02 > 0 ) * E_oth_des_02 + ( E_oth_des_02 <= 0 ) ) = ( E_oth_des_02 > 0 ) * E_oth_des_22_02 + ( E_oth_des_02 <= 0 ) * 0
 d(SUBST_MATD_n_03_18) = ( @year <= 2022 ) * ( - ES_CIM(18, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_18(-1) / ( PMAT_03_18(-1) * MAT_03_18(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_18(-1) / ( PMAT_03_18(-1) * MAT_03_18(-1) ) ) )
 log(L_2403) = ADJUST(1 + 1, 1) * log(L_n_2403) + ( 1 - ADJUST(1 + 1, 1) ) * ( log(L_2403(-1)) + d(log(L_e_2403)) )
 log(L_2402) = ADJUST(1 + 1, 1) * log(L_n_2402) + ( 1 - ADJUST(1 + 1, 1) ) * ( log(L_2402(-1)) + d(log(L_e_2402)) )
@@ -20688,16 +20793,16 @@ IA_11_2404 = IAD_11_2404 + IAM_11_2404
 IA_11_2405 = IAD_11_2405 + IAM_11_2405
 d(SUBST_IAD_n_12_2403) = - ES_IAM(34, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_2403(-1) / ( PIA_12_2403(-1) * IA_12_2403(-1) ) )
 d(SUBST_GM_n_03) = - ES_GOV(1, 3) * d(log(PGM_03) - log(PGD_03)) * ( PGD_03(-1) * GD_03(-1) / ( PG_03(-1) * G_03(-1) ) )
-MAT_03_09 = ( @year <= 2019 ) * ( MATD_03_09 + MATM_03_09 ) + ( @year > 2019 ) * ( MAT_n_03_09 )
+d(SUBST_IAD_n_12_2402) = - ES_IAM(33, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_2402(-1) / ( PIA_12_2402(-1) * IA_12_2402(-1) ) )
 d(SUBST_IAM_n_03_07) = ( @year <= 2022 ) * ( - ES_IAM(7, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_07(-1) / ( PIA_03_07(-1) * IA_03_07(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_07(-1) / ( PIA_03_07(-1) * IA_03_07(-1) ) ) )
-REDIS_VAL_SEC_ETS_2308 = REC_VAL_SEC_ETS_2308
-REDIS_VAL_SEC_ETS_2301 = REC_VAL_SEC_ETS_2301
-REDIS_VAL_SEC_ETS_2302 = REC_VAL_SEC_ETS_2302
-REDIS_VAL_SEC_ETS_2303 = REC_VAL_SEC_ETS_2303
-REDIS_VAL_SEC_ETS_2304 = REC_VAL_SEC_ETS_2304
-REDIS_VAL_SEC_ETS_2305 = REC_VAL_SEC_ETS_2305
-REDIS_VAL_SEC_ETS_2306 = REC_VAL_SEC_ETS_2306
-REDIS_VAL_SEC_ETS_2307 = REC_VAL_SEC_ETS_2307
+REDIS_VAL_SEC_ETS_2308 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2308
+REDIS_VAL_SEC_ETS_2301 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2301
+REDIS_VAL_SEC_ETS_2302 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2302
+REDIS_VAL_SEC_ETS_2303 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2303
+REDIS_VAL_SEC_ETS_2304 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2304
+REDIS_VAL_SEC_ETS_2305 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2305
+REDIS_VAL_SEC_ETS_2306 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2306
+REDIS_VAL_SEC_ETS_2307 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2307
 ENER_price_signal = ( 0 + PENERT_21 * ENERT_21 + POTHT_21 * OTHT_21 + PSUB_21 * SUB_21 + PENERT_22 * ENERT_22 + POTHT_22 * OTHT_22 + PSUB_22 * SUB_22 + PENERT_23 * ENERT_23 + POTHT_23 * OTHT_23 + PSUB_23 * SUB_23 + PENERT_24 * ENERT_24 + POTHT_24 * OTHT_24 + PSUB_24 * SUB_24 + Rec_TCO_VAL ) / ( Q_Mtep_ef * PGDP )
 PMAT_09_2401 * MAT_09_2401 = PMATD_09 * MATD_09_2401 + PMATM_09 * MATM_09_2401
 PMAT_09_2403 * MAT_09_2403 = PMATD_09 * MATD_09_2403 + PMATM_09 * MATM_09_2403
@@ -20830,7 +20935,6 @@ CIM_10_2402 = MATM_10_2402
 UN_25 = 0 + UN_W_25 + UN_M_25
 CIM_07_18 = MATM_07_18
 CIM_07_19 = MATM_07_19
-EM_23_06 = ( ( E_23_06 - ED_23_06 > 0 ) * ( E_23_06 - ED_23_06 ) + ( E_23_06 - ED_23_06 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_06 - EM_des_23_06 > 0 ) * ( EM_des_23_06 ) + ( E_23_06 - EM_des_23_06 <= 0 ) * ( E_23_06 - 1e-05 ) ) * ( @year > 2019 )
 CIM_07_14 = MATM_07_14
 CIM_07_15 = MATM_07_15
 CIM_07_16 = MATM_07_16
@@ -21147,14 +21251,14 @@ PQM_05 * QM_05 = PCIM_05 * CIM_05 + PCHM_05 * CHM_05 + PGM_05 * GM_05 + PIM_05 *
 PQM_04 * QM_04 = PCIM_04 * CIM_04 + PCHM_04 * CHM_04 + PGM_04 * GM_04 + PIM_04 * IM_04 + PXM_04 * XM_04 + PDSM_04 * DSM_04
 RF_20 = EBE_20 - @elem(PK_20(-1), 2006) * Tdec_20 * K_20(-1)
 RF_21 = EBE_21 - @elem(PK_21(-1), 2006) * Tdec_21 * K_21(-1)
-d(log(MAT_n_08_08)) = ( @year <= 2019 ) * ( dlog(CIexo_08_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_08_09)) = ( @year <= 2019 ) * ( dlog(CIexo_08_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_08_02)) = ( @year <= 2019 ) * ( dlog(CIexo_08_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_08_03)) = ( @year <= 2019 ) * ( dlog(CIexo_08_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
-d(log(MAT_n_08_04)) = ( @year <= 2019 ) * ( dlog(CIexo_08_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_08_05)) = ( @year <= 2019 ) * ( dlog(CIexo_08_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_08_06)) = ( @year <= 2019 ) * ( dlog(CIexo_08_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_08_07)) = ( @year <= 2019 ) * ( dlog(CIexo_08_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_08_08)) = ( @year <= 2019 ) * ( dlog(CIexo_08_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_08_09)) = ( @year <= 2019 ) * ( dlog(CIexo_08_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_08_02)) = ( @year <= 2019 ) * ( dlog(CIexo_08_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_08_03)) = ( @year <= 2019 ) * ( dlog(CIexo_08_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_08_04)) = ( @year <= 2019 ) * ( dlog(CIexo_08_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_08_05)) = ( @year <= 2019 ) * ( dlog(CIexo_08_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_08_06)) = ( @year <= 2019 ) * ( dlog(CIexo_08_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_08_07)) = ( @year <= 2019 ) * ( dlog(CIexo_08_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_08_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_08_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_08_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_08_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
 BUIL_23_CB = BUIL_CB * ENER_BUIL_h01_CB_23 / ENER_BUIL_h01_CB
 BUIL_23_CC = BUIL_CC * ENER_BUIL_h01_CC_23 / ENER_BUIL_h01_CC
 BUIL_23_CA = BUIL_CA * ENER_BUIL_h01_CA_23 / ENER_BUIL_h01_CA
@@ -21242,7 +21346,7 @@ SUBST_MATD_19_07 = ADJUST(9, 6) * SUBST_MATD_n_19_07 + ( 1 - ADJUST(9, 6) ) * SU
 dlog(W_S_n_2307) = dlog(W_S_n_13)
 d(SUBST_MATD_n_07_15) = ( @year <= 2022 ) * ( - ES_CIM(15, 7) * d(log(PMATD_07) - log(PMATM_07)) * ( PMATM_07(-1) * MATM_07_15(-1) / ( PMAT_07_15(-1) * MAT_07_15(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_07) - log(PMATM_07)) * ( PMATM_07(-1) * MATM_07_15(-1) / ( PMAT_07_15(-1) * MAT_07_15(-1) ) ) )
 dlog(W_S_n_2304) = dlog(W_S_n_13)
-REDIS_VAL_SEC_ETS_18 = REC_VAL_SEC_ETS_18
+REDIS_VAL_SEC_ETS_18 = ( @year > 2024 ) * REC_VAL_SEC_ETS_18
 d(log(E_oth_des_24_08)) = d(log(E_oth_08)) + d(SUBST_E_24_08)
 CU_MTEP_22 = ( 0 + CU_2201 * Y_2201 / PY_2201 + CU_2202 * Y_2202 / PY_2202 ) / Q_mtep_ef_tot_sou_22
 CU_MTEP_23 = ( 0 + CU_2301 * Y_2301 / PY_2301 + CU_2302 * Y_2302 / PY_2302 + CU_2303 * Y_2303 / PY_2303 + CU_2304 * Y_2304 / PY_2304 + CU_2305 * Y_2305 / PY_2305 + CU_2306 * Y_2306 / PY_2306 + CU_2307 * Y_2307 / PY_2307 + CU_2308 * Y_2308 / PY_2308 ) / Q_mtep_ef_tot_sou_23
@@ -21336,8 +21440,8 @@ d(SUBST_K_E_n_2405) = - 0 * d(log(CK_2405 / PROG_K_2405) - log(CL_2405)) * phi_l
 d(SUBST_K_E_n_2404) = - 0 * d(log(CK_2404 / PROG_K_2404) - log(CL_2404)) * phi_l_bis_2404(-1) - eta_K_E_2404 * d(log(CK_2404 / PROG_K_2404) - log(( PE_2404 + PE_signal_2404 + PE_CEE_2404 + PE_signal_bis_2404 + PE_signal_E_2404 ) / PROG_E_2404)) * phi_e_bis_2404(-1) - 0 * d(log(CK_2404 / PROG_K_2404) - log(PMAT_2404)) * phi_mat_bis_2404(-1)
 New_trucks_23_16 = Trucks_23_16 - Trucks_23_16(-1) * ( 1 - tdec_16 )
 New_trucks_23_15 = Trucks_23_15 - Trucks_23_15(-1) * ( 1 - tdec_15 )
-REDIS_VAL_SEC_TCO_21 = REC_VAL_SEC_TCO_21
-REDIS_VAL_SEC_TCO_20 = REC_VAL_SEC_TCO_20
+REDIS_VAL_SEC_TCO_21 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_21
+REDIS_VAL_SEC_TCO_20 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_20
 LF_M_65 = PARTR_M_65 * WAPop_M_65
 LF_M_60 = PARTR_M_60 * WAPop_M_60
 CHD_13 = ( ( EXPexo_13 - CHM_13 > 0 ) * ( EXPexo_13 - CHM_13 ) + ( EXPexo_13 - CHM_13 =< 0 ) * ( 1e-05 ) ) * ( @year <= 2019 ) + ( EXP_13 - CHM_13 ) * ( @year > 2019 )
@@ -21443,6 +21547,7 @@ d(log(IA_n_03)) = ( @year <= 2019 ) * ( ( IAexo_03 > 0 ) * ( dlog(IAexo_03) ) ) 
 d(log(IA_n_02)) = ( @year <= 2019 ) * ( ( IAexo_02 > 0 ) * ( dlog(IAexo_02) ) ) + ( @year > 2019 ) * ( d(log(IA_n_des_02 + IA_FC_02)) )
 d(log(IA_n_01)) = ( @year <= 2019 ) * ( ( IAexo_01 > 0 ) * ( dlog(IAexo_01) ) ) + ( @year > 2019 ) * ( d(log(IA_n_des_01 + IA_FC_01)) )
 SUBST_MATM_01_08 = ADJUST(10, 6) * SUBST_MATM_n_01_08 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_01_08(-1)
+phi_MAT_n_18_13 * SUM_MAT_N_CM_13 = MAT_n_18_13
 d(log(CU_n_2202)) = ( @year <= 2019 ) * d(log(CU_n_des_2202)) + ( @year > 2019 ) * d(log(CU_n_bis_2202))
 dlog(CIexo_20_01) = dlog(CIexo_20)
 PCIM_11_12 = PMATM_11
@@ -21460,7 +21565,7 @@ CIM_19_2307 = MATM_19_2307
 CIM_19_2306 = MATM_19_2306
 CIM_19_2305 = MATM_19_2305
 CIM_19_2304 = MATM_19_2304
-d(log(MAT_n_05_20)) = ( @year <= 2019 ) * ( dlog(CIexo_05_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_05_20)) = ( @year <= 2019 ) * ( dlog(CIexo_05_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 CIM_19_2308 = MATM_19_2308
 MATM_des_19_19 = ( CIMexo_19_19 ) * ( @year <= 2019 ) + ( ( MATM_des_19_19(-1) * ( 1 + d(MATM_des_n_19_19) / MATM_des_n_19_19(-1) ) > 0 ) * ( MATM_des_19_19(-1) * ( 1 + d(MATM_des_n_19_19) / MATM_des_n_19_19(-1) ) ) + ( MATM_des_19_19(-1) * ( 1 + d(MATM_des_n_19_19) / MATM_des_n_19_19(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_19_18 = ( CIMexo_19_18 ) * ( @year <= 2019 ) + ( ( MATM_des_19_18(-1) * ( 1 + d(MATM_des_n_19_18) / MATM_des_n_19_18(-1) ) > 0 ) * ( MATM_des_19_18(-1) * ( 1 + d(MATM_des_n_19_18) / MATM_des_n_19_18(-1) ) ) + ( MATM_des_19_18(-1) * ( 1 + d(MATM_des_n_19_18) / MATM_des_n_19_18(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -21694,7 +21799,7 @@ phi_E_indus_24_2201 * ( ( E_indus_des_2201 > 0 ) * E_indus_des_2201 + ( E_indus_
 phi_E_indus_24_2202 * ( ( E_indus_des_2202 > 0 ) * E_indus_des_2202 + ( E_indus_des_2202 <= 0 ) ) = ( E_indus_des_2202 > 0 ) * E_indus_des_24_2202 + ( E_indus_des_2202 <= 0 ) * 0
 CAPEX_21 = CK_21 * K_21 / P
 ED_23_2201 = ( ( 1 + d(E_23_2201) / E_23_2201(-1) + d(SUBST_ED_23_2201) ) * ED_23_2201(-1) ) * ( @year <= 2019 ) + ( ( E_23_2201 - EM_23_2201 > 0 ) * ( E_23_2201 - EM_23_2201 ) + ( E_23_2201 - EM_23_2201 <= 0 ) * 0.0001 ) * ( @year > 2019 )
-d(log(MAT_n_05_10)) = ( @year <= 2019 ) * ( dlog(CIexo_05_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_05_10)) = ( @year <= 2019 ) * ( dlog(CIexo_05_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
 MATM_des_19_09 = ( CIMexo_19_09 ) * ( @year <= 2019 ) + ( ( MATM_des_19_09(-1) * ( 1 + d(MATM_des_n_19_09) / MATM_des_n_19_09(-1) ) > 0 ) * ( MATM_des_19_09(-1) * ( 1 + d(MATM_des_n_19_09) / MATM_des_n_19_09(-1) ) ) + ( MATM_des_19_09(-1) * ( 1 + d(MATM_des_n_19_09) / MATM_des_n_19_09(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 d(log(Q_Mtep_SEC_23_03)) = ( @year > 2006 ) * d(log(E_oth_23_03)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
 d(log(Q_Mtep_SEC_23_02)) = ( @year > 2006 ) * d(log(E_oth_23_02)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
@@ -21706,7 +21811,7 @@ d(log(Q_Mtep_SEC_23_04)) = ( @year > 2006 ) * d(log(E_oth_23_04)) + ( @year =< 2
 d(log(Q_Mtep_SEC_23_09)) = ( @year > 2006 ) * d(log(E_oth_23_09)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
 d(log(Q_Mtep_SEC_23_08)) = ( @year > 2006 ) * d(log(E_oth_23_08)) + ( @year =< 2006 ) * log(1 + STEADYSTATE(2, 1))
 VERIF_PIAxIA_PIxI = PIA * IA / ( PI * I ) - 1
-d(log(MAT_n_05_19)) = ( @year <= 2019 ) * ( dlog(CIexo_05_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_05_19)) = ( @year <= 2019 ) * ( dlog(CIexo_05_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_05_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_05_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_05_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_05_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 d(log(L_n_04)) = d(log(Y_04)) - d(log(PROG_L_04)) + d(SUBST_L_04)
 d(log(L_n_05)) = d(log(Y_05)) - d(log(PROG_L_05)) + d(SUBST_L_05)
 d(log(L_n_06)) = d(log(Y_06)) - d(log(PROG_L_06)) + d(SUBST_L_06)
@@ -21846,6 +21951,7 @@ BetaEXP_19_H01 = ( @year <= 2019 ) * ( BetaEXP_n_19_H01 ) + ( @year > 2019 ) * (
 PCID_23_2401 = PED_23_2401
 d(log(IAD_12_2308)) = d(log(IA_n_12_2308)) + d(SUBST_IAD_12_2308)
 delta_AUTO_H01_CD_DES = 1 / AUTO_D
+dlog(ENER_spe_H01_CA_23) = dlog(BUIL_H01_CA + 0.1)
 d(log(IAD_12_2303)) = d(log(IA_n_12_2303)) + d(SUBST_IAD_12_2303)
 phi_MAT_08 = MAT_08 * PMAT_08 / ( CU_08 * Y_08 )
 SUBST_IAM_05_2301 = ADJUST(14, 6) * SUBST_IAM_n_05_2301 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2301(-1)
@@ -21859,7 +21965,7 @@ IA_05_2305 = IAD_05_2305 + IAM_05_2305
 IA_05_2306 = IAD_05_2306 + IAM_05_2306
 IA_05_2307 = IAD_05_2307 + IAM_05_2307
 IA_05_2308 = IAD_05_2308 + IAM_05_2308
-d(log(IA_n_12_2201)) = d(log(IA_n_2201))
+SUBST_IAM_05_2305 = ADJUST(14, 6) * SUBST_IAM_n_05_2305 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2305(-1)
 MATM_19_09 = ( CIMexo_19_09 ) * ( @year <= 2019 ) + ( ( MAT_19_09 - MATM_des_19_09 > 0 ) * ( MATM_des_19_09 ) + ( MAT_19_09 - MATM_des_19_09 <= 0 ) * ( MAT_19_09 - 1e-05 ) ) * ( @year > 2019 )
 MATM_19_08 = ( CIMexo_19_08 ) * ( @year <= 2019 ) + ( ( MAT_19_08 - MATM_des_19_08 > 0 ) * ( MATM_des_19_08 ) + ( MAT_19_08 - MATM_des_19_08 <= 0 ) * ( MAT_19_08 - 1e-05 ) ) * ( @year > 2019 )
 E_bis_dgt_23_2402 = ED_23_2402 + EM_23_2402
@@ -22131,6 +22237,12 @@ SUBST_MTM_18_08 = ADJUST(12, 6) * SUBST_MTM_n_18_08 + ( 1 - ADJUST(12, 6) ) * SU
 SUBST_MTM_18_09 = ADJUST(12, 6) * SUBST_MTM_n_18_09 + ( 1 - ADJUST(12, 6) ) * SUBST_MTM_18_09(-1)
 TQETS_24_08 = Ttco_vol_24 * ( 1 - EXO_24_08 )
 TQETS_24_09 = Ttco_vol_24 * ( 1 - EXO_24_09 )
+Y_FC_2403 = ( Q_Mtep_FC_2403 / Q_Mtep_ef_tot_24_2403 < 1 ) * Q_Mtep_FC_2403 / Q_Mtep_ef_tot_24_2403 * Y_2403 + ( Q_Mtep_FC_2403 / Q_Mtep_ef_tot_24_2403 >= 1 ) * 0.01 * Y_2403
+Y_FC_2402 = ( Q_Mtep_FC_2402 / Q_Mtep_ef_tot_24_2402 < 1 ) * Q_Mtep_FC_2402 / Q_Mtep_ef_tot_24_2402 * Y_2402 + ( Q_Mtep_FC_2402 / Q_Mtep_ef_tot_24_2402 >= 1 ) * 0.01 * Y_2402
+Y_FC_2401 = ( Q_Mtep_FC_2401 / Q_Mtep_ef_tot_24_2401 < 1 ) * Q_Mtep_FC_2401 / Q_Mtep_ef_tot_24_2401 * Y_2401 + ( Q_Mtep_FC_2401 / Q_Mtep_ef_tot_24_2401 >= 1 ) * 0.01 * Y_2401
+Y_FC_2406 = ( Q_Mtep_FC_2406 / Q_Mtep_ef_tot_24_2406 < 1 ) * Q_Mtep_FC_2406 / Q_Mtep_ef_tot_24_2406 * Y_2406 + ( Q_Mtep_FC_2406 / Q_Mtep_ef_tot_24_2406 >= 1 ) * 0.01 * Y_2406
+Y_FC_2405 = ( Q_Mtep_FC_2405 / Q_Mtep_ef_tot_24_2405 < 1 ) * Q_Mtep_FC_2405 / Q_Mtep_ef_tot_24_2405 * Y_2405 + ( Q_Mtep_FC_2405 / Q_Mtep_ef_tot_24_2405 >= 1 ) * 0.01 * Y_2405
+Y_FC_2404 = ( Q_Mtep_FC_2404 / Q_Mtep_ef_tot_24_2404 < 1 ) * Q_Mtep_FC_2404 / Q_Mtep_ef_tot_24_2404 * Y_2404 + ( Q_Mtep_FC_2404 / Q_Mtep_ef_tot_24_2404 >= 1 ) * 0.01 * Y_2404
 PCIM_18_20 = PMATM_18
 REC_VAL_SEC_TCO_22_20 = Ttco_22 * EMS_SEC_22_20 * ( 1 - EXO_22_20 )
 REC_VAL_SEC_TCO_22_21 = Ttco_22 * EMS_SEC_22_21 * ( 1 - EXO_22_21 )
@@ -22196,16 +22308,16 @@ ETS2_hh_22 = ETSexo2_hh_22
 ETS2_hh_21 = ETSexo2_hh_21
 ETS2_hh_24 = ETSexo2_hh_24
 d(log(MATM_des_n_16_20)) = 0.25 * dlog(MATM_des_n_16_20(-1)) + 1.18 * dlog(QD_16) - 0.34 * d(log(PMATM_16(-1)) - log(PMATD_16(-1))) - 0.49 * ( log(MATM_des_n_16_20(-1)) - log(MAT_16_20(-1)) + 0.69 * ( log(PMATM_16(-1)) - log(PMATD_16(-1)) ) )
-d(log(MAT_n_18_18)) = ( @year <= 2019 ) * ( dlog(CIexo_18_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_18_19)) = ( @year <= 2019 ) * ( dlog(CIexo_18_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_18_16)) = ( @year <= 2019 ) * ( dlog(CIexo_18_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_18_17)) = ( @year <= 2019 ) * ( dlog(CIexo_18_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_18_14)) = ( @year <= 2019 ) * ( dlog(CIexo_18_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_18_15)) = ( @year <= 2019 ) * ( dlog(CIexo_18_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_18_12)) = ( @year <= 2019 ) * ( dlog(CIexo_18_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_18_13)) = ( @year <= 2019 ) * ( dlog(CIexo_18_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_18_10)) = ( @year <= 2019 ) * ( dlog(CIexo_18_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_18_11)) = ( @year <= 2019 ) * ( dlog(CIexo_18_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_18_18)) = ( @year <= 2019 ) * ( dlog(CIexo_18_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_18_19)) = ( @year <= 2019 ) * ( dlog(CIexo_18_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_18_16)) = ( @year <= 2019 ) * ( dlog(CIexo_18_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_18_17)) = ( @year <= 2019 ) * ( dlog(CIexo_18_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_18_14)) = ( @year <= 2019 ) * ( dlog(CIexo_18_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_18_15)) = ( @year <= 2019 ) * ( dlog(CIexo_18_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_18_12)) = ( @year <= 2019 ) * ( dlog(CIexo_18_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_18_13)) = ( @year <= 2019 ) * ( dlog(CIexo_18_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_18_10)) = ( @year <= 2019 ) * ( dlog(CIexo_18_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_18_11)) = ( @year <= 2019 ) * ( dlog(CIexo_18_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
 PMAT_09_01 * MAT_09_01 = PMATD_09 * MATD_09_01 + PMATM_09 * MATM_09_01
 IA_12_2402 = IAD_12_2402 + IAM_12_2402
 MTD_08 = 0 + MTD_14_08 + MTD_16_08 + MTD_17_08 + MTD_18_08
@@ -22377,7 +22489,7 @@ dlog(CIMexo_09_06) = dlog(QMexo_09)
 dlog(CIMexo_09_07) = dlog(QMexo_09)
 PEXPG_24 = PG_24
 d(log(SM_e_12)) = 0.05 * d(log(SM_e_12(-1))) + 0.65 * d(log(SM_12(-1))) + 0.3 * d(log(SM_n_12))
-PEXPG_21 = PG_21
+MATM_09_17 = ( CIMexo_09_17 ) * ( @year <= 2019 ) + ( ( MAT_09_17 - MATM_des_09_17 > 0 ) * ( MATM_des_09_17 ) + ( MAT_09_17 - MATM_des_09_17 <= 0 ) * ( MAT_09_17 - 1e-05 ) ) * ( @year > 2019 )
 MATM_09_16 = ( CIMexo_09_16 ) * ( @year <= 2019 ) + ( ( MAT_09_16 - MATM_des_09_16 > 0 ) * ( MATM_des_09_16 ) + ( MAT_09_16 - MATM_des_09_16 <= 0 ) * ( MAT_09_16 - 1e-05 ) ) * ( @year > 2019 )
 dlog(CIMexo_07_06) = dlog(QMexo_07)
 dlog(CIMexo_07_07) = dlog(QMexo_07)
@@ -22411,7 +22523,7 @@ d(SUBST_MATD_n_03_15) = ( @year <= 2022 ) * ( - ES_CIM(15, 3) * d(log(PMATD_03) 
 d(SUBST_MATD_n_03_14) = ( @year <= 2022 ) * ( - ES_CIM(14, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_14(-1) / ( PMAT_03_14(-1) * MAT_03_14(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_14(-1) / ( PMAT_03_14(-1) * MAT_03_14(-1) ) ) )
 d(SUBST_MATD_n_03_17) = ( @year <= 2022 ) * ( - ES_CIM(17, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_17(-1) / ( PMAT_03_17(-1) * MAT_03_17(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_17(-1) / ( PMAT_03_17(-1) * MAT_03_17(-1) ) ) )
 d(SUBST_MATD_n_03_16) = ( @year <= 2022 ) * ( - ES_CIM(16, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_16(-1) / ( PMAT_03_16(-1) * MAT_03_16(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_16(-1) / ( PMAT_03_16(-1) * MAT_03_16(-1) ) ) )
-phi_E_oth_22_02 * ( ( E_oth_des_02 > 0 ) * E_oth_des_02 + ( E_oth_des_02 <= 0 ) ) = ( E_oth_des_02 > 0 ) * E_oth_des_22_02 + ( E_oth_des_02 <= 0 ) * 0
+d(SUBST_MATD_n_03_19) = ( @year <= 2022 ) * ( - ES_CIM(19, 3) * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_19(-1) / ( PMAT_03_19(-1) * MAT_03_19(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_03) - log(PMATM_03)) * ( PMATM_03(-1) * MATM_03_19(-1) / ( PMAT_03_19(-1) * MAT_03_19(-1) ) ) )
 phi_E_oth_22_03 * ( ( E_oth_des_03 > 0 ) * E_oth_des_03 + ( E_oth_des_03 <= 0 ) ) = ( E_oth_des_03 > 0 ) * E_oth_des_22_03 + ( E_oth_des_03 <= 0 ) * 0
 d(log(MAT_10_2201)) = d(log(MAT_2201)) + d(SUBST_MAT_10_2201)
 phi_E_oth_22_06 * ( ( E_oth_des_06 > 0 ) * E_oth_des_06 + ( E_oth_des_06 <= 0 ) ) = ( E_oth_des_06 > 0 ) * E_oth_des_22_06 + ( E_oth_des_06 <= 0 ) * 0
@@ -22775,16 +22887,16 @@ GDP_21 = CH_21 + G_21 + I_21 + X_21 + DS_21 - M_21
 PRF_net_2202 * RF_net_2202 = PRF_2202(-1) * RF_2202(-1) - PIS_2202 * IS_2202 + ( REDIS_VAL_SEC_TCO_2202(-1) + REDIS_VAL_SEC_ETS_2202(-1) + REDIS_VAL_SEC_ETS2_2202(-1) )
 PRF_net_2201 * RF_net_2201 = PRF_2201(-1) * RF_2201(-1) - PIS_2201 * IS_2201 + ( REDIS_VAL_SEC_TCO_2201(-1) + REDIS_VAL_SEC_ETS_2201(-1) + REDIS_VAL_SEC_ETS2_2201(-1) )
 dlog(E_oth_des_21_2401) = dlog(E_oth_2401) + d(SUBST_E_21_2401) + ( @year > 2006 ) * d(Q_Mtep_in_21_2401) / E_21_2401(-1)
-RF_net_19 = @elem(PRF_19(-1), 2006) * RF_19(-1) - IS_19 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_19(-1) + REC_VAL_SEC_ETS_19(-1) + REDIS_VAL_SEC_ETS2_19(-1) ) / PCH(-1)
-RF_net_18 = @elem(PRF_18(-1), 2006) * RF_18(-1) - IS_18 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_18(-1) + REC_VAL_SEC_ETS_18(-1) + REDIS_VAL_SEC_ETS2_18(-1) ) / PCH(-1)
-RF_net_15 = @elem(PRF_15(-1), 2006) * RF_15(-1) - IS_15 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_15(-1) + REC_VAL_SEC_ETS_15(-1) + REDIS_VAL_SEC_ETS2_15(-1) ) / PCH(-1)
-RF_net_14 = @elem(PRF_14(-1), 2006) * RF_14(-1) - IS_14 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_14(-1) + REC_VAL_SEC_ETS_14(-1) + REDIS_VAL_SEC_ETS2_14(-1) ) / PCH(-1)
-RF_net_17 = @elem(PRF_17(-1), 2006) * RF_17(-1) - IS_17 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_17(-1) + REC_VAL_SEC_ETS_17(-1) + REDIS_VAL_SEC_ETS2_17(-1) ) / PCH(-1)
-RF_net_16 = @elem(PRF_16(-1), 2006) * RF_16(-1) - IS_16 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_16(-1) + REC_VAL_SEC_ETS_16(-1) + REDIS_VAL_SEC_ETS2_16(-1) ) / PCH(-1)
-RF_net_11 = @elem(PRF_11(-1), 2006) * RF_11(-1) - IS_11 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_11(-1) + REC_VAL_SEC_ETS_11(-1) + REDIS_VAL_SEC_ETS2_11(-1) ) / PCH(-1)
-RF_net_10 = @elem(PRF_10(-1), 2006) * RF_10(-1) - IS_10 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_10(-1) + REC_VAL_SEC_ETS_10(-1) + REDIS_VAL_SEC_ETS2_10(-1) ) / PCH(-1)
-RF_net_13 = @elem(PRF_13(-1), 2006) * RF_13(-1) - IS_13 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_13(-1) + REC_VAL_SEC_ETS_13(-1) + REDIS_VAL_SEC_ETS2_13(-1) ) / PCH(-1)
-RF_net_12 = @elem(PRF_12(-1), 2006) * RF_12(-1) - IS_12 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_12(-1) + REC_VAL_SEC_ETS_12(-1) + REDIS_VAL_SEC_ETS2_12(-1) ) / PCH(-1)
+RF_net_19 = @elem(PRF_19(-1), 2006) * RF_19(-1) - IS_19 + ( REDIS_VAL_SEC_TCO_19(-1) + REDIS_VAL_SEC_ETS_19(-1) + REDIS_VAL_SEC_ETS2_19(-1) ) / PCH(-1)
+RF_net_18 = @elem(PRF_18(-1), 2006) * RF_18(-1) - IS_18 + ( REDIS_VAL_SEC_TCO_18(-1) + REDIS_VAL_SEC_ETS_18(-1) + REDIS_VAL_SEC_ETS2_18(-1) ) / PCH(-1)
+RF_net_15 = @elem(PRF_15(-1), 2006) * RF_15(-1) - IS_15 + ( REDIS_VAL_SEC_TCO_15(-1) + REDIS_VAL_SEC_ETS_15(-1) + REDIS_VAL_SEC_ETS2_15(-1) ) / PCH(-1)
+RF_net_14 = @elem(PRF_14(-1), 2006) * RF_14(-1) - IS_14 + ( REDIS_VAL_SEC_TCO_14(-1) + REDIS_VAL_SEC_ETS_14(-1) + REDIS_VAL_SEC_ETS2_14(-1) ) / PCH(-1)
+RF_net_17 = @elem(PRF_17(-1), 2006) * RF_17(-1) - IS_17 + ( REDIS_VAL_SEC_TCO_17(-1) + REDIS_VAL_SEC_ETS_17(-1) + REDIS_VAL_SEC_ETS2_17(-1) ) / PCH(-1)
+RF_net_16 = @elem(PRF_16(-1), 2006) * RF_16(-1) - IS_16 + ( REDIS_VAL_SEC_TCO_16(-1) + REDIS_VAL_SEC_ETS_16(-1) + REDIS_VAL_SEC_ETS2_16(-1) ) / PCH(-1)
+RF_net_11 = @elem(PRF_11(-1), 2006) * RF_11(-1) - IS_11 + ( REDIS_VAL_SEC_TCO_11(-1) + REDIS_VAL_SEC_ETS_11(-1) + REDIS_VAL_SEC_ETS2_11(-1) ) / PCH(-1)
+RF_net_10 = @elem(PRF_10(-1), 2006) * RF_10(-1) - IS_10 + ( REDIS_VAL_SEC_TCO_10(-1) + REDIS_VAL_SEC_ETS_10(-1) + REDIS_VAL_SEC_ETS2_10(-1) ) / PCH(-1)
+RF_net_13 = @elem(PRF_13(-1), 2006) * RF_13(-1) - IS_13 + ( REDIS_VAL_SEC_TCO_13(-1) + REDIS_VAL_SEC_ETS_13(-1) + REDIS_VAL_SEC_ETS2_13(-1) ) / PCH(-1)
+RF_net_12 = @elem(PRF_12(-1), 2006) * RF_12(-1) - IS_12 + ( REDIS_VAL_SEC_TCO_12(-1) + REDIS_VAL_SEC_ETS_12(-1) + REDIS_VAL_SEC_ETS2_12(-1) ) / PCH(-1)
 ER_Agriculture = Q_Mtep_sec_01
 SUBST_IAD_12_15 = ADJUST(13, 6) * SUBST_IAD_n_12_15 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_12_15(-1)
 SUBST_IAD_12_14 = ADJUST(13, 6) * SUBST_IAD_n_12_14 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_12_14(-1)
@@ -22827,7 +22939,7 @@ SUBST_EM_22_12 = ADJUST(8, 6) * SUBST_EM_n_22_12 + ( 1 - ADJUST(8, 6) ) * SUBST_
 MAT_17_09 = ( @year <= 2019 ) * ( MATD_17_09 + MATM_17_09 ) + ( @year > 2019 ) * ( MAT_n_17_09 )
 MAT_17_08 = ( @year <= 2019 ) * ( MATD_17_08 + MATM_17_08 ) + ( @year > 2019 ) * ( MAT_n_17_08 )
 PMAT_19_20 * MAT_19_20 = PMATD_19 * MATD_19_20 + PMATM_19 * MATM_19_20
-PMAT_19_21 * MAT_19_21 = PMATD_19 * MATD_19_21 + PMATM_19 * MATM_19_21
+phiy_E_22_2201 = PhiY_ener_exo_22_2201 + Q_Mtep_FC_2201 / Q_Mtep_ef_tot_SOU_22
 MAT_17_03 = ( @year <= 2019 ) * ( MATD_17_03 + MATM_17_03 ) + ( @year > 2019 ) * ( MAT_n_17_03 )
 MAT_17_02 = ( @year <= 2019 ) * ( MATD_17_02 + MATM_17_02 ) + ( @year > 2019 ) * ( MAT_n_17_02 )
 MAT_17_05 = ( @year <= 2019 ) * ( MATD_17_05 + MATM_17_05 ) + ( @year > 2019 ) * ( MAT_n_17_05 )
@@ -23034,6 +23146,7 @@ K_NE_n_2305 = K_NE_des_n_2305 / ( K_E_des_n_2305 + K_NE_des_n_2305 ) * K_n_2305
 K_NE_n_2304 = K_NE_des_n_2304 / ( K_E_des_n_2304 + K_NE_des_n_2304 ) * K_n_2304
 K_NE_n_2308 = K_NE_des_n_2308 / ( K_E_des_n_2308 + K_NE_des_n_2308 ) * K_n_2308
 verif_phiYbis_24 = 0 + PhiY_24_01 + PhiY_24_02 + PhiY_24_03 + PhiY_24_04 + PhiY_24_05 + PhiY_24_06 + PhiY_24_07 + PhiY_24_08 + PhiY_24_09 + PhiY_24_10 + PhiY_24_11 + PhiY_24_12 + PhiY_24_13 + PhiY_24_14 + PhiY_24_15 + PhiY_24_16 + PhiY_24_17 + PhiY_24_18 + PhiY_24_19 + PhiY_24_20 + PhiY_24_21 + PhiY_24_2201 + PhiY_24_2202 + PhiY_24_2301 + PhiY_24_2302 + PhiY_24_2303 + PhiY_24_2304 + PhiY_24_2305 + PhiY_24_2306 + PhiY_24_2307 + PhiY_24_2308 + PhiY_24_2401 + PhiY_24_2402 + PhiY_24_2403 + PhiY_24_2404 + PhiY_24_2405 + PhiY_24_2406 - 1
+phiy_E_21_21 = PhiY_ener_exo_21_21 + Q_Mtep_FC_21 / Q_Mtep_ef_tot_SOU_21
 PE_24_2401 * E_24_2401 = PED_24_2401 * ED_24_2401 + PEM_24_2401 * EM_24_2401
 IA_24_15 = IAD_24_15 + IAM_24_15
 IA_24_14 = IAD_24_14 + IAM_24_14
@@ -23115,7 +23228,7 @@ d(log(W_S_ademe_03)) = ( ADJUST(18, 1) * d(log(W_S_n_03)) + ( 1 - ADJUST(18, 1) 
 d(log(W_S_ademe_02)) = ( ADJUST(18, 1) * d(log(W_S_n_02)) + ( 1 - ADJUST(18, 1) ) * d(log(W_S_02(-1))) - ADJUST(18, 2) * ( log(W_S_02(-1) / W_S_n_02(-1)) ) )
 d(log(W_S_ademe_09)) = ( ADJUST(18, 1) * d(log(W_S_n_09)) + ( 1 - ADJUST(18, 1) ) * d(log(W_S_09(-1))) - ADJUST(18, 2) * ( log(W_S_09(-1) / W_S_n_09(-1)) ) )
 d(log(W_S_ademe_08)) = ( ADJUST(18, 1) * d(log(W_S_n_08)) + ( 1 - ADJUST(18, 1) ) * d(log(W_S_08(-1))) - ADJUST(18, 2) * ( log(W_S_08(-1) / W_S_n_08(-1)) ) )
-d(log(MAT_n_03_20)) = ( @year <= 2019 ) * ( dlog(CIexo_03_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_03_20)) = ( @year <= 2019 ) * ( dlog(CIexo_03_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 dlog(CIMexo_18_02) = dlog(QMexo_18)
 dlog(CIMexo_18_03) = dlog(QMexo_18)
 dlog(CIMexo_18_01) = dlog(QMexo_18)
@@ -23125,9 +23238,9 @@ dlog(CIMexo_18_04) = dlog(QMexo_18)
 dlog(CIMexo_18_05) = dlog(QMexo_18)
 dlog(CIMexo_18_08) = dlog(QMexo_18)
 dlog(CIMexo_18_09) = dlog(QMexo_18)
-I_MDE_n_2307 = K_E_n_2307 - K_E_n_2307(-1) * ( 1 - tdec_2307 )
+verif_PhiY_21 = 0 + PhiY_21_12 + PhiY_21_21 - 1
 I_MDE_n_2306 = K_E_n_2306 - K_E_n_2306(-1) * ( 1 - tdec_2306 )
-I_MDE_n_2305 = K_E_n_2305 - K_E_n_2305(-1) * ( 1 - tdec_2305 )
+verif_PhiY_23 = 0 + PhiY_23_12 + PhiY_23_2301 + PhiY_23_2302 + PhiY_23_2303 + PhiY_23_2304 + PhiY_23_2305 + PhiY_23_2306 + PhiY_23_2307 + PhiY_23_2308 - 1
 verif_PhiY_22 = 0 + PhiY_22_01 + PhiY_22_2201 + PhiY_22_2202 - 1
 I_MDE_n_2303 = K_E_n_2303 - K_E_n_2303(-1) * ( 1 - tdec_2303 )
 I_MDE_n_2302 = K_E_n_2302 - K_E_n_2302(-1) * ( 1 - tdec_2302 )
@@ -23384,12 +23497,12 @@ dlog(CIexo_11_07) = dlog(CIexo_11)
 dlog(CIexo_11_06) = dlog(CIexo_11)
 dlog(CIexo_11_09) = dlog(CIexo_11)
 dlog(CIexo_11_08) = dlog(CIexo_11)
-PhiY_ener_24_2402 = PhiY_E_24_2402 / PhiY_E_24
-PhiY_ener_24_2403 = PhiY_E_24_2403 / PhiY_E_24
-PhiY_ener_24_2401 = PhiY_E_24_2401 / PhiY_E_24
-PhiY_ener_24_2406 = PhiY_E_24_2406 / PhiY_E_24
-PhiY_ener_24_2404 = PhiY_E_24_2404 / PhiY_E_24
-PhiY_ener_24_2405 = PhiY_E_24_2405 / PhiY_E_24
+phiy_ener_24_2402 = phiy_E_24_2402 / PhiY_E_24
+phiy_ener_24_2403 = phiy_E_24_2403 / PhiY_E_24
+phiy_ener_24_2401 = phiy_E_24_2401 / PhiY_E_24
+phiy_ener_24_2406 = phiy_E_24_2406 / PhiY_E_24
+phiy_ener_24_2404 = phiy_E_24_2404 / PhiY_E_24
+phiy_ener_24_2405 = phiy_E_24_2405 / PhiY_E_24
 phi_MAT_bis_2301 = MAT_2301 * PMAT_2301 / ( K_2301 * CK_2301 + L_2301 * PROG_L_2301 * CL_2301 + E_2301 * ( PE_2301 + PE_CEE_2301 + PE_signal_bis_2301 ) + MAT_2301 * PMAT_2301 )
 Y_02_02 = PhiY_02_02 * YQ_02
 Y_02_01 = PhiY_02_01 * YQ_02
@@ -23512,13 +23625,15 @@ YQ_15 * PYQ_15 = PQD_15 * QD_15 - PVATD_15 * VATD_15 - POTHTD_15 * OTHTD_15 - PS
 YQ_14 * PYQ_14 = PQD_14 * QD_14 - PVATD_14 * VATD_14 - POTHTD_14 * OTHTD_14 - PSUBD_14 * SUBD_14 - ( PMCD_14 * MCD_14 + PMTD_14 * MTD_14 ) - PENERTD_14 * ENERTD_14
 YQ_19 * PYQ_19 = PQD_19 * QD_19 - PVATD_19 * VATD_19 - POTHTD_19 * OTHTD_19 - PSUBD_19 * SUBD_19 - ( PMCD_19 * MCD_19 + PMTD_19 * MTD_19 ) - PENERTD_19 * ENERTD_19
 YQ_18 * PYQ_18 = PQD_18 * QD_18 - PVATD_18 * VATD_18 - POTHTD_18 * OTHTD_18 - PSUBD_18 * SUBD_18 - ( PMCD_18 * MCD_18 + PMTD_18 * MTD_18 ) - PENERTD_18 * ENERTD_18
+phiy_E_22_2202 = PhiY_ener_exo_22_2202 + Q_Mtep_FC_2202 / Q_Mtep_ef_tot_SOU_22
+PMAT_19_21 * MAT_19_21 = PMATD_19 * MATD_19_21 + PMATM_19 * MATM_19_21
 d(log(PY_des_11)) = 0.66 * d(log(NCU_n_11)) + 0.07 * d(log(1 + TMD_n_11)) - 0.17 * ( log(PY_des_11(-1)) - log(PY_n_11(-1)) )
 d(log(PY_des_10)) = 0.66 * d(log(NCU_n_10)) + 0.07 * d(log(1 + TMD_n_10)) - 0.17 * ( log(PY_des_10(-1)) - log(PY_n_10(-1)) )
 d(log(PY_des_13)) = 0.36 * d(log(PY_des_13(-1))) + 0.11 * d(log(NCU_n_13)) + 0.16 * d(log(1 + TMD_n_13)) - 0.06 * ( log(PY_des_13(-1)) - log(PY_n_13(-1)) )
 d(log(PY_des_12)) = 0.66 * d(log(NCU_n_12)) + 0.07 * d(log(1 + TMD_n_12)) - 0.17 * ( log(PY_des_12(-1)) - log(PY_n_12(-1)) )
 phi_E_oth_21_2201 * ( ( E_oth_des_2201 > 0 ) * E_oth_des_2201 + ( E_oth_des_2201 <= 0 ) ) = ( E_oth_des_2201 > 0 ) * E_oth_des_21_2201 + ( E_oth_des_2201 <= 0 ) * 0
 d(log(PY_des_14)) = 0.49 * d(log(NCU_n_14)) + 0.11 * d(log(1 + TMD_n_14)) + 0.19 * d(log(NCU_n_14(-1))) - 0.09 * ( log(PY_des_14(-1)) - log(PY_n_14(-1)) )
-d(log(PY_des_17)) = 0.49 * d(log(NCU_n_17)) + 0.11 * d(log(1 + TMD_n_17)) + 0.19 * d(log(NCU_n_17(-1))) - 0.09 * ( log(PY_des_17(-1)) - log(PY_n_17(-1)) )
+MAT_12_08 = ( @year <= 2019 ) * ( MATD_12_08 + MATM_12_08 ) + ( @year > 2019 ) * ( MAT_n_12_08 )
 MAT_12_09 = ( @year <= 2019 ) * ( MATD_12_09 + MATM_12_09 ) + ( @year > 2019 ) * ( MAT_n_12_09 )
 verif_IA_des_06 = IA_des_06 - I_MDE_n_06 - I_NE_n_06
 MAT_12_07 = ( @year <= 2019 ) * ( MATD_12_07 + MATM_12_07 ) + ( @year > 2019 ) * ( MAT_n_12_07 )
@@ -23541,16 +23656,16 @@ SUBST_IAM_19_2306 = ADJUST(14, 6) * SUBST_IAM_n_19_2306 + ( 1 - ADJUST(14, 6) ) 
 SUBST_IAM_19_2301 = ADJUST(14, 6) * SUBST_IAM_n_19_2301 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_19_2301(-1)
 SUBST_IAM_19_2303 = ADJUST(14, 6) * SUBST_IAM_n_19_2303 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_19_2303(-1)
 SUBST_IAM_19_2302 = ADJUST(14, 6) * SUBST_IAM_n_19_2302 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_19_2302(-1)
-d(log(MAT_n_09_10)) = ( @year <= 2019 ) * ( dlog(CIexo_09_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_09_11)) = ( @year <= 2019 ) * ( dlog(CIexo_09_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_09_12)) = ( @year <= 2019 ) * ( dlog(CIexo_09_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_09_13)) = ( @year <= 2019 ) * ( dlog(CIexo_09_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_09_14)) = ( @year <= 2019 ) * ( dlog(CIexo_09_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_09_15)) = ( @year <= 2019 ) * ( dlog(CIexo_09_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_09_16)) = ( @year <= 2019 ) * ( dlog(CIexo_09_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_09_17)) = ( @year <= 2019 ) * ( dlog(CIexo_09_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_09_18)) = ( @year <= 2019 ) * ( dlog(CIexo_09_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_09_19)) = ( @year <= 2019 ) * ( dlog(CIexo_09_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_09_10)) = ( @year <= 2019 ) * ( dlog(CIexo_09_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_09_11)) = ( @year <= 2019 ) * ( dlog(CIexo_09_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_09_12)) = ( @year <= 2019 ) * ( dlog(CIexo_09_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_09_13)) = ( @year <= 2019 ) * ( dlog(CIexo_09_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_09_14)) = ( @year <= 2019 ) * ( dlog(CIexo_09_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_09_15)) = ( @year <= 2019 ) * ( dlog(CIexo_09_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_09_16)) = ( @year <= 2019 ) * ( dlog(CIexo_09_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_09_17)) = ( @year <= 2019 ) * ( dlog(CIexo_09_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_09_18)) = ( @year <= 2019 ) * ( dlog(CIexo_09_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_09_19)) = ( @year <= 2019 ) * ( dlog(CIexo_09_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_09_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_09_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_09_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_09_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
 CU_OPEX_17 * PY_17 * Y_17 = CL_17 * L_17 + PEner_17 * Ener_17 + PMAT_17 * MAT_17
 CU_OPEX_16 * PY_16 * Y_16 = CL_16 * L_16 + PEner_16 * Ener_16 + PMAT_16 * MAT_16
 CU_OPEX_11 * PY_11 * Y_11 = CL_11 * L_11 + PEner_11 * Ener_11 + PMAT_11 * MAT_11
@@ -23635,6 +23750,7 @@ SUBST_MATM_18_04 = ADJUST(10, 6) * SUBST_MATM_n_18_04 + ( 1 - ADJUST(10, 6) ) * 
 SUBST_MATM_18_05 = ADJUST(10, 6) * SUBST_MATM_n_18_05 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_18_05(-1)
 SUBST_MATM_18_08 = ADJUST(10, 6) * SUBST_MATM_n_18_08 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_18_08(-1)
 SUBST_MATM_18_09 = ADJUST(10, 6) * SUBST_MATM_n_18_09 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_18_09(-1)
+dlog(ENER_spe_H01_CF_23) = dlog(BUIL_H01_CF + 0.1)
 PCIM_23_2305 = PEM_23_2305
 MATM_des_14_14 = ( CIMexo_14_14 ) * ( @year <= 2019 ) + ( ( MATM_des_14_14(-1) * ( 1 + d(MATM_des_n_14_14) / MATM_des_n_14_14(-1) ) > 0 ) * ( MATM_des_14_14(-1) * ( 1 + d(MATM_des_n_14_14) / MATM_des_n_14_14(-1) ) ) + ( MATM_des_14_14(-1) * ( 1 + d(MATM_des_n_14_14) / MATM_des_n_14_14(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_14_15 = ( CIMexo_14_15 ) * ( @year <= 2019 ) + ( ( MATM_des_14_15(-1) * ( 1 + d(MATM_des_n_14_15) / MATM_des_n_14_15(-1) ) > 0 ) * ( MATM_des_14_15(-1) * ( 1 + d(MATM_des_n_14_15) / MATM_des_n_14_15(-1) ) ) + ( MATM_des_14_15(-1) * ( 1 + d(MATM_des_n_14_15) / MATM_des_n_14_15(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -23647,7 +23763,6 @@ PDSD_17 = PYQS_17
 PDSD_18 = PYQS_18
 PDSD_19 = PYQS_19
 PCIM_23_2304 = PEM_23_2304
-ENER_spe_val_H01_CD_24 = PENER_BUIL_H01_CD_24 * ENER_spe_H01_CD_24
 phi_MAT_n_18_20 * SUM_MAT_N_CM_20 = MAT_n_18_20
 d(log(PARTR_e_W_20)) = 0.05 * d(log(PARTR_e_W_20(-1))) + 0.65 * d(log(PARTR_W_20(-1))) + 0.3 * d(log(PARTR_n_W_20))
 d(log(PARTR_e_W_25)) = 0.05 * d(log(PARTR_e_W_25(-1))) + 0.65 * d(log(PARTR_W_25(-1))) + 0.3 * d(log(PARTR_n_W_25))
@@ -23664,6 +23779,7 @@ EMS_SEC = 0 + EMS_SEC_01 + EMS_SEC_02 + EMS_SEC_03 + EMS_SEC_04 + EMS_SEC_05 + E
 L_S = 0 + L_S_01 + L_S_02 + L_S_03 + L_S_04 + L_S_05 + L_S_06 + L_S_07 + L_S_08 + L_S_09 + L_S_10 + L_S_11 + L_S_12 + L_S_13 + L_S_14 + L_S_15 + L_S_16 + L_S_17 + L_S_18 + L_S_19 + L_S_20 + L_S_21 + L_S_2201 + L_S_2202 + L_S_2301 + L_S_2302 + L_S_2303 + L_S_2304 + L_S_2305 + L_S_2306 + L_S_2307 + L_S_2308 + L_S_2401 + L_S_2402 + L_S_2403 + L_S_2404 + L_S_2405 + L_S_2406
 SUBST_EM_21_2401 = ADJUST(8, 6) * SUBST_EM_n_21_2401 + ( 1 - ADJUST(8, 6) ) * SUBST_EM_21_2401(-1)
 BetaEXP_n = 0 + BetaEXP_n_01_H01 + BetaEXP_n_02_H01 + BetaEXP_n_04_H01 + BetaEXP_n_05_H01 + BetaEXP_n_06_H01 + BetaEXP_n_07_H01 + BetaEXP_n_08_H01 + BetaEXP_n_09_H01 + BetaEXP_n_10_H01 + BetaEXP_n_11_H01 + BetaEXP_n_12_H01 + BetaEXP_n_16_H01 + BetaEXP_n_17_H01 + BetaEXP_n_19_H01 + BetaEXP_n_20_H01
+dlog(ENER_spe_H01_CB_23) = dlog(BUIL_H01_CB + 0.1)
 AUTO_H01_CF_24 = AUTO_H01_CF * SHARE_AUTO_H01_CF_24
 AUTO_H01_CF_22 = AUTO_H01_CF * SHARE_AUTO_H01_CF_22
 AUTO_H01_CF_23 = AUTO_H01_CF * SHARE_AUTO_H01_CF_23
@@ -24096,6 +24212,14 @@ PMAT_05_2202 * MAT_05_2202 = PMATD_05 * MATD_05_2202 + PMATM_05 * MATM_05_2202
 d(log(EXP_e_15_H01)) = ADJUST(20 + 15, 2) * d(log(EXP_e_15_H01(-1))) + ADJUST(20 + 15, 3) * d(log(EXP_15_H01(-1))) + ADJUST(20 + 15, 4) * d(log(EXP_n_15_H01))
 d(log(PM_n_23)) = ( 0.74 * dlog(TC * PWD_23) - 0.97 * ( log(PM_n_23(-1)) - 0.17 * log(PYQS_SM(-1)) - ( 1 - 0.17 ) * log(TC * PWD_23(-1)) ) )
 d(log(PM_n_24)) = ( 0.74 * dlog(TC * PWD_24) - 0.97 * ( log(PM_n_24(-1)) - 0.17 * log(PYQS_SM(-1)) - ( 1 - 0.17 ) * log(TC * PWD_24(-1)) ) )
+phiy_ener_23_2308 = phiy_E_23_2308 / PhiY_E_23
+phiy_ener_23_2301 = phiy_E_23_2301 / PhiY_E_23
+phiy_ener_23_2302 = phiy_E_23_2302 / PhiY_E_23
+phiy_ener_23_2303 = phiy_E_23_2303 / PhiY_E_23
+phiy_ener_23_2304 = phiy_E_23_2304 / PhiY_E_23
+phiy_ener_23_2305 = phiy_E_23_2305 / PhiY_E_23
+phiy_ener_23_2306 = phiy_E_23_2306 / PhiY_E_23
+phiy_ener_23_2307 = phiy_E_23_2307 / PhiY_E_23
 IA_20_2406 = IAD_20_2406 + IAM_20_2406
 IA_20_2404 = IAD_20_2404 + IAM_20_2404
 IA_20_2405 = IAD_20_2405 + IAM_20_2405
@@ -24198,6 +24322,12 @@ MATM_des_02_08 = ( CIMexo_02_08 ) * ( @year <= 2019 ) + ( ( MATM_des_02_08(-1) *
 MATM_des_02_09 = ( CIMexo_02_09 ) * ( @year <= 2019 ) + ( ( MATM_des_02_09(-1) * ( 1 + d(MATM_des_n_02_09) / MATM_des_n_02_09(-1) ) > 0 ) * ( MATM_des_02_09(-1) * ( 1 + d(MATM_des_n_02_09) / MATM_des_n_02_09(-1) ) ) + ( MATM_des_02_09(-1) * ( 1 + d(MATM_des_n_02_09) / MATM_des_n_02_09(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 IA_08_20 = IAD_08_20 + IAM_08_20
 IA_08_21 = IAD_08_21 + IAM_08_21
+phiy_ener_21_2405 = phiy_E_21_2405 / PhiY_E_21
+phiy_ener_21_2404 = phiy_E_21_2404 / PhiY_E_21
+phiy_ener_21_2406 = phiy_E_21_2406 / PhiY_E_21
+phiy_ener_21_2401 = phiy_E_21_2401 / PhiY_E_21
+phiy_ener_21_2403 = phiy_E_21_2403 / PhiY_E_21
+phiy_ener_21_2402 = phiy_E_21_2402 / PhiY_E_21
 PMAT_14_2201 * MAT_14_2201 = PMATD_14 * MATD_14_2201 + PMATM_14 * MATM_14_2201
 PMAT_14_2202 * MAT_14_2202 = PMATD_14 * MATD_14_2202 + PMATM_14 * MATM_14_2202
 SUBST_MAT_15_2308 = ADJUST(6, 6) * SUBST_MAT_n_15_2308 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_15_2308(-1) )
@@ -24238,7 +24368,7 @@ PMAT_2306 * MAT_2306 = 0 + PMAT_01_2306 * MAT_01_2306 + PMAT_02_2306 * MAT_02_23
 verif_IA_dgt_16_04 = IA_n_16_04 - IA_bis_dgt_16_04
 Q_Mtep_ep_2301 = 0 + Q_Mtep_ep_23_2301
 Q_Mtep_ep_2302 = 0 + Q_Mtep_ep_23_2302
-verif_IA_dgt_16_07 = IA_n_16_07 - IA_bis_dgt_16_07
+Q_Mtep_ep_2303 = 0 + Q_Mtep_ep_23_2303
 Q_Mtep_ep_2304 = 0 + Q_Mtep_ep_23_2304
 Q_Mtep_ep_2305 = 0 + Q_Mtep_ep_23_2305
 Q_Mtep_ep_2306 = 0 + Q_Mtep_ep_23_2306
@@ -24267,7 +24397,7 @@ SUBST_CHM_21 = 0.8 * SUBST_CHM_n_21 + ( 1 - 0.8 ) * ( SUBST_CHM_21(-1) )
 SUBST_CHM_23 = 0.8 * SUBST_CHM_n_23 + ( 1 - 0.8 ) * ( SUBST_CHM_23(-1) )
 SUBST_CHM_22 = 0.8 * SUBST_CHM_n_22 + ( 1 - 0.8 ) * ( SUBST_CHM_22(-1) )
 IAD_13_09 = ( ( IA_n_13_09 - IAM_13_09 > 0 ) * ( IA_n_13_09 - IAM_13_09 ) + ( IA_n_13_09 - IAM_13_09 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( IAD_13_09(-1) * ( 1 + ( IA_n_13_09 > 0 ) * ( d(IA_n_13_09) / IA_n_13_09(-1) + d(SUBST_IAD_13_09) ) ) ) * ( @year > 2019 )
-IAD_13_08 = ( ( IA_n_13_08 - IAM_13_08 > 0 ) * ( IA_n_13_08 - IAM_13_08 ) + ( IA_n_13_08 - IAM_13_08 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( IAD_13_08(-1) * ( 1 + ( IA_n_13_08 > 0 ) * ( d(IA_n_13_08) / IA_n_13_08(-1) + d(SUBST_IAD_13_08) ) ) ) * ( @year > 2019 )
+phiy_E_23_2403 = PhiY_ener_exo_23_2403 + Q_Mtep_FC_2403 / Q_Mtep_ef_tot_SOU_23
 delta_AUTO_H01_CG_DES = 1 / AUTO_D
 IAD_13_01 = ( ( IA_n_13_01 - IAM_13_01 > 0 ) * ( IA_n_13_01 - IAM_13_01 ) + ( IA_n_13_01 - IAM_13_01 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( IAD_13_01(-1) * ( 1 + ( IA_n_13_01 > 0 ) * ( d(IA_n_13_01) / IA_n_13_01(-1) + d(SUBST_IAD_13_01) ) ) ) * ( @year > 2019 )
 IAD_13_03 = ( ( IA_n_13_03 - IAM_13_03 > 0 ) * ( IA_n_13_03 - IAM_13_03 ) + ( IA_n_13_03 - IAM_13_03 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( IAD_13_03(-1) * ( 1 + ( IA_n_13_03 > 0 ) * ( d(IA_n_13_03) / IA_n_13_03(-1) + d(SUBST_IAD_13_03) ) ) ) * ( @year > 2019 )
@@ -24409,7 +24539,7 @@ SUBST_MAT_14_2307 = ADJUST(6, 6) * SUBST_MAT_n_14_2307 + ( 1 - ADJUST(6, 6) ) * 
 SUBST_MAT_14_2306 = ADJUST(6, 6) * SUBST_MAT_n_14_2306 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_14_2306(-1) )
 SUBST_MAT_14_2305 = ADJUST(6, 6) * SUBST_MAT_n_14_2305 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_14_2305(-1) )
 SUBST_MAT_14_2304 = ADJUST(6, 6) * SUBST_MAT_n_14_2304 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_14_2304(-1) )
-d(log(MAT_n_13_13)) = ( @year <= 2019 ) * ( dlog(CIexo_13_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_13_13)) = ( @year <= 2019 ) * ( dlog(CIexo_13_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_13_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_13_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_13_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_13_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
 SUBST_MAT_14_2308 = ADJUST(6, 6) * SUBST_MAT_n_14_2308 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_14_2308(-1) )
 SUBST_IAD_05_2301 = ADJUST(13, 6) * SUBST_IAD_n_05_2301 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_2301(-1)
 SUBST_IAD_05_2303 = ADJUST(13, 6) * SUBST_IAD_n_05_2303 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_05_2303(-1)
@@ -24476,16 +24606,16 @@ IA_14_2307 = IAD_14_2307 + IAM_14_2307
 IA_14_2304 = IAD_14_2304 + IAM_14_2304
 IA_14_2305 = IAD_14_2305 + IAM_14_2305
 IA_14_2308 = IAD_14_2308 + IAM_14_2308
-REDIS_VAL_SEC_TCO_14 = REC_VAL_SEC_TCO_14
-REDIS_VAL_SEC_TCO_15 = REC_VAL_SEC_TCO_15
-REDIS_VAL_SEC_TCO_16 = REC_VAL_SEC_TCO_16
-REDIS_VAL_SEC_TCO_17 = REC_VAL_SEC_TCO_17
-REDIS_VAL_SEC_TCO_10 = REC_VAL_SEC_TCO_10
-REDIS_VAL_SEC_TCO_11 = REC_VAL_SEC_TCO_11
-REDIS_VAL_SEC_TCO_12 = REC_VAL_SEC_TCO_12
-REDIS_VAL_SEC_TCO_13 = REC_VAL_SEC_TCO_13
-REDIS_VAL_SEC_TCO_18 = REC_VAL_SEC_TCO_18
-REDIS_VAL_SEC_TCO_19 = REC_VAL_SEC_TCO_19
+REDIS_VAL_SEC_TCO_14 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_14
+REDIS_VAL_SEC_TCO_15 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_15
+REDIS_VAL_SEC_TCO_16 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_16
+REDIS_VAL_SEC_TCO_17 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_17
+REDIS_VAL_SEC_TCO_10 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_10
+REDIS_VAL_SEC_TCO_11 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_11
+REDIS_VAL_SEC_TCO_12 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_12
+REDIS_VAL_SEC_TCO_13 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_13
+REDIS_VAL_SEC_TCO_18 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_18
+REDIS_VAL_SEC_TCO_19 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_19
 d(log(PY_e_2201)) = 0.05 * d(log(PY_e_2201(-1))) + 0.65 * d(log(PY_2201(-1))) + 0.3 * d(log(PY_n_2201))
 d(log(PY_e_2202)) = 0.05 * d(log(PY_e_2202(-1))) + 0.65 * d(log(PY_2202(-1))) + 0.3 * d(log(PY_n_2202))
 IA_23_21 = IAD_23_21 + IAM_23_21
@@ -24818,12 +24948,12 @@ d(log(MATD_12_2402)) = d(log(MAT_12_2402)) + d(SUBST_MATD_12_2402)
 d(log(MTD_18_10)) = d(log(YQ_10)) + d(SUBST_MTD_18_10)
 d(log(MTD_18_11)) = d(log(YQ_11)) + d(SUBST_MTD_18_11)
 d(log(MTD_18_12)) = d(log(YQ_12)) + d(SUBST_MTD_18_12)
-PROG_K_2404 = PROG_K_2404(-1) * ( 1 + GR_PROG_K_2404 )
-PROG_K_2405 = PROG_K_2405(-1) * ( 1 + GR_PROG_K_2405 )
-PROG_K_2406 = PROG_K_2406(-1) * ( 1 + GR_PROG_K_2406 )
-PROG_K_2401 = PROG_K_2401(-1) * ( 1 + GR_PROG_K_2401 )
-PROG_K_2402 = PROG_K_2402(-1) * ( 1 + GR_PROG_K_2402 )
-PROG_K_2403 = PROG_K_2403(-1) * ( 1 + GR_PROG_K_2403 )
+PROG_K_2404 = PROG_K_2404(-1) * ( 1 + GR_PROG_K_2404 + CHOC_K + CHOC_PGF )
+PROG_K_2405 = PROG_K_2405(-1) * ( 1 + GR_PROG_K_2405 + CHOC_K + CHOC_PGF )
+PROG_K_2406 = PROG_K_2406(-1) * ( 1 + GR_PROG_K_2406 + CHOC_K + CHOC_PGF )
+PROG_K_2401 = PROG_K_2401(-1) * ( 1 + GR_PROG_K_2401 + CHOC_K + CHOC_PGF )
+PROG_K_2402 = PROG_K_2402(-1) * ( 1 + GR_PROG_K_2402 + CHOC_K + CHOC_PGF )
+PROG_K_2403 = PROG_K_2403(-1) * ( 1 + GR_PROG_K_2403 + CHOC_K + CHOC_PGF )
 d(log(W_SE_06)) = d(log(W_S_06))
 d(log(W_SE_07)) = d(log(W_S_07))
 d(log(W_SE_04)) = d(log(W_S_04))
@@ -24943,6 +25073,7 @@ PE_24_10 * E_24_10 = PED_24_10 * ED_24_10 + PEM_24_10 * EM_24_10
 d(log(MAT_n_2403)) = d(log(Y_2403)) + d(SUBST_MAT_2403) + choc_MAT_2403
 PE_24_18 * E_24_18 = PED_24_18 * ED_24_18 + PEM_24_18 * EM_24_18
 PE_24_19 * E_24_19 = PED_24_19 * ED_24_19 + PEM_24_19 * EM_24_19
+phiy_E_22_21 = PhiY_ener_exo_22_21 + Q_Mtep_FC_21 / Q_Mtep_ef_tot_SOU_22
 IA_14_2405 = IAD_14_2405 + IAM_14_2405
 IA_14_2404 = IAD_14_2404 + IAM_14_2404
 IA_14_2406 = IAD_14_2406 + IAM_14_2406
@@ -25175,12 +25306,12 @@ MATD_19_06 = ( CIDexo_19_06 ) * ( @year <= 2019 ) + ( ( MAT_19_06 - MATM_19_06 >
 MATD_19_07 = ( CIDexo_19_07 ) * ( @year <= 2019 ) + ( ( MAT_19_07 - MATM_19_07 > 0 ) * ( MAT_19_07 - MATM_19_07 ) + ( MAT_19_07 - MATM_19_07 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_19_01 = ( CIDexo_19_01 ) * ( @year <= 2019 ) + ( ( MAT_19_01 - MATM_19_01 > 0 ) * ( MAT_19_01 - MATM_19_01 ) + ( MAT_19_01 - MATM_19_01 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_19_02 = ( CIDexo_19_02 ) * ( @year <= 2019 ) + ( ( MAT_19_02 - MATM_19_02 > 0 ) * ( MAT_19_02 - MATM_19_02 ) + ( MAT_19_02 - MATM_19_02 <= 0 ) * 0.0001 ) * ( @year > 2019 )
-MATD_19_03 = ( CIDexo_19_03 ) * ( @year <= 2019 ) + ( ( MAT_19_03 - MATM_19_03 > 0 ) * ( MAT_19_03 - MATM_19_03 ) + ( MAT_19_03 - MATM_19_03 <= 0 ) * 0.0001 ) * ( @year > 2019 )
+EM_23_06 = ( ( E_23_06 - ED_23_06 > 0 ) * ( E_23_06 - ED_23_06 ) + ( E_23_06 - ED_23_06 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_06 - EM_des_23_06 > 0 ) * ( EM_des_23_06 ) + ( E_23_06 - EM_des_23_06 <= 0 ) * ( E_23_06 - 1e-05 ) ) * ( @year > 2019 )
 MATD_19_08 = ( CIDexo_19_08 ) * ( @year <= 2019 ) + ( ( MAT_19_08 - MATM_19_08 > 0 ) * ( MAT_19_08 - MATM_19_08 ) + ( MAT_19_08 - MATM_19_08 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_19_09 = ( CIDexo_19_09 ) * ( @year <= 2019 ) + ( ( MAT_19_09 - MATM_19_09 > 0 ) * ( MAT_19_09 - MATM_19_09 ) + ( MAT_19_09 - MATM_19_09 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 TIS_2301 = TIS_exo_2301 - ( choc_IS(-1) * PY_2301(-1) * Y_2301(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2301 ) / ( PRF_2301(-1) * RF_2301(-1) + 1e-07 )
 TIS_2202 = TIS_exo_2202 - ( choc_IS(-1) * PY_2202(-1) * Y_2202(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2202 ) / ( PRF_2202(-1) * RF_2202(-1) + 1e-07 )
-EM_23_03 = ( ( E_23_03 - ED_23_03 > 0 ) * ( E_23_03 - ED_23_03 ) + ( E_23_03 - ED_23_03 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_03 - EM_des_23_03 > 0 ) * ( EM_des_23_03 ) + ( E_23_03 - EM_des_23_03 <= 0 ) * ( E_23_03 - 1e-05 ) ) * ( @year > 2019 )
+TIS_2306 = TIS_exo_2306 - ( choc_IS(-1) * PY_2306(-1) * Y_2306(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2306 ) / ( PRF_2306(-1) * RF_2306(-1) + 1e-07 )
 SUBST_IAD_19_05 = ADJUST(13, 6) * SUBST_IAD_n_19_05 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_05(-1)
 Q_Mtep_indus = 0 + Q_Mtep_indus_21
 TIS_2307 = TIS_exo_2307 - ( choc_IS(-1) * PY_2307(-1) * Y_2307(-1) / ( PY(-1) * Y(-1) ) + TAX_CR_VAL_2307 ) / ( PRF_2307(-1) * RF_2307(-1) + 1e-07 )
@@ -25189,7 +25320,7 @@ PE_17 = PEner_17
 PE_14 = PEner_14
 PE_15 = PEner_15
 PE_12 = PEner_12
-PE_13 = PEner_13
+EM_23_01 = ( ( E_23_01 - ED_23_01 > 0 ) * ( E_23_01 - ED_23_01 ) + ( E_23_01 - ED_23_01 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_23_01 - EM_des_23_01 > 0 ) * ( EM_des_23_01 ) + ( E_23_01 - EM_des_23_01 <= 0 ) * ( E_23_01 - 1e-05 ) ) * ( @year > 2019 )
 PE_10 = PEner_10
 PE_11 = PEner_11
 PE_18 = PEner_18
@@ -25198,20 +25329,20 @@ SUBST_MTM_17_24 = ADJUST(12, 6) * SUBST_MTM_n_17_24 + ( 1 - ADJUST(12, 6) ) * SU
 SUBST_MTM_17_21 = ADJUST(12, 6) * SUBST_MTM_n_17_21 + ( 1 - ADJUST(12, 6) ) * SUBST_MTM_17_21(-1)
 SUBST_MTM_17_22 = ADJUST(12, 6) * SUBST_MTM_n_17_22 + ( 1 - ADJUST(12, 6) ) * SUBST_MTM_17_22(-1)
 d(log(IAD_19_2307)) = d(log(IA_n_19_2307)) + d(SUBST_IAD_19_2307)
-verif_PhiY_21 = 0 + PhiY_21_12 + PhiY_21_21 - 1
+I_MDE_n_2307 = K_E_n_2307 - K_E_n_2307(-1) * ( 1 - tdec_2307 )
 d(SUBST_MAT_n_14_20) = 0 + - ES_TRANSP_CI(20, cols_mat(14, 15)) * d(log(PMAT_14_20) - log(PMAT_15_20)) * kappa_mat_dgt_15_20(-1) + - ES_TRANSP_CI(20, cols_mat(14, 16)) * d(log(PMAT_14_20) - log(PMAT_16_20)) * kappa_mat_dgt_16_20(-1) + - ES_TRANSP_CI(20, cols_mat(14, 17)) * d(log(PMAT_14_20) - log(PMAT_17_20)) * kappa_mat_dgt_17_20(-1) + - ES_TRANSP_CI(20, cols_mat(14, 18)) * d(log(PMAT_14_20) - log(PMAT_18_20)) * kappa_mat_dgt_18_20(-1)
-verif_PhiY_23 = 0 + PhiY_23_12 + PhiY_23_2301 + PhiY_23_2302 + PhiY_23_2303 + PhiY_23_2304 + PhiY_23_2305 + PhiY_23_2306 + PhiY_23_2307 + PhiY_23_2308 - 1
+I_MDE_n_2305 = K_E_n_2305 - K_E_n_2305(-1) * ( 1 - tdec_2305 )
 I_MDE_n_2304 = K_E_n_2304 - K_E_n_2304(-1) * ( 1 - tdec_2304 )
 verif_PhiY_24 = 0 + PhiY_24_01 + PhiY_24_2401 + PhiY_24_2402 + PhiY_24_2403 + PhiY_24_2404 + PhiY_24_2405 + PhiY_24_2406 - 1
 CL_S_01 = W_S_01 * ( 1 + TCSE_01 ) / PROG_L_01
 MAT_n_20 = 0 + MAT_01_20 + MAT_02_20 + MAT_03_20 + MAT_04_20 + MAT_05_20 + MAT_06_20 + MAT_07_20 + MAT_08_20 + MAT_09_20 + MAT_10_20 + MAT_11_20 + MAT_12_20 + MAT_13_20 + MAT_14_20 + MAT_15_20 + MAT_16_20 + MAT_17_20 + MAT_18_20 + MAT_19_20 + MAT_20_20
-d(log(MAT_n_21)) = d(log(Y_21)) + d(SUBST_MAT_21)
+CL_S_02 = W_S_02 * ( 1 + TCSE_02 ) / PROG_L_02
 CL_S_05 = W_S_05 * ( 1 + TCSE_05 ) / PROG_L_05
 CL_S_04 = W_S_04 * ( 1 + TCSE_04 ) / PROG_L_04
 CL_S_07 = W_S_07 * ( 1 + TCSE_07 ) / PROG_L_07
 PNew_LUV_16 * New_LUV_16 = 0 + PNew_LUV_21_16 * New_LUV_21_16 + PNew_LUV_22_16 * New_LUV_22_16 + PNew_LUV_23_16 * New_LUV_23_16 + PNew_LUV_24_16 * New_LUV_24_16
 CL_S_09 = W_S_09 * ( 1 + TCSE_09 ) / PROG_L_09
-CL_S_08 = W_S_08 * ( 1 + TCSE_08 ) / PROG_L_08
+PMS_04 * MS_04 = PM_04 * M_04 + POTHTM_04 * OTHTM_04 + PENERTM_04 * ENERTM_04 + PSUBM_04 * SUBM_04 + PMTM_04 * MTM_04 + PMCM_04 * MCM_04
 PMS_07 * MS_07 = PM_07 * M_07 + POTHTM_07 * OTHTM_07 + PENERTM_07 * ENERTM_07 + PSUBM_07 * SUBM_07 + PMTM_07 * MTM_07 + PMCM_07 * MCM_07
 PMS_06 * MS_06 = PM_06 * M_06 + POTHTM_06 * OTHTM_06 + PENERTM_06 * ENERTM_06 + PSUBM_06 * SUBM_06 + PMTM_06 * MTM_06 + PMCM_06 * MCM_06
 PMS_01 * MS_01 = PM_01 * M_01 + POTHTM_01 * OTHTM_01 + PENERTM_01 * ENERTM_01 + PSUBM_01 * SUBM_01 + PMTM_01 * MTM_01 + PMCM_01 * MCM_01
@@ -25233,8 +25364,8 @@ U_auto_elec_H01_CD = - 0.76 * UC_K_auto_elec_H01_CD - 0.2 * UC_E_auto_elec_H01_C
 U_auto_elec_H01_CG = - 0.76 * UC_K_auto_elec_H01_CG - 0.2 * UC_E_auto_elec_H01_CG
 U_auto_elec_H01_CF = - 0.76 * UC_K_auto_elec_H01_CF - 0.2 * UC_E_auto_elec_H01_CF
 U_auto_elec_H01_CA = - 0.76 * UC_K_auto_elec_H01_CA - 0.2 * UC_E_auto_elec_H01_CA
-RF_net_2201 = @elem(PRF_2201(-1), 2006) * RF_2201(-1) - IS_2201 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2201(-1) + REC_VAL_SEC_ETS_2201(-1) + REDIS_VAL_SEC_ETS2_2201(-1) ) / PCH(-1)
-RF_net_2202 = @elem(PRF_2202(-1), 2006) * RF_2202(-1) - IS_2202 + ( @year > 2020 ) * ( REDIS_VAL_SEC_TCO_2202(-1) + REC_VAL_SEC_ETS_2202(-1) + REDIS_VAL_SEC_ETS2_2202(-1) ) / PCH(-1)
+RF_net_2201 = @elem(PRF_2201(-1), 2006) * RF_2201(-1) - IS_2201 + ( REDIS_VAL_SEC_TCO_2201(-1) + REDIS_VAL_SEC_ETS_2201(-1) + REDIS_VAL_SEC_ETS2_2201(-1) ) / PCH(-1)
+RF_net_2202 = @elem(PRF_2202(-1), 2006) * RF_2202(-1) - IS_2202 + ( REDIS_VAL_SEC_TCO_2202(-1) + REDIS_VAL_SEC_ETS_2202(-1) + REDIS_VAL_SEC_ETS2_2202(-1) ) / PCH(-1)
 U_auto_elec_H01_CB = - 0.76 * UC_K_auto_elec_H01_CB - 0.2 * UC_E_auto_elec_H01_CB
 NewAUTO_elec_H01_CB = NewAUTO_elec_H01 * phi_elec_H01_CB
 NewAUTO_elec_H01_CC = NewAUTO_elec_H01 * phi_elec_H01_CC
@@ -25283,14 +25414,14 @@ MAT_bis_dgt_12_17 = MATD_12_17 + MATM_12_17
 MAT_bis_dgt_12_14 = MATD_12_14 + MATM_12_14
 MAT_bis_dgt_12_15 = MATD_12_15 + MATM_12_15
 PCID_24_2303 = PED_24_2303
-d(log(MAT_n_12_08)) = ( @year <= 2019 ) * ( dlog(CIexo_12_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_12_03)) = ( @year <= 2019 ) * ( dlog(CIexo_12_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_12_08)) = ( @year <= 2019 ) * ( dlog(CIexo_12_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_12_03)) = ( @year <= 2019 ) * ( dlog(CIexo_12_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
 PCID_24_2308 = PED_24_2308
-d(log(MAT_n_12_01)) = ( @year <= 2019 ) * ( dlog(CIexo_12_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_12_07)) = ( @year <= 2019 ) * ( dlog(CIexo_12_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_12_06)) = ( @year <= 2019 ) * ( dlog(CIexo_12_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_12_05)) = ( @year <= 2019 ) * ( dlog(CIexo_12_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_12_04)) = ( @year <= 2019 ) * ( dlog(CIexo_12_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_12_01)) = ( @year <= 2019 ) * ( dlog(CIexo_12_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_12_07)) = ( @year <= 2019 ) * ( dlog(CIexo_12_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_12_06)) = ( @year <= 2019 ) * ( dlog(CIexo_12_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_12_05)) = ( @year <= 2019 ) * ( dlog(CIexo_12_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_12_04)) = ( @year <= 2019 ) * ( dlog(CIexo_12_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_12_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_12_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_12_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_12_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
 MAT_bis_dgt_14_10 = MATD_14_10 + MATM_14_10
 MAT_bis_dgt_14_11 = MATD_14_11 + MATM_14_11
 MAT_bis_dgt_14_12 = MATD_14_12 + MATM_14_12
@@ -25349,6 +25480,7 @@ verif_MAT_dgt_09_20 = MAT_09_20 - MAT_bis_dgt_09_20
 CIM_19 = 0 + CIM_19_01 + CIM_19_02 + CIM_19_03 + CIM_19_04 + CIM_19_05 + CIM_19_06 + CIM_19_07 + CIM_19_08 + CIM_19_09 + CIM_19_10 + CIM_19_11 + CIM_19_12 + CIM_19_13 + CIM_19_14 + CIM_19_15 + CIM_19_16 + CIM_19_17 + CIM_19_18 + CIM_19_19 + CIM_19_20 + CIM_19_21 + CIM_19_2201 + CIM_19_2202 + CIM_19_2301 + CIM_19_2302 + CIM_19_2303 + CIM_19_2304 + CIM_19_2305 + CIM_19_2306 + CIM_19_2307 + CIM_19_2308 + CIM_19_2401 + CIM_19_2402 + CIM_19_2403 + CIM_19_2404 + CIM_19_2405 + CIM_19_2406
 CIDexo_12_06 = ( CIexo_12_06 - CIMexo_12_06 > 0 ) * ( CIexo_12_06 - CIMexo_12_06 ) + ( CIexo_12_06 - CIMexo_12_06 <= 0 ) * 0.0001
 CIM_18 = 0 + CIM_18_01 + CIM_18_02 + CIM_18_03 + CIM_18_04 + CIM_18_05 + CIM_18_06 + CIM_18_07 + CIM_18_08 + CIM_18_09 + CIM_18_10 + CIM_18_11 + CIM_18_12 + CIM_18_13 + CIM_18_14 + CIM_18_15 + CIM_18_16 + CIM_18_17 + CIM_18_18 + CIM_18_19 + CIM_18_20 + CIM_18_2201 + CIM_18_2202 + CIM_18_2301 + CIM_18_2302 + CIM_18_2303 + CIM_18_2304 + CIM_18_2305 + CIM_18_2306 + CIM_18_2307 + CIM_18_2308 + CIM_18_2401 + CIM_18_2402 + CIM_18_2403 + CIM_18_2404 + CIM_18_2405 + CIM_18_2406
+dlog(ENER_spe_H01_CD_23) = dlog(BUIL_H01_CD + 0.1)
 SY_2401 = @elem(TSYN_2401, 2006) * Y_2401
 CIM_17 = 0 + CIM_17_02 + CIM_17_03 + CIM_17_04 + CIM_17_05 + CIM_17_06 + CIM_17_07 + CIM_17_08 + CIM_17_09 + CIM_17_10 + CIM_17_11 + CIM_17_12 + CIM_17_13 + CIM_17_14 + CIM_17_15 + CIM_17_16 + CIM_17_17 + CIM_17_18 + CIM_17_19 + CIM_17_20 + CIM_17_2201 + CIM_17_2202 + CIM_17_2301 + CIM_17_2302 + CIM_17_2303 + CIM_17_2304 + CIM_17_2305 + CIM_17_2306 + CIM_17_2307 + CIM_17_2308 + CIM_17_2401 + CIM_17_2402 + CIM_17_2403 + CIM_17_2404 + CIM_17_2405 + CIM_17_2406
 CIM_16 = 0 + CIM_16_01 + CIM_16_02 + CIM_16_03 + CIM_16_04 + CIM_16_05 + CIM_16_06 + CIM_16_07 + CIM_16_08 + CIM_16_09 + CIM_16_10 + CIM_16_11 + CIM_16_12 + CIM_16_13 + CIM_16_14 + CIM_16_15 + CIM_16_16 + CIM_16_17 + CIM_16_18 + CIM_16_19 + CIM_16_20 + CIM_16_2201 + CIM_16_2202 + CIM_16_2301 + CIM_16_2302 + CIM_16_2303 + CIM_16_2304 + CIM_16_2305 + CIM_16_2306 + CIM_16_2307 + CIM_16_2308 + CIM_16_2401 + CIM_16_2402 + CIM_16_2403 + CIM_16_2404 + CIM_16_2405 + CIM_16_2406
@@ -25445,7 +25577,7 @@ PMAT_20_2403 * MAT_20_2403 = PMATD_20 * MATD_20_2403 + PMATM_20 * MATM_20_2403
 dlog(CIMexo_14_05) = dlog(QMexo_14)
 d(log(MAT_03_2202)) = d(log(MAT_2202)) + d(SUBST_MAT_03_2202)
 SUBST_MAT_17_08 = ADJUST(6, 6) * SUBST_MAT_n_17_08 + ( 1 - ADJUST(6, 6) ) * ( SUBST_MAT_17_08(-1) )
-d(log(MAT_n_18_20)) = ( @year <= 2019 ) * ( dlog(CIexo_18_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_18_20)) = ( @year <= 2019 ) * ( dlog(CIexo_18_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_18_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_18_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_18_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_18_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 d(log(IAD_05_2401)) = d(log(IA_n_05_2401)) + d(SUBST_IAD_05_2401)
 d(SUBST_MTD_n_14_21) = 0 + - ES_TRANSP_MARG(21, cols_trsp(14, 16)) * d(log(PE_14) - log(PE_16)) * PMTD_16_21(-1) * MTD_16_21(-1) / ( PMTD_14_21(-1) * MTD_14_21(-1) + PMTD_16_21(-1) * MTD_16_21(-1) ) + - ES_TRANSP_MARG(21, cols_trsp(14, 17)) * d(log(PE_14) - log(PE_17)) * PMTD_17_21(-1) * MTD_17_21(-1) / ( PMTD_14_21(-1) * MTD_14_21(-1) + PMTD_17_21(-1) * MTD_17_21(-1) ) + - ES_TRANSP_MARG(21, cols_trsp(14, 18)) * d(log(PE_14) - log(PE_18)) * PMTD_18_21(-1) * MTD_18_21(-1) / ( PMTD_14_21(-1) * MTD_14_21(-1) + PMTD_18_21(-1) * MTD_18_21(-1) )
 d(SUBST_MTD_n_14_22) = 0 + - ES_TRANSP_MARG(22, cols_trsp(14, 16)) * d(log(PE_14) - log(PE_16)) * PMTD_16_22(-1) * MTD_16_22(-1) / ( PMTD_14_22(-1) * MTD_14_22(-1) + PMTD_16_22(-1) * MTD_16_22(-1) ) + - ES_TRANSP_MARG(22, cols_trsp(14, 17)) * d(log(PE_14) - log(PE_17)) * PMTD_17_22(-1) * MTD_17_22(-1) / ( PMTD_14_22(-1) * MTD_14_22(-1) + PMTD_17_22(-1) * MTD_17_22(-1) ) + - ES_TRANSP_MARG(22, cols_trsp(14, 18)) * d(log(PE_14) - log(PE_18)) * PMTD_18_22(-1) * MTD_18_22(-1) / ( PMTD_14_22(-1) * MTD_14_22(-1) + PMTD_18_22(-1) * MTD_18_22(-1) )
@@ -25621,14 +25753,14 @@ PE_signal_24_20 = PE_signal_24_ster
 UnR_M_20 = Un_M_20 / LF_M_20
 UnR_M_25 = Un_M_25 / LF_M_25
 DS = DSD + DSM
-REDIS_VAL_SEC_TCO_2308 = REC_VAL_SEC_TCO_2308
-REDIS_VAL_SEC_TCO_2304 = REC_VAL_SEC_TCO_2304
-REDIS_VAL_SEC_TCO_2305 = REC_VAL_SEC_TCO_2305
-REDIS_VAL_SEC_TCO_2306 = REC_VAL_SEC_TCO_2306
-REDIS_VAL_SEC_TCO_2307 = REC_VAL_SEC_TCO_2307
-REDIS_VAL_SEC_TCO_2301 = REC_VAL_SEC_TCO_2301
-REDIS_VAL_SEC_TCO_2302 = REC_VAL_SEC_TCO_2302
-REDIS_VAL_SEC_TCO_2303 = REC_VAL_SEC_TCO_2303
+REDIS_VAL_SEC_TCO_2308 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2308
+REDIS_VAL_SEC_TCO_2304 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2304
+REDIS_VAL_SEC_TCO_2305 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2305
+REDIS_VAL_SEC_TCO_2306 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2306
+REDIS_VAL_SEC_TCO_2307 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2307
+REDIS_VAL_SEC_TCO_2301 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2301
+REDIS_VAL_SEC_TCO_2302 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2302
+REDIS_VAL_SEC_TCO_2303 = 0 * ( @year > 2024 ) * REC_VAL_SEC_TCO_2303
 EFER_n_07 = E_n_07 / Y_07
 EFER_n_06 = E_n_06 / Y_06
 EFER_n_05 = E_n_05 / Y_05
@@ -25657,7 +25789,7 @@ Q_Mtep_Losses_2305 = 0 + Q_Mtep_Losses_23_2305
 Q_Mtep_Losses_2302 = 0 + Q_Mtep_Losses_23_2302
 Q_Mtep_Losses_2303 = 0 + Q_Mtep_Losses_23_2303
 PCID_21_19 = PED_21_19
-d(log(MAT_n_06_07)) = ( @year <= 2019 ) * ( dlog(CIexo_06_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_06_07)) = ( @year <= 2019 ) * ( dlog(CIexo_06_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
 PCID_21_12 = PED_21_12
 PCID_21_10 = PED_21_10
 Y_20 = 0 + Y_19_20 + Y_20_20
@@ -25804,15 +25936,15 @@ Q_Mtep_ef_23_2304 = Q_Mtep_ef_SOU_23 * PhiY_ener_23_2304
 Y_03_12 = PhiY_03_12 * YQ_03
 Q_Mtep_Nener_23_2405 = Q_Mtep_indus_23 * PhiY_indus_23_2405
 GM_des_03 = GM_des_03(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( GM_des_03(-1) * ( 1 + d(GM_des_n_03) / GM_des_n_03(-1) ) > 0 ) * ( GM_des_03(-1) * ( 1 + d(GM_des_n_03) / GM_des_n_03(-1) ) ) + ( GM_des_03(-1) * ( 1 + d(GM_des_n_03) / GM_des_n_03(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-d(log(MAT_n_15_08)) = ( @year <= 2019 ) * ( dlog(CIexo_15_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_15_09)) = ( @year <= 2019 ) * ( dlog(CIexo_15_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_15_02)) = ( @year <= 2019 ) * ( dlog(CIexo_15_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_15_08)) = ( @year <= 2019 ) * ( dlog(CIexo_15_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_15_09)) = ( @year <= 2019 ) * ( dlog(CIexo_15_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_15_02)) = ( @year <= 2019 ) * ( dlog(CIexo_15_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
 CID_19_2202 = MATD_19_2202
 CID_19_2201 = MATD_19_2201
-d(log(MAT_n_15_06)) = ( @year <= 2019 ) * ( dlog(CIexo_15_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
-d(log(MAT_n_15_07)) = ( @year <= 2019 ) * ( dlog(CIexo_15_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
-d(log(MAT_n_15_04)) = ( @year <= 2019 ) * ( dlog(CIexo_15_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_15_05)) = ( @year <= 2019 ) * ( dlog(CIexo_15_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_15_06)) = ( @year <= 2019 ) * ( dlog(CIexo_15_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_15_07)) = ( @year <= 2019 ) * ( dlog(CIexo_15_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_15_04)) = ( @year <= 2019 ) * ( dlog(CIexo_15_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_15_05)) = ( @year <= 2019 ) * ( dlog(CIexo_15_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
 d(SUBST_ED_n_22_01) = - ES_CIM(1, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM_22(-1) * EM_22_01(-1) / ( PE_22_01(-1) * E_22_01(-1) ) )
 d(SUBST_ED_n_22_02) = - ES_CIM(2, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM_22(-1) * EM_22_02(-1) / ( PE_22_02(-1) * E_22_02(-1) ) )
 d(SUBST_ED_n_22_03) = - ES_CIM(3, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM_22(-1) * EM_22_03(-1) / ( PE_22_03(-1) * E_22_03(-1) ) )
@@ -25824,14 +25956,14 @@ d(SUBST_ED_n_22_08) = - ES_CIM(8, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM
 d(SUBST_ED_n_22_09) = - ES_CIM(9, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM_22(-1) * EM_22_09(-1) / ( PE_22_09(-1) * E_22_09(-1) ) )
 d(log(IA_notionnel_noshock_16)) = dlog(Y_16) + d(SUBST_K_16) - dlog(PROG_K_16) + ADJUST(1, 3) * ( log(K_n_16(-1)) - log(K_16(-1)) )
 d(log(IA_notionnel_noshock_17)) = dlog(Y_17) + d(SUBST_K_17) - dlog(PROG_K_17) + ADJUST(1, 3) * ( log(K_n_17(-1)) - log(K_17(-1)) )
-IA_notionnel_noshock_14 = ( @year <= 2019 ) * ( ( IAexo_14 > 0 ) * IAexo_14 ) + ( @year > 2019 )
+IA_notionnel_noshock_14 = K_n_14 - K_14(-1) * ( 1 - tdec_14(-1) )
 d(log(IA_notionnel_noshock_15)) = dlog(Y_15) + d(SUBST_K_15) - dlog(PROG_K_15) + ADJUST(1, 3) * ( log(K_n_15(-1)) - log(K_15(-1)) )
 d(log(IA_notionnel_noshock_12)) = dlog(Y_12) + d(SUBST_K_12) - dlog(PROG_K_12) + ADJUST(1, 3) * ( log(K_n_12(-1)) - log(K_12(-1)) )
 d(log(IA_notionnel_noshock_13)) = dlog(Y_13) + d(SUBST_K_13) - dlog(PROG_K_13) + ADJUST(1, 3) * ( log(K_n_13(-1)) - log(K_13(-1)) )
 d(log(IA_notionnel_noshock_10)) = dlog(Y_10) + d(SUBST_K_10) - dlog(PROG_K_10) + ADJUST(1, 3) * ( log(K_n_10(-1)) - log(K_10(-1)) )
 d(log(IA_notionnel_noshock_11)) = dlog(Y_11) + d(SUBST_K_11) - dlog(PROG_K_11) + ADJUST(1, 3) * ( log(K_n_11(-1)) - log(K_11(-1)) )
 d(log(IA_notionnel_noshock_18)) = dlog(Y_18) + d(SUBST_K_18) - dlog(PROG_K_18) + ADJUST(1, 3) * ( log(K_n_18(-1)) - log(K_18(-1)) )
-d(log(IA_notionnel_noshock_19)) = d(log(Y_19)) + ( 1 - AME_renov_19 ) * d(SUBST_K_19) - d(log(PROG_K_19)) + AME_renov_19 * ( d(SUBST_K_NE_19) )
+d(log(IA_notionnel_noshock_19)) = d(log(Y_19)) + AME_renov_19 * d(SUBST_K_19) - d(log(PROG_K_19)) + ( 1 - AME_renov_19 ) * ( d(SUBST_K_NE_19) )
 MATM_des_07_14 = ( CIMexo_07_14 ) * ( @year <= 2019 ) + ( ( MATM_des_07_14(-1) * ( 1 + d(MATM_des_n_07_14) / MATM_des_n_07_14(-1) ) > 0 ) * ( MATM_des_07_14(-1) * ( 1 + d(MATM_des_n_07_14) / MATM_des_n_07_14(-1) ) ) + ( MATM_des_07_14(-1) * ( 1 + d(MATM_des_n_07_14) / MATM_des_n_07_14(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_07_15 = ( CIMexo_07_15 ) * ( @year <= 2019 ) + ( ( MATM_des_07_15(-1) * ( 1 + d(MATM_des_n_07_15) / MATM_des_n_07_15(-1) ) > 0 ) * ( MATM_des_07_15(-1) * ( 1 + d(MATM_des_n_07_15) / MATM_des_n_07_15(-1) ) ) + ( MATM_des_07_15(-1) * ( 1 + d(MATM_des_n_07_15) / MATM_des_n_07_15(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_07_16 = ( CIMexo_07_16 ) * ( @year <= 2019 ) + ( ( MATM_des_07_16(-1) * ( 1 + d(MATM_des_n_07_16) / MATM_des_n_07_16(-1) ) > 0 ) * ( MATM_des_07_16(-1) * ( 1 + d(MATM_des_n_07_16) / MATM_des_n_07_16(-1) ) ) + ( MATM_des_07_16(-1) * ( 1 + d(MATM_des_n_07_16) / MATM_des_n_07_16(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -25864,16 +25996,16 @@ verif_IA_dgt_18_09 = IA_n_18_09 - IA_bis_dgt_18_09
 PAUTO_elec_H01_CC = PNewAUTO_th_H01_CC + ( Pbattery + overcost_elec ) / 1000
 G_19 = GD_19 + GM_19
 TCO_VALD_24_2303 = TCO_VAL_24_2303 * ED_24_2303 / E_24_2303
-d(log(MAT_n_17_08)) = ( @year <= 2019 ) * ( dlog(CIexo_17_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_17_09)) = ( @year <= 2019 ) * ( dlog(CIexo_17_09) ) + ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
-d(log(MAT_n_17_04)) = ( @year <= 2019 ) * ( dlog(CIexo_17_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_17_05)) = ( @year <= 2019 ) * ( dlog(CIexo_17_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
-d(log(MAT_n_17_06)) = ( @year <= 2019 ) * ( dlog(CIexo_17_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_17_08)) = ( @year <= 2019 ) * ( dlog(CIexo_17_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_17_09)) = ( @year <= 2019 ) * ( dlog(CIexo_17_09) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_09) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_09 - d(SUBST_MAT_09) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_09 - d(SUBST_MAT_09) ) + d(SUBST_MAT_09) )
+d(log(MAT_n_17_04)) = ( @year <= 2019 ) * ( dlog(CIexo_17_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+d(log(MAT_n_17_05)) = ( @year <= 2019 ) * ( dlog(CIexo_17_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_17_06)) = ( @year <= 2019 ) * ( dlog(CIexo_17_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
 G_12 = GD_12 + GM_12
 G_15 = GD_15 + GM_15
 G_14 = GD_14 + GM_14
-d(log(MAT_n_17_02)) = ( @year <= 2019 ) * ( dlog(CIexo_17_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_17_03)) = ( @year <= 2019 ) * ( dlog(CIexo_17_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_17_02)) = ( @year <= 2019 ) * ( dlog(CIexo_17_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_17_03)) = ( @year <= 2019 ) * ( dlog(CIexo_17_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_17_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_17_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_17_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_17_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
 PCIM_14_2202 = PMATM_14
 PCIM_14_2201 = PMATM_14
 SUBST_IAD_19_2201 = ADJUST(13, 6) * SUBST_IAD_n_19_2201 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_19_2201(-1)
@@ -25881,6 +26013,14 @@ SUBST_IAD_19_2202 = ADJUST(13, 6) * SUBST_IAD_n_19_2202 + ( 1 - ADJUST(13, 6) ) 
 PEBE_20 * EBE_20 = PVA_20 * VA_20 - CL_20 * L_20 * PROG_L_20 - PIY_20 * IY_20 - PSY_20 * SY_20
 d(log(PEBE_21)) = log(1 + STEADYSTATE(15, 1))
 BetaEXP_10_H01 = ( @year <= 2019 ) * ( ( PEXP_10_H01 * EXP_n_10_H01 - PNEXP_10_H01 * NEXP_10_H01 ) / EXP_CES_VAL ) + ( @year > 2019 ) * ( BetaEXP_10_H01(-1) * ( 1 + ( 1 - ES_LES_CES(1, 1) ) * dlog(PEXP_10_H01 / PEXP_CES_H01) ) )
+verif_PhiY_ener_2308 = 1
+verif_PhiY_ener_2304 = 1
+verif_PhiY_ener_2305 = 1
+verif_PhiY_ener_2306 = 1
+verif_PhiY_ener_2307 = 1
+verif_PhiY_ener_2301 = 1
+verif_PhiY_ener_2302 = 1
+verif_PhiY_ener_2303 = 1
 phi_E_oth_23_05 * ( ( E_oth_des_05 > 0 ) * E_oth_des_05 + ( E_oth_des_05 <= 0 ) ) = ( E_oth_des_05 > 0 ) * E_oth_des_23_05 + ( E_oth_des_05 <= 0 ) * 0
 phi_E_oth_23_04 * ( ( E_oth_des_04 > 0 ) * E_oth_des_04 + ( E_oth_des_04 <= 0 ) ) = ( E_oth_des_04 > 0 ) * E_oth_des_23_04 + ( E_oth_des_04 <= 0 ) * 0
 phi_E_oth_23_07 * ( ( E_oth_des_07 > 0 ) * E_oth_des_07 + ( E_oth_des_07 <= 0 ) ) = ( E_oth_des_07 > 0 ) * E_oth_des_23_07 + ( E_oth_des_07 <= 0 ) * 0
@@ -26280,6 +26420,8 @@ SUBST_MATM_19_2402 = ADJUST(10, 6) * SUBST_MATM_n_19_2402 + ( 1 - ADJUST(10, 6) 
 SUBST_MATM_19_2405 = ADJUST(10, 6) * SUBST_MATM_n_19_2405 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_19_2405(-1)
 SUBST_MATM_19_2404 = ADJUST(10, 6) * SUBST_MATM_n_19_2404 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_19_2404(-1)
 SUBST_MATM_19_2406 = ADJUST(10, 6) * SUBST_MATM_n_19_2406 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_19_2406(-1)
+ED_23_07 = ( ( 1 + d(E_23_07) / E_23_07(-1) + d(SUBST_ED_23_07) ) * ED_23_07(-1) ) * ( @year <= 2019 ) + ( ( E_23_07 - EM_23_07 > 0 ) * ( E_23_07 - EM_23_07 ) + ( E_23_07 - EM_23_07 <= 0 ) * 0.0001 ) * ( @year > 2019 )
+ED_23_04 = ( ( 1 + d(E_23_04) / E_23_04(-1) + d(SUBST_ED_23_04) ) * ED_23_04(-1) ) * ( @year <= 2019 ) + ( ( E_23_04 - EM_23_04 > 0 ) * ( E_23_04 - EM_23_04 ) + ( E_23_04 - EM_23_04 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 d(log(MATM_des_n_18_06)) = 0.25 * dlog(MATM_des_n_18_06(-1)) + 1.18 * dlog(QD_18) - 0.34 * d(log(PMATM_18(-1)) - log(PMATD_18(-1))) - 0.49 * ( log(MATM_des_n_18_06(-1)) - log(MAT_18_06(-1)) + 0.69 * ( log(PMATM_18(-1)) - log(PMATD_18(-1)) ) )
 d(log(MATM_des_n_18_07)) = 0.25 * dlog(MATM_des_n_18_07(-1)) + 1.18 * dlog(QD_18) - 0.34 * d(log(PMATM_18(-1)) - log(PMATD_18(-1))) - 0.49 * ( log(MATM_des_n_18_07(-1)) - log(MAT_18_07(-1)) + 0.69 * ( log(PMATM_18(-1)) - log(PMATD_18(-1)) ) )
 PEM_24 = PMS_24 * ( 1 + TvatMoth_24 ) / ( 1 + @elem(TvatMoth_24, 2006) )
@@ -26402,7 +26544,7 @@ CU_03 * Y_03 = CK_03 * K_03 + CL_03 * L_03 * PROG_L_03 + PEner_03 * Ener_03 + PM
 CU_01 * Y_01 = CK_01 * K_01 + CL_01 * L_01 * PROG_L_01 + PEner_01 * Ener_01 + PMAT_01 * MAT_01 + CEE_01
 CU_08 * Y_08 = CK_08 * K_08 + CL_08 * L_08 * PROG_L_08 + PEner_08 * Ener_08 + PMAT_08 * MAT_08 + CEE_08
 CU_09 * Y_09 = CK_09 * K_09 + CL_09 * L_09 * PROG_L_09 + PEner_09 * Ener_09 + PMAT_09 * MAT_09 + CEE_09
-d(log(MAT_n_06_20)) = ( @year <= 2019 ) * ( dlog(CIexo_06_20) ) + ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
+d(log(MAT_n_06_20)) = ( @year <= 2019 ) * ( dlog(CIexo_06_20) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_06_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_2_06_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_20) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_06_20 - d(SUBST_MAT_20) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_06_20 - d(SUBST_MAT_20) ) + d(SUBST_MAT_20) )
 log(EXP_04_H01) = log(EXP_n_04_H01) * ( @year <= 2019 ) + ( log(EXP_04_H01(-1)) + d(log(EXP_des_04_H01)) ) * ( @year > 2019 )
 REC_VAL_SEC_ETS_21_2202 = PE_signal_ETS * PCH * EMS_SEC_21_2202 * EXO_21_2202
 REC_VAL_SEC_ETS_21_2201 = PE_signal_ETS * PCH * EMS_SEC_21_2201 * EXO_21_2201
@@ -26521,11 +26663,12 @@ SUB_AUTO_th_VAL_H01_CG = R_SUB_AUTO_th_H01_CG * PNewAUTO_th_H01_CG * NewAUTO_th_
 SUB_AUTO_th_VAL_H01_CF = R_SUB_AUTO_th_H01_CF * PNewAUTO_th_H01_CF * NewAUTO_th_H01_CF
 d(log(IAM_des_n_05_04)) = 1.55 * dlog(QD_05) - 0.41 * ( log(IAM_des_n_05_04(-1)) - log(IA_n_05_04(-1)) + 0.48 * ( log(PIAM_05(-1)) - log(PIAD_05(-1)) ) )
 d(log(IAM_des_n_05_08)) = 1.55 * dlog(QD_05) - 0.41 * ( log(IAM_des_n_05_08(-1)) - log(IA_n_05_08(-1)) + 0.48 * ( log(PIAM_05(-1)) - log(PIAD_05(-1)) ) )
-d(log(MAT_n_10_16)) = ( @year <= 2019 ) * ( dlog(CIexo_10_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+verif_MAT_dgt_18_20 = MAT_18_20 - MAT_bis_dgt_18_20
+d(log(MAT_n_10_16)) = ( @year <= 2019 ) * ( dlog(CIexo_10_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
 BetaEXP_08_H01 = ( @year <= 2019 ) * ( BetaEXP_n_08_H01 ) + ( @year > 2019 ) * ( ( choc_EXP_08 >= 0 ) * ( choc_EXP_08 <= 0 ) * ( BetaEXP_n_08_H01 * ( 1 - BetaEXP_exo ) / ( BetaEXP_n - BetaEXP_exo ) ) + ( choc_EXP_08 > 0 ) * ( BetaEXP_n_08_H01 ) + ( choc_EXP_08 < 0 ) * ( BetaEXP_n_08_H01 ) )
 ENERperM2_H01_CD_21 = ( ENERperM2_H01_CD_21(-1) - ENER_spe_m2_H01_CD_21 ) * ( 1 + d(SUBST_BUIL_H01_CD_21) + TREND_E_BUIL_21 + TREND_E_BUIL_CD_21 ) + ENER_spe_m2_H01_CD_21
-d(log(MAT_n_10_10)) = ( @year <= 2019 ) * ( dlog(CIexo_10_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_10_11)) = ( @year <= 2019 ) * ( dlog(CIexo_10_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_10_10)) = ( @year <= 2019 ) * ( dlog(CIexo_10_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_10_11)) = ( @year <= 2019 ) * ( dlog(CIexo_10_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_10_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_10_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_10_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_10_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
 d(SUBST_ED_n_22_2401) = - ES_CIM(32, 20 + 2) * d(log(PED_22) - log(PEM_22)) * ( PEM_22(-1) * EM_22_2401(-1) / ( PE_22_2401(-1) * E_22_2401(-1) ) )
 S = DISPINC_VAL - PEXPH * EXPH
 MATM_16_20 = ( CIMexo_16_20 ) * ( @year <= 2019 ) + ( ( MAT_16_20 - MATM_des_16_20 > 0 ) * ( MATM_des_16_20 ) + ( MAT_16_20 - MATM_des_16_20 <= 0 ) * ( MAT_16_20 - 1e-05 ) ) * ( @year > 2019 )
@@ -26539,10 +26682,10 @@ MAT_bis_dgt_01_16 = MATD_01_16 + MATM_01_16
 MAT_bis_dgt_01_17 = MATD_01_17 + MATM_01_17
 MAT_bis_dgt_01_14 = MATD_01_14 + MATM_01_14
 MAT_bis_dgt_01_15 = MATD_01_15 + MATM_01_15
-d(log(MAT_n_01_08)) = ( @year <= 2019 ) * ( dlog(CIexo_01_08) ) + ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
-d(log(MAT_n_01_02)) = ( @year <= 2019 ) * ( dlog(CIexo_01_02) ) + ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
-d(log(MAT_n_01_01)) = ( @year <= 2019 ) * ( dlog(CIexo_01_01) ) + ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
-d(log(MAT_n_01_06)) = ( @year <= 2019 ) * ( dlog(CIexo_01_06) ) + ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
+d(log(MAT_n_01_08)) = ( @year <= 2019 ) * ( dlog(CIexo_01_08) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_08) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_08 - d(SUBST_MAT_08) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_08 - d(SUBST_MAT_08) ) + d(SUBST_MAT_08) )
+d(log(MAT_n_01_02)) = ( @year <= 2019 ) * ( dlog(CIexo_01_02) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_02) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_02 - d(SUBST_MAT_02) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_02 - d(SUBST_MAT_02) ) + d(SUBST_MAT_02) )
+d(log(MAT_n_01_01)) = ( @year <= 2019 ) * ( dlog(CIexo_01_01) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_01) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_01 - d(SUBST_MAT_01) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_01 - d(SUBST_MAT_01) ) + d(SUBST_MAT_01) )
+d(log(MAT_n_01_06)) = ( @year <= 2019 ) * ( dlog(CIexo_01_06) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_01_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_2_01_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_06) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_01_06 - d(SUBST_MAT_06) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_01_06 - d(SUBST_MAT_06) ) + d(SUBST_MAT_06) )
 MAT_bis_dgt_07_10 = MATD_07_10 + MATM_07_10
 MAT_bis_dgt_07_11 = MATD_07_11 + MATM_07_11
 MAT_bis_dgt_07_12 = MATD_07_12 + MATM_07_12
@@ -26579,7 +26722,7 @@ dlog(CIMexo_10_03) = dlog(QMexo_10)
 dlog(CIMexo_10_01) = dlog(QMexo_10)
 dlog(CIMexo_10_04) = dlog(QMexo_10)
 dlog(CIMexo_10_05) = dlog(QMexo_10)
-d(log(MAT_n_02_15)) = ( @year <= 2019 ) * ( dlog(CIexo_02_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_02_15)) = ( @year <= 2019 ) * ( dlog(CIexo_02_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
 d(SUBST_MATM_n_07_07) = - ES_CIM(7, 7) * d(log(PMATM_07) - log(PMATD_07)) * ( PMATD_07(-1) * MATD_07_07(-1) / ( PMAT_07_07(-1) * MAT_07_07(-1) ) )
 DISPINC_VAL_H01 = DISPINC_AI_VAL_H01 - IR_VAL_H01 - AIC_VAL_H01 + REDIS_VAL_TCO_H + REDIS_VAL_ETS2_H + SUB_AUTO_VAL + SUB_RENOV_VAL
 verif_subst_K_n_2305 = subst_K_n_2305 - subst_K_E_n_2305 - subst_K_NE_n_2305
@@ -26628,6 +26771,8 @@ d(SUBST_IAD_n_12_15) = - ES_IAM(15, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIA
 d(SUBST_IAD_n_12_16) = - ES_IAM(16, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_16(-1) / ( PIA_12_16(-1) * IA_12_16(-1) ) )
 d(SUBST_IAD_n_12_17) = - ES_IAM(17, 12) * d(log(PIAD_12) - log(PIAM_12)) * ( PIAM_12(-1) * IAM_12_17(-1) / ( PIA_12_17(-1) * IA_12_17(-1) ) )
 dlog(CIexo_15_20) = dlog(CIexo_15)
+phiy_E_24_2201 = PhiY_ener_exo_24_2201 + Q_Mtep_FC_2201 / Q_Mtep_ef_tot_SOU_24
+phiy_E_24_2202 = PhiY_ener_exo_24_2202 + Q_Mtep_FC_2202 / Q_Mtep_ef_tot_SOU_24
 CIDexo_16_04 = ( CIexo_16_04 - CIMexo_16_04 > 0 ) * ( CIexo_16_04 - CIMexo_16_04 ) + ( CIexo_16_04 - CIMexo_16_04 <= 0 ) * 0.0001
 MATM_des_12_05 = ( CIMexo_12_05 ) * ( @year <= 2019 ) + ( ( MATM_des_12_05(-1) * ( 1 + d(MATM_des_n_12_05) / MATM_des_n_12_05(-1) ) > 0 ) * ( MATM_des_12_05(-1) * ( 1 + d(MATM_des_n_12_05) / MATM_des_n_12_05(-1) ) ) + ( MATM_des_12_05(-1) * ( 1 + d(MATM_des_n_12_05) / MATM_des_n_12_05(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_12_04 = ( CIMexo_12_04 ) * ( @year <= 2019 ) + ( ( MATM_des_12_04(-1) * ( 1 + d(MATM_des_n_12_04) / MATM_des_n_12_04(-1) ) > 0 ) * ( MATM_des_12_04(-1) * ( 1 + d(MATM_des_n_12_04) / MATM_des_n_12_04(-1) ) ) + ( MATM_des_12_04(-1) * ( 1 + d(MATM_des_n_12_04) / MATM_des_n_12_04(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -26727,7 +26872,7 @@ MAT_14_16 = ( @year <= 2019 ) * ( MATD_14_16 + MATM_14_16 ) + ( @year > 2019 ) *
 MAT_14_15 = ( @year <= 2019 ) * ( MATD_14_15 + MATM_14_15 ) + ( @year > 2019 ) * ( MAT_n_14_15 )
 MAT_14_14 = ( @year <= 2019 ) * ( MATD_14_14 + MATM_14_14 ) + ( @year > 2019 ) * ( MAT_n_14_14 )
 KM_AUTO_H01_CF_24 = KM_AUTO_th_H01_CF_24
-d(log(IA_n_des_16)) = d(IMP_BUD_niv_bis_16) + ( ADJUST(1, 1) * dlog(IA_n_des_16(-1)) + 1.8 * dlog(Y_16) + 0.28 * ( log(IA_notionnel_16(-1)) + IMP_BUD_niv_bis_16(-1) - log(IA_n_des_16(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_16) )
+IA_n_des_16 = IA_16
 d(SUBST_MTM_n_18_10) = 0 + - ES_TRANSP_MARG(10, cols_trsp(18, 14)) * d(log(PE_18) - log(PE_14)) * PMTM_14_10(-1) * MTM_14_10(-1) / ( PMTM_18_10(-1) * MTM_18_10(-1) + PMTM_14_10(-1) * MTM_14_10(-1) ) + - ES_TRANSP_MARG(10, cols_trsp(18, 16)) * d(log(PE_18) - log(PE_16)) * PMTM_16_10(-1) * MTM_16_10(-1) / ( PMTM_18_10(-1) * MTM_18_10(-1) + PMTM_16_10(-1) * MTM_16_10(-1) ) + - ES_TRANSP_MARG(10, cols_trsp(18, 17)) * d(log(PE_18) - log(PE_17)) * PMTM_17_10(-1) * MTM_17_10(-1) / ( PMTM_18_10(-1) * MTM_18_10(-1) + PMTM_17_10(-1) * MTM_17_10(-1) )
 d(SUBST_MTM_n_18_11) = 0 + - ES_TRANSP_MARG(11, cols_trsp(18, 14)) * d(log(PE_18) - log(PE_14)) * PMTM_14_11(-1) * MTM_14_11(-1) / ( PMTM_18_11(-1) * MTM_18_11(-1) + PMTM_14_11(-1) * MTM_14_11(-1) ) + - ES_TRANSP_MARG(11, cols_trsp(18, 16)) * d(log(PE_18) - log(PE_16)) * PMTM_16_11(-1) * MTM_16_11(-1) / ( PMTM_18_11(-1) * MTM_18_11(-1) + PMTM_16_11(-1) * MTM_16_11(-1) ) + - ES_TRANSP_MARG(11, cols_trsp(18, 17)) * d(log(PE_18) - log(PE_17)) * PMTM_17_11(-1) * MTM_17_11(-1) / ( PMTM_18_11(-1) * MTM_18_11(-1) + PMTM_17_11(-1) * MTM_17_11(-1) )
 d(SUBST_MTM_n_18_12) = 0 + - ES_TRANSP_MARG(12, cols_trsp(18, 14)) * d(log(PE_18) - log(PE_14)) * PMTM_14_12(-1) * MTM_14_12(-1) / ( PMTM_18_12(-1) * MTM_18_12(-1) + PMTM_14_12(-1) * MTM_14_12(-1) ) + - ES_TRANSP_MARG(12, cols_trsp(18, 16)) * d(log(PE_18) - log(PE_16)) * PMTM_16_12(-1) * MTM_16_12(-1) / ( PMTM_18_12(-1) * MTM_18_12(-1) + PMTM_16_12(-1) * MTM_16_12(-1) ) + - ES_TRANSP_MARG(12, cols_trsp(18, 17)) * d(log(PE_18) - log(PE_17)) * PMTM_17_12(-1) * MTM_17_12(-1) / ( PMTM_18_12(-1) * MTM_18_12(-1) + PMTM_17_12(-1) * MTM_17_12(-1) )
@@ -26766,7 +26911,7 @@ PMAT_07_03 * MAT_07_03 = PMATD_07 * MATD_07_03 + PMATM_07 * MATM_07_03
 PMAT_07_02 * MAT_07_02 = PMATD_07 * MATD_07_02 + PMATM_07 * MATM_07_02
 Y_2307 = 0 + Y_23_2307
 PMAT_07_07 * MAT_07_07 = PMATD_07 * MATD_07_07 + PMATM_07 * MATM_07_07
-d(log(MAT_n_15_03)) = ( @year <= 2019 ) * ( dlog(CIexo_15_03) ) + ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
+d(log(MAT_n_15_03)) = ( @year <= 2019 ) * ( dlog(CIexo_15_03) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_15_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_2_15_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_03) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_15_03 - d(SUBST_MAT_03) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_15_03 - d(SUBST_MAT_03) ) + d(SUBST_MAT_03) )
 PMAT_07_05 * MAT_07_05 = PMATD_07 * MATD_07_05 + PMATM_07 * MATM_07_05
 PMAT_07_04 * MAT_07_04 = PMATD_07 * MATD_07_04 + PMATM_07 * MATM_07_04
 E_23_14 = E_indus_23_14 + E_oth_23_14
@@ -27024,10 +27169,11 @@ E_bis_dgt_22_2201 = ED_22_2201 + EM_22_2201
 E_bis_dgt_22_2202 = ED_22_2202 + EM_22_2202
 CIM_08_2404 = MATM_08_2404
 CIM_08_2405 = MATM_08_2405
-d(log(MAT_n_03_05)) = ( @year <= 2019 ) * ( dlog(CIexo_03_05) ) + ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
+d(log(MAT_n_03_05)) = ( @year <= 2019 ) * ( dlog(CIexo_03_05) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_05) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_05 - d(SUBST_MAT_05) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_05 - d(SUBST_MAT_05) ) + d(SUBST_MAT_05) )
 PCIM_11_03 = PMATM_11
-d(log(MAT_n_03_04)) = ( @year <= 2019 ) * ( dlog(CIexo_03_04) ) + ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
-d(log(MAT_n_03_07)) = ( @year <= 2019 ) * ( dlog(CIexo_03_07) ) + ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
+d(log(MAT_n_03_04)) = ( @year <= 2019 ) * ( dlog(CIexo_03_04) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_04) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_04 - d(SUBST_MAT_04) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_04 - d(SUBST_MAT_04) ) + d(SUBST_MAT_04) )
+CID_04_08 = MATD_04_08
+d(log(MAT_n_03_07)) = ( @year <= 2019 ) * ( dlog(CIexo_03_07) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_03_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_2_03_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_07) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_03_07 - d(SUBST_MAT_07) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_03_07 - d(SUBST_MAT_07) ) + d(SUBST_MAT_07) )
 d(log(IA_n_05_02)) = d(log(IA_n_02))
 d(log(IA_n_05_03)) = d(log(IA_n_03))
 Q_24 = QD_24 + QM_24
@@ -27118,11 +27264,11 @@ MATM_des_18_18 = ( CIMexo_18_18 ) * ( @year <= 2019 ) + ( ( MATM_des_18_18(-1) *
 MATM_des_18_19 = ( CIMexo_18_19 ) * ( @year <= 2019 ) + ( ( MATM_des_18_19(-1) * ( 1 + d(MATM_des_n_18_19) / MATM_des_n_18_19(-1) ) > 0 ) * ( MATM_des_18_19(-1) * ( 1 + d(MATM_des_n_18_19) / MATM_des_n_18_19(-1) ) ) + ( MATM_des_18_19(-1) * ( 1 + d(MATM_des_n_18_19) / MATM_des_n_18_19(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 REC_VAL_SEC_ETS2_21_15 = ETS2_15 * PCH * EMS_SEC_21_15 * ( 1 - EXO_21_15 )
 REC_VAL_SEC_ETS2_21_14 = ETS2_14 * PCH * EMS_SEC_21_14 * ( 1 - EXO_21_14 )
-SUB_FC_04 = TSUB_FC_04 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_04
+SUB_FC_04 = TSUB_FC_04 * P / 1.21 * dQ_Mtep_FC_04
 R_LOAN_H01_CF = 1 - R_CASH_H01_CF
 R_LOAN_H01_CG = 1 - R_CASH_H01_CG
 R_LOAN_H01_CD = 1 - R_CASH_H01_CD
-SUB_FC_05 = TSUB_FC_05 * ( 1 + ( @year > 2023 ) * dlog(P) ) * dQ_Mtep_FC_05
+SUB_FC_05 = TSUB_FC_05 * P / 1.21 * dQ_Mtep_FC_05
 R_LOAN_H01_CB = 1 - R_CASH_H01_CB
 R_LOAN_H01_CC = 1 - R_CASH_H01_CC
 R_LOAN_H01_CA = 1 - R_CASH_H01_CA
@@ -27187,7 +27333,7 @@ SUBST_MATD_19_15 = ADJUST(9, 6) * SUBST_MATD_n_19_15 + ( 1 - ADJUST(9, 6) ) * SU
 verif_IA_des_02 = IA_des_02 - I_MDE_n_02 - I_NE_n_02
 d(log(PY_des_15)) = 0.49 * d(log(NCU_n_15)) + 0.11 * d(log(1 + TMD_n_15)) + 0.19 * d(log(NCU_n_15(-1))) - 0.09 * ( log(PY_des_15(-1)) - log(PY_n_15(-1)) )
 d(log(EXP_BUIL_H01_CE_23)) = ( @year <= 2006 ) * log(1 + STEADYSTATE(2, 1)) + ( @year > 2006 ) * d(log(ENER_BUIL_H01_CE_23))
-MAT_12_08 = ( @year <= 2019 ) * ( MATD_12_08 + MATM_12_08 ) + ( @year > 2019 ) * ( MAT_n_12_08 )
+d(log(PY_des_17)) = 0.49 * d(log(NCU_n_17)) + 0.11 * d(log(1 + TMD_n_17)) + 0.19 * d(log(NCU_n_17(-1))) - 0.09 * ( log(PY_des_17(-1)) - log(PY_n_17(-1)) )
 d(log(PY_des_16)) = 0.49 * d(log(NCU_n_16)) + 0.11 * d(log(1 + TMD_n_16)) + 0.19 * d(log(NCU_n_16(-1))) - 0.09 * ( log(PY_des_16(-1)) - log(PY_n_16(-1)) )
 d(log(PY_des_19)) = 0.49 * d(log(NCU_n_19)) + 0.11 * d(log(1 + TMD_n_19)) + 0.19 * d(log(NCU_n_19(-1))) - 0.09 * ( log(PY_des_19(-1)) - log(PY_n_19(-1)) )
 d(log(PY_des_18)) = 0.49 * d(log(NCU_n_18)) + 0.11 * d(log(1 + TMD_n_18)) + 0.19 * d(log(NCU_n_18(-1))) - 0.09 * ( log(PY_des_18(-1)) - log(PY_n_18(-1)) )
@@ -27638,15 +27784,15 @@ E_SECinc_22 = 0 + E_22_02 + E_22_03 + E_22_04 + E_22_05 + E_22_06 + E_22_07 + E_
 d(log(MAT_13_2307)) = d(log(MAT_2307)) + d(SUBST_MAT_13_2307)
 CU_CAPEX_2404 * PY_2404 * Y_2404 = CK_2404 * K_2404
 SUBST_CHD_24 = 0.8 * SUBST_CHD_n_24 + ( 1 - 0.8 ) * ( SUBST_CHD_24(-1) )
-d(log(MAT_n_20_16)) = ( @year <= 2019 ) * ( dlog(CIexo_20_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_20_16)) = ( @year <= 2019 ) * ( dlog(CIexo_20_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
 SUBST_CHD_22 = 0.8 * SUBST_CHD_n_22 + ( 1 - 0.8 ) * ( SUBST_CHD_22(-1) )
 SUBST_CHD_23 = 0.8 * SUBST_CHD_n_23 + ( 1 - 0.8 ) * ( SUBST_CHD_23(-1) )
 SUBST_CHD_20 = 0.8 * SUBST_CHD_n_20 + ( 1 - 0.8 ) * ( SUBST_CHD_20(-1) )
 SUBST_CHD_21 = 0.8 * SUBST_CHD_n_21 + ( 1 - 0.8 ) * ( SUBST_CHD_21(-1) )
 CU_CAPEX_2402 * PY_2402 * Y_2402 = CK_2402 * K_2402
 NCU_n_16 * Y_16 = CU_n_16 * Y_16 + PIY_16 * IY_16 + PSY_16 * SY_16 + PIS_16 * IS_16
-d(log(MAT_n_20_10)) = ( @year <= 2019 ) * ( dlog(CIexo_20_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_20_12)) = ( @year <= 2019 ) * ( dlog(CIexo_20_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_20_10)) = ( @year <= 2019 ) * ( dlog(CIexo_20_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_20_12)) = ( @year <= 2019 ) * ( dlog(CIexo_20_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_20_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_20_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_20_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_20_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
 EMS_SEC_24_08 = Q_Mtep_SEC_24_08 * IC_24_08 * 1000000 * 2.4
 EMS_SEC_24_09 = Q_Mtep_SEC_24_09 * IC_24_09 * 1000000 * 2.4
 EMS_SEC_24_02 = Q_Mtep_SEC_24_02 * IC_24_02 * 1000000 * 2.4
@@ -27703,7 +27849,7 @@ dlog(E_Trucks_n_23_16) = dlog(Q_Mtep_trucks_23_16)
 IA_23_18 = IAD_23_18 + IAM_23_18
 IA_23_19 = IAD_23_19 + IAM_23_19
 E_indus_21_10 = phi_E_indus_21_10 * E_indus_10
-REDIS_VAL_SEC_ETS_2406 = REC_VAL_SEC_ETS_2406
+REDIS_VAL_SEC_ETS_2406 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2406
 IA_23_14 = IAD_23_14 + IAM_23_14
 IA_23_15 = IAD_23_15 + IAM_23_15
 IA_23_16 = IAD_23_16 + IAM_23_16
@@ -27712,9 +27858,9 @@ IA_23_10 = IAD_23_10 + IAM_23_10
 IA_23_11 = IAD_23_11 + IAM_23_11
 IA_23_12 = IAD_23_12 + IAM_23_12
 IA_23_13 = IAD_23_13 + IAM_23_13
-REDIS_VAL_SEC_ETS_2404 = REC_VAL_SEC_ETS_2404
+REDIS_VAL_SEC_ETS_2404 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2404
 CHD_08 = ( ( EXP_08 - CHM_08 > 0 ) * ( EXP_08 - CHM_08 ) + ( EXP_08 - CHM_08 =< 0 ) * ( 1e-05 ) ) * ( @year <= 2019 ) + ( ( EXP_08 - CHM_08 > 0 ) * ( EXP_08 - CHM_08 ) + ( EXP_08 - CHM_08 <= 0 ) * 1e-05 ) * ( @year > 2019 )
-REDIS_VAL_SEC_ETS_2402 = REC_VAL_SEC_ETS_2402
+REDIS_VAL_SEC_ETS_2402 = ( @year > 2024 ) * REC_VAL_SEC_ETS_2402
 MAT_02_03 = ( @year <= 2019 ) * ( MATD_02_03 + MATM_02_03 ) + ( @year > 2019 ) * ( MAT_n_02_03 )
 MAT_02_02 = ( @year <= 2019 ) * ( MATD_02_02 + MATM_02_02 ) + ( @year > 2019 ) * ( MAT_n_02_02 )
 MAT_02_01 = ( @year <= 2019 ) * ( MATD_02_01 + MATM_02_01 ) + ( @year > 2019 ) * ( MAT_n_02_01 )
@@ -27737,16 +27883,16 @@ E_n_04 = E_indus_n_04 + E_oth_n_04
 d(SUBST_IAM_n_03_19) = ( @year <= 2022 ) * ( - ES_IAM(19, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_19(-1) / ( PIA_03_19(-1) * IA_03_19(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_19(-1) / ( PIA_03_19(-1) * IA_03_19(-1) ) ) )
 d(SUBST_IAM_n_03_18) = ( @year <= 2022 ) * ( - ES_IAM(18, 3) * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_18(-1) / ( PIA_03_18(-1) * IA_03_18(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PIAM_03) - log(PIAD_03)) * ( PIAD_03(-1) * IAD_03_18(-1) / ( PIA_03_18(-1) * IA_03_18(-1) ) ) )
 NCU_n_18 * Y_18 = CU_n_18 * Y_18 + PIY_18 * IY_18 + PSY_18 * SY_18 + PIS_18 * IS_18
-d(log(MAT_n_19_11)) = ( @year <= 2019 ) * ( dlog(CIexo_19_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_19_10)) = ( @year <= 2019 ) * ( dlog(CIexo_19_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_19_13)) = ( @year <= 2019 ) * ( dlog(CIexo_19_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_19_12)) = ( @year <= 2019 ) * ( dlog(CIexo_19_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
-d(log(MAT_n_19_15)) = ( @year <= 2019 ) * ( dlog(CIexo_19_15) ) + ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
-d(log(MAT_n_19_14)) = ( @year <= 2019 ) * ( dlog(CIexo_19_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_19_17)) = ( @year <= 2019 ) * ( dlog(CIexo_19_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_19_16)) = ( @year <= 2019 ) * ( dlog(CIexo_19_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
-d(log(MAT_n_19_19)) = ( @year <= 2019 ) * ( dlog(CIexo_19_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_19_18)) = ( @year <= 2019 ) * ( dlog(CIexo_19_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_19_11)) = ( @year <= 2019 ) * ( dlog(CIexo_19_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_19_10)) = ( @year <= 2019 ) * ( dlog(CIexo_19_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_19_13)) = ( @year <= 2019 ) * ( dlog(CIexo_19_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_19_12)) = ( @year <= 2019 ) * ( dlog(CIexo_19_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_19_15)) = ( @year <= 2019 ) * ( dlog(CIexo_19_15) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_15) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_15 - d(SUBST_MAT_15) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_15 - d(SUBST_MAT_15) ) + d(SUBST_MAT_15) )
+d(log(MAT_n_19_14)) = ( @year <= 2019 ) * ( dlog(CIexo_19_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_19_17)) = ( @year <= 2019 ) * ( dlog(CIexo_19_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_19_16)) = ( @year <= 2019 ) * ( dlog(CIexo_19_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_19_19)) = ( @year <= 2019 ) * ( dlog(CIexo_19_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_19_18)) = ( @year <= 2019 ) * ( dlog(CIexo_19_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_19_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_19_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_19_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_19_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
 SUBST_MATD_17_19 = ADJUST(9, 6) * SUBST_MATD_n_17_19 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_17_19(-1)
 SUBST_MATD_17_18 = ADJUST(9, 6) * SUBST_MATD_n_17_18 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_17_18(-1)
 verif_IA_dgt_05_19 = IA_n_05_19 - IA_bis_dgt_05_19
@@ -27829,7 +27975,7 @@ RENOV_VAL_CG = 0 + PREHAB_h01_CG_CA * REHAB_h01_CG_CA + PREHAB_h01_CG_CB * REHAB
 RENOV_VAL_CD = 0 + PREHAB_h01_CD_CA * REHAB_h01_CD_CA + PREHAB_h01_CD_CB * REHAB_h01_CD_CB + PREHAB_h01_CD_CC * REHAB_h01_CD_CC
 RENOV_VAL_CE = 0 + PREHAB_h01_CE_CA * REHAB_h01_CE_CA + PREHAB_h01_CE_CB * REHAB_h01_CE_CB + PREHAB_h01_CE_CC * REHAB_h01_CE_CC + PREHAB_h01_CE_CD * REHAB_h01_CE_CD
 PCID_16_09 = PMATD_16
-E_22_03 = E_indus_22_03 + E_oth_22_03
+E_22_2304 = E_indus_22_2304 + E_oth_22_2304
 CID_12_01 = MATD_12_01
 CID_12_02 = MATD_12_02
 CID_12_03 = MATD_12_03
@@ -28099,10 +28245,8 @@ IA_01_2202 = IAD_01_2202 + IAM_01_2202
 I_NE_n_2201 = K_NE_n_2201 - K_NE_n_2201(-1) * ( 1 - tdec_2201 )
 dlog(CIexo_16_03) = dlog(CIexo_16)
 SUBST_MATM_18_2202 = ADJUST(10, 6) * SUBST_MATM_n_18_2202 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_18_2202(-1)
-ENER_spe_val_H01_CG_24 = PENER_BUIL_H01_CG_24 * ENER_spe_H01_CG_24
+PCID_18_2402 = PMATD_18
 ENER_spe_val_H01_CG_23 = PENER_BUIL_H01_CG_23 * ENER_spe_H01_CG_23
-ENER_spe_val_H01_CG_22 = PENER_BUIL_H01_CG_22 * ENER_spe_H01_CG_22
-ENER_spe_val_H01_CG_21 = PENER_BUIL_H01_CG_21 * ENER_spe_H01_CG_21
 d(log(MATM_des_n_02_09)) = 1.55 * dlog(QD_02) - 0.41 * ( log(MATM_des_n_02_09(-1)) - log(MAT_02_09(-1)) + 0.48 * ( log(PMATM_02(-1)) - log(PMATD_02(-1)) ) )
 d(log(MATM_des_n_02_08)) = 1.55 * dlog(QD_02) - 0.41 * ( log(MATM_des_n_02_08(-1)) - log(MAT_02_08(-1)) + 0.48 * ( log(PMATM_02(-1)) - log(PMATD_02(-1)) ) )
 SY_2202 = @elem(TSYN_2202, 2006) * Y_2202
@@ -28145,12 +28289,9 @@ CIM_18_18 = MATM_18_18
 CIM_18_19 = MATM_18_19
 SUBST_IAM_05_2202 = ADJUST(14, 6) * SUBST_IAM_n_05_2202 + ( 1 - ADJUST(14, 6) ) * SUBST_IAM_05_2202(-1)
 ENER_spe_val_H01_CC_23 = PENER_BUIL_H01_CC_23 * ENER_spe_H01_CC_23
-ENER_spe_val_H01_CC_22 = PENER_BUIL_H01_CC_22 * ENER_spe_H01_CC_22
-ENER_spe_val_H01_CC_21 = PENER_BUIL_H01_CC_21 * ENER_spe_H01_CC_21
-ENER_spe_val_H01_CC_24 = PENER_BUIL_H01_CC_24 * ENER_spe_H01_CC_24
 ED_23_06 = ( ( 1 + d(E_23_06) / E_23_06(-1) + d(SUBST_ED_23_06) ) * ED_23_06(-1) ) * ( @year <= 2019 ) + ( ( E_23_06 - EM_23_06 > 0 ) * ( E_23_06 - EM_23_06 ) + ( E_23_06 - EM_23_06 <= 0 ) * 0.0001 ) * ( @year > 2019 )
-ED_23_07 = ( ( 1 + d(E_23_07) / E_23_07(-1) + d(SUBST_ED_23_07) ) * ED_23_07(-1) ) * ( @year <= 2019 ) + ( ( E_23_07 - EM_23_07 > 0 ) * ( E_23_07 - EM_23_07 ) + ( E_23_07 - EM_23_07 <= 0 ) * 0.0001 ) * ( @year > 2019 )
-ED_23_04 = ( ( 1 + d(E_23_04) / E_23_04(-1) + d(SUBST_ED_23_04) ) * ED_23_04(-1) ) * ( @year <= 2019 ) + ( ( E_23_04 - EM_23_04 > 0 ) * ( E_23_04 - EM_23_04 ) + ( E_23_04 - EM_23_04 <= 0 ) * 0.0001 ) * ( @year > 2019 )
+phiy_E_21_2202 = PhiY_ener_exo_21_2202 + Q_Mtep_FC_2202 / Q_Mtep_ef_tot_SOU_21
+phiy_E_21_2201 = PhiY_ener_exo_21_2201 + Q_Mtep_FC_2201 / Q_Mtep_ef_tot_SOU_21
 ED_23_05 = ( ( 1 + d(E_23_05) / E_23_05(-1) + d(SUBST_ED_23_05) ) * ED_23_05(-1) ) * ( @year <= 2019 ) + ( ( E_23_05 - EM_23_05 > 0 ) * ( E_23_05 - EM_23_05 ) + ( E_23_05 - EM_23_05 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 ED_23_02 = ( ( 1 + d(E_23_02) / E_23_02(-1) + d(SUBST_ED_23_02) ) * ED_23_02(-1) ) * ( @year <= 2019 ) + ( ( E_23_02 - EM_23_02 > 0 ) * ( E_23_02 - EM_23_02 ) + ( E_23_02 - EM_23_02 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 ED_23_03 = ( ( 1 + d(E_23_03) / E_23_03(-1) + d(SUBST_ED_23_03) ) * ED_23_03(-1) ) * ( @year <= 2019 ) + ( ( E_23_03 - EM_23_03 > 0 ) * ( E_23_03 - EM_23_03 ) + ( E_23_03 - EM_23_03 <= 0 ) * 0.0001 ) * ( @year > 2019 )
@@ -28219,16 +28360,16 @@ MAT_bis_dgt_02_07 = MATD_02_07 + MATM_02_07
 MAT_bis_dgt_02_01 = MATD_02_01 + MATM_02_01
 MAT_bis_dgt_02_02 = MATD_02_02 + MATM_02_02
 MAT_bis_dgt_02_03 = MATD_02_03 + MATM_02_03
-d(log(MAT_n_02_19)) = ( @year <= 2019 ) * ( dlog(CIexo_02_19) ) + ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
-d(log(MAT_n_02_18)) = ( @year <= 2019 ) * ( dlog(CIexo_02_18) ) + ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
-d(log(MAT_n_02_11)) = ( @year <= 2019 ) * ( dlog(CIexo_02_11) ) + ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
-d(log(MAT_n_02_10)) = ( @year <= 2019 ) * ( dlog(CIexo_02_10) ) + ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
-d(log(MAT_n_02_13)) = ( @year <= 2019 ) * ( dlog(CIexo_02_13) ) + ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
-d(log(MAT_n_02_12)) = ( @year <= 2019 ) * ( dlog(CIexo_02_12) ) + ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
+d(log(MAT_n_02_19)) = ( @year <= 2019 ) * ( dlog(CIexo_02_19) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_19) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_19 - d(SUBST_MAT_19) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_19 - d(SUBST_MAT_19) ) + d(SUBST_MAT_19) )
+d(log(MAT_n_02_18)) = ( @year <= 2019 ) * ( dlog(CIexo_02_18) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_18) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_18 - d(SUBST_MAT_18) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_18 - d(SUBST_MAT_18) ) + d(SUBST_MAT_18) )
+d(log(MAT_n_02_11)) = ( @year <= 2019 ) * ( dlog(CIexo_02_11) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_11) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_11 - d(SUBST_MAT_11) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_11 - d(SUBST_MAT_11) ) + d(SUBST_MAT_11) )
+d(log(MAT_n_02_10)) = ( @year <= 2019 ) * ( dlog(CIexo_02_10) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_10) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_10 - d(SUBST_MAT_10) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_10 - d(SUBST_MAT_10) ) + d(SUBST_MAT_10) )
+d(log(MAT_n_02_13)) = ( @year <= 2019 ) * ( dlog(CIexo_02_13) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_13) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_13 - d(SUBST_MAT_13) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_13 - d(SUBST_MAT_13) ) + d(SUBST_MAT_13) )
+d(log(MAT_n_02_12)) = ( @year <= 2019 ) * ( dlog(CIexo_02_12) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_12) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_12 - d(SUBST_MAT_12) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_12 - d(SUBST_MAT_12) ) + d(SUBST_MAT_12) )
 Un_W_65 = LF_W_65 - Empl_W_65
-d(log(MAT_n_02_14)) = ( @year <= 2019 ) * ( dlog(CIexo_02_14) ) + ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
-d(log(MAT_n_02_17)) = ( @year <= 2019 ) * ( dlog(CIexo_02_17) ) + ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
-d(log(MAT_n_02_16)) = ( @year <= 2019 ) * ( dlog(CIexo_02_16) ) + ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
+d(log(MAT_n_02_14)) = ( @year <= 2019 ) * ( dlog(CIexo_02_14) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_14) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_14 - d(SUBST_MAT_14) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_14 - d(SUBST_MAT_14) ) + d(SUBST_MAT_14) )
+d(log(MAT_n_02_17)) = ( @year <= 2019 ) * ( dlog(CIexo_02_17) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_17) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_17 - d(SUBST_MAT_17) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_17 - d(SUBST_MAT_17) ) + d(SUBST_MAT_17) )
+d(log(MAT_n_02_16)) = ( @year <= 2019 ) * ( dlog(CIexo_02_16) ) + ( 1 - choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_02_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_2_02_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) ) + ( choc_tech_coef ) * ( @year > 2019 ) * ( dlog(Y_16) + ( @year > 2023 ) * ( @year <= 2030 ) * ( Tech_coef_var_ams_02_16 - d(SUBST_MAT_16) ) + ( @year > 2030 ) * ( Tech_coef_var_ams2_02_16 - d(SUBST_MAT_16) ) + d(SUBST_MAT_16) )
 PMAT_15_02 * MAT_15_02 = PMATD_15 * MATD_15_02 + PMATM_15 * MATM_15_02
 PMAT_15_03 * MAT_15_03 = PMATD_15 * MATD_15_03 + PMATM_15 * MATM_15_03
 PMAT_15_04 * MAT_15_04 = PMATD_15 * MATD_15_04 + PMATM_15 * MATM_15_04
@@ -28445,7 +28586,7 @@ E_22_07 = E_indus_22_07 + E_oth_22_07
 E_22_2307 = E_indus_22_2307 + E_oth_22_2307
 phi_E_oth_21_05 * ( ( E_oth_des_05 > 0 ) * E_oth_des_05 + ( E_oth_des_05 <= 0 ) ) = ( E_oth_des_05 > 0 ) * E_oth_des_21_05 + ( E_oth_des_05 <= 0 ) * 0
 E_22_02 = E_indus_22_02 + E_oth_22_02
-d(log(IAM_des_n_03_17)) = 1.55 * dlog(QD_03) - 0.41 * ( log(IAM_des_n_03_17(-1)) - log(IA_n_03_17(-1)) + 0.48 * ( log(PIAM_03(-1)) - log(PIAD_03(-1)) ) )
+E_22_03 = E_indus_22_03 + E_oth_22_03
 PROG_E_indus_15 = PROG_E_indus_15(-1) * ( 1 + GR_PROG_E_15 )
 PROG_E_indus_14 = PROG_E_indus_14(-1) * ( 1 + GR_PROG_E_14 )
 PROG_E_indus_17 = PROG_E_indus_17(-1) * ( 1 + GR_PROG_E_17 )
@@ -28532,7 +28673,7 @@ TQETS_22_18 = Ttco_vol_22 * ( 1 - EXO_22_18 )
 PGDP * GDP = PCH * CH + PG * G + PI * I + PX * X + PDS * DS - PM * M
 d(log(PEXP_03_H01)) = d(log(PCH_03))
 CID_16_13 = MATD_16_13
-REDIS_VAL_SEC_ETS = REC_VAL_SEC_ETS
+REDIS_VAL_SEC_ETS = ( @year > 2024 ) * REC_VAL_SEC_ETS
 CID_16_11 = MATD_16_11
 CID_16_10 = MATD_16_10
 CID_16_17 = MATD_16_17
