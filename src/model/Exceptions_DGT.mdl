@@ -32,10 +32,11 @@ DEBT_AUTO_Val_tot[h,ecl] = (@year > %baseyear)*( DEBT_auto_Val[h,ecl]{-1}*(1 - R
 # Calcul de l'endettement des SNF
 @over d(R_G) = 1/8 * d(R) + (1 - 1/8) * d(R_G{-1})
 
-DEBT_SNF_VAL[s] = (1+R_SNF[s]{-1}) * DEBT_SNF_VAL[s]{-1} + PIA[s]*IA[s]
+DEBT_SNF_VAL[s] = (1+R_SNF[s]{-1} - Tdec[s]) * DEBT_SNF_VAL[s]{-1} + PIA[s]*IA[s]
 R_SNF[s] = 1/4 * d(R[s]) + (1 - 1/4) * R_SNF[s]{-1}
 
 DEBT_SNF_VAL=sum(DEBT_SNF_VAL[s] on s)
+
 
 DEBT_SNF_ENER = sum(DEBT_SNF_VAL[se] on se)
 
@@ -84,6 +85,8 @@ verif_M_val = PM * M - (sum(PM[c] * M[c] on c))
 #### AJOUT D'UN CHOC DE TAUX D'INTERET (GREENIUM) #####
 
 @over R  = 1 * R_n  + ( 1  - 1 )  * ( R(- 1)  + d(R_e) ) + R_exo
+#Risk_P = 0.31*Debt_SNF_VAL/VA
+#@over d(R[s]) = d(R) + d(Risk_P)
 @over d(R[s]) = d(R) + d(R_exo[s])
 
 ##### INVESTISSEMENT DES SECTEURS NON ENERGETIQUES #####
@@ -271,11 +274,26 @@ d(log(PM_n[ce]))=(0.74 * dlog(TC * PWD[ce]) - 0.97 * (log(PM_n[ce]{-1}) - 0.17 *
 #conso des m�nages
 	#dai
  d(log(CHM_des_n[cdai])) = 1.55*dlog(QD[cdai]) - 0.41*(log(CHM_des_n[cdai]{-1}) - log(EXP[cdai]{-1}) + 0.48*(log(PCHM[cdai]{-1})-log(PCHD[cdai]{-1}))) if CHM[cdai] <> 0
-
+ 
+#@over d(log(CHM_des_n_03)) = d(log(CHM_03)) * (@year<=2019) + (1.55*dlog(QD_03) - 0.41*(log(CHM_des_n_03{-1}) - log(EXP_03{-1}) + 0.48*(log(PCHM_03{-1})-log(PCHD_03{-1})))) * (@year>2019) if CHM_03 <> 0
+# 
+#@over d(log(CHM_des_n_03)) = d(log(CHM_03)) * (@year<=2019) + (1*dlog(Q_03) + 0.48*(log(PCHM_03{-1})-log(PCHD_03{-1}))) * (@year>2019) if CHM_03 <> 0
+# 
+ #@over CHM_des_n_03 = (CHM_03) * (@year<=2019) + (CHM_des_n_03{-1}* (1 + dlog(Q_03) + 0.48*(log(PCHM_03{-1})-log(PCHD_03{-1})))) * (@year>2019) if CHM_03 <> 0
+ 
  CHM_des[cdai] = CHM_des[cdai]{-1}*((1 + (QMexo[cdai]>0)*(d(QMexo[cdai])/QMexo[cdai]{-1})))*(@year<=2019) _
                         + ((CHM_des[cdai]{-1}*(1+d(CHM_des_n[cdai])/CHM_des_n[cdai]{-1})>0)*(CHM_des[cdai]{-1}*(1+d(CHM_des_n[cdai])/CHM_des_n[cdai]{-1}))+(CHM_des[cdai]{-1}*(1+d(CHM_des_n[cdai])/CHM_des_n[cdai]{-1})<=0)*0.00001)*(@year>2019) if CHM[cdai] <> 0
+                        
+@over CHM_des_03  = (QMexo_03/(QDexo_03+QMexo_03)*EXP_03)*(@year<=2019) + ( ( CHM_des_03(-1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(-1) ) > 0 )  * ( CHM_des_03(-1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(-1) ) )  + ( CHM_des_03(-1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(-1) ) <= 0 )  * 0.00001 )  * ( @year > 2019 ) 
+
+# cette correction est nécessaire car EXPexo_03 évolue comme le nombre d'automobiles et non comme l'évolution du CA du secteur en € constant sur la période 2006-2019, contrairement au QM_exo. QMexo augmente beaucoup plus vite que le nombre de véhicules, si bien que sans correction la production domestique tendrait vers zéro en 2020.   
+  
+                        
  @over CHM[cdai] = CHM[cdai]{-1}*((1 + (QMexo[cdai]>0)*(d(QMexo[cdai])/QMexo[cdai]{-1})))*(@year<=2019) _
                         + ((EXP[cdai] - CHM_des[cdai]>0)*(CHM_des[cdai])+(EXP[cdai] - CHM_des[cdai]<=0)*(EXP[cdai] -0.00001))*(@year>2019) if CHM[cdai] <> 0
+                        
+@over CHM_03 = (QMexo_03/(QDexo_03+QMexo_03)*EXP_03)*(@year<=2019) + ((EXP_03 - CHM_des_03>0)*(CHM_des_03)+(EXP_03 - CHM_des_03<=0)*(EXP_03 -0.00001))*(@year>2019) if CHM_03 <> 0 # cette correction est nécessaire car EXPexo_03 évolue comme le nombre d'automobiles et non comme l'évolution du CA du secteur en € constant sur la période 2006-2019, contrairement au QM_exo. QMexo augmente beaucoup plus vite que le nombre de véhicules, si bien que sans correction la production domestique tendrait vers zéro en 2020.   
+  
  @over CHD[cdai]  = ((EXP[cdai]-CHM[cdai] > 0) * (EXP[cdai] - CHM[cdai]) + (EXP[cdai] - CHM[cdai] =< 0) * (0.00001))*(@year<=2019) _
                     + ((EXP[cdai] - CHM[cdai]>0)*(EXP[cdai] - CHM[cdai])+(EXP[cdai] - CHM[cdai]<=0)*0.00001)*(@year>2019)
 
@@ -397,7 +415,7 @@ d(log(W_S_des_n[sne])) = 1*d(log(PVA)) + 1*d(log(PROG_L[sne])) + 1*d(log(1/((1-T
 
 @over d(log(W_S_n[sne])) = (@year<=2019)* (1*d(log(P_e)) + d(log(CFS)) + 1*d(log(PROG_L[sne])) - 1.8*d(UnR_TOT{-1})) + (@year>2019)* d(log(W_S_des_n[sne]))
 
-@over d(log(W_S_n_13))  = (@year<=2019)*(1  * d(log(P_e))  + d(log(CFS))  + 1  * d(log(PROG_L_13))  - 1.8  * (  - d(L_13(-1)  * ( DLog(GDP_13)  - Dlog(prog_L_13) )  / ( L_13(-1)  / L(-1)  * POP_tot(-1) )) ))+ (@year>2019)* d(log(W_S_des_n_13))
+@over d(log(W_S_n_13))  = (@year<=2019)*(1  * d(log(P_e))  + d(log(CFS))  + 1  * d(log(PROG_L_13))  - 1.8  * (  - d(L_13{-1}  * ( DLog(GDP_13)  - Dlog(prog_L_13) )  / ( L_13{-1}  / L{-1}  * POP_tot{-1} )) ))+ (@year>2019)* d(log(W_S_des_n_13))
 
 #@over d(log(W_S_n[sne])) = 1*d(log(PVA)) + 1*d(log(PROG_L[sne])) + 1*d(log(1/((1-TCSS)*(1-TIR[H01]{-1})))) - 3.2*d(UnR_TOT)      if W_S_n[sne] <> 0
 

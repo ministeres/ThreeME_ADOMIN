@@ -59,3 +59,11 @@ I_MDE[ce,road] = PNew_Trucks[ce,road] * New_trucks[ce,road]/1000 + PNew_LUV[ce,r
 @over TAX_CR_VAL[road] = T_TAX_CR[road] * PIA[road] * PNew_Trucks[23,road] * New_trucks[23,road]/1000
 
 @over TAX_CR_VAL = sum(TAX_CR_VAL[s] on s)
+
+CHD_03  = ( ( EXP_03  - CHM_03 > 0 )  * ( EXP_03  - CHM_03 )  + ( EXP_03  - CHM_03  = < 0 )  * ( 1e-05 ) )  * ( @year <= 2019 )  + ( ( EXP_03  - CHM_03 > 0 )  * ( EXP_03  - CHM_03 )  + ( EXP_03  - CHM_03 <= 0 )  * 1e-05 )  * ( @year > 2019 )
+
+CHM_03  = ( QMexo_03  / ( QDexo_03  + QMexo_03 )  * EXPexo_03 )  * ( @year <= 2019 )  + ( ( EXP_03  - CHM_des_03 > 0 )  * ( CHM_des_03 )  + ( EXP_03  - CHM_des_03 <= 0 )  * ( EXP_03  - 1e-05 ) )  * ( @year > 2019 )
+
+CHM_des_03  = ( QMexo_03  / ( QDexo_03  + QMexo_03 )  * EXPexo_03 )  * ( @year <= 2019 )  + ( ( CHM_des_03(- 1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(- 1) ) > 0 )  * ( CHM_des_03(- 1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(- 1) ) )  + ( CHM_des_03(- 1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(- 1) ) <= 0 )  * 1e-05 )  * ( @year > 2019 )
+
+d(log(CHM_des_n_03))  = 1.55  * dlog(QD_03)  - 0.41  * ( log(CHM_des_n_03(-1))  - log(EXP_03(-1))  + 0.48  * ( log(PCHM_03(-1))  - log(PCHD_03(-1)) ) )

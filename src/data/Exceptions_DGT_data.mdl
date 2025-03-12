@@ -217,7 +217,7 @@ IAM_des[cservex,sne] := IAM[cservex,sne]
  #### VAC
 defl_Ttco[ce2] := 1
 
-DEBT_SNF_VAL[s] := 0
+DEBT_SNF_VAL[s] := K[s]
 DEBT_SNF_VAL := sum(DEBT_SNF_VAL[s] on s)
 R_SNF[s] := R[s]
 DEBT_SNF_ENER := sum(DEBT_SNF_VAL[se] on se)

@@ -50,7 +50,7 @@ include ..\model\lists
   
   U_REHAB[h,ecl,ecl2] = (UC_E[h,ecl]{-1} - UC_E[h,ecl2]{-1}) - ((1 - R_SUB[h,ecl,ecl2]{-1}) * PREHAB[h,ecl,ecl2]{-1})   if REHAB[h,ecl,ecl2] <> 0
   
-  EXP_U_REHAB[h,ecl,ecl2]= EXP(U_REHAB[h,ecl,ecl2]*6000)   if REHAB[h,ecl,ecl2] <> 0
+  EXP_U_REHAB[h,ecl,ecl2]= EXP(U_REHAB[h,ecl,ecl2]*500)   if REHAB[h,ecl,ecl2] <> 0
   
   SUM_EXP_U_REHAB[h,ecl] = sum(EXP_U_REHAB[h,ecl,ecl2] if REHAB[h,ecl,ecl2] <> 0 on ecl2)    if REHAB[h,ecl] <> 0
      
@@ -552,11 +552,7 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
    @over EXP_13[h] = ( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) * NewBUIL[h] + (sum(@elem(PREHAB[h,ecl],%baseyear) * REHAB[h,ecl] on ecl)) _ 
                       +EXP_13_OTH_Val[h] / PCH_13 ) + ( @year <= %baseyear ) * (EXP_13[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
 
-       
-    @over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl)+ sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h]) + _
-                      ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
-    
-    
+     @over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl)+ (sum(@elem(PNewAUTO_th[h,ecl], %baseyear)*NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h])) + ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )   
     
     @over d(log(EXP[trsp, h]))   = d(log(Km_traveler[trsp, h]))  if Km_traveler[trsp, h] <> 0 where trsp in %list_trsp_travel
    
@@ -968,7 +964,7 @@ PAUTO_elec[h]*NewAUTO_elec[h] = sum(PAUTO_elec[h,pcl]*NewAUTO_elec[h,pcl] on pcl
 
 PNewAUTO[h,CA]*NewAUTO[h,CA] = PAUTO_elec[h]*NewAUTO_elec[h] + PNewAUTO_th[h,CA]*NewAUTO_th[h,CA] if  NewAUTO[h,CA]>0
 
-dlog(PNewAUTO_th[h,ecl]) =dlog(PCH_03)
+dlog(PNewAUTO_th[h,ecl]) =dlog(PCH_03) 
 
 PNewAUTO[h,c] = PNewAUTO_th[h,c]  where c in %list_ener_class \ CA
 
@@ -1171,6 +1167,9 @@ d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + log(1+STEA
                        
   @over CHM[cm] = (CHM[cm]{-1}*(1 + (QMexo[cm]>0)*(d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2019) _
                    + ((EXP[cm] - CHD[cm]>0)*(EXP[cm] - CHD[cm])+(EXP[cm] - CHD[cm]<=0)*0.00001)*(@year>2019) if CHM[cm] <> 0
+                   
+  @over CHM_03 = (QMexo_03/(QDexo_03+QMexo_03)*EXPexo_03)*(@year<=2019) _
+                   + ((EXP_03 - CHD_03>0)*(EXP_03 - CHD_03)+(EXP_03 - CHD_03<=0)*0.00001)*(@year>2019) if CHM_03 <> 0 # 
   
   @over GD[cm] = ((EXPG[cm] - GM[cm]>0)*(EXPG[cm] - GM[cm])+(EXPG[cm] - GM[cm]<=0)*0.00001)*(@year<=2019) + (GD[cm]{-1}*(1+d(EXPG[cm])/EXPG[cm]{-1} + d(subst_GD[cm])))*(@year>2019) if GD[cm] <> 0          #corrigé
   

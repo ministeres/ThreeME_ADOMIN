@@ -1405,12 +1405,12 @@ IA_03_2306 = IAD_03_2306 + IAM_03_2306
 IA_03_2307 = IAD_03_2307 + IAM_03_2307
 IA_03_2304 = IAD_03_2304 + IAM_03_2304
 IA_03_2305 = IAD_03_2305 + IAM_03_2305
-EXP_U_REHAB_H01_CG_CD = EXP(U_REHAB_H01_CG_CD * 6000)
-EXP_U_REHAB_H01_CG_CE = EXP(U_REHAB_H01_CG_CE * 6000)
-EXP_U_REHAB_H01_CG_CF = EXP(U_REHAB_H01_CG_CF * 6000)
-EXP_U_REHAB_H01_CG_CA = EXP(U_REHAB_H01_CG_CA * 6000)
-EXP_U_REHAB_H01_CG_CB = EXP(U_REHAB_H01_CG_CB * 6000)
-EXP_U_REHAB_H01_CG_CC = EXP(U_REHAB_H01_CG_CC * 6000)
+EXP_U_REHAB_H01_CG_CD = EXP(U_REHAB_H01_CG_CD * 500)
+EXP_U_REHAB_H01_CG_CE = EXP(U_REHAB_H01_CG_CE * 500)
+EXP_U_REHAB_H01_CG_CF = EXP(U_REHAB_H01_CG_CF * 500)
+EXP_U_REHAB_H01_CG_CA = EXP(U_REHAB_H01_CG_CA * 500)
+EXP_U_REHAB_H01_CG_CB = EXP(U_REHAB_H01_CG_CB * 500)
+EXP_U_REHAB_H01_CG_CC = EXP(U_REHAB_H01_CG_CC * 500)
 dlog(km_traveler_14_H01) = ( @year > 2006 ) * ( d(log(km_traveler_LD_H01)) + 0.5 * ( km_trav_auto_LD_H01(-1) / ( km_traveler_14_H01(-1) + km_trav_auto_LD_H01(-1) ) ) * d(log(PC_trav_auto_LD_h01) - log(pc_trav_14_H01 + PC_Trav_14_signal)) + choc_rail ) + ( @year <= 2006 ) * log(1 + STEADYSTATE(2, 1))
 SUBST_MATM_05_20 = ADJUST(10, 6) * SUBST_MATM_n_05_20 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_05_20(-1)
 d(SUBST_IAD_n_05_09) = - ES_IAM(9, 5) * d(log(PIAD_05) - log(PIAM_05)) * ( PIAM_05(-1) * IAM_05_09(-1) / ( PIA_05_09(-1) * IA_05_09(-1) ) )
@@ -1796,11 +1796,11 @@ E_23_2404 = E_indus_23_2404 + E_oth_23_2404
 IA_14_21 = IAD_14_21 + IAM_14_21
 IA_14_20 = IAD_14_20 + IAM_14_20
 OTHTD_08 = @elem(TOTHTD_08, 2006) * YQ_08
-DEBT_SNF_VAL_08 = ( 1 + R_SNF_08(-1) ) * DEBT_SNF_VAL_08(-1) + PIA_08 * IA_08
+DEBT_SNF_VAL_08 = ( 1 + R_SNF_08(-1) - Tdec_08 ) * DEBT_SNF_VAL_08(-1) + PIA_08 * IA_08
 OTHTD_06 = @elem(TOTHTD_06, 2006) * YQ_06
-DEBT_SNF_VAL_06 = ( 1 + R_SNF_06(-1) ) * DEBT_SNF_VAL_06(-1) + PIA_06 * IA_06
-DEBT_SNF_VAL_05 = ( 1 + R_SNF_05(-1) ) * DEBT_SNF_VAL_05(-1) + PIA_05 * IA_05
-DEBT_SNF_VAL_04 = ( 1 + R_SNF_04(-1) ) * DEBT_SNF_VAL_04(-1) + PIA_04 * IA_04
+DEBT_SNF_VAL_06 = ( 1 + R_SNF_06(-1) - Tdec_06 ) * DEBT_SNF_VAL_06(-1) + PIA_06 * IA_06
+DEBT_SNF_VAL_05 = ( 1 + R_SNF_05(-1) - Tdec_05 ) * DEBT_SNF_VAL_05(-1) + PIA_05 * IA_05
+DEBT_SNF_VAL_04 = ( 1 + R_SNF_04(-1) - Tdec_04 ) * DEBT_SNF_VAL_04(-1) + PIA_04 * IA_04
 d(SUBST_MTD_n_18_08) = 0 + - ES_TRANSP_MARG(8, cols_trsp(18, 14)) * d(log(PE_18) - log(PE_14)) * PMTD_14_08(-1) * MTD_14_08(-1) / ( PMTD_18_08(-1) * MTD_18_08(-1) + PMTD_14_08(-1) * MTD_14_08(-1) ) + - ES_TRANSP_MARG(8, cols_trsp(18, 16)) * d(log(PE_18) - log(PE_16)) * PMTD_16_08(-1) * MTD_16_08(-1) / ( PMTD_18_08(-1) * MTD_18_08(-1) + PMTD_16_08(-1) * MTD_16_08(-1) ) + - ES_TRANSP_MARG(8, cols_trsp(18, 17)) * d(log(PE_18) - log(PE_17)) * PMTD_17_08(-1) * MTD_17_08(-1) / ( PMTD_18_08(-1) * MTD_18_08(-1) + PMTD_17_08(-1) * MTD_17_08(-1) )
 d(SUBST_MTD_n_18_09) = 0 + - ES_TRANSP_MARG(9, cols_trsp(18, 14)) * d(log(PE_18) - log(PE_14)) * PMTD_14_09(-1) * MTD_14_09(-1) / ( PMTD_18_09(-1) * MTD_18_09(-1) + PMTD_14_09(-1) * MTD_14_09(-1) ) + - ES_TRANSP_MARG(9, cols_trsp(18, 16)) * d(log(PE_18) - log(PE_16)) * PMTD_16_09(-1) * MTD_16_09(-1) / ( PMTD_18_09(-1) * MTD_18_09(-1) + PMTD_16_09(-1) * MTD_16_09(-1) ) + - ES_TRANSP_MARG(9, cols_trsp(18, 17)) * d(log(PE_18) - log(PE_17)) * PMTD_17_09(-1) * MTD_17_09(-1) / ( PMTD_18_09(-1) * MTD_18_09(-1) + PMTD_17_09(-1) * MTD_17_09(-1) )
 d(SUBST_MTD_n_18_06) = 0 + - ES_TRANSP_MARG(6, cols_trsp(18, 14)) * d(log(PE_18) - log(PE_14)) * PMTD_14_06(-1) * MTD_14_06(-1) / ( PMTD_18_06(-1) * MTD_18_06(-1) + PMTD_14_06(-1) * MTD_14_06(-1) ) + - ES_TRANSP_MARG(6, cols_trsp(18, 16)) * d(log(PE_18) - log(PE_16)) * PMTD_16_06(-1) * MTD_16_06(-1) / ( PMTD_18_06(-1) * MTD_18_06(-1) + PMTD_16_06(-1) * MTD_16_06(-1) ) + - ES_TRANSP_MARG(6, cols_trsp(18, 17)) * d(log(PE_18) - log(PE_17)) * PMTD_17_06(-1) * MTD_17_06(-1) / ( PMTD_18_06(-1) * MTD_18_06(-1) + PMTD_17_06(-1) * MTD_17_06(-1) )
@@ -2230,14 +2230,14 @@ d(log(MATM_des_n_11_12)) = 1.55 * dlog(QD_11) - 0.41 * ( log(MATM_des_n_11_12(-1
 d(log(MATM_des_n_11_13)) = 1.55 * dlog(QD_11) - 0.41 * ( log(MATM_des_n_11_13(-1)) - log(MAT_11_13(-1)) + 0.48 * ( log(PMATM_11(-1)) - log(PMATD_11(-1)) ) )
 d(log(MATM_des_n_11_10)) = 1.55 * dlog(QD_11) - 0.41 * ( log(MATM_des_n_11_10(-1)) - log(MAT_11_10(-1)) + 0.48 * ( log(PMATM_11(-1)) - log(PMATD_11(-1)) ) )
 d(log(MATM_des_n_11_11)) = 1.55 * dlog(QD_11) - 0.41 * ( log(MATM_des_n_11_11(-1)) - log(MAT_11_11(-1)) + 0.48 * ( log(PMATM_11(-1)) - log(PMATD_11(-1)) ) )
-delta_BUIL_H01_CD = 0 + delta_BUIL_H01_CD_CE
+delta_BUIL_H01_CD = 0 + delta_BUIL_H01_CD_CE + delta_BUIL_H01_CD_CF + delta_BUIL_H01_CD_CG
 SUB_REHAB_VAL_H01_CF = 0 + R_SUB_H01_CF_CA * PREHAB_H01_CF_CA * REHAB_H01_CF_CA + R_SUB_H01_CF_CB * PREHAB_H01_CF_CB * REHAB_H01_CF_CB + R_SUB_H01_CF_CC * PREHAB_H01_CF_CC * REHAB_H01_CF_CC + R_SUB_H01_CF_CD * PREHAB_H01_CF_CD * REHAB_H01_CF_CD + R_SUB_H01_CF_CE * PREHAB_H01_CF_CE * REHAB_H01_CF_CE
 SUB_REHAB_VAL_H01_CE = 0 + R_SUB_H01_CE_CA * PREHAB_H01_CE_CA * REHAB_H01_CE_CA + R_SUB_H01_CE_CB * PREHAB_H01_CE_CB * REHAB_H01_CE_CB + R_SUB_H01_CE_CC * PREHAB_H01_CE_CC * REHAB_H01_CE_CC + R_SUB_H01_CE_CD * PREHAB_H01_CE_CD * REHAB_H01_CE_CD
 SUBST_EM_22_2201 = ADJUST(8, 6) * SUBST_EM_n_22_2201 + ( 1 - ADJUST(8, 6) ) * SUBST_EM_22_2201(-1)
 SUB_REHAB_VAL_H01_CC = 0 + R_SUB_H01_CC_CA * PREHAB_H01_CC_CA * REHAB_H01_CC_CA + R_SUB_H01_CC_CB * PREHAB_H01_CC_CB * REHAB_H01_CC_CB
 delta_BUIL_H01_CA = 0 + delta_BUIL_H01_CA_CB + delta_BUIL_H01_CA_CC + delta_BUIL_H01_CA_CD + delta_BUIL_H01_CA_CE
 delta_BUIL_H01_CB = 0 + delta_BUIL_H01_CB_CC + delta_BUIL_H01_CB_CD + delta_BUIL_H01_CB_CE
-delta_BUIL_H01_CC = 0 + delta_BUIL_H01_CC_CD + delta_BUIL_H01_CC_CE
+delta_BUIL_H01_CC = 0 + delta_BUIL_H01_CC_CD + delta_BUIL_H01_CC_CE + delta_BUIL_H01_CC_CF
 SUBST_K_E_09 = 0.8 * SUBST_K_E_n_09 + ( 1 - 0.8 ) * SUBST_K_E_09(-1)
 BetaEXP_06_H01 = ( @year <= 2019 ) * ( BetaEXP_n_06_H01 ) + ( @year > 2019 ) * ( ( choc_EXP_06 >= 0 ) * ( choc_EXP_06 <= 0 ) * ( BetaEXP_n_06_H01 * ( 1 - BetaEXP_exo ) / ( BetaEXP_n - BetaEXP_exo ) ) + ( choc_EXP_06 > 0 ) * ( BetaEXP_n_06_H01 ) + ( choc_EXP_06 < 0 ) * ( BetaEXP_n_06_H01 ) )
 E_bis_dgt_23_2308 = ED_23_2308 + EM_23_2308
@@ -4154,7 +4154,7 @@ d(log(W_S_ademe_2303)) = ( ADJUST(18, 1) * d(log(W_S_n_2303)) + ( 1 - ADJUST(18,
 d(log(W_S_ademe_2301)) = ( ADJUST(18, 1) * d(log(W_S_n_2301)) + ( 1 - ADJUST(18, 1) ) * d(log(W_S_2301(-1))) - ADJUST(18, 2) * ( log(W_S_2301(-1) / W_S_n_2301(-1)) ) )
 CHM_09 = CHM_09(-1) * ( ( 1 + ( QMexo_09 > 0 ) * ( d(QMexo_09) / QMexo_09(-1) ) ) ) * ( @year <= 2019 ) + ( ( EXP_09 - CHM_des_09 > 0 ) * ( CHM_des_09 ) + ( EXP_09 - CHM_des_09 <= 0 ) * ( EXP_09 - 1e-05 ) ) * ( @year > 2019 )
 CHM_08 = CHM_08(-1) * ( ( 1 + ( QMexo_08 > 0 ) * ( d(QMexo_08) / QMexo_08(-1) ) ) ) * ( @year <= 2019 ) + ( ( EXP_08 - CHM_des_08 > 0 ) * ( CHM_des_08 ) + ( EXP_08 - CHM_des_08 <= 0 ) * ( EXP_08 - 1e-05 ) ) * ( @year > 2019 )
-CHM_03 = CHM_03(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( EXP_03 - CHM_des_03 > 0 ) * ( CHM_des_03 ) + ( EXP_03 - CHM_des_03 <= 0 ) * ( EXP_03 - 1e-05 ) ) * ( @year > 2019 )
+CHM_03 = ( QMexo_03 / ( QDexo_03 + QMexo_03 ) * EXP_03 ) * ( @year <= 2019 ) + ( ( EXP_03 - CHM_des_03 > 0 ) * ( CHM_des_03 ) + ( EXP_03 - CHM_des_03 <= 0 ) * ( EXP_03 - 1e-05 ) ) * ( @year > 2019 )
 CHM_02 = CHM_02(-1) * ( ( 1 + ( QMexo_02 > 0 ) * ( d(QMexo_02) / QMexo_02(-1) ) ) ) * ( @year <= 2019 ) + ( ( EXP_02 - CHM_des_02 > 0 ) * ( CHM_des_02 ) + ( EXP_02 - CHM_des_02 <= 0 ) * ( EXP_02 - 1e-05 ) ) * ( @year > 2019 )
 CHM_01 = CHM_01(-1) * ( ( 1 + ( QMexo_01 > 0 ) * ( d(QMexo_01) / QMexo_01(-1) ) ) ) * ( @year <= 2019 ) + ( ( EXP_01 - CHM_des_01 > 0 ) * ( CHM_des_01 ) + ( EXP_01 - CHM_des_01 <= 0 ) * ( EXP_01 - 1e-05 ) ) * ( @year > 2019 )
 CHM_07 = CHM_07(-1) * ( ( 1 + ( QMexo_07 > 0 ) * ( d(QMexo_07) / QMexo_07(-1) ) ) ) * ( @year <= 2019 ) + ( ( EXP_07 - CHM_des_07 > 0 ) * ( CHM_des_07 ) + ( EXP_07 - CHM_des_07 <= 0 ) * ( EXP_07 - 1e-05 ) ) * ( @year > 2019 )
@@ -4199,7 +4199,7 @@ PCID_12_13 = PMATD_12
 d(log(W_S_n_18)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_18)) - 1.8 * d(UnR_TOT(-1)) ) + ( @year > 2019 ) * d(log(W_S_des_n_18))
 d(log(W_S_n_19)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_19)) - 1.8 * d(UnR_TOT(-1)) ) + ( @year > 2019 ) * d(log(W_S_des_n_19))
 d(log(W_S_n_12)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_12)) - 1.8 * d(UnR_TOT(-1)) ) + ( @year > 2019 ) * d(log(W_S_des_n_12))
-d(log(W_S_n_13)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_13)) - 1.8 * ( - d(L_13(- 1) * ( DLog(GDP_13) - Dlog(prog_L_13) ) / ( L_13(- 1) / L(- 1) * POP_tot(- 1) )) ) ) + ( @year > 2019 ) * d(log(W_S_des_n_13))
+d(log(W_S_n_13)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_13)) - 1.8 * ( - d(L_13(-1) * ( DLog(GDP_13) - Dlog(prog_L_13) ) / ( L_13(-1) / L(-1) * POP_tot(-1) )) ) ) + ( @year > 2019 ) * d(log(W_S_des_n_13))
 d(log(W_S_n_10)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_10)) - 1.8 * d(UnR_TOT(-1)) ) + ( @year > 2019 ) * d(log(W_S_des_n_10))
 d(log(W_S_n_11)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_11)) - 1.8 * d(UnR_TOT(-1)) ) + ( @year > 2019 ) * d(log(W_S_des_n_11))
 d(log(W_S_n_16)) = ( @year <= 2019 ) * ( 1 * d(log(P_e)) + d(log(CFS)) + 1 * d(log(PROG_L_16)) - 1.8 * d(UnR_TOT(-1)) ) + ( @year > 2019 ) * d(log(W_S_des_n_16))
@@ -7327,7 +7327,7 @@ SUBST_MATM_06_07 = ADJUST(10, 6) * SUBST_MATM_n_06_07 + ( 1 - ADJUST(10, 6) ) * 
 SUBST_MATM_06_06 = ADJUST(10, 6) * SUBST_MATM_n_06_06 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_06_06(-1)
 SUBST_MATM_06_09 = ADJUST(10, 6) * SUBST_MATM_n_06_09 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_06_09(-1)
 SUBST_MATM_06_08 = ADJUST(10, 6) * SUBST_MATM_n_06_08 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_06_08(-1)
-DEBT_SNF_VAL_03 = ( 1 + R_SNF_03(-1) ) * DEBT_SNF_VAL_03(-1) + PIA_03 * IA_03
+DEBT_SNF_VAL_03 = ( 1 + R_SNF_03(-1) - Tdec_03 ) * DEBT_SNF_VAL_03(-1) + PIA_03 * IA_03
 d(log(GM_des_n_12)) = 1.55 * dlog(QD_12) - 0.41 * ( log(GM_des_n_12(-1)) - log(EXPG_12(-1)) + 0.48 * ( log(PGM_12(-1)) - log(PGD_12(-1)) ) )
 SUBST_MATM_04_07 = ADJUST(10, 6) * SUBST_MATM_n_04_07 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_04_07(-1)
 SUBST_MATM_04_06 = ADJUST(10, 6) * SUBST_MATM_n_04_06 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_04_06(-1)
@@ -8857,9 +8857,9 @@ EMS_X_12 = EMS_12 * X_12 / ( YQ_12 * 1000000 )
 EMS_X_13 = EMS_13 * X_13 / ( YQ_13 * 1000000 )
 EMS_X_18 = EMS_18 * X_18 / ( YQ_18 * 1000000 )
 EMS_X_19 = EMS_19 * X_19 / ( YQ_19 * 1000000 )
-DEBT_SNF_VAL_2201 = ( 1 + R_SNF_2201(-1) ) * DEBT_SNF_VAL_2201(-1) + PIA_2201 * IA_2201
+DEBT_SNF_VAL_2201 = ( 1 + R_SNF_2201(-1) - Tdec_2201 ) * DEBT_SNF_VAL_2201(-1) + PIA_2201 * IA_2201
 EXP_n_18_H01 = EXP_18_H01
-DEBT_SNF_VAL_2202 = ( 1 + R_SNF_2202(-1) ) * DEBT_SNF_VAL_2202(-1) + PIA_2202 * IA_2202
+DEBT_SNF_VAL_2202 = ( 1 + R_SNF_2202(-1) - Tdec_2202 ) * DEBT_SNF_VAL_2202(-1) + PIA_2202 * IA_2202
 SUBST_MATM_14_2406 = ADJUST(10, 6) * SUBST_MATM_n_14_2406 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_14_2406(-1)
 SUBST_MATM_14_2404 = ADJUST(10, 6) * SUBST_MATM_n_14_2404 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_14_2404(-1)
 SUBST_MATM_14_2405 = ADJUST(10, 6) * SUBST_MATM_n_14_2405 + ( 1 - ADJUST(10, 6) ) * SUBST_MATM_14_2405(-1)
@@ -8964,15 +8964,15 @@ OTHTD_10 = @elem(TOTHTD_10, 2006) * YQ_10
 OTHTD_13 = @elem(TOTHTD_13, 2006) * YQ_13
 OTHTD_12 = @elem(TOTHTD_12, 2006) * YQ_12
 OTHTD_15 = @elem(TOTHTD_15, 2006) * YQ_15
-DEBT_SNF_VAL_19 = ( 1 + R_SNF_19(-1) ) * DEBT_SNF_VAL_19(-1) + PIA_19 * IA_19
-DEBT_SNF_VAL_14 = ( 1 + R_SNF_14(-1) ) * DEBT_SNF_VAL_14(-1) + PIA_14 * IA_14
+DEBT_SNF_VAL_19 = ( 1 + R_SNF_19(-1) - Tdec_19 ) * DEBT_SNF_VAL_19(-1) + PIA_19 * IA_19
+DEBT_SNF_VAL_14 = ( 1 + R_SNF_14(-1) - Tdec_14 ) * DEBT_SNF_VAL_14(-1) + PIA_14 * IA_14
 OTHTD_18 = @elem(TOTHTD_18, 2006) * YQ_18
-DEBT_SNF_VAL_16 = ( 1 + R_SNF_16(-1) ) * DEBT_SNF_VAL_16(-1) + PIA_16 * IA_16
-DEBT_SNF_VAL_17 = ( 1 + R_SNF_17(-1) ) * DEBT_SNF_VAL_17(-1) + PIA_17 * IA_17
-DEBT_SNF_VAL_10 = ( 1 + R_SNF_10(-1) ) * DEBT_SNF_VAL_10(-1) + PIA_10 * IA_10
-DEBT_SNF_VAL_11 = ( 1 + R_SNF_11(-1) ) * DEBT_SNF_VAL_11(-1) + PIA_11 * IA_11
-DEBT_SNF_VAL_12 = ( 1 + R_SNF_12(-1) ) * DEBT_SNF_VAL_12(-1) + PIA_12 * IA_12
-DEBT_SNF_VAL_13 = ( 1 + R_SNF_13(-1) ) * DEBT_SNF_VAL_13(-1) + PIA_13 * IA_13
+DEBT_SNF_VAL_16 = ( 1 + R_SNF_16(-1) - Tdec_16 ) * DEBT_SNF_VAL_16(-1) + PIA_16 * IA_16
+DEBT_SNF_VAL_17 = ( 1 + R_SNF_17(-1) - Tdec_17 ) * DEBT_SNF_VAL_17(-1) + PIA_17 * IA_17
+DEBT_SNF_VAL_10 = ( 1 + R_SNF_10(-1) - Tdec_10 ) * DEBT_SNF_VAL_10(-1) + PIA_10 * IA_10
+DEBT_SNF_VAL_11 = ( 1 + R_SNF_11(-1) - Tdec_11 ) * DEBT_SNF_VAL_11(-1) + PIA_11 * IA_11
+DEBT_SNF_VAL_12 = ( 1 + R_SNF_12(-1) - Tdec_12 ) * DEBT_SNF_VAL_12(-1) + PIA_12 * IA_12
+DEBT_SNF_VAL_13 = ( 1 + R_SNF_13(-1) - Tdec_13 ) * DEBT_SNF_VAL_13(-1) + PIA_13 * IA_13
 PCSE_2202 = PCH_19
 PCSE_2201 = PCH_19
 Phi_EXP_16_H01 = EXP_16_H01 / EXP_16
@@ -9655,7 +9655,7 @@ SUBST_XD_24 = 0.8 * SUBST_XD_n_24 + ( 1 - 0.8 ) * ( SUBST_XD_24(-1) )
 SUBST_XD_21 = 0.8 * SUBST_XD_n_21 + ( 1 - 0.8 ) * ( SUBST_XD_21(-1) )
 SUBST_XD_22 = 0.8 * SUBST_XD_n_22 + ( 1 - 0.8 ) * ( SUBST_XD_22(-1) )
 SUBST_XD_23 = 0.8 * SUBST_XD_n_23 + ( 1 - 0.8 ) * ( SUBST_XD_23(-1) )
-EXP_U_REHAB_H01_CB_CA = EXP(U_REHAB_H01_CB_CA * 6000)
+EXP_U_REHAB_H01_CB_CA = EXP(U_REHAB_H01_CB_CA * 500)
 SUBST_L_2304 = 0.8 * SUBST_L_n_2304 + ( 1 - 0.8 ) * SUBST_L_2304(-1)
 SUBST_L_2305 = 0.8 * SUBST_L_n_2305 + ( 1 - 0.8 ) * SUBST_L_2305(-1)
 SUBST_L_2306 = 0.8 * SUBST_L_n_2306 + ( 1 - 0.8 ) * SUBST_L_2306(-1)
@@ -11356,10 +11356,10 @@ d(log(MATM_des_n_12_08)) = 1.55 * dlog(QD_12) - 0.41 * ( log(MATM_des_n_12_08(-1
 d(log(MATM_des_n_12_09)) = 1.55 * dlog(QD_12) - 0.41 * ( log(MATM_des_n_12_09(-1)) - log(MAT_12_09(-1)) + 0.48 * ( log(PMATM_12(-1)) - log(PMATD_12(-1)) ) )
 d(log(MAT_10_2305)) = d(log(MAT_2305)) + d(SUBST_MAT_10_2305)
 EXO_22_13 = EXO_NETS
-EXP_U_REHAB_H01_CE_CB = EXP(U_REHAB_H01_CE_CB * 6000)
-EXP_U_REHAB_H01_CE_CC = EXP(U_REHAB_H01_CE_CC * 6000)
-EXP_U_REHAB_H01_CE_CA = EXP(U_REHAB_H01_CE_CA * 6000)
-EXP_U_REHAB_H01_CE_CD = EXP(U_REHAB_H01_CE_CD * 6000)
+EXP_U_REHAB_H01_CE_CB = EXP(U_REHAB_H01_CE_CB * 500)
+EXP_U_REHAB_H01_CE_CC = EXP(U_REHAB_H01_CE_CC * 500)
+EXP_U_REHAB_H01_CE_CA = EXP(U_REHAB_H01_CE_CA * 500)
+EXP_U_REHAB_H01_CE_CD = EXP(U_REHAB_H01_CE_CD * 500)
 d(log(MATM_des_n_05_09)) = 1.55 * dlog(QD_05) - 0.41 * ( log(MATM_des_n_05_09(-1)) - log(MAT_05_09(-1)) + 0.48 * ( log(PMATM_05(-1)) - log(PMATD_05(-1)) ) )
 EM_22_2302 = ( ( E_22_2302 - ED_22_2302 > 0 ) * ( E_22_2302 - ED_22_2302 ) + ( E_22_2302 - ED_22_2302 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_22_2302 - EM_des_22_2302 > 0 ) * ( EM_des_22_2302 ) + ( E_22_2302 - EM_des_22_2302 <= 0 ) * ( E_22_2302 - 1e-05 ) ) * ( @year > 2019 )
 IAM_03_14 = IAM_03_14(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_03_14 - IAM_des_03_14 > 0 ) * ( IAM_des_03_14 ) + ( IA_n_03_14 - IAM_des_03_14 <= 0 ) * ( IA_n_03_14 - 1e-05 ) ) * ( @year > 2019 )
@@ -11407,7 +11407,7 @@ d(SUBST_IAD_n_03_2301) = - ES_IAM(24, 3) * d(log(PIAD_03) - log(PIAM_03)) * ( PI
 d(SUBST_IAD_n_03_2308) = - ES_IAM(31, 3) * d(log(PIAD_03) - log(PIAM_03)) * ( PIAM_03(-1) * IAM_03_2308(-1) / ( PIA_03_2308(-1) * IA_03_2308(-1) ) )
 PCID_22_2201 = PED_22_2201
 MS_17 = M_17 + OTHTM_17 + ENERTM_17 + SUBM_17
-EXP_U_REHAB_H01_CD_CA = EXP(U_REHAB_H01_CD_CA * 6000)
+EXP_U_REHAB_H01_CD_CA = EXP(U_REHAB_H01_CD_CA * 500)
 MATM_des_03_07 = ( CIMexo_03_07 ) * ( @year <= 2019 ) + ( ( MATM_des_03_07(-1) * ( 1 + d(MATM_des_n_03_07) / MATM_des_n_03_07(-1) ) > 0 ) * ( MATM_des_03_07(-1) * ( 1 + d(MATM_des_n_03_07) / MATM_des_n_03_07(-1) ) ) + ( MATM_des_03_07(-1) * ( 1 + d(MATM_des_n_03_07) / MATM_des_n_03_07(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_03_06 = ( CIMexo_03_06 ) * ( @year <= 2019 ) + ( ( MATM_des_03_06(-1) * ( 1 + d(MATM_des_n_03_06) / MATM_des_n_03_06(-1) ) > 0 ) * ( MATM_des_03_06(-1) * ( 1 + d(MATM_des_n_03_06) / MATM_des_n_03_06(-1) ) ) + ( MATM_des_03_06(-1) * ( 1 + d(MATM_des_n_03_06) / MATM_des_n_03_06(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 MATM_des_03_05 = ( CIMexo_03_05 ) * ( @year <= 2019 ) + ( ( MATM_des_03_05(-1) * ( 1 + d(MATM_des_n_03_05) / MATM_des_n_03_05(-1) ) > 0 ) * ( MATM_des_03_05(-1) * ( 1 + d(MATM_des_n_03_05) / MATM_des_n_03_05(-1) ) ) + ( MATM_des_03_05(-1) * ( 1 + d(MATM_des_n_03_05) / MATM_des_n_03_05(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -12521,7 +12521,7 @@ PMTD_16_09 = YQ_16 / ( YQ_16 + M_16 ) * PYQS_16 + M_16 / ( YQ_16 + M_16 ) * PMS_
 PCIM_12_19 = PMATM_12
 PCIM_12_18 = PMATM_12
 d(SUBST_E_22_2201) = 0.8 * d(SUBST_E_n_22_2201) + ( 1 - 0.8 ) * d(SUBST_E_22_2201(-1))
-EXP_03_H01 = ( @year > 2006 ) * ( 0 + @elem(PAUTO_elec_H01_CA, 2006) * NewAUTO_elec_H01_CA + @elem(PAUTO_elec_H01_CB, 2006) * NewAUTO_elec_H01_CB + @elem(PAUTO_elec_H01_CC, 2006) * NewAUTO_elec_H01_CC + @elem(PAUTO_elec_H01_CD, 2006) * NewAUTO_elec_H01_CD + @elem(PAUTO_elec_H01_CE, 2006) * NewAUTO_elec_H01_CE + @elem(PAUTO_elec_H01_CF, 2006) * NewAUTO_elec_H01_CF + @elem(PAUTO_elec_H01_CG, 2006) * NewAUTO_elec_H01_CG + 0 + @elem(PNewAUTO_th_H01_CA, 2006) * NewAUTO_th_H01_CA + @elem(PNewAUTO_th_H01_CB, 2006) * NewAUTO_th_H01_CB + @elem(PNewAUTO_th_H01_CC, 2006) * NewAUTO_th_H01_CC + @elem(PNewAUTO_th_H01_CD, 2006) * NewAUTO_th_H01_CD + @elem(PNewAUTO_th_H01_CE, 2006) * NewAUTO_th_H01_CE + @elem(PNewAUTO_th_H01_CF, 2006) * NewAUTO_th_H01_CF + @elem(PNewAUTO_th_H01_CG, 2006) * NewAUTO_th_H01_CG + EXP_03_OTH_val_H01 / PEXP_03_H01 ) + ( @year <= 2006 ) * ( EXP_03_H01(-1) * ( 1 + STEADYSTATE(2, 1) ) )
+EXP_03_H01 = ( @year > 2006 ) * ( 0 + @elem(PAUTO_elec_H01_CA, 2006) * NewAUTO_elec_H01_CA + @elem(PAUTO_elec_H01_CB, 2006) * NewAUTO_elec_H01_CB + @elem(PAUTO_elec_H01_CC, 2006) * NewAUTO_elec_H01_CC + @elem(PAUTO_elec_H01_CD, 2006) * NewAUTO_elec_H01_CD + @elem(PAUTO_elec_H01_CE, 2006) * NewAUTO_elec_H01_CE + @elem(PAUTO_elec_H01_CF, 2006) * NewAUTO_elec_H01_CF + @elem(PAUTO_elec_H01_CG, 2006) * NewAUTO_elec_H01_CG + ( 0 + @elem(PNewAUTO_th_H01_CA, 2006) * NewAUTO_th_H01_CA + @elem(PNewAUTO_th_H01_CB, 2006) * NewAUTO_th_H01_CB + @elem(PNewAUTO_th_H01_CC, 2006) * NewAUTO_th_H01_CC + @elem(PNewAUTO_th_H01_CD, 2006) * NewAUTO_th_H01_CD + @elem(PNewAUTO_th_H01_CE, 2006) * NewAUTO_th_H01_CE + @elem(PNewAUTO_th_H01_CF, 2006) * NewAUTO_th_H01_CF + @elem(PNewAUTO_th_H01_CG, 2006) * NewAUTO_th_H01_CG + EXP_03_OTH_val_H01 / PEXP_03_H01 ) ) + ( @year <= 2006 ) * ( EXP_03_H01(-1) * ( 1 + STEADYSTATE(2, 1) ) )
 dlog(CIexo_16_18) = dlog(CIexo_16)
 EM_22_08 = ( ( E_22_08 - ED_22_08 > 0 ) * ( E_22_08 - ED_22_08 ) + ( E_22_08 - ED_22_08 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_22_08 - EM_des_22_08 > 0 ) * ( EM_des_22_08 ) + ( E_22_08 - EM_des_22_08 <= 0 ) * ( E_22_08 - 1e-05 ) ) * ( @year > 2019 )
 EM_22_09 = ( ( E_22_09 - ED_22_09 > 0 ) * ( E_22_09 - ED_22_09 ) + ( E_22_09 - ED_22_09 <= 0 ) * 0.0001 ) * ( @year <= 2019 ) + ( ( E_22_09 - EM_des_22_09 > 0 ) * ( EM_des_22_09 ) + ( E_22_09 - EM_des_22_09 <= 0 ) * ( E_22_09 - 1e-05 ) ) * ( @year > 2019 )
@@ -13995,12 +13995,12 @@ d(log(MATM_des_n_04_16)) = 1.55 * dlog(QD_04) - 0.41 * ( log(MATM_des_n_04_16(-1
 d(log(MATM_des_n_04_17)) = 1.55 * dlog(QD_04) - 0.41 * ( log(MATM_des_n_04_17(-1)) - log(MAT_04_17(-1)) + 0.48 * ( log(PMATM_04(-1)) - log(PMATD_04(-1)) ) )
 d(log(MATM_des_n_04_18)) = 1.55 * dlog(QD_04) - 0.41 * ( log(MATM_des_n_04_18(-1)) - log(MAT_04_18(-1)) + 0.48 * ( log(PMATM_04(-1)) - log(PMATD_04(-1)) ) )
 d(log(MATM_des_n_04_19)) = 1.55 * dlog(QD_04) - 0.41 * ( log(MATM_des_n_04_19(-1)) - log(MAT_04_19(-1)) + 0.48 * ( log(PMATM_04(-1)) - log(PMATD_04(-1)) ) )
-EXP_U_REHAB_H01_CF_CC = EXP(U_REHAB_H01_CF_CC * 6000)
-EXP_U_REHAB_H01_CF_CB = EXP(U_REHAB_H01_CF_CB * 6000)
-EXP_U_REHAB_H01_CF_CA = EXP(U_REHAB_H01_CF_CA * 6000)
+EXP_U_REHAB_H01_CF_CC = EXP(U_REHAB_H01_CF_CC * 500)
+EXP_U_REHAB_H01_CF_CB = EXP(U_REHAB_H01_CF_CB * 500)
+EXP_U_REHAB_H01_CF_CA = EXP(U_REHAB_H01_CF_CA * 500)
 MAT_bis_dgt_11_11 = MATD_11_11 + MATM_11_11
-EXP_U_REHAB_H01_CF_CE = EXP(U_REHAB_H01_CF_CE * 6000)
-EXP_U_REHAB_H01_CF_CD = EXP(U_REHAB_H01_CF_CD * 6000)
+EXP_U_REHAB_H01_CF_CE = EXP(U_REHAB_H01_CF_CE * 500)
+EXP_U_REHAB_H01_CF_CD = EXP(U_REHAB_H01_CF_CD * 500)
 MAT_bis_dgt_11_10 = MATD_11_10 + MATM_11_10
 Phi_CEE_21 = 1 * ENER_BUIL_21 / ( 0 + ENER_BUIL_21 + ENER_BUIL_22 + ENER_BUIL_23 + ENER_BUIL_24 )
 CID_22_09 = ED_22_09
@@ -14097,7 +14097,7 @@ CL_SE_bis_06 = CL_SE_06 * PROG_L_06
 CL_SE_bis_07 = CL_SE_07 * PROG_L_07
 CL_SE_bis_04 = CL_SE_04 * PROG_L_04
 CL_SE_bis_05 = CL_SE_05 * PROG_L_05
-delta_BUIL_H01_CE = 0 + delta_BUIL_H01_CE_CF + delta_BUIL_H01_CE_DES
+delta_BUIL_H01_CE = 0 + delta_BUIL_H01_CE_CF + delta_BUIL_H01_CE_CG + delta_BUIL_H01_CE_DES
 AUTO_H01_DES = ( 0 + AUTO_H01_DES_CA + AUTO_H01_DES_CB + AUTO_H01_DES_CC + AUTO_H01_DES_CD + AUTO_H01_DES_CE + AUTO_H01_DES_CF + AUTO_H01_DES_CG )
 W_SE_H01 = PHI_DIS_WSE_H01 * W_SE
 Verif_MC_16 = MC_16 - MCD_16 - MCM_16
@@ -17566,18 +17566,18 @@ IA_bis_dgt_14_15 = IAD_14_15 + IAM_14_15
 IA_bis_dgt_14_14 = IAD_14_14 + IAM_14_14
 IA_bis_dgt_14_17 = IAD_14_17 + IAM_14_17
 IA_bis_dgt_14_16 = IAD_14_16 + IAM_14_16
-DEBT_SNF_VAL_2308 = ( 1 + R_SNF_2308(-1) ) * DEBT_SNF_VAL_2308(-1) + PIA_2308 * IA_2308
+DEBT_SNF_VAL_2308 = ( 1 + R_SNF_2308(-1) - Tdec_2308 ) * DEBT_SNF_VAL_2308(-1) + PIA_2308 * IA_2308
 IA_bis_dgt_14_10 = IAD_14_10 + IAM_14_10
 IA_bis_dgt_14_13 = IAD_14_13 + IAM_14_13
 d(log(MTM_16_05)) = d(log(M_05)) + d(SUBST_MTM_16_05)
-DEBT_SNF_VAL_2304 = ( 1 + R_SNF_2304(-1) ) * DEBT_SNF_VAL_2304(-1) + PIA_2304 * IA_2304
-DEBT_SNF_VAL_2305 = ( 1 + R_SNF_2305(-1) ) * DEBT_SNF_VAL_2305(-1) + PIA_2305 * IA_2305
-DEBT_SNF_VAL_2306 = ( 1 + R_SNF_2306(-1) ) * DEBT_SNF_VAL_2306(-1) + PIA_2306 * IA_2306
-DEBT_SNF_VAL_2307 = ( 1 + R_SNF_2307(-1) ) * DEBT_SNF_VAL_2307(-1) + PIA_2307 * IA_2307
+DEBT_SNF_VAL_2304 = ( 1 + R_SNF_2304(-1) - Tdec_2304 ) * DEBT_SNF_VAL_2304(-1) + PIA_2304 * IA_2304
+DEBT_SNF_VAL_2305 = ( 1 + R_SNF_2305(-1) - Tdec_2305 ) * DEBT_SNF_VAL_2305(-1) + PIA_2305 * IA_2305
+DEBT_SNF_VAL_2306 = ( 1 + R_SNF_2306(-1) - Tdec_2306 ) * DEBT_SNF_VAL_2306(-1) + PIA_2306 * IA_2306
+DEBT_SNF_VAL_2307 = ( 1 + R_SNF_2307(-1) - Tdec_2307 ) * DEBT_SNF_VAL_2307(-1) + PIA_2307 * IA_2307
 IA_bis_dgt_14_19 = IAD_14_19 + IAM_14_19
-DEBT_SNF_VAL_2301 = ( 1 + R_SNF_2301(-1) ) * DEBT_SNF_VAL_2301(-1) + PIA_2301 * IA_2301
-DEBT_SNF_VAL_2302 = ( 1 + R_SNF_2302(-1) ) * DEBT_SNF_VAL_2302(-1) + PIA_2302 * IA_2302
-DEBT_SNF_VAL_2303 = ( 1 + R_SNF_2303(-1) ) * DEBT_SNF_VAL_2303(-1) + PIA_2303 * IA_2303
+DEBT_SNF_VAL_2301 = ( 1 + R_SNF_2301(-1) - Tdec_2301 ) * DEBT_SNF_VAL_2301(-1) + PIA_2301 * IA_2301
+DEBT_SNF_VAL_2302 = ( 1 + R_SNF_2302(-1) - Tdec_2302 ) * DEBT_SNF_VAL_2302(-1) + PIA_2302 * IA_2302
+DEBT_SNF_VAL_2303 = ( 1 + R_SNF_2303(-1) - Tdec_2303 ) * DEBT_SNF_VAL_2303(-1) + PIA_2303 * IA_2303
 d(log(MTM_16_07)) = d(log(M_07)) + d(SUBST_MTM_16_07)
 PED_22_2401 * ED_22_2401 = ( PYQS_BTCO_22 * ED_22_2401 + TCO_VALD_22_2401 ) * ( 1 + TvatDoth_22 ) / ( 1 + @elem(TvatDoth_22, 2006) )
 CU_OPEX_Mwh_2405 = ( CU_OPEX_2405 * PY_2405 * Y_2405 / PGDP ) / ( Q_mtep_ef_2405 / 0.086 )
@@ -17893,7 +17893,7 @@ CHM_des_08 = CHM_des_08(-1) * ( ( 1 + ( QMexo_08 > 0 ) * ( d(QMexo_08) / QMexo_0
 CHM_des_09 = CHM_des_09(-1) * ( ( 1 + ( QMexo_09 > 0 ) * ( d(QMexo_09) / QMexo_09(-1) ) ) ) * ( @year <= 2019 ) + ( ( CHM_des_09(-1) * ( 1 + d(CHM_des_n_09) / CHM_des_n_09(-1) ) > 0 ) * ( CHM_des_09(-1) * ( 1 + d(CHM_des_n_09) / CHM_des_n_09(-1) ) ) + ( CHM_des_09(-1) * ( 1 + d(CHM_des_n_09) / CHM_des_n_09(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 CHM_des_01 = CHM_des_01(-1) * ( ( 1 + ( QMexo_01 > 0 ) * ( d(QMexo_01) / QMexo_01(-1) ) ) ) * ( @year <= 2019 ) + ( ( CHM_des_01(-1) * ( 1 + d(CHM_des_n_01) / CHM_des_n_01(-1) ) > 0 ) * ( CHM_des_01(-1) * ( 1 + d(CHM_des_n_01) / CHM_des_n_01(-1) ) ) + ( CHM_des_01(-1) * ( 1 + d(CHM_des_n_01) / CHM_des_n_01(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 CHM_des_02 = CHM_des_02(-1) * ( ( 1 + ( QMexo_02 > 0 ) * ( d(QMexo_02) / QMexo_02(-1) ) ) ) * ( @year <= 2019 ) + ( ( CHM_des_02(-1) * ( 1 + d(CHM_des_n_02) / CHM_des_n_02(-1) ) > 0 ) * ( CHM_des_02(-1) * ( 1 + d(CHM_des_n_02) / CHM_des_n_02(-1) ) ) + ( CHM_des_02(-1) * ( 1 + d(CHM_des_n_02) / CHM_des_n_02(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
-CHM_des_03 = CHM_des_03(-1) * ( ( 1 + ( QMexo_03 > 0 ) * ( d(QMexo_03) / QMexo_03(-1) ) ) ) * ( @year <= 2019 ) + ( ( CHM_des_03(-1) * ( 1 + d(CHM_des_n_03) / CHM_des_n_03(-1) ) > 0 ) * ( CHM_des_03(-1) * ( 1 + d(CHM_des_n_03) / CHM_des_n_03(-1) ) ) + ( CHM_des_03(-1) * ( 1 + d(CHM_des_n_03) / CHM_des_n_03(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
+CHM_des_03 = ( QMexo_03 / ( QDexo_03 + QMexo_03 ) * EXP_03 ) * ( @year <= 2019 ) + ( ( CHM_des_03(- 1) * ( 1 + d(CHM_des_n_03) / CHM_des_n_03(- 1) ) > 0 ) * ( CHM_des_03(- 1) * ( 1 + d(CHM_des_n_03) / CHM_des_n_03(- 1) ) ) + ( CHM_des_03(- 1) * ( 1 + d(CHM_des_n_03) / CHM_des_n_03(- 1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 CHM_des_04 = CHM_des_04(-1) * ( ( 1 + ( QMexo_04 > 0 ) * ( d(QMexo_04) / QMexo_04(-1) ) ) ) * ( @year <= 2019 ) + ( ( CHM_des_04(-1) * ( 1 + d(CHM_des_n_04) / CHM_des_n_04(-1) ) > 0 ) * ( CHM_des_04(-1) * ( 1 + d(CHM_des_n_04) / CHM_des_n_04(-1) ) ) + ( CHM_des_04(-1) * ( 1 + d(CHM_des_n_04) / CHM_des_n_04(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 CHM_des_05 = CHM_des_05(-1) * ( ( 1 + ( QMexo_05 > 0 ) * ( d(QMexo_05) / QMexo_05(-1) ) ) ) * ( @year <= 2019 ) + ( ( CHM_des_05(-1) * ( 1 + d(CHM_des_n_05) / CHM_des_n_05(-1) ) > 0 ) * ( CHM_des_05(-1) * ( 1 + d(CHM_des_n_05) / CHM_des_n_05(-1) ) ) + ( CHM_des_05(-1) * ( 1 + d(CHM_des_n_05) / CHM_des_n_05(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
 CHM_des_06 = CHM_des_06(-1) * ( ( 1 + ( QMexo_06 > 0 ) * ( d(QMexo_06) / QMexo_06(-1) ) ) ) * ( @year <= 2019 ) + ( ( CHM_des_06(-1) * ( 1 + d(CHM_des_n_06) / CHM_des_n_06(-1) ) > 0 ) * ( CHM_des_06(-1) * ( 1 + d(CHM_des_n_06) / CHM_des_n_06(-1) ) ) + ( CHM_des_06(-1) * ( 1 + d(CHM_des_n_06) / CHM_des_n_06(-1) ) <= 0 ) * 1e-05 ) * ( @year > 2019 )
@@ -19308,15 +19308,15 @@ SY_2305 = @elem(TSYN_2305, 2006) * Y_2305
 IA_01_2301 = IAD_01_2301 + IAM_01_2301
 SY_2307 = @elem(TSYN_2307, 2006) * Y_2307
 SY_2306 = @elem(TSYN_2306, 2006) * Y_2306
-DEBT_SNF_VAL_09 = ( 1 + R_SNF_09(-1) ) * DEBT_SNF_VAL_09(-1) + PIA_09 * IA_09
+DEBT_SNF_VAL_09 = ( 1 + R_SNF_09(-1) - Tdec_09 ) * DEBT_SNF_VAL_09(-1) + PIA_09 * IA_09
 OTHTD_09 = @elem(TOTHTD_09, 2006) * YQ_09
-DEBT_SNF_VAL_07 = ( 1 + R_SNF_07(-1) ) * DEBT_SNF_VAL_07(-1) + PIA_07 * IA_07
+DEBT_SNF_VAL_07 = ( 1 + R_SNF_07(-1) - Tdec_07 ) * DEBT_SNF_VAL_07(-1) + PIA_07 * IA_07
 OTHTD_07 = @elem(TOTHTD_07, 2006) * YQ_07
 OTHTD_04 = @elem(TOTHTD_04, 2006) * YQ_04
 OTHTD_05 = @elem(TOTHTD_05, 2006) * YQ_05
 OTHTD_02 = @elem(TOTHTD_02, 2006) * YQ_02
-DEBT_SNF_VAL_02 = ( 1 + R_SNF_02(-1) ) * DEBT_SNF_VAL_02(-1) + PIA_02 * IA_02
-DEBT_SNF_VAL_01 = ( 1 + R_SNF_01(-1) ) * DEBT_SNF_VAL_01(-1) + PIA_01 * IA_01
+DEBT_SNF_VAL_02 = ( 1 + R_SNF_02(-1) - Tdec_02 ) * DEBT_SNF_VAL_02(-1) + PIA_02 * IA_02
+DEBT_SNF_VAL_01 = ( 1 + R_SNF_01(-1) - Tdec_01 ) * DEBT_SNF_VAL_01(-1) + PIA_01 * IA_01
 OTHTD_01 = @elem(TOTHTD_01, 2006) * YQ_01
 ER_Indus_gas = 0 + Q_Mtep_sec_24_02 + Q_Mtep_sec_24_03 + Q_Mtep_sec_24_04 + Q_Mtep_sec_24_05 + Q_Mtep_sec_24_06 + Q_Mtep_sec_24_07 + Q_Mtep_sec_24_08 + Q_Mtep_sec_24_09 + Q_Mtep_sec_24_10 + Q_Mtep_sec_24_11 + Q_Mtep_sec_24_12 + Q_Mtep_sec_24_13
 TCO_VALD_24_20 = TCO_VAL_24_20 * ED_24_20 / E_24_20
@@ -19590,12 +19590,12 @@ d(SUBST_GD_n_14) = ( @year <= 2022 ) * ( - ES_GOV(1, 14) * d(log(PGD_14) - log(P
 d(SUBST_GD_n_16) = ( @year <= 2022 ) * ( - ES_GOV(1, 16) * d(log(PGD_16) - log(PGM_16)) * ( PGM_16(-1) * GM_16(-1) / ( PG_16(-1) * G_16(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PGD_16) - log(PGM_16)) * ( PGM_16(-1) * GM_16(-1) / ( PG_16(-1) * G_16(-1) ) ) )
 d(SUBST_GD_n_19) = ( @year <= 2022 ) * ( - ES_GOV(1, 19) * d(log(PGD_19) - log(PGM_19)) * ( PGM_19(-1) * GM_19(-1) / ( PG_19(-1) * G_19(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PGD_19) - log(PGM_19)) * ( PGM_19(-1) * GM_19(-1) / ( PG_19(-1) * G_19(-1) ) ) )
 IAM_01_19 = IAM_01_19(-1) * ( ( 1 + ( QMexo_01 > 0 ) * ( d(QMexo_01) / QMexo_01(-1) ) ) ) * ( @year <= 2019 ) + ( ( IA_n_01_19 - IAM_des_01_19 > 0 ) * ( IAM_des_01_19 ) + ( IA_n_01_19 - IAM_des_01_19 <= 0 ) * ( IA_n_01_19 - 1e-05 ) ) * ( @year > 2019 )
-DEBT_SNF_VAL_2403 = ( 1 + R_SNF_2403(-1) ) * DEBT_SNF_VAL_2403(-1) + PIA_2403 * IA_2403
-DEBT_SNF_VAL_2402 = ( 1 + R_SNF_2402(-1) ) * DEBT_SNF_VAL_2402(-1) + PIA_2402 * IA_2402
-DEBT_SNF_VAL_2401 = ( 1 + R_SNF_2401(-1) ) * DEBT_SNF_VAL_2401(-1) + PIA_2401 * IA_2401
-DEBT_SNF_VAL_2406 = ( 1 + R_SNF_2406(-1) ) * DEBT_SNF_VAL_2406(-1) + PIA_2406 * IA_2406
-DEBT_SNF_VAL_2405 = ( 1 + R_SNF_2405(-1) ) * DEBT_SNF_VAL_2405(-1) + PIA_2405 * IA_2405
-DEBT_SNF_VAL_2404 = ( 1 + R_SNF_2404(-1) ) * DEBT_SNF_VAL_2404(-1) + PIA_2404 * IA_2404
+DEBT_SNF_VAL_2403 = ( 1 + R_SNF_2403(-1) - Tdec_2403 ) * DEBT_SNF_VAL_2403(-1) + PIA_2403 * IA_2403
+DEBT_SNF_VAL_2402 = ( 1 + R_SNF_2402(-1) - Tdec_2402 ) * DEBT_SNF_VAL_2402(-1) + PIA_2402 * IA_2402
+DEBT_SNF_VAL_2401 = ( 1 + R_SNF_2401(-1) - Tdec_2401 ) * DEBT_SNF_VAL_2401(-1) + PIA_2401 * IA_2401
+DEBT_SNF_VAL_2406 = ( 1 + R_SNF_2406(-1) - Tdec_2406 ) * DEBT_SNF_VAL_2406(-1) + PIA_2406 * IA_2406
+DEBT_SNF_VAL_2405 = ( 1 + R_SNF_2405(-1) - Tdec_2405 ) * DEBT_SNF_VAL_2405(-1) + PIA_2405 * IA_2405
+DEBT_SNF_VAL_2404 = ( 1 + R_SNF_2404(-1) - Tdec_2404 ) * DEBT_SNF_VAL_2404(-1) + PIA_2404 * IA_2404
 phi_E_oth_22_2305 * ( ( E_oth_des_2305 > 0 ) * E_oth_des_2305 + ( E_oth_des_2305 <= 0 ) ) = ( E_oth_des_2305 > 0 ) * E_oth_des_22_2305 + ( E_oth_des_2305 <= 0 ) * 0
 phi_E_oth_22_2304 * ( ( E_oth_des_2304 > 0 ) * E_oth_des_2304 + ( E_oth_des_2304 <= 0 ) ) = ( E_oth_des_2304 > 0 ) * E_oth_des_22_2304 + ( E_oth_des_2304 <= 0 ) * 0
 phi_E_oth_22_2307 * ( ( E_oth_des_2307 > 0 ) * E_oth_des_2307 + ( E_oth_des_2307 <= 0 ) ) = ( E_oth_des_2307 > 0 ) * E_oth_des_22_2307 + ( E_oth_des_2307 <= 0 ) * 0
@@ -24034,11 +24034,11 @@ PIA_03_13 * IA_03_13 = PIAD_03 * IAD_03_13 + PIAM_03 * IAM_03_13
 PIA_03_12 * IA_03_12 = PIAD_03 * IAD_03_12 + PIAM_03 * IAM_03_12
 PIA_03_11 * IA_03_11 = PIAD_03 * IAD_03_11 + PIAM_03 * IAM_03_11
 PIA_03_10 * IA_03_10 = PIAD_03 * IAD_03_10 + PIAM_03 * IAM_03_10
-DEBT_SNF_VAL_18 = ( 1 + R_SNF_18(-1) ) * DEBT_SNF_VAL_18(-1) + PIA_18 * IA_18
+DEBT_SNF_VAL_18 = ( 1 + R_SNF_18(-1) - Tdec_18 ) * DEBT_SNF_VAL_18(-1) + PIA_18 * IA_18
 SUB_REHAB_VAL = 0 + SUB_REHAB_VAL_H01
 PEXPH * EXPH = 0 + PEXP_H01 * EXP_H01
 OTHTD_19 = @elem(TOTHTD_19, 2006) * YQ_19
-DEBT_SNF_VAL_15 = ( 1 + R_SNF_15(-1) ) * DEBT_SNF_VAL_15(-1) + PIA_15 * IA_15
+DEBT_SNF_VAL_15 = ( 1 + R_SNF_15(-1) - Tdec_15 ) * DEBT_SNF_VAL_15(-1) + PIA_15 * IA_15
 PIA_01_19 * IA_01_19 = PIAD_01 * IAD_01_19 + PIAM_01 * IAM_01_19
 EXP_n_14_H01 = EXP_14_H01
 d(SUBST_IAD_n_03_09) = - ES_IAM(9, 3) * d(log(PIAD_03) - log(PIAM_03)) * ( PIAM_03(-1) * IAM_03_09(-1) / ( PIA_03_09(-1) * IA_03_09(-1) ) )
@@ -25006,19 +25006,19 @@ d(SUBST_IAD_n_05_2401) = - ES_IAM(32, 5) * d(log(PIAD_05) - log(PIAM_05)) * ( PI
 d(SUBST_MTM_n_17_11) = 0 + - ES_TRANSP_MARG(11, cols_trsp(17, 14)) * d(log(PE_17) - log(PE_14)) * PMTM_14_11(-1) * MTM_14_11(-1) / ( PMTM_17_11(-1) * MTM_17_11(-1) + PMTM_14_11(-1) * MTM_14_11(-1) ) + - ES_TRANSP_MARG(11, cols_trsp(17, 16)) * d(log(PE_17) - log(PE_16)) * PMTM_16_11(-1) * MTM_16_11(-1) / ( PMTM_17_11(-1) * MTM_17_11(-1) + PMTM_16_11(-1) * MTM_16_11(-1) ) + - ES_TRANSP_MARG(11, cols_trsp(17, 18)) * d(log(PE_17) - log(PE_18)) * PMTM_18_11(-1) * MTM_18_11(-1) / ( PMTM_17_11(-1) * MTM_17_11(-1) + PMTM_18_11(-1) * MTM_18_11(-1) )
 d(SUBST_MTM_n_17_10) = 0 + - ES_TRANSP_MARG(10, cols_trsp(17, 14)) * d(log(PE_17) - log(PE_14)) * PMTM_14_10(-1) * MTM_14_10(-1) / ( PMTM_17_10(-1) * MTM_17_10(-1) + PMTM_14_10(-1) * MTM_14_10(-1) ) + - ES_TRANSP_MARG(10, cols_trsp(17, 16)) * d(log(PE_17) - log(PE_16)) * PMTM_16_10(-1) * MTM_16_10(-1) / ( PMTM_17_10(-1) * MTM_17_10(-1) + PMTM_16_10(-1) * MTM_16_10(-1) ) + - ES_TRANSP_MARG(10, cols_trsp(17, 18)) * d(log(PE_17) - log(PE_18)) * PMTM_18_10(-1) * MTM_18_10(-1) / ( PMTM_17_10(-1) * MTM_17_10(-1) + PMTM_18_10(-1) * MTM_18_10(-1) )
 d(SUBST_MTM_n_17_12) = 0 + - ES_TRANSP_MARG(12, cols_trsp(17, 14)) * d(log(PE_17) - log(PE_14)) * PMTM_14_12(-1) * MTM_14_12(-1) / ( PMTM_17_12(-1) * MTM_17_12(-1) + PMTM_14_12(-1) * MTM_14_12(-1) ) + - ES_TRANSP_MARG(12, cols_trsp(17, 16)) * d(log(PE_17) - log(PE_16)) * PMTM_16_12(-1) * MTM_16_12(-1) / ( PMTM_17_12(-1) * MTM_17_12(-1) + PMTM_16_12(-1) * MTM_16_12(-1) ) + - ES_TRANSP_MARG(12, cols_trsp(17, 18)) * d(log(PE_17) - log(PE_18)) * PMTM_18_12(-1) * MTM_18_12(-1) / ( PMTM_17_12(-1) * MTM_17_12(-1) + PMTM_18_12(-1) * MTM_18_12(-1) )
-d(BUIL_H01_CC) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CC * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CD_CC + REHAB_H01_CE_CC + REHAB_H01_CF_CC + REHAB_H01_CG_CC + 0 + delta_BUIL_H01_CA_CC * BUIL_H01_CA(-1) + delta_BUIL_H01_CB_CC * BUIL_H01_CB(-1) - ( 0 + REHAB_H01_CC_CA + REHAB_H01_CC_CB ) - ( 0 + delta_BUIL_H01_CC_CD * BUIL_H01_CC(-1) + delta_BUIL_H01_CC_CE * BUIL_H01_CC(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CC(-1) * STEADYSTATE(2, 1) )
+d(BUIL_H01_CC) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CC * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CD_CC + REHAB_H01_CE_CC + REHAB_H01_CF_CC + REHAB_H01_CG_CC + 0 + delta_BUIL_H01_CA_CC * BUIL_H01_CA(-1) + delta_BUIL_H01_CB_CC * BUIL_H01_CB(-1) - ( 0 + REHAB_H01_CC_CA + REHAB_H01_CC_CB ) - ( 0 + delta_BUIL_H01_CC_CD * BUIL_H01_CC(-1) + delta_BUIL_H01_CC_CE * BUIL_H01_CC(-1) + delta_BUIL_H01_CC_CF * BUIL_H01_CC(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CC(-1) * STEADYSTATE(2, 1) )
 SUBST_MATD_05_16 = ADJUST(9, 6) * SUBST_MATD_n_05_16 + ( 1 - ADJUST(9, 6) ) * SUBST_MATD_05_16(-1)
 PCIM_07_2201 = PMATM_07
 MATM_17_02 = ( CIMexo_17_02 ) * ( @year <= 2019 ) + ( ( MAT_17_02 - MATM_des_17_02 > 0 ) * ( MATM_des_17_02 ) + ( MAT_17_02 - MATM_des_17_02 <= 0 ) * ( MAT_17_02 - 1e-05 ) ) * ( @year > 2019 )
-d(BUIL_H01_CE) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CE * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CF_CE + REHAB_H01_CG_CE + 0 + delta_BUIL_H01_CA_CE * BUIL_H01_CA(-1) + delta_BUIL_H01_CB_CE * BUIL_H01_CB(-1) + delta_BUIL_H01_CC_CE * BUIL_H01_CC(-1) + delta_BUIL_H01_CD_CE * BUIL_H01_CD(-1) - ( 0 + REHAB_H01_CE_CA + REHAB_H01_CE_CB + REHAB_H01_CE_CC + REHAB_H01_CE_CD ) - ( 0 + delta_BUIL_H01_CE_CF * BUIL_H01_CE(-1) + delta_BUIL_H01_CE_DES * BUIL_H01_CE(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CE(-1) * STEADYSTATE(2, 1) )
-d(BUIL_H01_CD) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CD * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CE_CD + REHAB_H01_CF_CD + REHAB_H01_CG_CD + 0 + delta_BUIL_H01_CA_CD * BUIL_H01_CA(-1) + delta_BUIL_H01_CB_CD * BUIL_H01_CB(-1) + delta_BUIL_H01_CC_CD * BUIL_H01_CC(-1) - ( 0 + REHAB_H01_CD_CA + REHAB_H01_CD_CB + REHAB_H01_CD_CC ) - ( 0 + delta_BUIL_H01_CD_CE * BUIL_H01_CD(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CD(-1) * STEADYSTATE(2, 1) )
+d(BUIL_H01_CE) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CE * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CF_CE + REHAB_H01_CG_CE + 0 + delta_BUIL_H01_CA_CE * BUIL_H01_CA(-1) + delta_BUIL_H01_CB_CE * BUIL_H01_CB(-1) + delta_BUIL_H01_CC_CE * BUIL_H01_CC(-1) + delta_BUIL_H01_CD_CE * BUIL_H01_CD(-1) - ( 0 + REHAB_H01_CE_CA + REHAB_H01_CE_CB + REHAB_H01_CE_CC + REHAB_H01_CE_CD ) - ( 0 + delta_BUIL_H01_CE_CF * BUIL_H01_CE(-1) + delta_BUIL_H01_CE_CG * BUIL_H01_CE(-1) + delta_BUIL_H01_CE_DES * BUIL_H01_CE(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CE(-1) * STEADYSTATE(2, 1) )
+d(BUIL_H01_CD) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CD * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CE_CD + REHAB_H01_CF_CD + REHAB_H01_CG_CD + 0 + delta_BUIL_H01_CA_CD * BUIL_H01_CA(-1) + delta_BUIL_H01_CB_CD * BUIL_H01_CB(-1) + delta_BUIL_H01_CC_CD * BUIL_H01_CC(-1) - ( 0 + REHAB_H01_CD_CA + REHAB_H01_CD_CB + REHAB_H01_CD_CC ) - ( 0 + delta_BUIL_H01_CD_CE * BUIL_H01_CD(-1) + delta_BUIL_H01_CD_CF * BUIL_H01_CD(-1) + delta_BUIL_H01_CD_CG * BUIL_H01_CD(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CD(-1) * STEADYSTATE(2, 1) )
 Mbis_24 = QM_24 - VATM_24 - OTHTM_24 - SUBM_24 - ( MCM_24 + MTM_24 ) - ENERTM_24
 Mbis_21 = QM_21 - VATM_21 - OTHTM_21 - SUBM_21 - ( MCM_21 + MTM_21 ) - ENERTM_21
-d(BUIL_H01_CG) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CG * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + 0 + delta_BUIL_H01_CF_CG * BUIL_H01_CF(-1) - ( 0 + REHAB_H01_CG_CA + REHAB_H01_CG_CB + REHAB_H01_CG_CC + REHAB_H01_CG_CD + REHAB_H01_CG_CE + REHAB_H01_CG_CF ) - ( 0 + delta_BUIL_H01_CG_DES * BUIL_H01_CG(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CG(-1) * STEADYSTATE(2, 1) )
+d(BUIL_H01_CG) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CG * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + 0 + delta_BUIL_H01_CD_CG * BUIL_H01_CD(-1) + delta_BUIL_H01_CE_CG * BUIL_H01_CE(-1) + delta_BUIL_H01_CF_CG * BUIL_H01_CF(-1) - ( 0 + REHAB_H01_CG_CA + REHAB_H01_CG_CB + REHAB_H01_CG_CC + REHAB_H01_CG_CD + REHAB_H01_CG_CE + REHAB_H01_CG_CF ) - ( 0 + delta_BUIL_H01_CG_DES * BUIL_H01_CG(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CG(-1) * STEADYSTATE(2, 1) )
 Mbis_23 = QM_23 - VATM_23 - OTHTM_23 - SUBM_23 - ( MCM_23 + MTM_23 ) - ENERTM_23
 Mbis_22 = QM_22 - VATM_22 - OTHTM_22 - SUBM_22 - ( MCM_22 + MTM_22 ) - ENERTM_22
 MATM_17_07 = ( CIMexo_17_07 ) * ( @year <= 2019 ) + ( ( MAT_17_07 - MATM_des_17_07 > 0 ) * ( MATM_des_17_07 ) + ( MAT_17_07 - MATM_des_17_07 <= 0 ) * ( MAT_17_07 - 1e-05 ) ) * ( @year > 2019 )
-d(BUIL_H01_CF) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CF * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CG_CF + 0 + delta_BUIL_H01_CE_CF * BUIL_H01_CE(-1) - ( 0 + REHAB_H01_CF_CA + REHAB_H01_CF_CB + REHAB_H01_CF_CC + REHAB_H01_CF_CD + REHAB_H01_CF_CE ) - ( 0 + delta_BUIL_H01_CF_CG * BUIL_H01_CF(-1) + delta_BUIL_H01_CF_DES * BUIL_H01_CF(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CF(-1) * STEADYSTATE(2, 1) )
+d(BUIL_H01_CF) = ( @year > 2006 ) * ( phi_NewBUIL_H01_CF * ( d(BUIL_H01) + BUIL_H01_DES ) + 0 + REHAB_H01_CG_CF + 0 + delta_BUIL_H01_CC_CF * BUIL_H01_CC(-1) + delta_BUIL_H01_CD_CF * BUIL_H01_CD(-1) + delta_BUIL_H01_CE_CF * BUIL_H01_CE(-1) - ( 0 + REHAB_H01_CF_CA + REHAB_H01_CF_CB + REHAB_H01_CF_CC + REHAB_H01_CF_CD + REHAB_H01_CF_CE ) - ( 0 + delta_BUIL_H01_CF_CG * BUIL_H01_CF(-1) + delta_BUIL_H01_CF_DES * BUIL_H01_CF(-1) ) ) + ( @year <= 2006 ) * ( BUIL_H01_CF(-1) * STEADYSTATE(2, 1) )
 MATM_17_06 = ( CIMexo_17_06 ) * ( @year <= 2019 ) + ( ( MAT_17_06 - MATM_des_17_06 > 0 ) * ( MATM_des_17_06 ) + ( MAT_17_06 - MATM_des_17_06 <= 0 ) * ( MAT_17_06 - 1e-05 ) ) * ( @year > 2019 )
 CIDexo_09_07 = ( CIexo_09_07 - CIMexo_09_07 > 0 ) * ( CIexo_09_07 - CIMexo_09_07 ) + ( CIexo_09_07 - CIMexo_09_07 <= 0 ) * 0.0001
 d(SUBST_MATD_n_11_09) = ( @year <= 2022 ) * ( - ES_CIM(9, 11) * d(log(PMATD_11) - log(PMATM_11)) * ( PMATM_11(-1) * MATM_11_09(-1) / ( PMAT_11_09(-1) * MAT_11_09(-1) ) ) ) + ( @year > 2022 ) * ( - ES_ext_choc * d(log(PMATD_11) - log(PMATM_11)) * ( PMATM_11(-1) * MATM_11_09(-1) / ( PMAT_11_09(-1) * MAT_11_09(-1) ) ) )
@@ -25894,8 +25894,8 @@ PENER_BUIL_H01_CE_22 * ENER_BUIL_H01_CE_22 = PEXP_22_H01 * EXP_BUIL_H01_CE_22
 PENER_BUIL_H01_CE_21 * ENER_BUIL_H01_CE_21 = PEXP_21_H01 * EXP_BUIL_H01_CE_21
 PCIM_22_12 = PEM_22_12
 E_oth_23_2201 = phi_E_oth_23_2201 * E_oth_2201
-EXP_U_REHAB_H01_CC_CA = EXP(U_REHAB_H01_CC_CA * 6000)
-EXP_U_REHAB_H01_CC_CB = EXP(U_REHAB_H01_CC_CB * 6000)
+EXP_U_REHAB_H01_CC_CA = EXP(U_REHAB_H01_CC_CA * 500)
+EXP_U_REHAB_H01_CC_CB = EXP(U_REHAB_H01_CC_CB * 500)
 CIDexo_12_09 = ( CIexo_12_09 - CIMexo_12_09 > 0 ) * ( CIexo_12_09 - CIMexo_12_09 ) + ( CIexo_12_09 - CIMexo_12_09 <= 0 ) * 0.0001
 CIDexo_12_08 = ( CIexo_12_08 - CIMexo_12_08 > 0 ) * ( CIexo_12_08 - CIMexo_12_08 ) + ( CIexo_12_08 - CIMexo_12_08 <= 0 ) * 0.0001
 CIDexo_12_03 = ( CIexo_12_03 - CIMexo_12_03 > 0 ) * ( CIexo_12_03 - CIMexo_12_03 ) + ( CIexo_12_03 - CIMexo_12_03 <= 0 ) * 0.0001
@@ -26656,7 +26656,7 @@ MAT_bis_dgt_03_19 = MATD_03_19 + MATM_03_19
 d(log(IAM_des_n_05_06)) = 1.55 * dlog(QD_05) - 0.41 * ( log(IAM_des_n_05_06(-1)) - log(IA_n_05_06(-1)) + 0.48 * ( log(PIAM_05(-1)) - log(PIAD_05(-1)) ) )
 SUB_AUTO_th_VAL_H01_CA = R_SUB_AUTO_th_H01_CA * PNewAUTO_th_H01_CA * NewAUTO_th_H01_CA
 SUB_AUTO_th_VAL_H01_CC = R_SUB_AUTO_th_H01_CC * PNewAUTO_th_H01_CC * NewAUTO_th_H01_CC
-EXP_U_REHAB_H01_CD_CB = EXP(U_REHAB_H01_CD_CB * 6000)
+EXP_U_REHAB_H01_CD_CB = EXP(U_REHAB_H01_CD_CB * 500)
 SUB_AUTO_th_VAL_H01_CE = R_SUB_AUTO_th_H01_CE * PNewAUTO_th_H01_CE * NewAUTO_th_H01_CE
 d(log(IAM_des_n_05_05)) = 1.55 * dlog(QD_05) - 0.41 * ( log(IAM_des_n_05_05(-1)) - log(IA_n_05_05(-1)) + 0.48 * ( log(PIAM_05(-1)) - log(PIAD_05(-1)) ) )
 SUB_AUTO_th_VAL_H01_CG = R_SUB_AUTO_th_H01_CG * PNewAUTO_th_H01_CG * NewAUTO_th_H01_CG
@@ -26830,8 +26830,8 @@ CIM_11_08 = MATM_11_08
 CIM_11_09 = MATM_11_09
 TCO_VALD_22_08 = TCO_VAL_22_08 * ED_22_08 / E_22_08
 TCO_VALD_22_09 = TCO_VAL_22_09 * ED_22_09 / E_22_09
-DEBT_SNF_VAL_21 = ( 1 + R_SNF_21(-1) ) * DEBT_SNF_VAL_21(-1) + PIA_21 * IA_21
-DEBT_SNF_VAL_20 = ( 1 + R_SNF_20(-1) ) * DEBT_SNF_VAL_20(-1) + PIA_20 * IA_20
+DEBT_SNF_VAL_21 = ( 1 + R_SNF_21(-1) - Tdec_21 ) * DEBT_SNF_VAL_21(-1) + PIA_21 * IA_21
+DEBT_SNF_VAL_20 = ( 1 + R_SNF_20(-1) - Tdec_20 ) * DEBT_SNF_VAL_20(-1) + PIA_20 * IA_20
 TCO_VALD_22_04 = TCO_VAL_22_04 * ED_22_04 / E_22_04
 TCO_VALD_22_05 = TCO_VAL_22_05 * ED_22_05 / E_22_05
 TCO_VALD_22_02 = TCO_VAL_22_02 * ED_22_02 / E_22_02
@@ -27527,7 +27527,7 @@ verif_MT_02 = MT_02 - MTD_02 - MTM_02
 verif_MT_03 = MT_03 - MTD_03 - MTM_03
 verif_phi_E_oth_2308 = 0 + phi_E_oth_21_2308 + phi_E_oth_22_2308 + phi_E_oth_23_2308 + phi_E_oth_24_2308 - 1 * ( E_oth_2308 > 0 )
 verif_MT_01 = MT_01 - MTD_01 - MTM_01
-EXP_U_REHAB_H01_CD_CC = EXP(U_REHAB_H01_CD_CC * 6000)
+EXP_U_REHAB_H01_CD_CC = EXP(U_REHAB_H01_CD_CC * 500)
 G_bis_dgt_09 = GD_09 + GM_09
 dlog(PENER_AUTOelec_H01_CA) = dlog(pch_23) + dlog(EXP_AUTO_elec_H01_CA) - dlog(AUTO_elec_H01_CA)
 dlog(PENER_AUTOelec_H01_CB) = dlog(pch_23) + dlog(EXP_AUTO_elec_H01_CB) - dlog(AUTO_elec_H01_CB)
