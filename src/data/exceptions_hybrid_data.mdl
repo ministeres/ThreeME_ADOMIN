@@ -477,11 +477,11 @@ nu_diffusion := HOUSEHOLD_HYBRID_AUTO(216,1)
 
 coef_phiNVE := 1
 
-COeffBassinnov[h] := 0
+COeffBassinnov[h] := 0.000156229
 
 ES_BASS := 0
 
-CoeffBassimit[h] := 0
+CoeffBassimit[h] := 0.3
 
 phiNVE[h]:=share_elec[h]
 
@@ -592,7 +592,17 @@ AUTOexo := AUTO[h]
 
 phi_exp_03bis[h] := EXP_NEWAUTO_VAL[h] / EXP_NEWAUTO_VAL
 
-EXP_03_OTH_VAL := (household(5,1) - @elem(sum(PAUTO_elec[h,pcl]* NewAUTO_elec[h,pcl] on pcl)+ sum(PNewAUTO_th[h,ecl]* NewAUTO_th[h,ecl] on ecl),%baseyear)) * (1 + STEADYSTATE(1, 1)) ^ (@year - %baseyear)
+EXP_03_OTH_VAL := PEXP_03_OTH*EXP_03_OTH
+
+EXP_03_OTH := (household(5,1) - @elem(sum(PAUTO_elec[h,pcl]* NewAUTO_elec[h,pcl] on pcl)+ sum(PNewAUTO_th[h,ecl]* NewAUTO_th[h,ecl] on ecl),%baseyear)) * (1 + STEADYSTATE(2, 1)) ^ (@year - %baseyear)
+
+@over Pnewauto := sum(Pnewauto[h] on h)  # e views ne reconnait pas Pnewauto[h] alors qu'il est défini dans le fichier exception_hybrid_data
+
+PEXP_03_OTH := PCH_03
+
+PEXP_03_OTH[h] := PCH_03 
+
+EXP_03_OTH[h] := phi_exp_03bis[h] * EXP_03_OTH
   
 EXP_MOBAUTO_VAL[h] := sum(EXP_MOBAUTO_VAL[h, ecl] on ecl)
   

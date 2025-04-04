@@ -32,6 +32,9 @@ DEBT_AUTO_Val_tot[h,ecl] = (@year > %baseyear)*( DEBT_auto_Val[h,ecl]{-1}*(1 - R
 # Calcul de l'endettement des SNF
 @over d(R_G) = 1/8 * d(R) + (1 - 1/8) * d(R_G{-1})
 
+## L'endettement croît linéairement jusqu'au niveau de 2006
+D(DEBT_SNF_GDP) = (@year < 2020) * 0.01*(109.99958 - 82.50712)/13 + (@year >= 2020) * D(DEBT_SNF_VAL/(PGDP*GDP))
+
 DEBT_SNF_VAL[s] = (1+R_SNF[s]{-1} - Tdec[s]) * DEBT_SNF_VAL[s]{-1} + PIA[s]*IA[s]
 R_SNF[s] = 1/4 * d(R[s]) + (1 - 1/4) * R_SNF[s]{-1}
 
@@ -75,7 +78,9 @@ verif_M_val = PM * M - (sum(PM[c] * M[c] on c))
 ##### MODIFICATION DU COUT DU CAPITAL ##### avec cette sp�cification, 2Mtep de plus. suppression du d�s�quilibre comptable
 
 @over CK[s] = PK[s] * (  R[s] - d(P)/P{-1} + Tdec[s]) if K[s] > 0
+@over CK[s] = PK[s] * (  R[s] - d(P)/P{-1} + Tdec[s] + R_PREMIUM) if K[s] > 0
 
+d(R_PREMIUM) = (@year<2020) * 0 + (@year>=2020) * 0.0525 * d(DEBT_SNF_GDP{-1})
  
 #### MODIFICATION DE LA REGLE DE TAYLOR #####
 
@@ -85,7 +90,7 @@ verif_M_val = PM * M - (sum(PM[c] * M[c] on c))
 #### AJOUT D'UN CHOC DE TAUX D'INTERET (GREENIUM) #####
 
 @over R  = 1 * R_n  + ( 1  - 1 )  * ( R(- 1)  + d(R_e) ) + R_exo
-#Risk_P = 0.31*Debt_SNF_VAL/VA
+#Risk_P = 0.0525 * (DEBT_SNF_VAL{-1} / (PGDP{-1}*GDP{-1}) - @elem(DEBT_SNF_VAL / (PGDP*GDP), %baseyear) )
 #@over d(R[s]) = d(R) + d(Risk_P)
 @over d(R[s]) = d(R) + d(R_exo[s])
 
@@ -284,7 +289,7 @@ d(log(PM_n[ce]))=(0.74 * dlog(TC * PWD[ce]) - 0.97 * (log(PM_n[ce]{-1}) - 0.17 *
  CHM_des[cdai] = CHM_des[cdai]{-1}*((1 + (QMexo[cdai]>0)*(d(QMexo[cdai])/QMexo[cdai]{-1})))*(@year<=2019) _
                         + ((CHM_des[cdai]{-1}*(1+d(CHM_des_n[cdai])/CHM_des_n[cdai]{-1})>0)*(CHM_des[cdai]{-1}*(1+d(CHM_des_n[cdai])/CHM_des_n[cdai]{-1}))+(CHM_des[cdai]{-1}*(1+d(CHM_des_n[cdai])/CHM_des_n[cdai]{-1})<=0)*0.00001)*(@year>2019) if CHM[cdai] <> 0
                         
-@over CHM_des_03  = (QMexo_03/(QDexo_03+QMexo_03)*EXP_03)*(@year<=2019) + ( ( CHM_des_03(-1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(-1) ) > 0 )  * ( CHM_des_03(-1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(-1) ) )  + ( CHM_des_03(-1)  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03(-1) ) <= 0 )  * 0.00001 )  * ( @year > 2019 ) 
+@over CHM_des_03  = (CHM_03)*(@year<=2019) + ( ( CHM_des_03{-1}  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03{-1} ) > 0 )  * ( CHM_des_03{-1}  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03{-1} ) )  + ( CHM_des_03{-1}  * ( 1  + d(CHM_des_n_03)  / CHM_des_n_03{-1} ) <= 0 )  * 0.00001 )  * ( @year > 2019 ) 
 
 # cette correction est nécessaire car EXPexo_03 évolue comme le nombre d'automobiles et non comme l'évolution du CA du secteur en € constant sur la période 2006-2019, contrairement au QM_exo. QMexo augmente beaucoup plus vite que le nombre de véhicules, si bien que sans correction la production domestique tendrait vers zéro en 2020.   
   
@@ -292,8 +297,10 @@ d(log(PM_n[ce]))=(0.74 * dlog(TC * PWD[ce]) - 0.97 * (log(PM_n[ce]{-1}) - 0.17 *
  @over CHM[cdai] = CHM[cdai]{-1}*((1 + (QMexo[cdai]>0)*(d(QMexo[cdai])/QMexo[cdai]{-1})))*(@year<=2019) _
                         + ((EXP[cdai] - CHM_des[cdai]>0)*(CHM_des[cdai])+(EXP[cdai] - CHM_des[cdai]<=0)*(EXP[cdai] -0.00001))*(@year>2019) if CHM[cdai] <> 0
                         
-@over CHM_03 = (QMexo_03/(QDexo_03+QMexo_03)*EXP_03)*(@year<=2019) + ((EXP_03 - CHM_des_03>0)*(CHM_des_03)+(EXP_03 - CHM_des_03<=0)*(EXP_03 -0.00001))*(@year>2019) if CHM_03 <> 0 # cette correction est nécessaire car EXPexo_03 évolue comme le nombre d'automobiles et non comme l'évolution du CA du secteur en € constant sur la période 2006-2019, contrairement au QM_exo. QMexo augmente beaucoup plus vite que le nombre de véhicules, si bien que sans correction la production domestique tendrait vers zéro en 2020.   
-  
+@over CHM_03 = (@year>%baseyear)*((QMexo_03/(QDexo_03+QMexo_03)*EXP_03)*(@year<=2019) + ((EXP_03 - CHM_des_03>0)*(CHM_des_03)+(EXP_03 - CHM_des_03<=0)*(EXP_03 -0.00001))*(@year>2019))+(@year<=%baseyear)*(CHM_03{-1}* ( 1 + STEADYSTATE(2,1) ) ) if CHM_03 <> 0    
+
+ # cette correction est nécessaire car EXPexo_03 évolue comme le nombre d'automobiles et non comme l'évolution du CA du secteur en € constant sur la période 2006-2019, contrairement au QM_exo. QMexo augmente beaucoup plus vite que le nombre de véhicules, si bien que sans correction la production domestique tendrait vers zéro en 2020. 
+                     
  @over CHD[cdai]  = ((EXP[cdai]-CHM[cdai] > 0) * (EXP[cdai] - CHM[cdai]) + (EXP[cdai] - CHM[cdai] =< 0) * (0.00001))*(@year<=2019) _
                     + ((EXP[cdai] - CHM[cdai]>0)*(EXP[cdai] - CHM[cdai])+(EXP[cdai] - CHM[cdai]<=0)*0.00001)*(@year>2019)
 
@@ -959,7 +966,8 @@ REDIS_VAL_SEC_ETS2[s] = 0*(@year>2024)*REC_VAL_SEC_ETS2[s] where s in %list_ETS
                          #0*d(SUBST_K_14)  - dlog(PROG_K_14)  + Choc_CSC_14 + IMP_BUD_14  * GDP{-1}  / IA_14{-1}) 
 #   avec cette spécification, les 12mds n'apparaissent qu'en 2026                       
 
-
+## Calcul du stock de capital total
+K = sum(K[s] on s)
 
 
                         

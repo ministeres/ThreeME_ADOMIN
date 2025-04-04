@@ -961,5 +961,8 @@ BetaEXP_exo := 0
 
 PNewBUIL_cst[h,ecl] :=  @elem(PNewBUIL[h,ecl], %baseyear)
 
-
+@over EXP_MOBAUTO_Val[h,ecl] := ( @year > %baseyear ) * (DEBT_AUTO_Val[h,ecl]{-1} * ( R_I_AUTO[h,ecl]{-1} + R_RMBS_AUTO[h,ecl]{-1} ) +   _
+                                R_CASH_AUTO[h,ecl] * PNewAUTO[h,ecl] * NewAUTO[h,ecl] +       _
+                                PEXP_AUTO[h,ecl] * EXP_AUTO[h,ecl] ) +                                                    _
+                         ( @year <= %baseyear ) * (EXP_MOBAUTO_Val[h,ecl]{-1} * ( 1 + STEADYSTATE(1,1) ) )
 

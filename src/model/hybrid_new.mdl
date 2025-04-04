@@ -549,11 +549,15 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
     
     # Exception for the households block
     
-   @over EXP_13[h] = ( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) * NewBUIL[h] + (sum(@elem(PREHAB[h,ecl],%baseyear) * REHAB[h,ecl] on ecl)) _ 
-                      +EXP_13_OTH_Val[h] / PCH_13 ) + ( @year <= %baseyear ) * (EXP_13[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
+   @over EXP_13[h] = ( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) * NewBUIL[h] + (sum(@elem(PREHAB[h,ecl],%baseyear)*REHAB[h,ecl] on ecl))                       +EXP_13_OTH_Val[h] / PCH_13 ) + ( @year <= %baseyear ) * (EXP_13[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
 
-     @over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl)+ (sum(@elem(PNewAUTO_th[h,ecl], %baseyear)*NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h])) + ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )   
-    
+     @over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl)+ (sum(@elem(PNewAUTO_th[h,ecl], %baseyear)*NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH[h])) + ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )   
+
+   
+    @over PEXP_03[h]*EXP_03[h]= Pnewauto[h]*Newauto[h] + EXP_03_OTH_val[h]  
+ 
+    #Pnewauto = sum(Pnewauto[h] on h)
+ 
     @over d(log(EXP[trsp, h]))   = d(log(Km_traveler[trsp, h]))  if Km_traveler[trsp, h] <> 0 where trsp in %list_trsp_travel
    
     @over EXP_03 = sum(EXP_03[h] if EXP_03[h] <> 0 on h)
@@ -623,6 +627,8 @@ GR_PENER_m2_e[h,ecl] = (@year>%baseyear)*(ADJUST(72,2) * GR_PENER_m2_e[h,ecl]{-1
   @over PEXP[co, h] = PCH[co]
   
   @over d(log(PEXP[c, h])) = d(log(PCH[c])) where c in 03 14 15 18 21 22 23 24
+  
+  @over PEXP_03[h]*EXP_03[h]= Pnewauto[h]*Newauto[h] + EXP_03_OTH_val[h]
   
   @over PEXP_13[h]*EXP_13[h] = PNewBUIL[h]*NewBUIL[h] + (sum(PREHAB[h,ecl]*REHAB[h,ecl] on ecl)) + EXP_13_OTH_Val[h] 
   
@@ -788,9 +794,12 @@ EXP_MOBAUTO_Val = sum(EXP_MOBAUTO_Val[h] if EXP_MOBAUTO_Val[h] <> 0 on h)
 
 EXP_03_OTH_VAL = sum(EXP_03_OTH_VAL[h] if EXP_03_OTH_VAL[h] <> 0 on h)
 
-# Equation H.4.107 and H.4.108
+@over EXP_03_OTH_VAL[h] = PEXP_03_OTH[h] * EXP_03_OTH[h]
 
-d(log(EXP_03_OTH_VAL[h])) = d(log(DISPINC_VAL[h])) + d(log(1 - MPS_HH[h]))
+PEXP_03_OTH = PCH_03
+
+PEXP_03_OTH[h] = PCH_03
+
 
 # ------------------------------------------------------TRANSPORT COLLECTIF--------------------------------------------------------------
 # Equation H.4.113
@@ -958,7 +967,9 @@ AUTO[h,c] =  AUTO_th[h,c]   where c in %list_ener_class \ CA
 
 ## prix d'achat du véhicule
 
-PAUTO_elec[h,pcl] = PNewAUTO_th[h,pcl]+(Pbattery + overcost_elec)/1000
+PAUTO_elec[h,pcl] = PNewAUTO_th[h,pcl] + (Pbattery + overcost_elec)/1000
+
+@over dlog(PAUTO_elec[h,pcl]) = dlog(PCH_03)
 
 PAUTO_elec[h]*NewAUTO_elec[h] = sum(PAUTO_elec[h,pcl]*NewAUTO_elec[h,pcl] on pcl)
 
@@ -972,7 +983,7 @@ PNewAUTO_th[h]*NewAUTO_th[h] = sum(PNewAUTO_th[h, ecl] * NewAUTO_th[h, ecl] on e
 
 ##Coût d'usage énergétique du véhicule
 
-dlog(PENER_AUTOelec[h,pcl]) = dlog(pch[23]) + dlog(EXP_AUTO_elec[h,pcl]) - dlog(AUTO_elec[h,pcl])
+dlog(PENER_AUTOelec[h,pcl]) = dlog(PCH[23]) + dlog(EXP_AUTO_elec[h,pcl]) - dlog(AUTO_elec[h,pcl])
 
 dlog(EXP_AUTO_elec[h,pcl]) = dlog(KM_AUTO_elec[h,pcl]) - dlog(prog_auto_elec) 
 
@@ -1072,7 +1083,7 @@ share_elec =  share_elec[h]
   
  d(phiNVE[h])=innovation[h] * (1-phiNVE[h]{-1}) + imitation[h] * (phiNVE[h]{-1}) * (1-phiNVE[h]{-1})
  
-@over d(phiNVE[h])=innovation[h] * (1-phiNVE[h]{-1}) + imitation[h] * (phiNVE[h]{-1}) * (1-phiNVE[h]{-1})^coef_phiNVE
+@over d(phiNVE[h])= 0 + (@year>%baseyear)*(innovation[h] * (1-phiNVE[h]{-1}) + imitation[h] * (phiNVE[h]{-1}) * (1-phiNVE[h]{-1})^coef_phiNVE)
     
  imitation[h] =  coeffBassimit[h] 
    
@@ -1138,19 +1149,16 @@ d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + log(1+STEA
                         
   @over EXP_13[h] = (CHD_13 - SUB_REHAB_VAL)*(@year<=2019) + _
                     (@year>2019)*(( @year > %baseyear )*( @elem(PNewBUIL[h],%baseyear) _
-                     * NewBUIL[h] + @elem(PREHAB[h],%baseyear) * REHAB[h] + EXP_13_OTH_Val[h] / PCH_13 ))  
-  
-  #@over dlog(EXP_13_OTH_VAL[h]) = (EXPothexo[13]/EXPothexo_13{-1})*(@year<=2019) + _
-  #                                       (@year>2019)*(dlog(DISPINC_VAL[h]) + dlog(1 - MPS_HH[h])) 
-                                        
+                     * NewBUIL[h] + @elem(PREHAB[h],%baseyear) * REHAB[h] + EXP_13_OTH_Val[h] / PCH_13 ))                                        
                 
-  #@over EXP_03[h] = (EXP_03{-1}*EXPexo_03/EXPexo_03{-1})*(@year<=2019) + _
-  #                  (@year>2019) * (sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + _
-  #                  sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h])
+  @over EXP_03[h] = ( @year > %baseyear )*( (EXP_03{-1}*EXPexo_03/EXPexo_03{-1})*(@year<=2019) + (@year>2019) * (sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH[h])) +  ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) ) 
+
+  EXP_03_OTH[h] = ( @year > %baseyear )*((@year<=2019)*(EXP_03[h] -(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl))) + (@year>2019)*(EXP_03_OTH[h]{-1}*(1+dlog(Newauto)))) +  ( @year <= %baseyear ) * (EXP_03_oth[h]{-1} * ( 1 + STEADYSTATE(2,1) ) ) 
   
+EXP_03_OTH = sum(EXP_03_OTH[h] on h)
+   
   @over dlog(AUTO_N)= (@year<=2019)*(dlog(AUTOexo)) + (@year>2019)*(dlog(Km_auto[h])-dlog(kmPerAuto[h])) 
   
-  #@over dlog(EXP_03_OTH_VAL[h]) = (@year<=2019)*(dlog(EXPothexo_03)) + (@year>2019)*((dlog(DISPINC_VAL[h]) + dlog(1 - MPS_HH[h])))   
    
   @over dlog(EXP[trsp, h])   = (dlog(EXPexo[trsp]))*(@year<=2019) + _                                                                           
                                 (@year >  2019) * d(log(Km_traveler[trsp, h])) if Km_traveler[trsp, h] <> 0 where trsp in %list_trsp_travel
@@ -1168,8 +1176,8 @@ d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + log(1+STEA
   @over CHM[cm] = (CHM[cm]{-1}*(1 + (QMexo[cm]>0)*(d(QMexo[cm])/QMexo[cm]{-1})))*(@year<=2019) _
                    + ((EXP[cm] - CHD[cm]>0)*(EXP[cm] - CHD[cm])+(EXP[cm] - CHD[cm]<=0)*0.00001)*(@year>2019) if CHM[cm] <> 0
                    
-  @over CHM_03 = (QMexo_03/(QDexo_03+QMexo_03)*EXPexo_03)*(@year<=2019) _
-                   + ((EXP_03 - CHD_03>0)*(EXP_03 - CHD_03)+(EXP_03 - CHD_03<=0)*0.00001)*(@year>2019) if CHM_03 <> 0 # 
+#  @over CHM_03 = (QMexo_03/(QDexo_03+QMexo_03)*EXPexo_03)*(@year<=2019) _
+#                   + ((EXP_03 - CHD_03>0)*(EXP_03 - CHD_03)+(EXP_03 - CHD_03<=0)*0.00001)*(@year>2019) if CHM_03 <> 0 # 
   
   @over GD[cm] = ((EXPG[cm] - GM[cm]>0)*(EXPG[cm] - GM[cm])+(EXPG[cm] - GM[cm]<=0)*0.00001)*(@year<=2019) + (GD[cm]{-1}*(1+d(EXPG[cm])/EXPG[cm]{-1} + d(subst_GD[cm])))*(@year>2019) if GD[cm] <> 0          #corrigé
   
@@ -1199,7 +1207,7 @@ d(log(WD[cm]))=  (d(log(Xexo[cm])) - d(SUBST_X[cm]) )*(@year<=2019) + log(1+STEA
  
  phi_MAT_n[cm,sne] * SUM_MAT_N_CM[sne] = MAT_n[cm,sne]
  
-  @over MAT[cm, sne] = (@year<=2019) * (MATD[cm,sne] + MATM[cm,sne]) + (@year>2019) * (MAT[sne] * phi_MAT_n[cm,sne]) if MAT[cm, sne] <> 0    #modifié Gaël
+  @over MAT[cm, sne] = (@year<=2019) * (MATD[cm,sne] + MATM[cm,sne]) + (@year>2019) * (MAT[sne] * phi_MAT_n[cm,sne]) if MAT[cm, sne] <> 0    
  
   @over IAD[cm,sne]  = ((IA_n[cm,sne] - IAM[cm,sne]>0)*(IA_n[cm,sne] - IAM[cm,sne])+(IA_n[cm,sne] - IAM[cm,sne]<=0)*0.0001)*(@year<=2019) + _
                         (IAD[cm,sne]{-1}*(1+(IA_n[cm,sne]>0)*(d(IA_n[cm,sne])/IA_n[cm,sne]{-1} + d(SUBST_IAD[cm,sne])))) *(@year>2019) if IAD[cm,sne] <> 0

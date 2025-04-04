@@ -834,8 +834,7 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
 #gel# /!\ si cette option est active, il faut geler les lignes 779 � 787
 #gel
 #gel#Sachant que le volume de la production est �gal �  : 
-#gel#    @over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl)+ sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h]) + _
-#gel#                      ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
+#gel#    @over EXP_03[h] = ( @year > %baseyear )*( (EXP_03{-1}*EXPexo_03/EXPexo_03{-1})*(@year<=2019) + (@year>2019) * (sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH[h])) +  ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) ) 
 #gel#on remplace : 
 #gel# PAUTO_elec[h,pcl] = PNewAUTO_th[h,pcl]+(Pbattery + overcost_elec)/1000 
 #gel# par 
@@ -844,10 +843,9 @@ VERIF_CEE = sum(CEE[se] on se) - CEE
 #gel
 #gel# pour pr�server l'�quilibre comptable, il faut ajouter � l'�quation EXP_03 une constante �gale �  @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear) car � l'ann�e de base, les prix sont normalis�s � 1
 #gel
- #gel@over EXP_03[h] = ( @year > %baseyear )*(sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + _
-                   #gelsum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH_val[h] / PEXP_03[h] + @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear)) _
-                   #gel+ ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) )
-#gel
+
+#gel   @over EXP_03[h] = ( @year > %baseyear )*( (EXP_03{-1}*EXPexo_03/EXPexo_03{-1})*(@year<=2019) + (@year>2019) * (sum(@elem(PAUTO_elec[h,pcl], %baseyear) * NewAUTO_elec[h,pcl] on pcl) + sum(@elem(PNewAUTO_th[h,ecl], %baseyear) * NewAUTO_th[h,ecl] on ecl) + EXP_03_OTH[h]+ @elem(NewAUTO_elec[h]*(Pbattery + overcost_elec)/1000,%baseyear))) +  ( @year <= %baseyear ) * (EXP_03[h]{-1} * ( 1 + STEADYSTATE(2,1) ) ) 
+
 #gel# ainsi le volume de la production en euros constants n'inclu pas la valeur de la batterie �lectrique (� l'exception de celles des 1500 VE vendus en 2006), ni les surco�ts de production du v�hicule �lectrique
 #gel# on remplace l'�quation suivante : 
 #gel                      
@@ -1299,3 +1297,11 @@ PNew_Trucks[ce,road] = PNew_Trucks_cst[ce,road]*PMAT_03[road]
 
 @over phi_elec_H01_CF * phi_elec_n_tot_H01 =  phi_elec_e_H01_CF  
 @over phi_elec_e_H01_CF  = ( phi_elec_n_H01_CF > 0 )  * phi_elec_n_H01_CF  + ( phi_elec_n_H01_CF <= 0 )  * 0.001
+
+
+############## corrrection EXP_Mobauto_val. La variable était nette de subvention. 
+
+@over EXP_MOBAUTO_Val[h,ecl] = ( @year > %baseyear ) * (DEBT_AUTO_Val[h,ecl]{-1} * ( R_I_AUTO[h,ecl]{-1} + R_RMBS_AUTO[h,ecl]{-1} ) +   _
+                                R_CASH_AUTO[h,ecl] * PNewAUTO[h,ecl] * NewAUTO[h,ecl] +       _
+                                PEXP_AUTO[h,ecl] * EXP_AUTO[h,ecl] ) +                                                    _
+                         ( @year <= %baseyear ) * (EXP_MOBAUTO_Val[h,ecl]{-1} * ( 1 + STEADYSTATE(1,1) ) )

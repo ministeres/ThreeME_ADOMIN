@@ -136,9 +136,9 @@ AUTO_elec_D[h, pcl] := HOUSEHOLD_HYBRID_AUTO(172 + $pcl, $h)
 
 bonus_elec[h]:= 0
 
-Pbattery := 5000 * PRICE_INDEX_DGT
+Pbattery := 5000
 
-overcost_elec := 4000 * PRICE_INDEX_DGT
+overcost_elec := 4000 
 
 PAUTO_elec[h,pcl] := (HOUSEHOLD_HYBRID_AUTO(118 + $pcl, $h) + HOUSEHOLD_HYBRID_AUTO(217,1)) / 1000 * PRICE_INDEX_DGT   
 
@@ -207,3 +207,4 @@ EMS_HH_BUIL[24, h, ecl] := HOUSEHOLD_HYBRID_BUIL(104 + $ecl, $h) * REAL_GDP_INDE
 
 # Consommation en KwH de l'energie
 EMS_HH_AUTO[22, h, ecl] := HOUSEHOLD_HYBRID_AUTO(188 + $ecl, $h) * REAL_GDP_INDEX_DGT
+
