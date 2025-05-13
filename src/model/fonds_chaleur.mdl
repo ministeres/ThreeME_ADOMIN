@@ -1,6 +1,6 @@
 ################# Evaluation macro du fonds chaleur
 
-############# hausse de la production de biogaz, biomasse, cogénération et UIOM etc au détriment du gaz naturel dans les reseaux de chaleur (hors industrie)
+############# hausse de la production de biogaz, biomasse, cogï¿½nï¿½ration et UIOM etc au dï¿½triment du gaz naturel dans les reseaux de chaleur (hors industrie)
 
 ### on a : 
 
@@ -14,9 +14,9 @@
 
 #Q_Mtep_ef_24[se24]  = Q_Mtep_ef_SOU_24  * PhiY_ener_24[se24]
 
-# on endogénéïse PhiY_ener_24[se24]
+# on endogï¿½nï¿½ise PhiY_ener_24[se24]
 
-phiy_E[ce,se] = PhiY_ener_exo[ce,se] + Q_Mtep_FC[se]  / Q_Mtep_ef_tot_SOU[ce] # Attention, il faut corriger la part exo donnée par Enerdata qui prend déjà en compte le fonds chaleur, sinon double compte.  
+phiy_E[ce,se] = PhiY_ener_exo[ce,se] + Q_Mtep_FC[se]  / Q_Mtep_ef_tot_SOU[ce] # Attention, il faut corriger la part exo donnï¿½e par Enerdata qui prend dï¿½jï¿½ en compte le fonds chaleur, sinon double compte.  
 
 phiy_ener[ce,se] = phiy_E[ce,se] / PhiY_E[ce]
 
@@ -24,66 +24,74 @@ PhiY_E[ce] = (sum(phiy_E[ce,se] on se))
 
 verif_PhiY_ener[se] = 1 - (sum(phiy_ener[ce,se]] on se)) 
 
-# avec Q_Mtep_FC le nombre de Mtep produites gràce au fonds chaleur cumulé sur la période et dQ_Mtep_FC la production de nouvelles Mtep financée dans l'année: 
-#dQ_Mtep_FC[se24] est la production des reseaux de chaleur et dQ_Mtep_FC[se24,s] est la consommation des secteurs en chaleur renouvelable suite au changement de chaudière financé par le FC. 
+# avec Q_Mtep_FC le nombre de Mtep produites grï¿½ce au fonds chaleur cumulï¿½ sur la pï¿½riode et dQ_Mtep_FC la production de nouvelles Mtep financï¿½e dans l'annï¿½e: 
+#dQ_Mtep_FC[se24] est la production des reseaux de chaleur et dQ_Mtep_FC[se24,s] est la consommation des secteurs en chaleur renouvelable suite au changement de chaudiï¿½re financï¿½ par le FC. 
 
 Q_Mtep_FC[se24] = Q_Mtep_FC[se24]{-1} + dQ_Mtep_FC[se24] + sum(dQ_Mtep_FC[se24,sne] on sne) 
 
-# on suppose que les Mtep d'ENR produites gràce au fonds chaleur se substituent au gaz naturel.
+# on suppose que les Mtep d'ENR produites grï¿½ce au fonds chaleur se substituent au gaz naturel.
 
 @over Q_Mtep_FC = sum(Q_Mtep_FC[se24] on se24) 
 
 ########## chronique d'investissement
 
-#### la production Y s'ajuste à la demande (déterminée par les PhiY_ener) et la demande de facteur K dépend de Y. 
-#### Si le ratio K/Y des secteurs correspondaient à celui des installations financées par le fonds chaleur, il ne serait pas nécessaire de modifier l'équation de demande du facteur capital.
-#### c'est peu probable. Il faut s'assurer que les investissements supplémentaires entre AMS et AME soient sont du même montant que ceux financés par le fonds chaleur 
+#### la production Y s'ajuste ï¿½ la demande (dï¿½terminï¿½e par les PhiY_ener) et la demande de facteur K dï¿½pend de Y. 
+#### Si le ratio K/Y des secteurs correspondaient ï¿½ celui des installations financï¿½es par le fonds chaleur, il ne serait pas nï¿½cessaire de modifier l'ï¿½quation de demande du facteur capital.
+#### c'est peu probable. Il faut s'assurer que les investissements supplï¿½mentaires entre AMS et AME soient sont du mï¿½me montant que ceux financï¿½s par le fonds chaleur 
 
  K_nFC[se24]  = K_nFC[se24]{-1} *(1 + dlog(Y_nFC[se24])  + d(SUBST_K[se24])  - GR_PROG_K[se24]) 
 
  K_FC[se24] = K_FC[se24]{-1}*(1-tdec[se24]) + IA_FC[se24]
- 
+
  Y_FC[se24] = (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]<1)* Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24] * Y[se24] + _ 
               (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]>=1)* 0.01* Y[se24] 
  
  Y_nFC[se24] = (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]<1)*(1- Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]) * Y[se24]  + _
                (Q_Mtep_FC[se24]/Q_Mtep_ef_tot_24[se24]>=1)* 0.99 * Y[se24]
  
- @over K[se24]  = K_FC[se24] + K_nFC[se24]
+@over K[se24]  = K_FC[se24] + K_nFC[se24]
  
  @over K_n[se24]  = K[se24]
 
 
 ############chronique d'aide
 
-# la subvention versée est égale à un taux d'aide en euro courant par Mtep, multipliée par le nombre de Mtep supplémentaires produites annuellement (les données entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront indexés sur l'inflation au-delà de 2023).
+# la subvention versï¿½e est ï¿½gale ï¿½ un taux d'aide en euro courant par Mtep, multipliï¿½e par le nombre de Mtep supplï¿½mentaires produites annuellement (les donnï¿½es entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront indexï¿½s sur l'inflation au-delï¿½ de 2023).
 
- SUB_FC[se24] = TSUB_FC[se24]* P/1.21 *dQ_Mtep_FC[se24]    # 1.21 est l'indice du prix en 2023
+SUB_FC[se24] = TSUB_FC[se24]* P/@elem(P,2023) *dQ_Mtep_FC[se24]    # 1.21 est l'indice du prix en 2023
 
-# pour simplifier l'aide est versée sous forme de crédit d'impôt (on aurait pu activer SUB mais cette équation n'est pas lue car il n'existait pas de subvention au secteur de la distribution de gaz à l'année de base)
+# pour simplifier l'aide est versï¿½e sous forme de crï¿½dit d'impï¿½t (on aurait pu activer SUB mais cette ï¿½quation n'est pas lue car il n'existait pas de subvention au secteur de la distribution de gaz ï¿½ l'annï¿½e de base)
 
 @over TAX_CR_VAL[se24] = SUB_FC[se24]  
 
 
-############## Aides au CApex dans l'industrie 
+############## Aides au CApex dans l'industrie et le services
 
-# la subvention versée est égale à un taux d'aide en euro courant par Mtep, multipliée par le nombre de Mtep supplémentaires produites annuellement (les données entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront indexés sur l'inflation au-delà de 2023).
+dQ_Mtep_FC[sne] = sum(dQ_Mtep_FC[se,sne] on se)
 
-SUB_FC[sind] = TSUB_FC[sind]*P/1.21 *dQ_Mtep_FC[sind] # 1.21 est l'indice du prix en 2023
+# la subvention versï¿½e est ï¿½gale ï¿½ un taux d'aide en euro courant par Mtep, multipliï¿½e par le nombre de Mtep supplï¿½mentaires produites annuellement (les donnï¿½es entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront indexï¿½s sur l'inflation au-delï¿½ de 2023).
 
-# pour simplifier l'aide est versée sous forme de crédit d'impôt 
+SUB_FC[sind] = TSUB_FC[sind]*P/@elem(P,2023) *dQ_Mtep_FC[sind] # 1.21 est l'indice du prix en 2023
+
+# aussi pour les services
+SUB_FC[s] = TSUB_FC[s]*P/@elem(P,2023) *dQ_Mtep_FC[s] where s in 18 19 # 1.21 est l'indice du prix en 2023
+
+# pour simplifier l'aide est versï¿½e sous forme de crï¿½dit d'impï¿½t 
 
 @over TAX_CR_VAL[sind] = - T_TAX_CR[sind] * (d(E[sind]/YQ[sind])<=0) * PE[sind]*d(E[sind]/YQ[sind])*YQ[sind]{-1} + SUB_FC[sind]  
-  
-#il faut mettre un choc sur ia_n_des si on veut une hausse de l'investissement sans variation de la consommation énergétique en Mtep
+ 
+@over TAX_CR_VAL_19 = T_TAX_CR_19  * ( I_MDE_19 > 0 )  * PIA_13_19  * I_MDE_19 +  SUB_FC_19 
+
+#il faut mettre un choc sur ia_n_des si on veut une hausse de l'investissement sans variation de la consommation ï¿½nergï¿½tique en Mtep
 
 
-# Si on attend une substitution capital énergie, il faut modifier les équations de Subst_K et SUBST_E : 
+# Si on attend une substitution capital ï¿½nergie, il faut modifier les ï¿½quations de Subst_K et SUBST_E : 
 
-##### option  substitution capital énergie dans l'industrie
+
+##### option  substitution capital ï¿½nergie dans l'industrie
 
 # On pose 
-
+   
 @over d(SUBST_K_n[s])  =  - ES_KLEM($s , 1)*d(log(CK[s]/PROG_K[s])-log(CL[s]))*phi_l_bis[s]{-1} _
         - eta_K_E[s]*d(log(CK[s]/PROG_K[s])- log((PE[s]+PE_Signal[s]+PE_CEE[s]+PE_signal_bis[s]+PE_signal_FC[s])/PROG_E[s]))*phi_e_bis[s]{-1} _
         -ES_KLEM($s,3)*d(log(CK[s]/PROG_K[s])-log(PMAT[s]))*phi_mat_bis[s]{-1}
@@ -93,18 +101,23 @@ SUB_FC[sind] = TSUB_FC[sind]*P/1.21 *dQ_Mtep_FC[sind] # 1.21 est l'indice du pri
 #
 #d(log(IA_n_des[sind]))=d(IMP_BUD_niv_bis[sind])+(ADJUST(1,1)*dlog(IA_n_des[sind]{-1})+1.8*dlog(Y[sind])+ _
                        #0.28*(log(IA_notionnel[sind]{-1})+IMP_BUD_niv_bis[sind]{-1}-log(IA_n_des[sind]{-1}))+ADJUST(1,4)*d(SUBST_K[sind]))
-
+   
 # pour calibrer PE_signal_FC[sind] on pose :
  
+ # subst_k_n hors fonds chaleur (ï¿½gal ï¿½ l'ï¿½quation SUBST_K_n d'avant)
 d(SUBST_K_n_nFC[sind]) =- ES_KLEM(10 , 1)*d(log(CK[sind]/PROG_K[sind])-log(CL[sind]))*phi_l_bis[sind]{-1} _
         - eta_K_E[sind]*d(log(CK[sind]/PROG_K[sind])- log((PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind])/PROG_E[sind]))*phi_e_bis[sind]{-1} _
         -ES_KLEM(10,3)*d(log(CK[sind]/PROG_K[sind])-log(PMAT[sind]))*phi_mat_bis[sind]{-1}
-        
+ # pas utilisï¿½e
+ 
+# subst_k_n hors fonds chaleur (ajout du signal prix FC)
 d(SUBST_K_n_FC[sind]) =- ES_KLEM(10 , 1)*d(log(CK[sind]/PROG_K[sind])-log(CL[sind]))*phi_l_bis[sind]{-1} _
        - eta_K_E[sind]*d(log(CK[sind]/PROG_K[sind])- log((PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind]+PE_signal_FC[sind])/PROG_E[sind]))*phi_e_bis[sind]{-1} _
         -ES_KLEM(10,3)*d(log(CK[sind]/PROG_K[sind])-log(PMAT[sind]))*phi_mat_bis[sind]{-1}
+ # pas utilisï¿½e
 
 SUBST_K_FC[sind]=0.8*SUBST_K_n_FC[sind]+(1-0.8)*SUBST_K_FC[sind]{-1}
+ # pas utilisï¿½e
 
 SUBST_K_nFC[sind]=0.8*SUBST_K_n_nFC[sind]+(1-0.8)*SUBST_K_nFC[sind]{-1}
 
@@ -155,10 +168,11 @@ SUBST_K_nFC[sind]=0.8*SUBST_K_n_nFC[sind]+(1-0.8)*SUBST_K_nFC[sind]{-1}
                #- eta_K_E[sind]*d(log(CK[sind]/PROG_K[sind])- log((PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind])/PROG_E[sind]))*phi_e_bis[sind]{-1} _
                #-ES_KLEM(10,3)*d(log(CK[sind]/PROG_K[sind])-log(PMAT[sind]))*phi_mat_bis[sind]{-1})        
 # 
- #on pose : 
+#on pose : 
  
  PE_tot_nFC[sind] = PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind] 
- 
+  # pas utilisï¿½e
+
  PE_tot_FC[sind] =  PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind] + PE_signal_FC[sind]   
  
  #(d(IA_FC[sind])/(IA_n_des[sind]{-1}*ADJUST(1,4))-(1-0.8)*d(SUBST_K_FC[sind]{-1})+(1-0.8)*d(SUBST_K_nFC[sind]{-1}))/0.8  =   _
@@ -234,17 +248,17 @@ SUBST_K_nFC[sind]=0.8*SUBST_K_n_nFC[sind]+(1-0.8)*SUBST_K_nFC[sind]{-1}
                    #gel(PE_tot_nFC[sind]{-1}+ PE_signal_FC[sind]{-1}) * ((d(IA_FC[sind])/(IA_n_des[sind]{-1}*ADJUST(1,4))-(1-0.8)*(d(SUBST_K_FC[sind]{-1})-d(SUBST_K_nFC[sind]{-1})))/0.8) _
                   #gel/(eta_K_E[sind]*phi_e_bis[sind]{-1})) 
 
-#gel A vérifier. IL faudrait refaire la démo en créant une variable IA_n_des_nFC[sind] et IA_notionnel_nfc[sne] car effet d'hysteresis sur  IA_notionnel
+#gel A vï¿½rifier. IL faudrait refaire la dï¿½mo en crï¿½ant une variable IA_n_des_nFC[sind] et IA_notionnel_nfc[sne] car effet d'hysteresis sur  IA_notionnel
                                    
 #gel@over d(SUBST_E_n[sind])=-eta_K_E[sind]*d(log((PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind]+PE_signal_E[sind] + PE_signal_FC[sind])/PROG_E[sind]) _
                         #gel-log(CK[sind]/PROG_K[sind]))*phi_k_bis[sind](-1)-eta_L_E[sind]*d(log((PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind] + PE_signal_FC[sind])/PROG_E[sind]) _ 
                         #gel-log(CL[sind]))*phi_l_bis[sind](-1)-ES_KLEM($sind,6)*d(log((PE[sind]+PE_Signal[sind]+PE_CEE[sind]+PE_signal_bis[sind] + PE_signal_FC[sind])/PROG_E[sind]) _ 
                         #gel-log(PMAT[sind]))*phi_mat_bis[sind](-1)
 
-#gel#  si la variation de E[sind] ne correspond pour aux résultats des données technico éco, il faut soit modifier eta_K_E soit ajouter un coef multiplicateur à PE_signal_FC et le calibrer. 
-#gel# si l'on attend pas de baissse de la consommation globale d'énergie, il faut geler l'équation ci dessus et modifier les équations de substitution inter-énergie. 
+#gel#  si la variation de E[sind] ne correspond pour aux rï¿½sultats des donnï¿½es technico ï¿½co, il faut soit modifier eta_K_E soit ajouter un coef multiplicateur ï¿½ PE_signal_FC et le calibrer. 
+#gel# si l'on attend pas de baissse de la consommation globale d'ï¿½nergie, il faut geler l'ï¿½quation ci dessus et modifier les ï¿½quations de substitution inter-ï¿½nergie. 
 #gel  
-#gel##### option subsitution inter énergie Charbon/fioul/gaz
+#gel##### option subsitution inter ï¿½nergie Charbon/fioul/gaz
 #gel
 #gel  
 #gel#SUBST_E[ce,sind]  = ADJUST(5 , 6)  * SUBST_E_n[ce,sind]  + ( 1  - ADJUST(5 , 6) )  * SUBST_E[ce,sind]{-1}
@@ -424,9 +438,9 @@ SUBST_K_nFC[sind]=0.8*SUBST_K_n_nFC[sind]+(1-0.8)*SUBST_K_nFC[sind]{-1}
                             #gel/(0.001 + sum( -ES_NRJ($s, cols_ce(ce, ce_oth))*PE[ce_oth, s]{-1}*E[ce_oth, s]{-1} if ce_oth <> ce on ce_oth in %list_com_E)) * _
                             #gel(PE[ce,s]{-1}+PE_Signal[ce,s]{-1}+ PE_Signal_FC[ce, s]{-1}) - d(PE[ce,s]) - d(PE_Signal[ce,s]) if E[ce, s] <> 0  
  
-#### option changement de chaudière dans les secteurs industriel bois versus gaz/charbon/pétrole sans baisse de la consommation d'énergie
+#### option changement de chaudiï¿½re dans les secteurs industriel bois versus gaz/charbon/pï¿½trole sans baisse de la consommation d'ï¿½nergie
 
-# on ajoute les investissements financés par le fonds chaleur IA_FC à l'équation d'investissement
+# on ajoute les investissements financï¿½s par le fonds chaleur IA_FC ï¿½ l'ï¿½quation d'investissement
 
 #On a : 
 # d(log(IA_n_des[sne]))=d(IMP_BUD_niv_bis[sne])+(ADJUST(1,1)*dlog(IA_n_des[sne]{-1})+1.8*dlog(Y[sne])+ _
@@ -435,8 +449,8 @@ SUBST_K_nFC[sind]=0.8*SUBST_K_n_nFC[sind]+(1-0.8)*SUBST_K_nFC[sind]{-1}
  
 # d(log(IA_n[sne]))  = ( @year <= 2019 )  * ( ( IAexo[sne] > 0 )  * ( dlog(IAexo[sne]) ) )  + ( @year > 2019 )  * ( d(log(IA_n_des[sne])))    
 
-# on introduit le choc dans l'équation IA_n[sne] plutôt que dans l'équation IA_n_des[sne] pour éviter que IA_FC{-1} n'influence l'investissement à la période suivante.   
-                   
+# on introduit le choc dans l'ï¿½quation IA_n[sne] plutï¿½t que dans l'ï¿½quation IA_n_des[sne] pour ï¿½viter que IA_FC{-1} n'influence l'investissement ï¿½ la pï¿½riode suivante.   
+
 @over d(log(IA_n[sne]))  = ( @year <= 2019 )  * ( ( IAexo[sne] > 0 )  * ( dlog(IAexo[sne]) ) )  + ( @year > 2019 )  * ( d(log(IA_n_des[sne] + IA_FC[sne])))
 
 

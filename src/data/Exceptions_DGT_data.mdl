@@ -43,7 +43,7 @@
 		      	       (NOM_GDP_GROW_DGT + R_RMBS_AUTO[h, ecl]) * PNewAUTO[h, ecl] * NewAUTO[h, ecl] * (1 - R_SUB_AUTO[h, ecl]), %baseyear) * _
 			  NOM_GDP_INDEX_DGT
 @over EXP_MOBAUTO_Val[h, ecl] := @elem(DEBT_AUTO_Val[h, ecl]{-1} * (R_I_AUTO[h, ecl]{-1} + R_RMBS_AUTO[h, ecl]{-1}) + _
-		   	         R_CASH_AUTO[h, ecl] * PNewAUTO[h, ecl] * NewAUTO[h, ecl] + _
+		   	         R_CASH_AUTO[h, ecl] * PNewAUTO[h, ecl] * NewAUTO[h, ecl]  + _
 				 PEXP_AUTO[h, ecl] * EXP_AUTO[h, ecl], %baseyear) *_
    			   NOM_GDP_INDEX_DGT
 @over PNewAUTO[h,c] := @elem(PNewAUTO_th[h,c],%baseyear) * PRICE_INDEX_DGT   where c in %list_ener_class \ CA
@@ -51,7 +51,7 @@
 @over UC_M_auto_elec[h] := @elem((HOUSEHOLD_HYBRID_AUTO(218,1)/100*km_auto[h]/auto[h])/1000,%baseyear)*PRICE_INDEX_DGT
 @over UC_M_auto_th[h]:= @elem((HOUSEHOLD_HYBRID_AUTO(219,1)/100*km_auto_th[h]/(auto[h]-auto_elec[h]))/1000,%baseyear)*PRICE_INDEX_DGT
 @over GR_PROG_L := PROG_L_GROWTH_DGT
-@over EXP_03_OTH_VAL := @elem(PEXP_03_h01*EXP_03 - (sum(PAUTO_elec[h,pcl]* NewAUTO_elec[h,pcl] on pcl)+ sum(PNewAUTO_th[h,ecl]* NewAUTO_th[h,ecl] on ecl)),%baseyear) * NOM_GDP_INDEX_DGT
+@over EXP_03_OTH_VAL := (household(5,1) - @elem(sum(PAUTO_elec[h,pcl]* NewAUTO_elec[h,pcl] on pcl)+ sum(PNewAUTO_th[h,ecl]* NewAUTO_th[h,ecl] on ecl),%baseyear)) * NOM_GDP_INDEX_DGT
 @over S_HH := @elem(DISPINC_VAL - EXP_HH_Val, %baseyear) * NOM_GDP_INDEX_DGT
 @over Stock_S := S_HH * (1 + NOM_GDP_GROW_DGT) / NOM_GDP_GROW_DGT  
 @over DSD_base[c] := SUPPLY_USE_DOM($c,(NELEMSET(1,1)+1)+NELEMSET(5,1)+NELEMSET(7,1)+NELEMSET(1,1)+5) * REAL_GDP_INDEX_DGT
@@ -202,6 +202,7 @@ IAM_des[cservex,sne] := IAM[cservex,sne]
 
  PY_des[s] := PY[s]
  
+ 
  EXP_des[co,h] := EXP[co,h]
  
  L_SM := L - L_20
@@ -218,7 +219,7 @@ IAM_des[cservex,sne] := IAM[cservex,sne]
 defl_Ttco[ce2] := 1
 
 K := sum(K[s] on s)
-DEBT_SNF_VAL[s] := K[s]
+DEBT_SNF_VAL[s] := DEBT_SNF_GDP * PGDP * GDP * K[s]/K
 DEBT_SNF_VAL := sum(DEBT_SNF_VAL[s] on s)
 R_SNF[s] := R[s]
 DEBT_SNF_ENER := sum(DEBT_SNF_VAL[se] on se)
@@ -254,7 +255,10 @@ EM_sec[s] := sum(EM[eno21,s] on eno21)
 
 @over DISPINC_VAL[h] := DISPINC_AI_VAL[h] - IR_VAL[h] - AIC_VAL[h] + REDIS_VAL_H + SUB_AUTO_VAL + SUB_REHAB_VAL  
 
+
 PREHAB_H01_HS := RENOV_VAL/REHAB_H01
+PREHAB_H01_HS[ecl]:= RENOV_VAL[ecl]/REHAB_H01[ecl]   if REHAB_H01[ecl] <> 0
+
 EXP_13_des :=  @elem(PNewBUIL_H01  , 2006)  * NewBUIL_H01  + @elem(PREHAB_H01_HS, 2006)  * REHAB_H01  + (EXP_13_OTH_Val_H01 )/ PCH_13 + choc_PAC
 
 @over EXP_13_H01  := EXPexo[13]
@@ -384,6 +388,7 @@ REC_VAL_SEC_ETS := sum(REC_VAL_SEC_ETS[sets] on sets)
 REC_VAL_SEC_ETS2 := sum(REC_VAL_SEC_ETS2[sets2] on sets2) 
 
 #REC_VAL_HH := TCO_VAL_HH
+
 REDIS_VAL_TCO_H := REC_VAL_TCO_HH
 REDIS_VAL_SEC_TCO := REC_VAL_SEC_TCO
 REDIS_VAL_SEC_TCO[s] := REC_VAL_SEC_TCO[s]

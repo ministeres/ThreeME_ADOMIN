@@ -22,6 +22,13 @@ dependency.graphml
 
 !src/utils/output_list.txt
 
+results/ADEME_results/reporting_1_ademe.xlsx
+results/ADEME_results/reporting_2_ademe.xlsx
+results/ADEME_results/reporting_3_ademe.xlsx
+
+results/standard/*.txt
+results/standard/*.txt
+
 results/standard/*.txt
 results/all.csv
 results/dgec/*.txt

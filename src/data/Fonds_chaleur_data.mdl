@@ -1,4 +1,5 @@
-################# Evaluation macro du fonds chaleur
+
+#### FONDS CHALEUR  #### 
 
 PhiY_ener_exo[ce, se] :=  MTEP($se, 53+$ce)
 
@@ -15,10 +16,9 @@ Q_Mtep_FC := 0*1 ^ (@year - %baseyear)
 Q_Mtep_FC[s] := 0*1 ^ (@year - %baseyear)
 
 dQ_Mtep_FC[s] := 0
+dQ_Mtep_FC[se,s] := 0
 
 Q_Mtep_FC[ce,s] := 0 *1 ^ (@year - %baseyear)
-
-dQ_Mtep_FC[ce,s] := 0
 
 SUB_FC[s] := TSUB_FC[s] * dQ_Mtep_FC[s]
 
@@ -33,7 +33,7 @@ P_Mtep[se] := Y[se]/Q_Mtep_ef_tot[se]  if Q_Mtep_ef_tot[se] > 0
 
 K_FC[se] :=0
 
-K_nFC[se] :=K[se] 
+K_nFC[se] :=K[se]
 
 PROG_Ap_K[se] * K[se] := Q_Mtep_ef_tot[se]* @elem(P_Mtep[se],%baseyear)
 
@@ -74,3 +74,5 @@ SUBST_E_nFC[ce,s]  := SUBST_E_FC[ce,s]
 SUBST_E_n_FC[ce,s] := SUBST_E_n[ce,s]
 
 SUBST_E_n_nFC[ce,s] := SUBST_E_n[ce,s]
+
+

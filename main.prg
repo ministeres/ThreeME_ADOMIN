@@ -8,8 +8,6 @@ cd %path
 
 include .\configuration
 
-include .\configuration
-
 ' Utility procedures
 include .\src\utils\subroutines
 include .\src\utils\tes
@@ -26,7 +24,6 @@ include .\src\data\load_data_hybrid
 include .\src\data\load_data_realist
 include .\src\data\standard_shocks
 
-
 include .\src\data\load_data_baseline_realist
 include .\src\data\load_data_realist_dgt
 
@@ -38,7 +35,7 @@ include .\src\model\solve
 
 'Modify depending on which SCEN_AMS2 file you want to run and how many
 %scen_list ="ADEME"
-'ADEME AUTO ENER ETS2 PL RESID MPR CEE TER SOBRERESID SOBRETER SOBREAUTO RM AUTRE TIC IND
+'ADEME AUTO ENER ETS2 PL MPR CEE TER SOBRERESID SOBRETER SOBREAUTO RM AUTRE TIC IND
 %exceptions_DGT = "yes"  ' "no"
 %exceptions_PAC = "no"  ' yes/no. no si exceptions_DGT =no. no si exceptions_PAC=yes.
 %exceptions_VAC = "no" '' yes/no. no si exceptions_DGT =no. no si exceptions_VAC=yes.
@@ -103,6 +100,8 @@ For %scen_number {%scen_list}
 		%rpt7 = "reporting_finPO_"+%scen_number+".xlsx"
 		%rptMPR = "reporting_MPR_"+%scen_number+".xlsx"
 		%rptLogan = "reporting_Logan_"+%scen_number+".xlsx"
+		'%rptmatmat=""+"reporting_Matmat_"+%scen_number+".csv"
+		%rptmatmat=@strnow("yyyy-mm-dd-HH-mi-ss")+"-Matmat.csv"
 
 	    if %exceptions_PAC = "yes" then
 		%rptPAC = "reporting_PAC_"+%scen_number+".xlsx"
@@ -118,6 +117,7 @@ For %scen_number {%scen_list}
 		%xlname7 = %scenfolder_path+"\"+%rpt7
 		%xlnameMPR = %scenfolder_path+"\"+%rptMPR
 		%xlnameLogan = %scenfolder_path+"\"+%rptLogan
+		%xlnamematmat = %scenfolder_path+"\"+%rptmatmat
 
 	    if %exceptions_PAC = "yes" then
 		%xlnamePAC = %scenfolder_path+"\"+%rptPAC
@@ -131,11 +131,13 @@ For %scen_number {%scen_list}
 			wfsave(type=excelxml, mode=overwrite) {%xlname1} range="data!A1" byrow @keep reporting @smpl "2004 2050"
 			wfsave(type=excelxml, mode=overwrite) {%xlname2} range="data!A1" byrow @keep reporting_2 @smpl "2004 2050"
 			wfsave(type=excelxml, mode=overwrite) {%xlname3} range="data!A1"  byrow @keep reporting_3 @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=overwrite) {%xlname5} range="data!A1"  byrow @keep reporting_5 @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=overwrite) {%xlname6} range="data!A1"  byrow @keep reporting_6 @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=overwrite) {%xlname7} range="data!A1"  byrow @keep reporting_finPO @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=overwrite) {%xlnameMPR} range="data!A1"  byrow @keep reporting_MPR @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=overwrite) {%xlnameLogan} range="data!A1"  byrow @keep reporting_Logan @smpl "2004 2050"
+			wfsave(type=excelxml, mode=overwrite) {%xlname5} range="data!A1"  byrow @keep reporting_5 @smpl "2004 2050"
+			wfsave(type=excelxml, mode=overwrite) {%xlname6} range="data!A1"  byrow @keep reporting_6 @smpl "2004 2050"
+			wfsave(type=excelxml, mode=overwrite) {%xlname7} range="data!A1"  byrow @keep reporting_finPO @smpl "2004 2050"
+			wfsave(type=excelxml, mode=overwrite) {%xlnameMPR} range="data!A1"  byrow @keep reporting_MPR @smpl "2004 2050"
+			wfsave(type=excelxml, mode=overwrite) {%xlnameLogan} range="data!A1"  byrow @keep reporting_Logan @smpl "2004 2050"
+			wfsave(type=text, mode=overwrite) {%xlnamematmat}  @keep export_group_matmat @smpl "2004 2050"
+
 
 	    if %exceptions_PAC = "yes" then
 			wfsave(type=excelxml, mode=overwrite) {%xlnamePAC} range="data!A1"  byrow @keep reporting_PAC @smpl "2004 2050"
@@ -146,12 +148,14 @@ For %scen_number {%scen_list}
 			wfsave(type=excelxml, mode=update) {%xlname1} range="data!A1" byrow @keep reporting @smpl "2004 2050"
 			wfsave(type=excelxml, mode=update) {%xlname2} range="data!A1" byrow @keep reporting_2 @smpl "2004 2050"
 			wfsave(type=excelxml, mode=update) {%xlname3} range="data!A1"  byrow @keep reporting_3 @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=update) {%xlname5} range="data!A1"  byrow @keep reporting_5 @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=update) {%xlname6} range="data!A1"  byrow @keep reporting_6 @smpl "2004 2050"
+			wfsave(type=excelxml, mode=update) {%xlname5} range="data!A1"  byrow @keep reporting_5 @smpl "2004 2050"
+			wfsave(type=excelxml, mode=update) {%xlname6} range="data!A1"  byrow @keep reporting_6 @smpl "2004 2050"
 	    if %exceptions_DGT= "yes" then
-		'	wfsave(type=excelxml, mode=update) {%xlname7} range="data!A1"  byrow @keep reporting_finPO @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=update) {%xlnameMPR} range="data!A1"  byrow @keep reporting_MPR @smpl "2004 2050"
-		'	wfsave(type=excelxml, mode=update) {%xlnameLogan} range="data!A1"  byrow @keep reporting_Logan @smpl "2004 2050"
+			wfsave(type=excelxml, mode=update) {%xlname7} range="data!A1"  byrow @keep reporting_finPO @smpl "2004 2050"
+			wfsave(type=excelxml, mode=update) {%xlnameMPR} range="data!A1"  byrow @keep reporting_MPR @smpl "2004 2050"
+			wfsave(type=excelxml, mode=update) {%xlnameLogan} range="data!A1"  byrow @keep reporting_Logan @smpl "2004 2050"
+			wfsave(type=text, mode=update) {%xlnamematmat} @keep export_group_matmat @smpl "2004 2050"
+
 		Endif
 	    if %exceptions_PAC = "yes" then
 			wfsave(type=excelxml, mode=update) {%xlnamePAC} range="data!A1"  byrow @keep reporting_PAC @smpl "2004 2050"

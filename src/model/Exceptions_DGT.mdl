@@ -418,13 +418,14 @@ d(log(CUR_test)) = 0.6 * d(log(CUR_bis)) + 0.4 * d(log(CUR_cible)) - 0.6 * (log(
 
 # salaires notionnels - secteurs non �nerg�tiques : terme chomage en contemporain
 
-d(log(W_S_des_n[sne])) = 1*d(log(PVA)) + 1*d(log(PROG_L[sne])) + 1*d(log(1/((1-TCSS)*(1-TIR[H01]{-1})))) - 3.2*d(UnR_TOT)      if W_S_n[sne] <> 0
+d(log(W_S_des_n[sne])) = 1*d(log(PVA)) + 1*d(log(PROG_L[sne])) + 1*d(log(1/((1-TCSS)*(1-TIR[H01]{-1})))) - 3.6*d(UnR_TOT)      if W_S_n[sne] <> 0
 
 @over d(log(W_S_n[sne])) = (@year<=2019)* (1*d(log(P_e)) + d(log(CFS)) + 1*d(log(PROG_L[sne])) - 1.8*d(UnR_TOT{-1})) + (@year>2019)* d(log(W_S_des_n[sne]))
 
-@over d(log(W_S_n_13))  = (@year<=2019)*(1  * d(log(P_e))  + d(log(CFS))  + 1  * d(log(PROG_L_13))  - 1.8  * (  - d(L_13{-1}  * ( DLog(GDP_13)  - Dlog(prog_L_13) )  / ( L_13{-1}  / L{-1}  * POP_tot{-1} )) ))+ (@year>2019)* d(log(W_S_des_n_13))
+@over d(log(W_S_n_13))  = (@year<=2019)*(1  * d(log(P_e))  + d(log(CFS))  + 1  * d(log(PROG_L_13))  - 1.8  * (  - d(L_13(-1)  * ( DLog(GDP_13)  - Dlog(prog_L_13) )  / ( L_13(-1)  / L(-1)  * POP_tot(-1) )) ))+ (@year>2019)* d(log(W_S_des_n_13))
 
-#@over d(log(W_S_n[sne])) = 1*d(log(PVA)) + 1*d(log(PROG_L[sne])) + 1*d(log(1/((1-TCSS)*(1-TIR[H01]{-1})))) - 3.2*d(UnR_TOT)      if W_S_n[sne] <> 0
+#@over d(log(W_S_n[sne])) = 1*d(log(PVA)) + 1*d(log(PROG_L[sne])) + 1*d(log(1/((1-TCSS)*(1-TIR[H01]{-1})))) - 3.6*d(UnR_TOT)      if W_S_n[sne] <> 0
+
 
 # salaires de CT - secteurs non �nerg�tiques
 
@@ -447,14 +448,6 @@ d(log(W_S_dgt[se]))  = (1 * d(log(P)) + 0.42 * d(log(PROG_L[se])) - 0.7 * d(UnR_
 
  
 #### MODIFICATION PRIX DE PRODUCTION ####
-#CIdgt[s] = E[s] + MAT[s]
-#PCIdgt[s] * CIdgt[s] = PE[s] * E[s] + PMAT[s] * MAT[s]
-#
-##d(log(PY_des[sdai])) = 0.66 * d(log(PCIdgt[sdai])) + 0.07 * d(log(1 + TMD_n[sdai])) + 0.12 * d(log(NCU_n[sdai])) - 0.17 * (log(PY_des[sdai]{-1}) - log(PY_n[sdai]{-1}))
-##d(log(PY_des[sdse])) = 0.49 * d(log(PCIdgt[sdse])) + 0.11 * d(log(1 + TMD_n[sdse])) + 0.24 * d(log(NCU_n[sdse])) + 0.19 * d(log(NCU_n[sdse]{-1})) - 0.09 * (log(PY_des[sdse]{-1}) - log(PY_n[sdse]{-1}))
-#d(log(PY_des[sdsa])) = 0.36 * d(log(PY_des[sdsa]{-1})) + 0.11 * d(log(PCIdgt[sdsa])) + 0.16 * d(log(1 + TMD_n[sdsa])) - 0.06 * (log(PY_des[sdsa]{-1}) - log(PY_n[sdsa]{-1}))
-#d(log(PY_des[se])) = 0.70 * d(log(PCIdgt[se])) - 0.26 * (log(PY_des[se]{-1}) - log(PY_n[se]{-1}))
-
 
 
 d(log(PY_des[sdai])) = 0.66 * d(log(NCU_n[sdai])) + 0.07 * d(log(1 + TMD_n[sdai])) - 0.17 * (log(PY_des[sdai]{-1}) - log(PY_n[sdai]{-1}))
@@ -464,6 +457,7 @@ d(log(PY_des[se])) = 0.70 * d(log(NCU_n[se])) - 0.26 * (log(PY_des[se]{-1}) - lo
 
 @over log(PY[s]) = (@year <= 2019) * (ADJUST(17, 1) * log(PY_n[s]) + (1 - ADJUST(17, 1)) * (log(PY[s]{-1}) + d(log(PY_e[s])))) + (@year > 2019) * ( log(PY[s]{-1}) + d(log(PY_des[s])))
  
+
 #### MODIFICATION DYNAMIQUE DEMANDE DE TRAVAIL ####
 
 d(log(L_des[sne])) = 0.20 * d(log(L_des[sne]{-1})) + 0.49 * d(log(Y[sne])) - 0.5 * d(log(CL[sne]*PROG_L[sne]/PY[sne])) - 0.64 *(log(L_des[sne]{-1})-log(L_n[sne]{-1}))
@@ -493,7 +487,6 @@ d(log(X_des[cservex])) = 0.49*d(log(WD[cservex])) - 0.35*d(log(PX[cservex]/(TC*P
 
 # PY_n en ligne avec la v3
 @over PY_n[sne] = NCU_n[sne] * (1 + TMD_n[sne]) if Y[sne] > 0
-#baisse un peu inflation  # � tester
 
 #P_e en ligne avec la v3
 @over d(log(P_e)) = (@year<=2019) * (ADJUST(68,2)*d(log(P_e{-1})) + (1-ADJUST(68,2))*d(log(P{-1})) - ADJUST(68,6)*log(P_e{-1}/P{-1})) + (@year>2019)* ( 0.3*d(log(P_e{-1})) + (1-0.3)*d(log(P{-1})) - 0.3*log(P_e{-1}/P{-2}))
@@ -562,6 +555,7 @@ d(log(X_des[cservex])) = 0.49*d(log(WD[cservex])) - 0.35*d(log(PX[cservex]/(TC*P
 
 # prix moyen pond�r� au m2 des depenses de renovation (pond�r� par les types de renov) avant subvention
 PREHAB_H01_HS= RENOV_VAL/REHAB_H01
+PREHAB_H01_HS[ecl]= RENOV_VAL[ecl]/REHAB_H01[ecl] if REHAB_H01[ecl] <> 0
 
 # EXP_13 repr�sente les d�penses en logement a prix constants 2006. Elle evolue en ligne avec les volumes de construction neuve, de renov et autres depenses de logement. 
 # EXP_13 sert a calculer EXP_h01 qui ensuite sert a deduire l'epargne du menage (S_H01  = DISPINC_VAL_H01  - PEXP_H01  * EXP_H) avec PEXP_13_H01 qui capture a la fois les dynamiques de prix et de taux de subvention (variable PREHAB_H01[ecl], prix apr�s subvention).
@@ -678,7 +672,7 @@ kappa_e_dgt[ce, s] = (PE[ce, s] * E[ce, s]/ (PEner[s] * Ener[s])) if E[ce, s] <>
                                kappa_e_dgt[ce_oth, s]{-1} if ce_oth <> ce on ce_oth in %list_com_E) _
                                if E[ce, s] <> 0
 
-@over d(log(E_oth_des[ce, s])) = d(log(E_oth[s])) + d(SUBST_E[ce, s]) if E_oth_des[ce, s] <> 0 # attention, vous avez �cras� les �quations suivantes
+@over d(log(E_oth_des[ce, s])) = d(log(E_oth[s])) + d(SUBST_E[ce, s]) if E_oth_des[ce, s] <> 0
 
 @over dlog(E_oth_des[ce, se]) = dlog(E_oth[se]) + d(SUBST_E[ce, se]) + (@year>2006)*d(Q_Mtep_in[ce, se])/E[ce, se]{-1}    if E_oth_des[ce, se] <> 0
 
@@ -777,6 +771,7 @@ RENOV_VAL_apCEE = (sum( sum(PREHAB_h01[ecl,ecl2]* (1 - R_SUB_CEE[h,ecl,ecl2])* R
 @over d(tau_REHAB_2[h,ecl]) = 0.5*d(tau_REHAB_N[h,ecl]) + (1-0.5)*d(tau_REHAB[h,ecl]{-1}) + 0.05 * (tau_REHAB_N[h,ecl]{-1}-tau_REHAB[h,ecl]{-1})  if tau_REHAB[h,ecl] <> 0  
 # modifie les niveaux de REHAB AME. 
 
+
 #### FINANCEMENT DES MESURES PAR PO ####
 
 ### COTISATIONS SOCIALES ###
@@ -808,6 +803,7 @@ choc_tcse = choc_tcse[s]
 ### IR ###
 @over d(TIR[h]) = -d((choc_IR)/ DISPINC_AI_VAL[h]) + d(TIR_TREND)
 
+
 #### MODIFICATIONS FISCALITE CARBONE POUR ISOLER COMPOSANTE CARBONE, ACCISES, ETS1 ET ETS2 #### 
  
 dlog(defl_Ttco[ce2]) = dlog(PCH)
@@ -832,6 +828,8 @@ REC_VAL_SEC_ETS2[ce2, s] = ETS2[s] * PCH * EMS_SEC[ce2, s] * (1 - EXO[ce2, s]) w
 @over Ttco_vol[ce2] = Ttco[ce2] 
  
 @over tco_val_hh[ce2, h] = (ttco[ce2] + ETS2_hh[ce2]) * pch * ems_hh[ce2, h] ### ajout de l'ets2 qui touchera egalement directement les menages apres discussion avec la DGEC
+
+
 
 #@over REDIS_VAL_SEC = TCO_VAL_SEC
 
