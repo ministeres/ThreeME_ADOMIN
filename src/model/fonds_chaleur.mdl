@@ -58,7 +58,7 @@ Q_Mtep_FC[se24] = Q_Mtep_FC[se24]{-1} + dQ_Mtep_FC[se24] + sum(dQ_Mtep_FC[se24,s
 
 # la subvention vers�e est �gale � un taux d'aide en euro courant par Mtep, multipli�e par le nombre de Mtep suppl�mentaires produites annuellement (les donn�es entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront index�s sur l'inflation au-del� de 2023).
 
-SUB_FC[se24] = TSUB_FC[se24]* P/@elem(P,2023) *dQ_Mtep_FC[se24]    # 1.21 est l'indice du prix en 2023
+SUB_FC[se24] = TSUB_FC[se24]* P/1.20 *dQ_Mtep_FC[se24]    # 1.21 est l'indice du prix en 2023
 
 # pour simplifier l'aide est vers�e sous forme de cr�dit d'imp�t (on aurait pu activer SUB mais cette �quation n'est pas lue car il n'existait pas de subvention au secteur de la distribution de gaz � l'ann�e de base)
 
@@ -71,10 +71,10 @@ dQ_Mtep_FC[sne] = sum(dQ_Mtep_FC[se,sne] on se)
 
 # la subvention vers�e est �gale � un taux d'aide en euro courant par Mtep, multipli�e par le nombre de Mtep suppl�mentaires produites annuellement (les donn�es entre 2009 et 2023 sont en euros courants, on suppose que les taux d'aide seront index�s sur l'inflation au-del� de 2023).
 
-SUB_FC[sind] = TSUB_FC[sind]*P/@elem(P,2023) *dQ_Mtep_FC[sind] # 1.21 est l'indice du prix en 2023
+SUB_FC[sind] = TSUB_FC[sind]*P/1.20 *dQ_Mtep_FC[sind] # 1.21 est l'indice du prix en 2023
 
 # aussi pour les services
-SUB_FC[s] = TSUB_FC[s]*P/@elem(P,2023) *dQ_Mtep_FC[s] where s in 18 19 # 1.21 est l'indice du prix en 2023
+SUB_FC[s] = TSUB_FC[s]*P/1.20 *dQ_Mtep_FC[s] where s in 18 19 # 1.21 est l'indice du prix en 2023
 
 # pour simplifier l'aide est vers�e sous forme de cr�dit d'imp�t 
 

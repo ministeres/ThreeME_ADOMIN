@@ -13448,7 +13448,6 @@ MATD_08_17 = ( CIDexo_08_17 ) * ( @year <= 2019 ) + ( ( MAT_08_17 - MATM_08_17 >
 MATD_08_16 = ( CIDexo_08_16 ) * ( @year <= 2019 ) + ( ( MAT_08_16 - MATM_08_16 > 0 ) * ( MAT_08_16 - MATM_08_16 ) + ( MAT_08_16 - MATM_08_16 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_08_19 = ( CIDexo_08_19 ) * ( @year <= 2019 ) + ( ( MAT_08_19 - MATM_08_19 > 0 ) * ( MAT_08_19 - MATM_08_19 ) + ( MAT_08_19 - MATM_08_19 <= 0 ) * 0.0001 ) * ( @year > 2019 )
 MATD_08_18 = ( CIDexo_08_18 ) * ( @year <= 2019 ) + ( ( MAT_08_18 - MATM_08_18 > 0 ) * ( MAT_08_18 - MATM_08_18 ) + ( MAT_08_18 - MATM_08_18 <= 0 ) * 0.0001 ) * ( @year > 2019 )
-d(log(I_MDE_notionnel_19)) = d(log(Y_19)) - d(log(PROG_K_19)) + d(SUBST_K_E_19)
 PCID_01_20 = PMATD_01
 BetaEXP_n_17_H01 = ( @year <= 2019 ) * ( ( PEXP_17_H01 * EXP_n_17_H01 - PNEXP_17_H01 * NEXP_17_H01 ) / EXP_CES_VAL ) + ( @year > 2019 ) * ( ( choc_EXP_17 >= 0 ) * ( choc_EXP_17 <= 0 ) * ( BetaEXP_17_H01(-1) * ( 1 + ( 1 - ES_LES_CES(1, 1) ) * dlog(PEXP_17_H01 / PEXP_CES_H01) + choc_R_EXP_17 ) ) + ( choc_EXP_17 > 0 ) * ( ( PEXP_17_H01 * ( 1 + Choc_EXP_17 ) * EXP_n_17_H01(-1) - PNEXP_17_H01 * NEXP_17_H01 ) / ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) + ( choc_EXP_17 < 0 ) * ( ( PEXP_17_H01 * ( 1 + Choc_EXP_17 ) * EXP_n_17_H01(-1) - PNEXP_17_H01 * NEXP_17_H01 ) / ( ARBINC_VAL_H01 * ( 1 - MPS_HH_H01 ) ) ) )
 CU_MTEP_2404 = ( ( CU_2404 * Y_2404 ) / Q_mtep_ef_2404 ) / P
@@ -19823,7 +19822,6 @@ d(SUBST_E_n_2307) = - eta_K_E_2307 * d(log(( PE_2307 + PE_Signal_2307 + PE_CEE_2
 d(SUBST_E_n_2301) = - eta_K_E_2301 * d(log(( PE_2301 + PE_Signal_2301 + PE_CEE_2301 + PE_signal_bis_2301 + PE_signal_E_2301 ) / PROG_E_2301) - log(CK_2301 / PROG_K_2301)) * phi_k_bis_2301(-1) - eta_L_E_2301 * d(log(( PE_2301 + PE_Signal_2301 + PE_CEE_2301 + PE_signal_bis_2301 ) / PROG_E_2301) - log(CL_2301)) * phi_l_bis_2301(-1) - ES_KLEM(24, 6) * d(log(( PE_2301 + PE_Signal_2301 + PE_CEE_2301 + PE_signal_bis_2301 ) / PROG_E_2301) - log(PMAT_2301)) * phi_mat_bis_2301(-1)
 d(SUBST_E_n_2302) = - eta_K_E_2302 * d(log(( PE_2302 + PE_Signal_2302 + PE_CEE_2302 + PE_signal_bis_2302 + PE_signal_E_2302 ) / PROG_E_2302) - log(CK_2302 / PROG_K_2302)) * phi_k_bis_2302(-1) - eta_L_E_2302 * d(log(( PE_2302 + PE_Signal_2302 + PE_CEE_2302 + PE_signal_bis_2302 ) / PROG_E_2302) - log(CL_2302)) * phi_l_bis_2302(-1) - ES_KLEM(25, 6) * d(log(( PE_2302 + PE_Signal_2302 + PE_CEE_2302 + PE_signal_bis_2302 ) / PROG_E_2302) - log(PMAT_2302)) * phi_mat_bis_2302(-1)
 d(SUBST_E_n_2303) = - eta_K_E_2303 * d(log(( PE_2303 + PE_Signal_2303 + PE_CEE_2303 + PE_signal_bis_2303 + PE_signal_E_2303 ) / PROG_E_2303) - log(CK_2303 / PROG_K_2303)) * phi_k_bis_2303(-1) - eta_L_E_2303 * d(log(( PE_2303 + PE_Signal_2303 + PE_CEE_2303 + PE_signal_bis_2303 ) / PROG_E_2303) - log(CL_2303)) * phi_l_bis_2303(-1) - ES_KLEM(26, 6) * d(log(( PE_2303 + PE_Signal_2303 + PE_CEE_2303 + PE_signal_bis_2303 ) / PROG_E_2303) - log(PMAT_2303)) * phi_mat_bis_2303(-1)
-d(log(I_MDE_notionnel_20)) = d(log(Y_20)) - d(log(PROG_K_20)) + d(SUBST_K_E_20)
 IA_14_16 = IAD_14_16 + IAM_14_16
 IA_14_17 = IAD_14_17 + IAM_14_17
 IA_14_14 = IAD_14_14 + IAM_14_14
@@ -22289,7 +22287,7 @@ d(SUBST_MATM_n_10_03) = - ES_CIM(3, 10) * d(log(PMATM_10) - log(PMATD_10)) * ( P
 SUBST_IAD_03_2306 = ADJUST(13, 6) * SUBST_IAD_n_03_2306 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_03_2306(-1)
 SUBST_IAD_03_2305 = ADJUST(13, 6) * SUBST_IAD_n_03_2305 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_03_2305(-1)
 SUBST_IAD_03_2304 = ADJUST(13, 6) * SUBST_IAD_n_03_2304 + ( 1 - ADJUST(13, 6) ) * SUBST_IAD_03_2304(-1)
-d(log(I_MDE_20)) = AME_renov_20 * ( d(I_MDE_shock_exo_20) + ADJUST(1, 1) * dlog(I_MDE_20(-1)) + 1.8 * dlog(Y_20) + 0.28 * ( log(I_MDE_notionnel_20(-1)) + I_MDE_shock_exo_20(-1) - log(I_MDE_20(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_E_20) ) + ( 1 - AME_renov_20 ) * d(log(I_MDE_exo_20))
+dlog(I_MDE_20) = AME_renov_20 * ( 0.5 * dlog(I_MDE_n_20) + ( 1 - 0.5 ) * dlog(I_MDE_20(-1)) + 0.05 * ( log(I_MDE_n_20(-1)) - log(I_MDE_20(-1)) ) ) + ( 1 - AME_renov_20 ) * dlog(I_MDE_exo_20)
 d(log(L_e_21)) = 0.05 * d(log(L_e_21(-1))) + 0.65 * d(log(L_21(-1))) + 0.3 * d(log(L_n_21))
 d(log(L_e_20)) = 0.05 * d(log(L_e_20(-1))) + 0.65 * d(log(L_20(-1))) + 0.3 * d(log(L_n_20))
 PIAM_01 = PMS_01 * ( ( 1 + TvatMoth_01 ) / ( 1 + @elem(TvatMoth_01, 2006) ) )
@@ -25542,7 +25540,7 @@ d(log(MATD_20_2405)) = d(log(MAT_20_2405)) + d(SUBST_MATD_20_2405)
 d(log(MATD_20_2406)) = d(log(MAT_20_2406)) + d(SUBST_MATD_20_2406)
 GR_PROG_E_02 = alpha_PROG_E_02 + alpha_PROG_E_PE * ( ( log(PE_02) - log(PCH) > 0 ) * d(log(PE_02) - log(PCH)) )
 I_MDE_18 * IA_des_18 = IA_18 * I_MDE_n_18
-d(log(I_MDE_19)) = AME_renov_19 * ( d(I_MDE_shock_exo_19) + ADJUST(1, 1) * dlog(I_MDE_19(-1)) + 1.8 * dlog(Y_19) + 0.28 * ( log(I_MDE_notionnel_19(-1)) + I_MDE_shock_exo_19(-1) - log(I_MDE_19(-1)) ) + ADJUST(1, 4) * 0 * d(SUBST_K_E_19) ) + ( 1 - AME_renov_19 ) * d(log(I_MDE_exo_19))
+dlog(I_MDE_19) = AME_renov_19 * ( 0.5 * dlog(I_MDE_n_19) + ( 1 - 0.5 ) * dlog(I_MDE_19(-1)) + 0.05 * ( log(I_MDE_n_19(-1)) - log(I_MDE_19(-1)) ) ) + ( 1 - AME_renov_19 ) * dlog(I_MDE_exo_19)
 d(log(MATD_20_2402)) = d(log(MAT_20_2402)) + d(SUBST_MATD_20_2402)
 d(log(MATD_20_2403)) = d(log(MAT_20_2403)) + d(SUBST_MATD_20_2403)
 I_MDE_14 * IA_des_14 = IA_14 * I_MDE_n_14
