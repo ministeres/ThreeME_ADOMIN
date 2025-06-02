@@ -702,47 +702,47 @@ CSPE = CSPE_2305 + CSPE_2306
 
 #  CEE = subvention vers�e par les entreprises
 
- R_SUB[h,ecl,ecl2] = R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
- 
- RENOV_VAL = (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
- 
- RENOV_VAL[ecl] = sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
- 
- R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL =  CEE
- 
- CEE[se] = CEE * Phi_CEE[se]
-
- Phi_CEE[21] = 1 * ENER_BUIL[21] / (sum(ENER_BUIL[ce] on ce))   
- @over Phi_CEE[se22] = PhiY_ENER[22,se22] * ENER_BUIL[22] / ENER_BUIL
- @over Phi_CEE[se23] = PhiY_ENER[23,se23] * ENER_BUIL[23] / ENER_BUIL
- @over Phi_CEE[se24] = PhiY_ENER[24,se24] * ENER_BUIL[24] / ENER_BUIL
- 
-verif_phi_CEE = sum(Phi_CEE[se] on se) -1
-
-VERIF_CEE = sum(CEE[se] on se) - CEE
-
- @over CU_n[s] * Y[s] = CK[s] * K_n[s] + CL[s] * L_n[s] * PROG_L[s] + PE[s] * E_n[s] + PMAT[s] * MAT_n[s] + CEE[s] if Y[s] > 0
-  
- @over CU[s]*Y[s] = CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] + CEE[s] if Y[s] > 0
-    
- @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
-                + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))  
-
- R_SUB[ecl] * RENOV_VAL[ecl]  = sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0
- 
- R_SUB_renov[ecl] * RENOV_VAL[ecl]  = sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0
-                           
- #Nu_REHAB[h,ecl] =  Nu_REHABexo[h,ecl]*(@year<=2022) +  (@year>2022) * (Nu_REHAB[h,ecl]{-1} * R_SUB[ecl]/( R_SUB[ecl]{-1}+0.001))   where ecl in %list_ener_class\ CA
-
- #Nu_REHAB[h,ecl] =  Nu_REHABexo[h,ecl] *(@year<=2007) +  (@year>2007) * (Nu_REHAB[h,ecl]{-1} * (1-d(PAYBACK_REHAB_R[h,ecl]) _
-                         # / (PAYBACK_REHAB_R[h,ecl]{-1} +0.001)))   where ecl in %list_ener_class\ CA
-
- @over tau_REHAB_2[h,ecl] = 0.5*tau_REHAB_N[h,ecl] + (1-0.5)*tau_REHAB[h,ecl]{-1} + 0.05 * (tau_REHAB_N[h,ecl]{-1}-tau_REHAB[h,ecl]{-1})  if tau_REHAB[h,ecl] <> 0  
- 
- SUB_RENOV_val[ecl] = R_SUB_renov[ecl] * RENOV_VAL[ecl]       where ecl in %list_ener_class\ CA
- 
- SUB_RENOV_val = SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
-  
+ #corr R_SUB[h,ecl,ecl2] = R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+#corr  
+ #corr RENOV_VAL = (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
+#corr  
+ #corr RENOV_VAL[ecl] = sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
+#corr  
+ #corr R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL =  CEE
+#corr  
+ #corr CEE[se] = CEE * Phi_CEE[se]
+#corr 
+ #corr Phi_CEE[21] = 1 * ENER_BUIL[21] / (sum(ENER_BUIL[ce] on ce))   
+ #corr @over Phi_CEE[se22] = PhiY_ENER[22,se22] * ENER_BUIL[22] / ENER_BUIL
+ #corr @over Phi_CEE[se23] = PhiY_ENER[23,se23] * ENER_BUIL[23] / ENER_BUIL
+ #corr @over Phi_CEE[se24] = PhiY_ENER[24,se24] * ENER_BUIL[24] / ENER_BUIL
+#corr  
+#corr verif_phi_CEE = sum(Phi_CEE[se] on se) -1
+#corr 
+#corr VERIF_CEE = sum(CEE[se] on se) - CEE
+#corr 
+ #corr @over CU_n[s] * Y[s] = CK[s] * K_n[s] + CL[s] * L_n[s] * PROG_L[s] + PE[s] * E_n[s] + PMAT[s] * MAT_n[s] + CEE[s] if Y[s] > 0
+#corr   
+ #corr @over CU[s]*Y[s] = CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] + CEE[s] if Y[s] > 0
+#corr     
+ #corr @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
+                #corr + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))  
+#corr 
+ #corr R_SUB[ecl] * RENOV_VAL[ecl]  = sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0
+#corr  
+ #corr R_SUB_renov[ecl] * RENOV_VAL[ecl]  = sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0
+#corr                            
+ #corr #Nu_REHAB[h,ecl] =  Nu_REHABexo[h,ecl]*(@year<=2022) +  (@year>2022) * (Nu_REHAB[h,ecl]{-1} * R_SUB[ecl]/( R_SUB[ecl]{-1}+0.001))   where ecl in %list_ener_class\ CA
+#corr 
+ #corr #Nu_REHAB[h,ecl] =  Nu_REHABexo[h,ecl] *(@year<=2007) +  (@year>2007) * (Nu_REHAB[h,ecl]{-1} * (1-d(PAYBACK_REHAB_R[h,ecl]) _
+                         #corr # / (PAYBACK_REHAB_R[h,ecl]{-1} +0.001)))   where ecl in %list_ener_class\ CA
+#corr 
+ #corr @over tau_REHAB_2[h,ecl] = 0.5*tau_REHAB_N[h,ecl] + (1-0.5)*tau_REHAB[h,ecl]{-1} + 0.05 * (tau_REHAB_N[h,ecl]{-1}-tau_REHAB[h,ecl]{-1})  if tau_REHAB[h,ecl] <> 0  
+#corr  
+ #corr SUB_RENOV_val[ecl] = R_SUB_renov[ecl] * RENOV_VAL[ecl]       where ecl in %list_ener_class\ CA
+#corr  
+ #corr SUB_RENOV_val = SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
+#corr   
 #---------------------  Augmentation de la sensibilit� des marges aux variations de l'activit�
  
  @over dlog(1+TMD_n[sind]) = (0.4 * ( dlog(Y[sind]) -dlog(Y_e[sind]{-1})))*(@year<=2022) + _
@@ -889,7 +889,7 @@ TAX_CR_VAL = sum(TAX_CR_VAL[sinc] on sinc)
 
  YQ_SINC = sum(YQ[sinc] on sinc )
   
- T_TAX_CR[sinc] =  0 + (1- AME_TCIEE_sinc)*(@year<=2030)*d(T_TAX_CR_sinc) + T_TAX_CR[sinc]{-1}
+ T_TAX_CR[sinc] =  0 + (1- AME_TCIEE_sinc)*d(T_TAX_CR_sinc) + T_TAX_CR[sinc]{-1}
    
 # les process �lectriques ne sont pas �ligibles au cr�dit d'imp�t � l'efficacit� �nerg�tique (i.e = subvention � la d�carbonation)
  

@@ -27,15 +27,17 @@ verif_PhiY_ener[se] = 1 - (sum(phiy_ener[ce,se]] on se))
 # avec Q_Mtep_FC le nombre de Mtep produites gr�ce au fonds chaleur cumul� sur la p�riode et dQ_Mtep_FC la production de nouvelles Mtep financ�e dans l'ann�e: 
 #dQ_Mtep_FC[se24] est la production des reseaux de chaleur et dQ_Mtep_FC[se24,s] est la consommation des secteurs en chaleur renouvelable suite au changement de chaudi�re financ� par le FC. 
 
-Q_Mtep_FC[se24] = Q_Mtep_FC[se24]{-1} + dQ_Mtep_FC[se24] + sum(dQ_Mtep_FC[se24,sne] on sne) 
+Q_Mtep_FC[se24] = Q_Mtep_FC[se24]{-1} + dQ_Mtep_FC[se24] + sum(dQ_Mtep_FC[se24,sne] on sne) where se24 in 2402 2403 2404 2405 2406
 
 # on suppose que les Mtep d'ENR produites gr�ce au fonds chaleur se substituent au gaz naturel.
 
-@over Q_Mtep_FC = sum(Q_Mtep_FC[se24] on se24) 
+@over Q_Mtep_FC = sum(Q_Mtep_FC[se24] on se24) where se24 in 2402 2403 2404 2405 2406
+
+@over dQ_Mtep_FC_2401 = -1 * Q_Mtep_FC
 
 ########## chronique d'investissement
 
-#### la production Y s'ajuste � la demande (d�termin�e par les PhiY_ener) et la demande de facteur K d�pend de Y. 
+#### la production Y s'ajuste � la demande (determinee par les PhiY_ener) et la demande de facteur K d�pend de Y. 
 #### Si le ratio K/Y des secteurs correspondaient � celui des installations financ�es par le fonds chaleur, il ne serait pas n�cessaire de modifier l'�quation de demande du facteur capital.
 #### c'est peu probable. Il faut s'assurer que les investissements suppl�mentaires entre AMS et AME soient sont du m�me montant que ceux financ�s par le fonds chaleur 
 

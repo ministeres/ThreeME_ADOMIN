@@ -524,50 +524,50 @@ CAPEX_target[se] := CU_CAPEX_Mwh[se]
 
 
 ##### option CEE = subvention vers�e par les entreprises
- CEE :=0
- 
- R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
- 
- @over R_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
- 
- RENOV_VAL := (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
- 
- RENOV_VAL[ecl] := sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
-   
- 
- R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL :=  CEE
- 
- CEE[s] := CEE * Phi_CEE[s]
-
- Phi_CEE[s] := 0
- @over Phi_CEE[21] := 1 * ENER_BUIL[21] / (sum(ENER_BUIL[ce] on ce))   
- @over Phi_CEE[se22] := PhiY_ENER[22,se22] * ENER_BUIL[22] / ENER_BUIL
- @over Phi_CEE[se23] := PhiY_ENER[23,se23] * ENER_BUIL[23] / ENER_BUIL
- @over Phi_CEE[se24] := PhiY_ENER[24,se24] * ENER_BUIL[24] / ENER_BUIL
-
-verif_phi_CEE := sum(Phi_CEE[se] on se) -1 
-
-VERIF_CEE := sum(CEE[se] on se) - CEE
-
- @over CU_n[s] * Y[s] := CK[s] * K_n[s] + CL[s] * L_n[s] * PROG_L[s] + PE[s] * E_n[s] + PMAT[s] * MAT_n[s] + CEE[s] if Y[s] > 0
-  
- @over CU[s]*Y[s] := CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] + CEE[s] if Y[s] > 0
-    
- @over DEP_VAL := CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
-                + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
-                
- R_SUB[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0       
-
- R_SUB_renov[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)    if  RENOV_VAL[ecl] > 0     
- 
- @over Nu_REHAB[h,ecl] :=  Nu_REHABexo[h,ecl]
- 
- Nu_REHABexo[h,ecl] := HOUSEHOLD_HYBRID_BUIL(206 + $ecl, $h)  
- 
- SUB_RENOV_val[ecl] := R_SUB_renov[ecl] * RENOV_VAL[ecl]    where ecl in %list_ener_class\ CA
- 
- SUB_RENOV_val := SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
-  
+ #corr CEE :=0
+#corr  
+ #corr R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
+#corr  
+ #corr @over R_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+#corr  
+ #corr RENOV_VAL := (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
+#corr  
+ #corr RENOV_VAL[ecl] := sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
+#corr    
+#corr  
+ #corr R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL :=  CEE
+#corr  
+ #corr CEE[s] := CEE * Phi_CEE[s]
+#corr 
+ #corr Phi_CEE[s] := 0
+ #corr @over Phi_CEE[21] := 1 * ENER_BUIL[21] / (sum(ENER_BUIL[ce] on ce))   
+ #corr @over Phi_CEE[se22] := PhiY_ENER[22,se22] * ENER_BUIL[22] / ENER_BUIL
+ #corr @over Phi_CEE[se23] := PhiY_ENER[23,se23] * ENER_BUIL[23] / ENER_BUIL
+ #corr @over Phi_CEE[se24] := PhiY_ENER[24,se24] * ENER_BUIL[24] / ENER_BUIL
+#corr 
+#corr verif_phi_CEE := sum(Phi_CEE[se] on se) -1 
+#corr 
+#corr VERIF_CEE := sum(CEE[se] on se) - CEE
+#corr 
+ #corr @over CU_n[s] * Y[s] := CK[s] * K_n[s] + CL[s] * L_n[s] * PROG_L[s] + PE[s] * E_n[s] + PMAT[s] * MAT_n[s] + CEE[s] if Y[s] > 0
+#corr   
+ #corr @over CU[s]*Y[s] := CK[s]*K[s] + CL[s]*L[s]*PROG_L[s] + PEner[s]*Ener[s] + PMAT[s]*MAT[s] + CEE[s] if Y[s] > 0
+#corr     
+ #corr @over DEP_VAL := CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
+                #corr + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
+#corr                 
+ #corr R_SUB[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0       
+#corr 
+ #corr R_SUB_renov[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)    if  RENOV_VAL[ecl] > 0     
+#corr  
+ #corr @over Nu_REHAB[h,ecl] :=  Nu_REHABexo[h,ecl]
+#corr  
+ #corr Nu_REHABexo[h,ecl] := HOUSEHOLD_HYBRID_BUIL(206 + $ecl, $h)  
+#corr  
+ #corr SUB_RENOV_val[ecl] := R_SUB_renov[ecl] * RENOV_VAL[ecl]    where ecl in %list_ener_class\ CA
+#corr  
+ #corr SUB_RENOV_val := SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
+#corr   
  ES_ext_choc := 0.4
   
 

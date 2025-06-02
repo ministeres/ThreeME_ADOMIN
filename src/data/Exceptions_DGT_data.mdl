@@ -218,11 +218,30 @@ IAM_des[cservex,sne] := IAM[cservex,sne]
  #### VAC
 defl_Ttco[ce2] := 1
 
-K := sum(K[s] on s)
-DEBT_SNF_VAL[s] := DEBT_SNF_GDP * PGDP * GDP * K[s]/K
+DEBT_SNF_VAL[s] := 0 #erreur
 DEBT_SNF_VAL := sum(DEBT_SNF_VAL[s] on s)
-R_SNF[s] := R[s]
+#gel R_SNF[s] := R[s]
 DEBT_SNF_ENER := sum(DEBT_SNF_VAL[se] on se)
+
+#----------correction ADEME
+ K := sum(K[s] on s)
+# @over DEBT_SNF_VAL[s] := @elem(DEBT_SNF_on_GDP * PGDP * GDP * K[s]/K,%baseyear) * NOM_GDP_INDEX_DGT #à revoir Add_factor non nul
+@over DEBT_SNF_VAL[s] :=  @elem(PIA[s]*IA[s]/ (1 - (1+R[s] - Tdec[s])/ (1+STEADYSTATE(1,1))),%baseyear) * NOM_GDP_INDEX_DGT
+@over DEBT_SNF_on_GDP := DEBT_SNF_VAL/(PGDP * GDP)
+#@over DEBT_SNF_on_GDP :=  0.8250712
+#Auto_fi := (1-0.8250712)
+
+#@over CK[s] := @elem(PK[s] * (  R[s] - d(P)/P{-1} + Tdec[s] + R_PREMIUM),%baseyear) * NOM_GDP_INDEX_DGT
+
+R_PREMIUM := 0
+R_exo := STEADYSTATE(17,1)
+R_exo[s]:= R_exo
+@over R[s] := R_exo[s]
+@over R_DIR := R_exo  
+@over R := R_exo
+@over R_ADD := R_exo
+R_SNF[s] := R_exo[s]
+
 
 IA_n_des[sne] := IA_n[sne]
 IMP_BUD_niv_bis[sne] := 0
@@ -235,10 +254,6 @@ I_MDE_notionnel_20 := I_MDE_20
 I_MDE_shock_exo_20 := 0
 
 @over Inv_IRVE := IRVE - (1 - tdec_IRVE) * IRVE{-1}
-
-
-R_exo := 0
-R_exo[s]:=0
 
 IA_notionnel_noshock[se] := IA_n[se]
 IA_n_des[se] := IA_n[se]
@@ -369,7 +384,7 @@ kappa_e_dgt[ce, s] := (PE[ce, s] * E[ce, s]/ (PE[s] * E[s])) if E[s] <> 0
 
 #### MODIFICATIONS FISCALITE CARBONE ####
 
-REC_VAL_SEC_TCO[ce2, s] := Ttco[ce2] * PCH * EMS_SEC[ce2, s] * (1 - EXO[ce2, s])
+REC_VAL_SEC_TCO[ce2, s] := Ttco[ce2] * EMS_SEC[ce2, s] * (1 - EXO[ce2, s])
 REC_VAL_SEC_ETS[ce2, s] := PE_signal_ETS * PCH * EMS_SEC[ce2, s] * EXO[ce2, s] 
 REC_VAL_SEC_ETS2[ce2, s] := ETS2[s] * PCH * EMS_SEC[ce2, s] * (1 - EXO[ce2, s]) 
 
@@ -389,7 +404,6 @@ REC_VAL_SEC_ETS2 := sum(REC_VAL_SEC_ETS2[sets2] on sets2)
 
 #REC_VAL_HH := TCO_VAL_HH
 
-REDIS_VAL_TCO_H := REC_VAL_TCO_HH
 REDIS_VAL_SEC_TCO := REC_VAL_SEC_TCO
 REDIS_VAL_SEC_TCO[s] := REC_VAL_SEC_TCO[s]
 
@@ -397,11 +411,12 @@ REDIS_VAL_SEC_ETS := REC_VAL_SEC_ETS
 REDIS_VAL_SEC_ETS[s] := REC_VAL_SEC_ETS[s]
 
 REDIS_VAL_ETS2_H := REC_VAL_ETS2_HH
+REDIS_VAL_TCO_H := REC_VAL_TCO_HH
 
 REDIS_VAL_SEC_ETS2 := REC_VAL_SEC_ETS2
 REDIS_VAL_SEC_ETS2[s] := REC_VAL_SEC_ETS2[s]
 
-REC_VAL_TCO_HH[ce2] := ttco[ce2] * pch * ems_hh[ce2, h]
+REC_VAL_TCO_HH[ce2] := ttco[ce2] * ems_hh[ce2, h]
 REC_VAL_TCO_HH := sum(REC_VAL_TCO_HH[ce2] on ce2)
 REC_VAL_ETS2_HH[ce2] := ETS2[s] * pch * ems_hh[ce2, h]
 REC_VAL_ETS2_HH := sum(REC_VAL_ETS2_HH[ce2] on ce2)
@@ -466,20 +481,972 @@ W_S_des_n[sne] := W_S_n[sne]
 W_S_dgt[s] := W_S[s]
 W_S_ademe[s] := W_S[s]
 
-CIdgt[s] := E[s] + MAT[s]
-PCIdgt[s] * CIdgt[s] := PE[s] * E[s] + PMAT[s] * MAT[s]
 
-@over IA_n_des_14 := IA_notionnel_noshock_14  
 
-@over IA_n_14 := IA_n_des_14 
+#### RUN3 CEE####
 
-@over IA_notionnel_noshock_14  := K_n_14 - K_n_14{-1}*(1-tdec_14{-1})
+part_frais_CEE := 0.20 #hypothèse DGEC 10/03/2025
+part_CEE_residentiel := 0.632 #hypothèse DGEC 11/03/2025 63.2 %
+part_CEE_industrie := 0.15 #hypothèse DGEC 11/03/2025 15%
+part_CEE_tertiaire := 0.132 #hypothèse DGEC 11/03/2025 13.2%
+part_CEE_transport := 0.038 #hypothèse DGEC 11/03/2025 3.8%
+part_CEE_agriculture := 0.018 #hypothèse DGEC 11/03/2025 1.8%
+# reseaux 3,1%?
+subvention_CEE := CEE * (1-part_frais_CEE)
+subvention_resid_CEE := 0 
+subvention_indus_CEE := 0 
+subvention_tertiaire_CEE := 0
+@over R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL := subvention_CEE
+subvention_CEE_versee[se] := 0
+taxe_CEE[s] := CEE[s] 
+taxe_CEE := CEE
+taxe_CEE[c,s]:= 0
+Y_ce[se]:=sum(Y[ce,se] on ce)
+PY_ce[se]*Y_ce[se] := sum(PY[se]*Y[ce,se] on ce) 
+taxe_CEE_conso[c]:=0
+CEE_exo_indus :=1 
+CID_horsexo_CEE[c] := CID[c]
+PCID_horsexo_CEE[c] := PCID[c]
+QD_horsexo_CEE[c] := QD[c]
+PQD_horsexo_CEE[c] := PQD[c]
+exo_taxe_CEE_ED[c,s] := 0
+exo_taxe_CEE_ED[ce] := 0
+exo_taxe_CEE_XD[ce] := 0
+exo_taxe_CEE_DSD[ce] := 0
+exo_taxe_CEE[ce] := 0
+corr_taxe_CEE[ce] :=0
+taux_CEE_sec[se] := taxe_CEE[se]/(PY_ce[se]*Y_ce[se])  if Y[se] <> 0
+taux_CEE_conso[ce] := taxe_CEE_conso[ce]/(PYQ[ce]*YQ[ce])  if YQ[ce] <> 0
+MAT_comm_cee[se] := (taxe_CEE[se] * part_frais_CEE)/PY[se]
+@over Phi_CEE[21] := 1 * QD[21] / (sum(QD[ce] on ce))   
+@over Phi_CEE[se22] := PhiY_ENER[22,se22] * QD[22] / (sum(QD[ce] on ce))   
+@over Phi_CEE[se23] := PhiY_ENER[23,se23] * QD[23] / (sum(QD[ce] on ce))   
+@over Phi_CEE[se24] := PhiY_ENER[24,se24] * QD[24] /(sum(QD[ce] on ce))   
 
-## Endettement privé des SNF (sur PIB) en 2006
+R_SUB_CEE[s]:=0
+R_SUB_CEE_indus := 0 
+R_SUB_CEE_tertiaire := 0 
+R_SUB_CEE_transp:= 0 
+R_SUB_CEE_agri:= 0 
 
-DEBT_SNF_GDP := 0.8250712
-@over DEBT_SNF_VAL[s] := 0.8250712 * PGDP * GDP * K[s]/K
-@over DEBT_SNF_VAL := sum(DEBT_SNF_VAL[s] on s)
-R_PREMIUM := 0
+### AUTO###
+P_signal_autoth := 0
+surcout_elec := 9000
+PNewAUTO_th_nosignal[h,ecl] := PNewAUTO_th[h,ecl] 
+PNewAUTO_th_signal[h,ecl] := PNewAUTO_th[h,ecl] 
+@over PAUTO_elec[h,pcl] := PNewAUTO_th_nosignal[h,pcl] + surcout_elec/1000
+Y_03_corr := Y_03
+VT_AMS := 0
+R_SUB_AUTO_th_signal[h,ecl] := R_SUB_AUTO_th[h,ecl]
+Auto_th_D := Auto_D
 
-Phi_Mexo_03 := QMexo_03/(QDexo_03+QMexo_03)
+
+##### SUBVENTIONS POUR L'INVESTISSEMENT EN DECARBONATION DES ENTREPRISES (CEE et CI EE industrie) #####
+
+CK_subE[s] := 0
+
+CK_E[s] := CK[s]
+
+phi_n_K_E[sne] := K_E_n[sne] * CK[sne] / (K_E_n[sne] * CK[sne] + K_NE_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * (PE[sne] + PE_CEE_n[sne] + PE_signal_bis[sne]) + MAT_n[sne] * PMAT[sne]) where sne in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+phi_n_K_NE[sne] := K_NE_n[sne] * CK[sne] / (K_E_n[sne] * CK[sne] + K_NE_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * (PE[sne] + PE_CEE_n[sne] + PE_signal_bis[sne]) + MAT_n[sne] * PMAT[sne]) where sne in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+
+k_e_n_init[sne] := k_e_n[sne]
+
+@over K_E[s] = k_e_n[s] where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+
+phi_K_ne_bis[s] := (K[s] - K_E_n[s]) * CK[s] / ((K[s] - K_E_n[s])  * CK[s]+ K_E_n[s]  * CK_e[s]  + L[s] * PROG_L[s] * CL[s] + E[s] * (PE[s] + PE_CEE[s] + PE_signal_bis[s]) + MAT[s] * PMAT[s]) where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+phi_K_e_bis[s] := K_E_n[s] * CK_e[s] / ((K[s] - K_E_n[s])  * CK[s]+ K_E_n[s]  * CK_e[s]  + L[s] * PROG_L[s] * CL[s] + E[s] * (PE[s] + PE_CEE[s] + PE_signal_bis[s]) + MAT[s] * PMAT[s]) where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+
+prog_e_learning[sne] := 1
+
+theta_learning[sne] := 0
+
+#@over IA_notionnel_noshock[s]:=I_NE_n[s] where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20 #erreur ? mettre IA_n[s]
+#@over IA_notionnel[s]:=IA_notionnel_noshock[s] where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+#@over IA_n_noshock[s]:=I_NE_n[s] where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+#@over IA_n_des[s] := I_NE_n[s] where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+
+I_MDE_notionnel[s] := I_MDE[s] where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20
+I_NE_notionnel[s] := IA_notionnel[s] - I_MDE_notionnel[s] where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18 19 20  #équation incompatible avec les précédentes.
+I_MDE_shock_exo[s] := 0 where s in 01 02 03 04 05 06 07 08 09 10 11 12 13 17 18
+
+
+##### FINANCEMENT #####
+
+alpha_autofin[s] := 0
+autofin[s] := 0
+autofin_val[s] := 0
+
+VA_SNE := sum(VA[sne] on sne)
+L_SNE := sum(L[sne] on sne)
+
+
+#### MODIFICATIONS FISCALITE CARBONE ####
+
+
+# Part des recettes de l'ETS2 revenant effectivement à la France
+PART_ETS2_France := PART_ETS2_Franceexo
+PART_ETS2_Franceexo := 0
+
+#Part de quotas gratuits pour l'ETS1
+PART_QUOTAS_GRATUITS_ETS[ce2,s] := PART_QUOTAS_GRATUITS_ETSexo[ce2,s]
+PART_QUOTAS_GRATUITS_ETSexo[ce2,s] := 0
+PART_QUOTAS_GRATUITS_ETS[s] := 0
+
+#Valeur de la taxe carbone, de l'ETS et de l'ETS2 pour un couple secteur x bien énergétique
+TaxeCO_VAL[ce2, s] := 0
+ETS2_VAL[ce2, s] := 0
+ETS_VAL[ce2, s] := 0
+TaxeCO_VAL_hh[ce2, h] :=0 
+
+@over REC_VAL_SEC_TCO[ce2, s] := Ttco[ce2] * EMS_SEC[ce2, s] * (1 - EXO[ce2, s])
+@over REC_VAL_SEC_ETS[ce2, s] := PE_signal_ETS * PCH * EMS_SEC[ce2, s] 
+@over REC_VAL_SEC_ETS2[ce2, s] := ETS2[s] * PCH * EMS_SEC[ce2, s]  
+
+@over ETS2[s] := ETSexo2[s] 
+@over ETSexo2[s] := 0 
+
+@over ETS2_hh[ce2]:= ETSexo2_hh[ce2]
+@over ETSexo2_hh[ce2] := 0
+
+@over REC_VAL_SEC_TCO[s] := sum(REC_VAL_SEC_TCO[ce2, s] on ce2)
+@over REC_VAL_SEC_ETS[s] := sum(REC_VAL_SEC_ETS[ce2, s] on ce2) 
+@over REC_VAL_SEC_ETS2[s] := sum(REC_VAL_SEC_ETS2[ce2, s] on ce2) 
+
+@over REC_VAL_SEC_TCO := sum(REC_VAL_SEC_TCO[s] on s)
+@over REC_VAL_SEC_ETS := sum(REC_VAL_SEC_ETS[s] on s)
+@over REC_VAL_SEC_ETS2 := sum(REC_VAL_SEC_ETS2[s] on s) 
+
+#REC_VAL_HH := TCO_VAL_HH
+
+@over REDIS_VAL_SEC_TCO := REC_VAL_SEC_TCO
+@over REDIS_VAL_SEC_TCO[s] := REC_VAL_SEC_TCO[s]
+
+@over REDIS_VAL_SEC_ETS := REC_VAL_SEC_ETS
+@over REDIS_VAL_SEC_ETS[s] := REC_VAL_SEC_ETS[s]
+
+@over REDIS_VAL_ETS2_H := REC_VAL_ETS2_HH
+@over REDIS_VAL_TCO_H := REC_VAL_TCO_HH
+
+@over REDIS_VAL_SEC_ETS2 := REC_VAL_SEC_ETS2
+@over REDIS_VAL_SEC_ETS2[s] := REC_VAL_SEC_ETS2[s]
+
+@over REC_VAL_TCO_HH[ce2] := ttco[ce2] * ems_hh[ce2, h]
+@over REC_VAL_TCO_HH := sum(REC_VAL_TCO_HH[ce2] on ce2)
+@over REC_VAL_ETS2_HH[ce2] := ETS2[s] * pch * ems_hh[ce2, h]
+@over REC_VAL_ETS2_HH := sum(REC_VAL_ETS2_HH[ce2] on ce2)
+
+
+# mettre 1 pour activer le type de redistribution. 0 sinon. 
+redis_ETS2_transfert := 1
+redis_ETS2_subauto := 1
+redis_ETS2_subrenov := 1
+redis_ETS2_tc := 1
+redis_ETS2_consobudg := 0
+
+# Indiquer la part de recettes redistribuées par type de redistribution. Si indicatrice = 0 ci-dessus, mettre la part à 0. 
+part_redis_transfert:= 0
+part_redis_subauto:= 0
+part_redis_subrenov:= 0
+part_redis_consobudg := 0
+part_redis_sec_hh := 1  # part des recettes sur ETS2 payé par secteurs qui est redistribuée aux ménages
+part_redis_tc:= (1 - part_redis_transfert - part_redis_subauto - part_redis_subrenov - part_redis_consobudg)
+
+#emissions couvertes par la taxe carbone
+ems_ttco := sum(sum (ems_sec[s]* (1 - EXO[ce2, s])on ce2) on s )
+
+reduc_ttco_ets2[ce2] := 0
+ttco_apredis_ets2[ce2] := ttco[ce2]
+R_SUB_AUTO_elec_ets2[h]:=0
+R_SUB_AUTO_elec_ets2[h,pcl]:=0
+SUB_AUTO_elec_VAL_ETS2[h,pcl] := 0
+SUB_AUTO_elec_VAL_ETS2:= 0
+R_sub_renov_ets2[h] := 0
+R_sub_renov_ets2[h,ecl] := 0
+R_sub_renov_ets2[h,ecl,ecl2] := 0
+SUB_RENOV_VAL_ETS2[h,ecl]  := 0
+SUB_RENOV_VAL_ETS2  := 0
+
+
+##### RECALAGE DES INVESTISSEMENTS EN EFFICACITE ENERGETIQUE DANS LES SECTEURS AGRICOLE, INDUSTRIELS ET DE LA CONSTRUCTION #####
+##### LE RECALAGE EST REALISE A PARTIR DES CHIFFRAGES DES BESOINS SUPPLEMENTAIRES D'INVESTISSEMENTS EN DECARBONATION #####
+
+@over K_NE_des_n_01 := K_n_01 * (1 - 0.07)
+@over K_NE_des_n_02 := K_n_02 * (1 - 0.07)
+@over K_NE_des_n_03 := K_n_03 * (1 - 0.07)
+@over K_NE_des_n_04 := K_n_04 * (1 - 0.07)
+@over K_NE_des_n_05 := K_n_05 * (1 - 0.07)
+@over K_NE_des_n_06 := K_n_06 * (1 - 0.07)
+@over K_NE_des_n_07 := K_n_07 * (1 - 0.07)
+@over K_NE_des_n_08 := K_n_08 * (1 - 0.07)
+@over K_NE_des_n_09 := K_n_09 * (1 - 0.07)
+@over K_NE_des_n_10 := K_n_10 * (1 - 0.07)
+@over K_NE_des_n_11 := K_n_11 * (1 - 0.07)
+@over K_NE_des_n_12 := K_n_12 * (1 - 0.07)
+@over K_NE_des_n_13 := K_n_13 * (1 - 0.07)
+
+# généralisation de la modification des salaires aux secteurs énergétiques
+
+W_S_des_n[s] := W_S_n[s]
+
+##### CORRECTION ADEME BLOC HYBRIDE #####
+
+@over EXP_03_OTH_VAL := @elem(PEXP_03_h01*EXP_03 - (sum(PAUTO_elec[h,pcl]* NewAUTO_elec[h,pcl] on pcl)+ sum(PNewAUTO_th[h,ecl]* NewAUTO_th[h,ecl] on ecl)),%baseyear) * NOM_GDP_INDEX_DGT
+
+@over EXP_MOBAUTO_Val[h,ecl] := DEBT_AUTO_Val[h,ecl]{-1} * ( R_I_AUTO[h,ecl]{-1} + R_RMBS_AUTO[h,ecl]{-1} ) + R_CASH_AUTO[h,ecl] * PNewAUTO[h,ecl] * NewAUTO[h,ecl] + PEXP_AUTO[h,ecl] * EXP_AUTO[h,ecl] 
+
+@over EXP_U_REHAB[h,ecl,ecl2] := EXP(U_REHAB[h,ecl,ecl2]*500)   if REHAB[h,ecl,ecl2] <> 0
+
+@over COeffBassinnov[h] := 0.000156229
+
+@over CoeffBassimit[h] := 0.3
+
+@over EXP_03_OTH_VAL := PEXP_03_OTH * EXP_03_OTH
+
+@over PEXP_03_OTH := PCH_03
+
+@over PEXP_03_OTH[h] := PCH_03
+
+@over EXP_03_OTH := (household(5,1) - @elem(sum(PAUTO_elec[h,pcl]* NewAUTO_elec[h,pcl] on pcl)+ sum(PNewAUTO_th[h,ecl]* NewAUTO_th[h,ecl] on ecl),%baseyear)) * REAL_GDP_INDEX_DGT
+
+@over EXP_03_OTH[h] := phi_exp_03bis[h] * EXP_03_OTH
+
+####-----------------correction ADEME
+
+#exception ferroviaire 
+
+choc_train_niv := 0 
+
+ #-------------------correction I_MDE
+
+  @over K_NE_des_n[s] := K_n[s] * 0.99 # � recaler finement par secteur 
+ 
+  @over K_E_des_n[s] := K_n[s] - K_NE_des_n[s]
+ 
+  @over K_des_n[s] := K_NE_des_n[s] + K_E_des_n[s]
+ 
+  @over K_NE_des_n[ster] := K_n[ster] * 0.98 
+ 
+  @over K_NE_des_n[trsp] := K_n[trsp] * 0.5
+
+  ##### RECALAGE DES INVESTISSEMENTS EN EFFICACITE ENERGETIQUE DANS LES SECTEURS AGRICOLE, INDUSTRIELS ET DE LA CONSTRUCTION #####
+ ##### LE RECALAGE EST REALISE A PARTIR DES CHIFFRAGES DES BESOINS SUPPLEMENTAIRES D'INVESTISSEMENTS EN DECARBONATION #####
+
+ @over K_NE_des_n_01 := K_n_01 * (1 - 0.07)
+ @over K_NE_des_n_02 := K_n_02 * (1 - 0.07)
+ @over K_NE_des_n_03 := K_n_03 * (1 - 0.07)
+ @over K_NE_des_n_04 := K_n_04 * (1 - 0.07)
+ @over K_NE_des_n_05 := K_n_05 * (1 - 0.07)
+ @over K_NE_des_n_06 := K_n_06 * (1 - 0.07)
+ @over K_NE_des_n_07 := K_n_07 * (1 - 0.07)
+ @over K_NE_des_n_08 := K_n_08 * (1 - 0.07)
+ @over K_NE_des_n_09 := K_n_09 * (1 - 0.07)
+ @over K_NE_des_n_10 := K_n_10 * (1 - 0.07)
+ @over K_NE_des_n_11 := K_n_11 * (1 - 0.07)
+ @over K_NE_des_n_12 := K_n_12 * (1 - 0.07)
+ @over K_NE_des_n_13 := K_n_13 * (1 - 0.07)
+
+
+ @over IA_notionnel_noshock[s]:=IA_n[s]
+ 
+ @over IA_notionnel[s]:=IA_n[s]
+  
+ @over IA_n_noshock[s]:=IA_n[s] 
+
+ @over IA_n_des[s] := IA_n[s] 
+
+ @over I_MDE_notionnel[s] := I_MDE[s] 
+
+ IA_n_des_notionnel_noshock[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
+
+ IA_n_des_noshock[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
+
+ I_NE_notionnel[s] := @elem(K_NE[s] -K_NE[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
+
+  Choc_NE_niv[s] := 0
+ 
+  Choc_E_niv[s] := 0
+ 
+  Choc_niv[s] := 0
+ 
+  Choc_DACCS_niv[sne] := 0
+ 
+  @over Choc_DACCS_niv_20  := DACCS_cost * EMS_DACCS #ajout car variable non initialisee jusqu a present
+ 
+  I_MDE_des[s] :=  K_E_des_n[s] - K_E_des_n[s]{-1}*(1-tdec[s])
+ 
+  I_NE_des[s] :=  K_NE_des_n[s] - K_NE_des_n[s]{-1}*(1-tdec[s]) 
+  
+  I_NE_n_bis[s] := I_NE_des[s]
+ 
+  verif_K_des_n[s] := K_des_n[s]- K_NE_des_n[s] - K_E_des_n[s]
+
+ IA_FC[s] :=0
+ 
+ #------------- exception I_ME[road]
+ 
+  @over I_MDE[road] := @elem(sum( I_MDE[ce,road] where ce in %list_com_E \ 21 22  on ce ) + I_MDE_spe[road], %baseyear) * REAL_GDP_INDEX_DGT
+ 
+  
+ I_MDE_spe[road] :=  @elem(K_E_spe[road]-K_E_spe[road]{-1}*(1-tdec[road]), %baseyear) * REAL_GDP_INDEX_DGT
+ 
+ K_E_spe_15 := @elem((K_15 - PTrucks_cst_15 * Trucks_15)*0.07, %baseyear)* REAL_GDP_INDEX_DGT
+ 
+ @over K_E_15 := @elem(PTrucks_cst_15 * Trucks_15 + K_E_spe_15, %baseyear)* REAL_GDP_INDEX_DGT   
+ 
+ #K_E_spe_16 := (K_16 - PTrucks_cst_16 * Trucks_16 - PLUV_cst_16 * LUV_16)*0.07 prb : valeur négative à l'année de base car K_16 sous estimé dans SAM_FRA
+ #@over K_E_16 := @elem(PTrucks_cst_16 * Trucks_16 + PLUV_cst_16 * LUV_16 + K_E_spe_16, %baseyear)* REAL_GDP_INDEX_DGT
+ 
+ K_E_spe_16 := @elem(0.025 * K_16, %baseyear)* REAL_GDP_INDEX_DGT
+ 
+ I_MDE_spe_notionnel[road] := I_MDE_spe[road]
+     
+ SUBST_K_E_spe_n[road] := 0
+    
+ SUBST_E_spe_n[road] := 0
+ 
+ SUBST_K_E_spe[road] := 0
+    
+ SUBST_E_spe[road] := 0
+    
+ @over Inv_IRVE := IRVE - (1 - tdec_IRVE) * IRVE{-1}
+ 
+ E_spe[road] := sum(E_spe[ce,road] on ce)  where ce  in %list_com_E \ 21 
+ 
+ 
+ ## --------------------integration fonds chaleur
+ 
+ 
+ PhiY_ener_exo[ce, se] :=  MTEP($se, 53+$ce)
+ 
+ PhiY_E[ce,se] := PhiY_ener_exo[ce,se] + Q_Mtep_FC[se]  / Q_Mtep_ef_tot_SOU[ce]  
+ 
+ PhiY_ener[ce,se] := PhiY_E[ce,se]
+ 
+ PhiY_E[ce] := 1
+ 
+ verif_PhiY_ener[ce] := 0
+ 
+ Q_Mtep_FC := 0*1 ^ (@year - %baseyear)
+ 
+ Q_Mtep_FC[s] := 0*1 ^ (@year - %baseyear)
+ 
+ dQ_Mtep_FC[s] := 0
+ dQ_Mtep_FC[se,s] := 0
+ 
+ dQ_Mtep_FCexo[s] := 0
+ dQ_Mtep_FCexo[se,s] := 0
+ 
+ Q_Mtep_FC[ce,s] := 0 *1 ^ (@year - %baseyear)
+ 
+ SUB_FC[s] := TSUB_FC[s] * dQ_Mtep_FC[s]
+ 
+ SUB_FC := sum(SUB_FC[s] on s)
+ 
+ TSUB_FC[s] := 0
+ 
+ @over IA_FC[s] :=0
+ 
+ P_Mtep[se] := Y[se]/Q_Mtep_ef_tot[se]  if Q_Mtep_ef_tot[se] > 0 
+ 
+ K_FC[se] :=0
+ 
+ @over dQ_Mtep_FC[se,s] := 0
+ 
+ K_nFC[se] :=K[se]
+ 
+ PROG_Ap_K[se] * K[se] := Q_Mtep_ef_tot[se]* @elem(P_Mtep[se],%baseyear)
+ 
+ PROG_Ap_K_nFC[se] * K_nFC[se] := (Q_Mtep_ef_tot[se]- Q_Mtep_FC[se]) * @elem(P_Mtep[se],%baseyear)
+ 
+ PROG_Ap_I_nFC[se]  := PROG_Ap_K_nFC[se]
+ 
+ #PROG_AP_I_FC[se]*(IA_FC[se]+ 0.0001) := dQ_Mtep_FC[se] * @elem(P_Mtep[se],%baseyear)
+ 
+ PROG_AP_I_FC[se] := PROG_AP_I_nFC[se]
+ 
+ K_A[se] := K[se]
+ 
+ Y_nFC[se] :=Y[se] - Y_FC[se]
+ 
+ Y_FC[se] := Q_Mtep_FC[se]*@elem(P_Mtep[se],%baseyear)
+ 
+ SUBST_K_n_nFC[s] := SUBST_K_n[s]
+         
+ SUBST_K_n_FC[s] := SUBST_K_n[s]
+ 
+ SUBST_K_FC[s] := SUBST_K[s]
+ 
+ SUBST_K_nFC[s] := SUBST_K[s]
+ 
+  PE_tot_nFC[s] := PE[s]+PE_Signal[s]+PE_CEE[s]+PE_signal_bis[s] 
+  
+  PE_tot_FC[s] :=  PE[s]+PE_Signal[s]+PE_CEE[s]+PE_signal_bis[s] + PE_signal_FC[s]   
+  
+  PE_Signal_FC[s] :=0 
+  
+ PE_Signal_FC[ce,s] :=0 
+ 
+ SUBST_E_FC[ce,s]  := SUBST_E[ce,s]
+ 
+ SUBST_E_nFC[ce,s]  := SUBST_E_FC[ce,s]
+ 
+ SUBST_E_n_FC[ce,s] := SUBST_E_n[ce,s]
+ 
+ SUBST_E_n_nFC[ce,s] := SUBST_E_n[ce,s]
+
+  #-------------- correction CEE
+  
+  
+  CEE :=0  
+ 
+  CEE_VAL :=0
+  
+  SUB_CEE_VAL := CEE_VAL * (1 - part_frais_CEE)
+ 
+  ## CEE versés au résidentiel
+  
+  R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
+  
+  @over R_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+  
+  RENOV_VAL := (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
+  
+  RENOV_VAL[ecl] := sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
+    
+  @over R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL :=  SUB_CEE_VAL_resid
+  
+  CEE_VAL_resid := CEE_VAL * part_CEE_resid
+  
+  CEE_VAL_GD := CEE_VAL * part_CEE_GD
+  
+  CEE_VAL_hors_resid := CEE_VAL - CEE_VAL_resid
+  
+  SUB_CEE_VAL_resid := SUB_CEE_VAL * part_CEE_resid
+  
+  CEE_VAL_resid[se] := CEE_VAL_resid * Phi_CEE[se]
+   
+ @over DEP_VAL := CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
+                 + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
+                 
+ R_SUB[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0       
+ 
+  R_SUB_renov[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)    if  RENOV_VAL[ecl] > 0     
+  
+  Nu_REHAB[h,ecl] :=  Nu_REHABexo[h,ecl]
+  
+  Nu_REHABexo[h,ecl] := HOUSEHOLD_HYBRID_BUIL(206 + $ecl, $h)  
+  
+  @over SUB_RENOV_val[ecl] := R_SUB_renov[ecl] * RENOV_VAL[ecl]    where ecl in %list_ener_class\ CA
+  
+  SUB_RENOV_val := SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
+ 
+ 
+  ########## CEE versés aux secteurs
+   
+ @over part_frais_CEE  := 0.20 #hypothèse DGEC 10/03/2025
+ part_CEE_resid := (@year<=2023)*1 + (@year>2023) * 0.632 #hypothèse DGEC 11/03/2025 63.2 %
+  part_CEE_indus := 0 + (@year>2023) * (0.15+0.03) #hypothèse DGEC 11/03/2025 15% auquel on ajoute les 3% consacré au reseau de chaleur pour faire Un total de 100%
+  part_CEE_ter := 0 + (@year>2023) * 0.132 #hypothèse DGEC 11/03/2025 13.2%
+  part_CEE_trsp := 0 + (@year>2023) * 0.038 #hypothèse DGEC 11/03/2025 3.8%
+  part_CEE_agri := 0 + (@year>2023) * 0.018 #hypothèse DGEC 11/03/2025 1.8%
+  # reseaux 3,1%?
+  
+  # subventions de CEE recues par les secteurs de production
+  
+  part_CEE[sind] := part_CEE_indus * E_oth[sind]/E_Oth_sind_Sum
+  E_Oth_sind_Sum := sum(E_oth[sind] on sind)
+  part_CEE[ster] :=  part_CEE_ter * E_oth[ster]/E_Ster_Sum 
+  E_Ster_Sum := sum(E_oth[ster] on ster) + sum(GD[ce] on ce)
+  part_CEE[trsp] :=part_CEE_trsp * E_oth[trsp]/E_oth_trsp_Sum
+  E_oth_trsp_Sum := sum(E_oth[trsp] on trsp)
+  part_CEE_01 := part_CEE_agri 
+  part_CEE_GD := part_CEE_ter * (sum(GD[ce] on ce))/E_Ster_Sum 
+  
+ SUB_CEE_VAL[sne] := SUB_CEE_VAL * part_CEE[sne]
+ 
+ SUB_CEE_VAL_GD := SUB_CEE_VAL * part_CEE_GD 
+ 
+ SUB_CEE_VAL_hors_resid := SUB_CEE_VAL - SUB_CEE_VAL_resid
+ 
+ CEE_VAL_sec := CEE_VAL- CEE_VAL_resid - CEE_VAL_GD
+ 
+ @over Y_ce[se] := sum(Y[ce,se] on ce)
+ @over Y_ce := sum(Y_ce[se] on se)
+ @over Phi_CEE[se] := Y_ce[se] / Y_ce
+ @over PY_ce[se]*Y_ce[se] := sum(PY[se]*Y[ce,se] on ce) 
+  
+ CEE_VAL[se] := CEE_VAL  * Phi_CEE[se]
+ CEE_VAL[ce,se] := CEE_VAL[se] * (PY[se]*Y[ce,se])/(PY_ce[se]*Y_ce[se]) if Y_ce[se]<>0
+ CEE_VAL_ce[ce] := sum(CEE_VAL[ce,se] on se)
+ 
+ Phi_CEE_ce[ce] := CEE_VAL_ce[ce] / (CEE_VAL + 0.0001)
+ 
+ @over ED[ce] := sum(ED[ce,s] on s)
+ 
+ @over EM[ce] := sum(EM[ce,s] on s)
+ 
+ @over MAT_comm_CEE[se] := (CEE_VAL[se] * part_frais_CEE)/PY_19
+ MAT_comm_CEE_VAL[se] := MAT_comm_CEE[se] *PY_19
+ @over Phi_CEE[21] := 1 * QD[21] / (sum(QD[ce] on ce))   
+ @over Phi_CEE[se22] := PhiY_ENER[22,se22] * QD[22] / (sum(QD[ce] on ce))   
+ @over Phi_CEE[se23] := PhiY_ENER[23,se23] * QD[23] / (sum(QD[ce] on ce))   
+ @over Phi_CEE[se24] := PhiY_ENER[24,se24] * QD[24] /(sum(QD[ce] on ce))   
+ 
+  @over PE_CEE[s] := 0 #vu la modification des équations de K_E_des_n et E_oth_n, vu la modification des équations de PE, PCHD[ce] PGD[ce], on retranche l'effet CEE des équations Subst et CU
+ 
+  
+ @over phi_n_K[sne] := K_n[sne] * CK[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+ 
+ @over phi_n_L[sne] := L_n[sne] * PROG_L[sne] * CL[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+ 
+ @over phi_n_E[sne] := (E_n[sne] * PE[sne] ) / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+ 
+ @over phi_n_MAT[sne] := MAT_n[sne] * PMAT[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+ 
+ @over phi_n_K[se] := K_n[se] * CK[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+ 
+ @over phi_n_L[se] := L_n[se] * PROG_L[se] * CL[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+ 
+ @over phi_n_E[se] := (E_n[se] * PE[se]) / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+ 
+ @over phi_n_MAT[se] := MAT_n[se] * PMAT[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+ 
+   ################################### option ADEME
+   
+  
+  Var_K_E_CEE[sne]  := SUB_CEE_VAL[sne]/ PIA[sne]
+       
+  Var_E_oth_n_CEE[sne] := 0*1^(@year-%baseyear) # -Var_K_E_CEE[sne]*d(E_oth_n[sne]{-1})/I_MDE_n[sne]{-1} #cette spécification fait buger le modèle en AMS 2040
+    
+  Var_E_spe_CEE[road] := -Var_K_E_CEE[sne]*d(E_spe[road]){-1}/I_MDE_spe[road]{-1}
+  
+ NCU_ce[ce] * YQ[ce] := (sum(NCU_n[s]*Y[ce,s] if Y[ce,s]<>0 on s )) 
+ 
+ CEE_VAL_ED[ce,s] :=  CEE_VAL_ce[ce]*CEE_ED_base[ce,s]/CEE_base[ce]
+ 
+ CEE_VAL_ED[ce] :=sum(CEE_VAL_ED[ce,s] on s)
+ 
+ CEE_VAL_CHD[ce] :=  CEE_VAL_ce[ce]*CHD[ce]/CEE_base[ce]
+ 
+ CEE_VAL_GD[ce] := CEE_VAL_ce[ce]*GD[ce]/CEE_base[ce] 
+ 
+ CU_CEE_VAL_ED[ce,s]  := CEE_VAL_ED[ce,s] /YQ[ce]
+ 
+ CU_CEE_VAL_CHD[ce]  := CEE_VAL_CHD[ce]/YQ[ce]
+ 
+ CU_CEE_VAL_GD[ce] := CEE_VAL_GD[ce]/YQ[ce] 
+ 
+ CU_CEE_VAL_ce[ce] := CEE_VAL_ce[ce]/YQ[ce]
+ 
+ CEE_base[ce] := CEE_ED_base[ce] + CHD[ce] + GD[ce]
+ 
+ CEE_ED_base[ce] := sum(CEE_ED_base[ce,s] on s)
+ 
+ CEE_ED_base[ce,s] := ED[ce,s] * (1- EXO_CEE_base[ce,s]) 
+ 
+ EXO_CEE_base[ce,s] := 0
+ 
+ @over EXO_CEE_base[ce,sind] := 1 
+ 
+ @over EXO_CEE_base[ce,se] := 1 
+  
+ verif_CEE_cost:= CEE_VAl-CEE_VAL_CHD[ce]-CEE_VAL_GD[ce]-CEE_VAL_ED[ce]
+ 
+ verif_phi_CEE := sum(Phi_CEE[se] on se) -1 
+ 
+  VERIF_CEE := sum(CEE_VAL[se] on se) - CEE_VAL
+  
+  verif_CEE_ce := sum(CEE_VAL_ce[ce] on ce) - CEE_VAL
+  
+  @over R_SUB_CEE[sne] := 0
+    
+  @over PK_E[sne]  := PK[sne] 
+ 
+  @over PK_NE[sne]  := PK[sne] 
+   
+  @over CK_E[sne] := CK[sne] 
+   
+  @over CK_NE[sne] := CK[sne] 
+  
+  CK_E_m[s] := CK[s]
+   
+  CK_NE_m[s] := CK[s]
+    
+  CK_m[s] := CK[s] 
+    
+
+
+#gel #--------------- correction ADEME de la version DGT antérieure au 24/05
+#gel 
+#gel @over IA_n_des_14 := IA_notionnel_noshock_14  
+#gel 
+#gel @over  := IA_n_des_14 
+#gel 
+#gel @over IA_notionnel_noshock_14  := K_n_14 - K_n_14{-1}*(1-tdec_14{-1})
+#gel 
+#gel K := sum(K[s] on s)
+#gel DEBT_SNF_VAL[s] := DEBT_SNF_on_GDP * PGDP * GDP * K[s]/K
+#gel DEBT_SNF_on_GDP := 0.8250712
+#gel @over DEBT_SNF_VAL[s] := 0.8250712 * PGDP * GDP * K[s]/K
+#gel @over DEBT_SNF_VAL := sum(DEBT_SNF_VAL[s] on s)
+#gel R_PREMIUM := 0
+
+
+#gel ###--------------------modifications ADEME de la version du 24/05
+#gel 
+#gel 
+#gel ## --------------------integration fonds chaleur
+#gel 
+#gel 
+#gel 
+#gel 
+#gel #### FONDS CHALEUR  #### 
+#gel 
+#gel PhiY_ener_exo[ce, se] :=  MTEP($se, 53+$ce)
+#gel 
+#gel PhiY_E[ce,se] := PhiY_ener_exo[ce,se] + Q_Mtep_FC[se]  / Q_Mtep_ef_tot_SOU[ce]  
+#gel 
+#gel PhiY_ener[ce,se] := PhiY_E[ce,se]
+#gel 
+#gel PhiY_E[ce] := 1
+#gel 
+#gel verif_PhiY_ener[ce] := 0
+#gel 
+#gel Q_Mtep_FC := 0*1 ^ (@year - %baseyear)
+#gel 
+#gel Q_Mtep_FC[s] := 0*1 ^ (@year - %baseyear)
+#gel 
+#gel dQ_Mtep_FC[s] := 0
+#gel dQ_Mtep_FC[se,s] := 0
+#gel 
+#gel Q_Mtep_FC[ce,s] := 0 *1 ^ (@year - %baseyear)
+#gel 
+#gel SUB_FC[s] := TSUB_FC[s] * dQ_Mtep_FC[s]
+#gel 
+#gel TSUB_FC[s] := 0
+#gel 
+#gel @over IA_FC[s] :=0
+#gel 
+#gel P_Mtep[se] := Y[se]/Q_Mtep_ef_tot[se]  if Q_Mtep_ef_tot[se] > 0 
+#gel 
+#gel K_FC[se] :=0
+#gel 
+#gel @over dQ_Mtep_FC[se,s] := 0
+#gel 
+#gel K_nFC[se] :=K[se]
+#gel 
+#gel PROG_Ap_K[se] * K[se] := Q_Mtep_ef_tot[se]* @elem(P_Mtep[se],%baseyear)
+#gel 
+#gel PROG_Ap_K_nFC[se] * K_nFC[se] := (Q_Mtep_ef_tot[se]- Q_Mtep_FC[se]) * @elem(P_Mtep[se],%baseyear)
+#gel 
+#gel PROG_Ap_I_nFC[se]  := PROG_Ap_K_nFC[se]
+#gel 
+#gel #PROG_AP_I_FC[se]*(IA_FC[se]+ 0.0001) := dQ_Mtep_FC[se] * @elem(P_Mtep[se],%baseyear)
+#gel 
+#gel PROG_AP_I_FC[se] := PROG_AP_I_nFC[se]
+#gel 
+#gel K_A[se] := K[se]
+#gel 
+#gel Y_nFC[se] :=Y[se] - Y_FC[se]
+#gel 
+#gel Y_FC[se] := Q_Mtep_FC[se]*@elem(P_Mtep[se],%baseyear)
+#gel 
+#gel SUBST_K_n_nFC[s] := SUBST_K_n[s]
+#gel         
+#gel SUBST_K_n_FC[s] := SUBST_K_n[s]
+#gel 
+#gel SUBST_K_FC[s] := SUBST_K[s]
+#gel 
+#gel SUBST_K_nFC[s] := SUBST_K[s]
+#gel 
+ #gel PE_tot_nFC[s] := PE[s]+PE_Signal[s]+PE_CEE[s]+PE_signal_bis[s] 
+#gel  
+ #gel PE_tot_FC[s] :=  PE[s]+PE_Signal[s]+PE_CEE[s]+PE_signal_bis[s] + PE_signal_FC[s]   
+#gel  
+ #gel PE_Signal_FC[s] :=0 
+#gel  
+#gel PE_Signal_FC[ce,s] :=0 
+#gel 
+#gel SUBST_E_FC[ce,s]  := SUBST_E[ce,s]
+#gel 
+#gel SUBST_E_nFC[ce,s]  := SUBST_E_FC[ce,s]
+#gel 
+#gel SUBST_E_n_FC[ce,s] := SUBST_E_n[ce,s]
+#gel 
+#gel SUBST_E_n_nFC[ce,s] := SUBST_E_n[ce,s]
+#gel 
+#gel 
+#gel ##---------------------- Correction CEE
+#gel 
+#gel 
+ #gel @over K_NE_des_n[s] := K_n[s] * 0.99 # � recaler finement par secteur 
+#gel  
+ #gel @over K_E_des_n[s] := K_n[s] - K_NE_des_n[s]
+#gel  
+ #gel @over K_des_n[s] := K_NE_des_n[s] + K_E_des_n[s]
+#gel  
+ #gel @over K_NE_des_n[ster] := K_n[ster] * 0.98 
+#gel  
+ #gel @over K_NE_des_n[trsp] := K_n[trsp] * 0.5
+#gel 
+ #gel ##### RECALAGE DES INVESTISSEMENTS EN EFFICACITE ENERGETIQUE DANS LES SECTEURS AGRICOLE, INDUSTRIELS ET DE LA CONSTRUCTION #####
+#gel ##### LE RECALAGE EST REALISE A PARTIR DES CHIFFRAGES DES BESOINS SUPPLEMENTAIRES D'INVESTISSEMENTS EN DECARBONATION #####
+#gel 
+#gel @over K_NE_des_n_01 := K_n_01 * (1 - 0.07)
+#gel @over K_NE_des_n_02 := K_n_02 * (1 - 0.07)
+#gel @over K_NE_des_n_03 := K_n_03 * (1 - 0.07)
+#gel @over K_NE_des_n_04 := K_n_04 * (1 - 0.07)
+#gel @over K_NE_des_n_05 := K_n_05 * (1 - 0.07)
+#gel @over K_NE_des_n_06 := K_n_06 * (1 - 0.07)
+#gel @over K_NE_des_n_07 := K_n_07 * (1 - 0.07)
+#gel @over K_NE_des_n_08 := K_n_08 * (1 - 0.07)
+#gel @over K_NE_des_n_09 := K_n_09 * (1 - 0.07)
+#gel @over K_NE_des_n_10 := K_n_10 * (1 - 0.07)
+#gel @over K_NE_des_n_11 := K_n_11 * (1 - 0.07)
+#gel @over K_NE_des_n_12 := K_n_12 * (1 - 0.07)
+#gel @over K_NE_des_n_13 := K_n_13 * (1 - 0.07)
+#gel 
+#gel 
+#gel @over IA_notionnel_noshock[s]:=I_NE_n[s]
+#gel  
+#gel @over IA_notionnel[s]:=IA_notionnel_noshock[s]
+#gel   
+#gel @over IA_n_noshock[s]:=I_NE_n[s] 
+#gel 
+#gel @over IA_n_des[s] := I_NE_n[s] 
+#gel 
+#gel @over I_MDE_notionnel[s] := I_MDE[s] 
+#gel 
+#gel IA_n_des_notionnel_noshock[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
+#gel 
+#gel IA_n_des_noshock[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
+#gel 
+#gel I_NE_notionnel[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
+#gel 
+ #gel Choc_NE_niv[s] := 0
+#gel  
+ #gel Choc_E_niv[s] := 0
+#gel  
+ #gel Choc_niv[s] := 0
+#gel  
+ #gel Choc_DACCS_niv[sne] := 0
+#gel  
+ #gel @over Choc_DACCS_niv_20  := DACCS_cost * EMS_DACCS #ajout car variable non initialisee jusqu a present
+#gel  
+ #gel I_MDE_des[s] :=  K_E_des_n[s] - K_E_des_n[s]{-1}*(1-tdec[s])
+#gel  
+ #gel I_NE_des[s] :=  K_NE_des_n[s] - K_NE_des_n[s]{-1}*(1-tdec[s]) 
+#gel   
+ #gel I_NE_n_bis[s] := I_NE_des[s]
+#gel  
+ #gel verif_K_des_n[s] := K_des_n[s]- K_NE_des_n[s] - K_E_des_n[s]
+#gel  
+ #gel @over I_MDE[road] := @elem(sum( I_MDE[ce,road] where ce in %list_com_E \ 21 22  on ce ) + I_MDE_spe[road], %baseyear) * REAL_GDP_INDEX_DGT
+#gel 
+#gel  
+#gel I_MDE_spe[road] :=  @elem(K_E_spe[road]-K_E_spe[road]{-1}*(1-tdec[road]), %baseyear) * REAL_GDP_INDEX_DGT
+#gel 
+#gel K_E_spe_15 := @elem((K_15 - PTrucks_cst_15 * Trucks_15)*0.07, %baseyear)* REAL_GDP_INDEX_DGT
+#gel 
+#gel @over K_E_15 := @elem(PTrucks_cst_15 * Trucks_15 + K_E_spe_15, %baseyear)* REAL_GDP_INDEX_DGT   
+#gel 
+#gel #K_E_spe_16 := (K_16 - PTrucks_cst_16 * Trucks_16 - PLUV_cst_16 * LUV_16)*0.07 prb : valeur négative à l'année de base car K_16 sous estimé dans SAM_FRA
+#gel #@over K_E_16 := @elem(PTrucks_cst_16 * Trucks_16 + PLUV_cst_16 * LUV_16 + K_E_spe_16, %baseyear)* REAL_GDP_INDEX_DGT
+#gel 
+#gel K_E_spe_16 := @elem(0.025 * K_16, %baseyear)* REAL_GDP_INDEX_DGT
+#gel 
+#gel I_MDE_spe_notionnel[road] := I_MDE_spe[road]
+#gel     
+#gel SUBST_K_E_spe_n[road] := 0
+#gel    
+#gel SUBST_E_spe_n[road] := 0
+#gel 
+#gel SUBST_K_E_spe[road] := 0
+#gel    
+#gel SUBST_E_spe[road] := 0
+#gel    
+#gel @over Inv_IRVE := IRVE - (1 - tdec_IRVE) * IRVE{-1}
+#gel 
+#gel 
+#gel  
+ #gel #-------------- correction CEE
+#gel  
+#gel  
+ #gel CEE :=0  
+#gel 
+ #gel CEE_VAL :=0
+#gel  
+ #gel SUB_CEE_VAL := CEE_VAL * (1 - part_frais_CEE)
+#gel 
+ #gel ## CEE versés au résidentiel
+#gel  
+ #gel R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
+#gel  
+ #gel @over R_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
+#gel  
+ #gel RENOV_VAL := (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
+#gel  
+ #gel RENOV_VAL[ecl] := sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
+#gel    
+ #gel R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL :=  SUB_CEE_VAL_resid
+#gel  
+ #gel CEE_VAL_resid := CEE_VAL * part_CEE_resid
+#gel  
+ #gel CEE_VAL_GD := CEE_VAL * part_CEE_GD
+#gel  
+ #gel CEE_VAL_hors_resid := CEE_VAL - CEE_VAL_resid
+#gel  
+ #gel SUB_CEE_VAL_resid := SUB_CEE_VAL * part_CEE_resid
+#gel  
+ #gel CEE_VAL_resid[se] := CEE_VAL_resid * Phi_CEE[se]
+#gel   
+#gel @over DEP_VAL := CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
+                #gel + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
+#gel                 
+#gel R_SUB[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0       
+#gel 
+ #gel R_SUB_renov[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)    if  RENOV_VAL[ecl] > 0     
+#gel  
+ #gel Nu_REHAB[h,ecl] :=  Nu_REHABexo[h,ecl]
+#gel  
+ #gel Nu_REHABexo[h,ecl] := HOUSEHOLD_HYBRID_BUIL(206 + $ecl, $h)  
+#gel  
+ #gel @over SUB_RENOV_val[ecl] := R_SUB_renov[ecl] * RENOV_VAL[ecl]    where ecl in %list_ener_class\ CA
+#gel  
+ #gel SUB_RENOV_val := SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
+#gel 
+#gel 
+ #gel ########## CEE versés aux secteurs
+#gel   
+#gel part_frais_CEE := 0.20 #hypothèse DGEC 10/03/2025
+#gel part_CEE_resid := (@year<=2023)*1 + (@year>2023) * 0.632 #hypothèse DGEC 11/03/2025 63.2 %
+#gel part_CEE_indus := 0 + (@year>2023) * (0.15+0.03) #hypothèse DGEC 11/03/2025 15% auquel on ajoute les 3% consacré au reseau de chaleur pour faire Un total de 100%
+#gel part_CEE_ter := 0 + (@year>2023) * 0.132 #hypothèse DGEC 11/03/2025 13.2%
+#gel part_CEE_trsp := 0 + (@year>2023) * 0.038 #hypothèse DGEC 11/03/2025 3.8%
+#gel part_CEE_agri := 0 + (@year>2023) * 0.018 #hypothèse DGEC 11/03/2025 1.8%
+#gel # reseaux 3,1%?
+#gel 
+#gel # subventions de CEE recues par les secteurs de production
+#gel 
+#gel part_CEE[sind] := part_CEE_indus * E_oth[sind]/E_Oth_sind_Sum
+#gel E_Oth_sind_Sum := sum(E_oth[sind] on sind)
+#gel part_CEE[ster] :=  part_CEE_ter * E_oth[ster]/E_Ster_Sum 
+#gel E_Ster_Sum := sum(E_oth[ster] on ster) + sum(GD[ce] on ce)
+#gel part_CEE[trsp] :=part_CEE_trsp * E_oth[trsp]/E_oth_trsp_Sum
+#gel E_oth_trsp_Sum := sum(E_oth[trsp] on trsp)
+#gel part_CEE_01 := part_CEE_agri 
+#gel part_CEE_GD := part_CEE_ter * (sum(GD[ce] on ce))/E_Ster_Sum 
+#gel 
+#gel SUB_CEE_VAL[sne] := SUB_CEE_VAL * part_CEE[sne]
+#gel 
+#gel SUB_CEE_VAL_GD := SUB_CEE_VAL * part_CEE_GD 
+#gel 
+#gel SUB_CEE_VAL_hors_resid := SUB_CEE_VAL - SUB_CEE_VAL_resid
+#gel 
+#gel CEE_VAL_sec := CEE_VAL- CEE_VAL_resid - CEE_VAL_GD
+#gel 
+#gel Y_ce[se] := sum(Y[ce,se] on ce)
+#gel Y_ce := sum(Y_ce[se] on se)
+#gel Phi_CEE[se] := Y_ce[se] / Y_ce
+#gel PY_ce[se]*Y_ce[se] := sum(PY[se]*Y[ce,se] on ce) 
+#gel 
+#gel CEE_VAL[se] := CEE_VAL  * Phi_CEE[se]
+#gel CEE_VAL[ce,se] := CEE_VAL[se] * (PY[se]*Y[ce,se])/(PY_ce[se]*Y_ce[se]) if Y_ce[se]<>0
+#gel CEE_VAL_ce[ce] := sum(CEE_VAL[ce,se] on se)
+#gel 
+#gel Phi_CEE_ce[ce] := CEE_VAL_ce[ce] / (CEE_VAL + 0.0001)
+#gel 
+#gel @over ED[ce] := sum(ED[ce,s] on s)
+#gel 
+#gel @over EM[ce] := sum(EM[ce,s] on s)
+#gel 
+#gel MAT_comm_CEE[se] := (CEE_VAL[se] * part_frais_CEE)/PY_19
+#gel 
+#gel @over Phi_CEE[21] := 1 * QD[21] / (sum(QD[ce] on ce))   
+#gel @over Phi_CEE[se22] := PhiY_ENER[22,se22] * QD[22] / (sum(QD[ce] on ce))   
+#gel @over Phi_CEE[se23] := PhiY_ENER[23,se23] * QD[23] / (sum(QD[ce] on ce))   
+#gel @over Phi_CEE[se24] := PhiY_ENER[24,se24] * QD[24] /(sum(QD[ce] on ce))   
+#gel 
+ #gel @over PE_CEE[s] := 0 #vu la modification des équations de K_E_des_n et E_oth_n, vu la modification des équations de PE, PCHD[ce] PGD[ce], on retranche l'effet CEE des équations Subst et CU
+#gel 
+#gel  
+#gel @over phi_n_K[sne] := K_n[sne] * CK[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+#gel 
+#gel @over phi_n_L[sne] := L_n[sne] * PROG_L[sne] * CL[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+#gel 
+#gel @over phi_n_E[sne] := (E_n[sne] * PE[sne] ) / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+#gel 
+#gel @over phi_n_MAT[sne] := MAT_n[sne] * PMAT[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
+#gel 
+#gel @over phi_n_K[se] := K_n[se] * CK[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+#gel 
+#gel @over phi_n_L[se] := L_n[se] * PROG_L[se] * CL[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+#gel 
+#gel @over phi_n_E[se] := (E_n[se] * PE[se]) / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+#gel 
+#gel @over phi_n_MAT[se] := MAT_n[se] * PMAT[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
+#gel 
+  #gel ################################### option ADEME
+#gel   
+ #gel @over NCU_n[se] * Y[se]  := @elem(CU_n[se]  * Y[se]  + PIY[se]  * IY[se]  + PSY[se]  * SY[se]  + PIS[se]  * IS[se] + CEE_VAL[se] * (1-part_frais_CEE), %baseyear)*NOM_GDP_INDEX_DGT if Y[se] <> 0
+#gel 
+ #gel @over NCU_n[sne] * Y[sne]  := @elem(CU_n[sne] * Y[sne] + PIY[sne] * IY[sne] + PSY[sne] * SY[sne] + PIS[sne] * IS[sne] - SUB_CEE_VAL[sne],%baseyear)*NOM_GDP_INDEX_DGT if Y[sne] <> 0
+#gel 
+  #gel @over NCU[se] * Y[se]  := @elem(CU[se] * Y[se] + PIY[se] * IY[se] + PSY[se] * SY[se] + PIS[se] * IS[se] + CEE_VAL[se] * (1-part_frais_CEE),%baseyear)*NOM_GDP_INDEX_DGT if Y[se] <> 0
+#gel   
+  #gel @over NCU[sne] * Y[sne]  := @elem(CU[sne] * Y[sne] + PIY[sne] * IY[sne] + PSY[sne] * SY[sne] + PIS[sne] * IS[sne] - SUB_CEE_VAL[sne],%baseyear)*NOM_GDP_INDEX_DGT if Y[sne] <> 0
+#gel  
+  #gel @over EBE[se] := @elem(VA[se] - CL[se]/PEBE[se] * L[se] * PROG_L[se] - IY[se] - SY[se] - CEE_VAL[se] * (1-part_frais_CEE)/PEBE[se],%baseyear)*REAL_GDP_INDEX_DGT
+#gel    
+  #gel @over EBE[sne] := @elem(VA[sne] - ( CL[sne] / PEBE[sne] ) * L[sne] * PROG_L[sne] - IY[sne] - SY[sne] + SUB_CEE_VAL[sne]/PEBE[sne],%baseyear)*REAL_GDP_INDEX_DGT
+#gel   
+   #gel #gel @over PEBE[se] * EBE[se] := @elem(PVA[se] * VA[se] - CL[se] * L[se] * PROG_L[se] - PIY[se] * IY[se] - PSY[se] * SY[se] - CEE_VAL[se] * (1-part_frais_CEE),%baseyear)*NOM_GDP_INDEX_DGT
+#gel #gel     
+   #gel #gel @over PEBE[sne] * EBE[sne] := @elem(PVA[sne] * VA[sne] - CL[sne] * L[sne] * PROG_L[sne] - PIY[sne] * IY[sne] - PSY[sne] * SY[sne] + SUB_CEE_VAL[sne],%baseyear)*NOM_GDP_INDEX_DGT
+#gel      
+ #gel Var_K_E_CEE[sne] * PIA[sne] := SUB_CEE_VAL[sne]
+#gel       
+ #gel Var_E_oth_n_CEE[sne] := -Var_K_E_CEE[sne]*d(E_oth_n[sne]{-1})/I_MDE_n[sne]{-1} #cette spécification fait buger le modèle en AMS 2040
+#gel    
+ #gel Var_E_spe_CEE[road] := -Var_K_E_CEE[sne]*d(E_spe[road]){-1}/I_MDE_spe[road]{-1}
+#gel  
+#gel NCU_ce[ce] * YQ[ce] := (sum(NCU_n[s]*Y[ce,s] if Y[ce,s]<>0 on s )) 
+#gel 
+#gel CEE_VAL_ED[ce,s] := CEE_VAL_ce[ce]*CEE_ED_base[ce,s]/CEE_base[ce]
+#gel 
+#gel CEE_VAL_ED[ce] :=sum(CEE_VAL_ED[ce,s] on s)
+#gel 
+#gel CEE_VAL_CHD[ce] := CEE_VAL_ce[ce]*CHD[ce]/CEE_base[ce]
+#gel 
+#gel CEE_VAL_GD[ce] := CEE_VAL_ce[ce]*GD[ce]/CEE_base[ce] 
+#gel 
+#gel CU_CEE_VAL_ED[ce,s] * YQ[ce] := CEE_VAL_ED[ce,s] 
+#gel 
+#gel CU_CEE_VAL_CHD[ce] * YQ[ce] := CEE_VAL_CHD[ce]
+#gel 
+#gel CU_CEE_VAL_GD[ce] * YQ[ce] := CEE_VAL_GD[ce] 
+#gel 
+#gel CU_CEE_VAL_ce[ce] * YQ[ce] := CEE_VAL_ce[ce]
+#gel 
+#gel CEE_base[ce] := CEE_ED_base[ce] + CHD[ce] + GD[ce]
+#gel 
+#gel CEE_ED_base[ce] := sum(CEE_ED_base[ce,s] on s)
+#gel 
+#gel CEE_ED_base[ce,s] := ED[ce,s] * (1- EXO_CEE_base[ce,s]) 
+#gel 
+#gel EXO_CEE_base[ce,s] := 0
+#gel 
+#gel @over EXO_CEE_base[ce,sind] := 1 
+#gel 
+#gel @over EXO_CEE_base[ce,se] := 1 
+#gel 
+
+#gel 
+#gel verif_CEE_cost:= CEE_VAl-CEE_VAL_CHD[ce]-CEE_VAL_GD[ce]-CEE_VAL_ED[ce]
+#gel 
+#gel verif_phi_CEE := sum(Phi_CEE[se] on se) -1 
+#gel 
+ #gel VERIF_CEE := sum(CEE_VAL[se] on se) - CEE_VAL
+#gel  
+ #gel verif_CEE_ce := sum(CEE_VAL_ce[ce] on ce) - CEE_VAL

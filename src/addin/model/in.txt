@@ -2,4 +2,3 @@ include ..\..\model\blocks
 include ..\..\model\hybrid_new
 include ..\..\model\exceptions_AME-AMS
 include ..\..\model\Exceptions_dgt
-include ..\..\model\Fonds_chaleur

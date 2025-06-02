@@ -6,7 +6,7 @@ TC := 1
 
 |V|[s] := P where V in PIA PY PY_n PY_e PDEBT PIY PIS PSY PMAT PE PVA PEBE PRF PRF_NET PRF_NET_DIV PDIV PCSE PCSE_bis PCSS PW PCSS_SE
 
-PK[s] := PIA[s]*(Tdec[s]+STEADYSTATE(2,1))*(1+STEADYSTATE(15,1))/(Tdec[s]-1+(1+STEADYSTATE(2,1))*(1+STEADYSTATE(15,1)))
+PK[s] * K[s] *(1 - (1 - Tdec[s])/((1+STEADYSTATE(15,1)) * (1+STEADYSTATE(2,1)))) := PIA[s] * IA[s] if K[s] <> 0
 
 PMAT[cm, s] := P
 
