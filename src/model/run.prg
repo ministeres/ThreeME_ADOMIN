@@ -100,7 +100,7 @@ subroutine run(string %data_calibration, string %data_shock)
 	'string varendo = "CK_* MATM_* CHM_* GM_* IAM_* EM_* PM_n* SUBST_*_n* R_DIR Ibis_bis_* K_n_* IA_n_* K_NE_n_19_* K_E_n_19_* IA_n_20_* Ibis_20_* K_NE_n_20_* YQS_SM* PYQ_SM* TMD_n* Y_e_* PY_* PY_e_* EXP_e_* SUBST_L_* SUBST_E_* SUBST_K_* SUBST_MAT_* SUBST_CHD_* SUBST_CHM_* SUBST_GD_* SUBST_GM_* SUBST_X_* SUBST_XD_* SUBST_XM_* P_e PY_n_* Ibis_* IA_n_* K_n_* W_*"
 
 '"PM_* YQS_SM PYQS_SM MATM_* GRMATM_* MATD_* CHM_* CHD_* GRCHM_* GM_* GD_* GRGM_* GD_* IAM_* GRIAM_* IAD_* IAM_* EM_* GREM_* ED_* PXD_n_* PXD_* R_DIR* MAT_* PMAT_* W_S_0* W_S_1* W_S_2* TMD_n*  W_S_n_0* W_S_n_1* W_S_n_2* GRPM_* IA_n_* IAM_n*"
-''j'ai mis W_S_0*, W_S_1* et W_S_2* et non W_S_* pour éviter d'inclure les variables W_S_n_* qui ne sont pas concernées par nos modifications	
+''j'ai mis W_S_0*, W_S_1* et W_S_2* et non W_S_* pour ï¿½viter d'inclure les variables W_S_n_* qui ne sont pas concernï¿½es par nos modifications	
 ''X_* XD_*
 ''BetaExp_20_h01 PEXP_CES_H01
 '
@@ -199,7 +199,7 @@ subroutine run_scenario(string %scenario_name)
 
 '	string varendo = "CK_* MATM_DES_N* CHM_DES_N* GM_DES_N* IAM_DES_N* IAM_DES_N_19_19 EM_DES_N* PM_N* IA_N_DES* IA_n_des_noshock* I_NE_n* I_MDE_n* I_MDE_19 I_MDE_20 TMD_N* W_S_DES_N* W_S_DGT*  PY_DES* L_DES* EXP_DES* PRESOC_DOM_U_TETE_DES PRESOC_DOM_OTH_VAL_DES X_DES*  MAT_n_12_13 PPACI " 'IA_NOTIONNEL_NOSHOCK*
 
-	string varendo = "MATM_DES_N* CHM_DES_N* GM_DES_N* IAM_DES_N* IAM_DES_N_19_19 EM_DES_N* PM_N* IA_N_DES* IA_n_des_noshock* I_NE_n* I_MDE_n*  TMD_N* W_S_DES_N* W_S_DGT*  PY_DES* L_DES* EXP_DES* PRESOC_DOM_U_TETE_DES PRESOC_DOM_OTH_VAL_DES X_DES*  MAT_n_12_13 PPACI CU_N_BIS* EXP_13_des*" 'IA_NOTIONNEL_NOSHOCK* I_MDE_19 I_MDE_20
+	string varendo = "MATM_DES_N* CHM_DES_N* GM_DES_N* IAM_DES_N* IAM_DES_N_19_19 EM_DES_N* PM_N* IA_N_DES* IA_n_des_noshock* I_NE_n* I_MDE_n*  TMD_N* W_S_DES_N* W_S_DGT*  PY_DES* L_DES* EXP_DES* PRESOC_DOM_U_TETE_DES PRESOC_DOM_OTH_VAL_DES X_DES*  MAT_n_12_13 PPACI CU_N_BIS* EXP_13_des*" 'IA_NOTIONNEL_NOSHOCK*
 	'string varendo = "CH_* CHD_* CHM_* CI_* CK_* CL_* CU_* CUR* DS_* DSD_* DSM_* E_* ED_* EM_* ENER_0* ENER_1* ENER_2* EXP_* EXPG_* G_* GD_* GM_* GDP_* I_* IA_* IAD_* IAM_* K_* L_* M_* MARKUP_* MAT_* MATD_* MATM_* MC_* MCD_* MCM_* MS_* MT_* MTD_* MTM_* NCU_* OTHT_* OTHTD_* OTHTM_* PARTR_* PCH_* PCHD_* PCHM_* PCID_* PCIM_* PE_* PED_* PEM_* PENER_* PEXP_* PEXPG_* PGD_* PGDP_* PI_* PIA_* PIAD_* PIAM_* PID_* PIM_* PIS_* PIY_* PK_* PM_* PMAT_* PMATD_* PMATM_* PMCD_* PMCM_* PMS_* PMT_* PMTD_* PMTM_* PNEXP_* POTHT_* POTHTD_* POTHTM_* PQ_* PQD_* PQM_* PRF_* PSUB_* PSY_* PTAX_* PVA_* PVAT_* PVATD_* PVATM_* PX_* PXD_* PXM_* PY_* PYQ_* PYQS_* Q_* QD_* QM_* RF_* RK_* SD_* SM_* SUBST_* SY_* TCO_* TMD_* VA_* VAT_* VATD_* VATM_* W_* X_* XD_* XM_* Y_* YCAP_* YOPT_* YQ_* YQBIS_* YQS_* " 
 	if %exceptions_DGT = "yes" then
 		string list = a_3me.@stochastic
@@ -1113,7 +1113,7 @@ show Reporting_6
  
 endif
 
-'Pour export des données vers MatMat
+'Pour export des donnï¿½es vers MatMat
 '   call export_matter
  ' call export_matmat
     'MAT_13_0 MATM_sec_13_0 MATD_sec_13_0 MAT_13_2 MATM_sec_13_2 MATD_sec_13_2 E_13_0 EM_sec_13_0 ED_sec_13_0     E_13_2 EM_sec_13_2 ED_sec_13_2  

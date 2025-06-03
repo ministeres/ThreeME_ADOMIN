@@ -141,8 +141,8 @@ d(log(IA_n_bis_19)) = ( @year <= 2019 )  * ( ( IAexo_19 > 0 )  * ( dlog(IAexo_19
 @over IRVE = (1 - tdec_IRVE) * IRVE{-1} + Inv_IRVE
 
 # investissements �nerg�tiques
-d(log(I_MDE_notionnel_19)) = d(log(Y_19)) - d(log(PROG_K_19)) + d(SUBST_K_E_19)
-@over d(log(I_MDE_19)) = AME_renov_19  * ( d(I_MDE_shock_exo_19) + ADJUST(1  , 1)  * dlog(I_MDE_19{-1})  + 1.8  * dlog(Y_19)  + 0.28 * (log(I_MDE_notionnel_19{-1}) + I_MDE_shock_exo_19{-1} - log(I_MDE_19{-1}))  + ADJUST(1  , 4)  * 0 * d(SUBST_K_E_19)) + (1 - AME_renov_19)  * d(log(I_MDE_exo_19))
+#geld(log(I_MDE_notionnel_19)) = d(log(Y_19)) - d(log(PROG_K_19)) + d(SUBST_K_E_19)
+#gel@over d(log(I_MDE_19)) = AME_renov_19  * ( d(I_MDE_shock_exo_19) + ADJUST(1  , 1)  * dlog(I_MDE_19{-1})  + 1.8  * dlog(Y_19)  + 0.28 * (log(I_MDE_notionnel_19{-1}) + I_MDE_shock_exo_19{-1} - log(I_MDE_19{-1}))  + ADJUST(1  , 4)  * 0 * d(SUBST_K_E_19)) + (1 - AME_renov_19)  * d(log(I_MDE_exo_19))
 
 @over IA_n_19 = IA_n_bis_19 + (@year > 2019) * ((I_MDE_19-@elem(I_MDE_19, 2018)) + (Inv_IRVE-@elem(Inv_IRVE, 2018)) + sobre_19 * IA_n_19{-1})
 # est-ce qu'il est volontaire de considerer que la difference de I_MDE qu'a partir de 2018. AME_renov = 0 depuis 2016
@@ -161,8 +161,8 @@ Choc_DACCS_niv  = DACCS_cost * EMS_DACCS
 d(log(IA_n_bis_20)) = ( @year <= 2019 )  * ( ( IAexo_20 > 0 )  * ( dlog(IAexo_20) ) )  + ( @year > 2019 )  * (d(log(IA_n_des_20)))
 
 # Integration des chocs en niveau
-d(log(I_MDE_notionnel_20)) = d(log(Y_20)) - d(log(PROG_K_20)) + d(SUBST_K_E_20)
-@over d(log(I_MDE_20)) = AME_renov_20  * (d(I_MDE_shock_exo_20) + ADJUST(1  , 1)  * dlog(I_MDE_20{-1})  + 1.8  * dlog(Y_20)  + 0.28 * (log(I_MDE_notionnel_20{-1}) + I_MDE_shock_exo_20{-1} - log(I_MDE_20{-1}))  + ADJUST(1  , 4)  * 0 * d(SUBST_K_E_20)) + (1 - AME_renov_20)  * d(log(I_MDE_exo_20))
+#geld(log(I_MDE_notionnel_20)) = d(log(Y_20)) - d(log(PROG_K_20)) + d(SUBST_K_E_20)
+#gel@over d(log(I_MDE_20)) = AME_renov_20  * (d(I_MDE_shock_exo_20) + ADJUST(1  , 1)  * dlog(I_MDE_20{-1})  + 1.8  * dlog(Y_20)  + 0.28 * (log(I_MDE_notionnel_20{-1}) + I_MDE_shock_exo_20{-1} - log(I_MDE_20{-1}))  + ADJUST(1  , 4)  * 0 * d(SUBST_K_E_20)) + (1 - AME_renov_20)  * d(log(I_MDE_exo_20))
 
 @over IA_n_20 = IA_n_bis_20 + (@year > 2019) * ((I_MDE_20-@elem(I_MDE_20, 2018)) + (INV_Road-@elem(INV_Road, 2018)))
 
@@ -1729,7 +1729,7 @@ share_ems_csc[s] * EMS_SEC_TOT[s] = sum(share_EMS_CSC[ce2, s] * EMS_SEC_TOT[ce2,
 
    # Si on attend une substitution capital energie, il faut modifier les  equations de Subst_K et SUBST_E 
 
-   #### option changement de chaudiere dans les secteurs industriel bois versus gaz/charbon/p trole sans baisse de la consommation d' nergie
+   #### option changement de chaudiere dans les secteurs industriel bois versus gaz/charbon/petrole sans baisse de la consommation d' nergie
 
    # on ajoute les investissements finances par le fonds chaleur IA_FC  dans  l'equation d'investissement
 
@@ -1914,9 +1914,9 @@ share_ems_csc[s] * EMS_SEC_TOT[s] = sum(share_EMS_CSC[ce2, s] * EMS_SEC_TOT[ce2,
  
     #Les CEE sont trait�s comme une taxe parafiscale pour les secteurs �nerg�tiques et une subvention pour les secteurs non �nerg�tiques (on aurait pu les inclure dans IY et SY avec sum(IY[se]) = sum (SY[sne] ), le probl�me �tant que SY[s] est parfois �gal � z�ro � l'ann�e de base)
  
-    @over NCU_n[se] * Y[se] = CU_n[se] * Y[se] + PIY[se] * IY[se] + PSY[se] * SY[se] + PIS[se] * IS[se] + CEE_VAL[se] * (1-part_frais_CEE) if Y[se] <> 0
+    #opt    @over NCU_n[se] * Y[se] = CU_n[se] * Y[se] + PIY[se] * IY[se] + PSY[se] * SY[se] + PIS[se] * IS[se] + CEE_VAL[se] * (1-part_frais_CEE) if Y[se] <> 0
  
-    @over NCU_n[sne] * Y[sne] = CU_n[sne]  * Y[sne]  + PIY[sne]  * IY[sne]  + PSY[sne]  * SY[sne]  + PIS[sne]  * IS[sne] - SUB_CEE_VAL[sne] if Y[sne] <> 0
+    #opt    @over NCU_n[sne] * Y[sne] = CU_n[sne]  * Y[sne]  + PIY[sne]  * IY[sne]  + PSY[sne]  * SY[sne]  + PIS[sne]  * IS[sne] - SUB_CEE_VAL[sne] if Y[sne] <> 0
  
     #on ne met pas CEE_VAL dans l'�quation de NCU_n[se] car les frais de gestion (CEE_val-SUB_CEE_VAL) sont inclus dans PMAT[sne]*MAT[sne] qui se r�percutent sur CU_n_bis, CU_n_des et donc cu_n
  
