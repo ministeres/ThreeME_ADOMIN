@@ -705,6 +705,8 @@ DEBT_auto_Val[h,ecl] = (@year > %baseyear)*( DEBT_auto_Val[h,ecl]{-1}*(1 - R_RMB
                                              + R_LOAN_AUTO[h,ecl]*PNewAuto[h,ecl]*NewAuto[h,ecl]*(1 - R_SUB_AUTO[h,ecl]) ) _
                        + (@year <= %baseyear)*(DEBT_auto_Val[h,ecl]{-1}*(1 + STEADYSTATE(1,1)))
 
+@over DEBT_auto_Val[h,ecl] = (@year > %baseyear)*( DEBT_auto_Val[h,ecl]{-1}*(1 - R_RMBS_AUTO[h,ecl])   + R_LOAN_AUTO[h,ecl]*PNewAuto[h,ecl]*NewAuto[h,ecl] )    + (@year <= %baseyear)*(DEBT_auto_Val[h,ecl]{-1}*(1 + STEADYSTATE(1,1)))
+
 # Equation H.4.84
 
 EXP_NEWAUTO_VAL[h,ecl] = PNewAuto[h,ecl] * NewAUTO[h,ecl]

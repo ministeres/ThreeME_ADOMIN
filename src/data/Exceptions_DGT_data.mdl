@@ -85,13 +85,6 @@ CL_bis  * L  := ( CL_S_bis  * L_S  + CL_SE_bis  * L_SE )
 
 @over CK[s] := PK[s] * (  R[s] - d(P)/P{-1} + Tdec[s]) if K[s] > 0
 
-##### INVESTISSEMENT ##### 
-
-# ajout des intérêts au stock de dette des ménages (uniquement pour affichage, cahier de variantes)
-# pour le GOV ils sont inclus dans le deficit qui est utilise pour calculer la dette
-DEBT_REHAB_Val_tot[h,ecl] :=  DEBT_REHAB_Val[h,ecl] 
-DEBT_NewB_Val_tot[h,ecl] :=  DEBT_NewB_Val[h,ecl] 
-DEBT_AUTO_Val_tot[h,ecl] := DEBT_AUTO_Val[h,ecl]
 
 #### PRIX DES IMPORTATIONS ####
 
@@ -258,6 +251,7 @@ I_MDE_shock_exo_20 := 0
 IA_notionnel_noshock[se] := IA_n[se]
 IA_n_des[se] := IA_n[se]
 Choc_CSC_niv[se] := CSC_cost * EMS_CSC[se]
+EMS_CSC_exo[s] := 0
 IA_notionnel[se] := IA_n[se]
 IMP_BUD_niv_bis[se] := 0
 IMP_BUD_niv[se] := 0
@@ -1076,377 +1070,289 @@ choc_train_niv := 0
   CK_m[s] := CK[s] 
     
 
+#### AJOUT CHOCS SOBRIETE SIMILAIRES AUX CHOCS IMP_BUD_NIV ####
 
-#gel #--------------- correction ADEME de la version DGT antérieure au 24/05
-#gel 
-#gel @over IA_n_des_14 := IA_notionnel_noshock_14  
-#gel 
-#gel @over  := IA_n_des_14 
-#gel 
-#gel @over IA_notionnel_noshock_14  := K_n_14 - K_n_14{-1}*(1-tdec_14{-1})
-#gel 
-#gel K := sum(K[s] on s)
-#gel DEBT_SNF_VAL[s] := DEBT_SNF_on_GDP * PGDP * GDP * K[s]/K
-#gel DEBT_SNF_on_GDP := 0.8250712
-#gel @over DEBT_SNF_VAL[s] := 0.8250712 * PGDP * GDP * K[s]/K
-#gel @over DEBT_SNF_VAL := sum(DEBT_SNF_VAL[s] on s)
-#gel R_PREMIUM := 0
+Sobre_BUD_niv[sne]:=0
+Sobre_BUD_niv_bis[sne]:=0
 
 
-#gel ###--------------------modifications ADEME de la version du 24/05
-#gel 
-#gel 
-#gel ## --------------------integration fonds chaleur
-#gel 
-#gel 
-#gel 
-#gel 
-#gel #### FONDS CHALEUR  #### 
-#gel 
-#gel PhiY_ener_exo[ce, se] :=  MTEP($se, 53+$ce)
-#gel 
-#gel PhiY_E[ce,se] := PhiY_ener_exo[ce,se] + Q_Mtep_FC[se]  / Q_Mtep_ef_tot_SOU[ce]  
-#gel 
-#gel PhiY_ener[ce,se] := PhiY_E[ce,se]
-#gel 
-#gel PhiY_E[ce] := 1
-#gel 
-#gel verif_PhiY_ener[ce] := 0
-#gel 
-#gel Q_Mtep_FC := 0*1 ^ (@year - %baseyear)
-#gel 
-#gel Q_Mtep_FC[s] := 0*1 ^ (@year - %baseyear)
-#gel 
-#gel dQ_Mtep_FC[s] := 0
-#gel dQ_Mtep_FC[se,s] := 0
-#gel 
-#gel Q_Mtep_FC[ce,s] := 0 *1 ^ (@year - %baseyear)
-#gel 
-#gel SUB_FC[s] := TSUB_FC[s] * dQ_Mtep_FC[s]
-#gel 
-#gel TSUB_FC[s] := 0
-#gel 
-#gel @over IA_FC[s] :=0
-#gel 
-#gel P_Mtep[se] := Y[se]/Q_Mtep_ef_tot[se]  if Q_Mtep_ef_tot[se] > 0 
-#gel 
-#gel K_FC[se] :=0
-#gel 
-#gel @over dQ_Mtep_FC[se,s] := 0
-#gel 
-#gel K_nFC[se] :=K[se]
-#gel 
-#gel PROG_Ap_K[se] * K[se] := Q_Mtep_ef_tot[se]* @elem(P_Mtep[se],%baseyear)
-#gel 
-#gel PROG_Ap_K_nFC[se] * K_nFC[se] := (Q_Mtep_ef_tot[se]- Q_Mtep_FC[se]) * @elem(P_Mtep[se],%baseyear)
-#gel 
-#gel PROG_Ap_I_nFC[se]  := PROG_Ap_K_nFC[se]
-#gel 
-#gel #PROG_AP_I_FC[se]*(IA_FC[se]+ 0.0001) := dQ_Mtep_FC[se] * @elem(P_Mtep[se],%baseyear)
-#gel 
-#gel PROG_AP_I_FC[se] := PROG_AP_I_nFC[se]
-#gel 
-#gel K_A[se] := K[se]
-#gel 
-#gel Y_nFC[se] :=Y[se] - Y_FC[se]
-#gel 
-#gel Y_FC[se] := Q_Mtep_FC[se]*@elem(P_Mtep[se],%baseyear)
-#gel 
-#gel SUBST_K_n_nFC[s] := SUBST_K_n[s]
-#gel         
-#gel SUBST_K_n_FC[s] := SUBST_K_n[s]
-#gel 
-#gel SUBST_K_FC[s] := SUBST_K[s]
-#gel 
-#gel SUBST_K_nFC[s] := SUBST_K[s]
-#gel 
- #gel PE_tot_nFC[s] := PE[s]+PE_Signal[s]+PE_CEE[s]+PE_signal_bis[s] 
-#gel  
- #gel PE_tot_FC[s] :=  PE[s]+PE_Signal[s]+PE_CEE[s]+PE_signal_bis[s] + PE_signal_FC[s]   
-#gel  
- #gel PE_Signal_FC[s] :=0 
-#gel  
-#gel PE_Signal_FC[ce,s] :=0 
-#gel 
-#gel SUBST_E_FC[ce,s]  := SUBST_E[ce,s]
-#gel 
-#gel SUBST_E_nFC[ce,s]  := SUBST_E_FC[ce,s]
-#gel 
-#gel SUBST_E_n_FC[ce,s] := SUBST_E_n[ce,s]
-#gel 
-#gel SUBST_E_n_nFC[ce,s] := SUBST_E_n[ce,s]
-#gel 
-#gel 
-#gel ##---------------------- Correction CEE
-#gel 
-#gel 
- #gel @over K_NE_des_n[s] := K_n[s] * 0.99 # � recaler finement par secteur 
-#gel  
- #gel @over K_E_des_n[s] := K_n[s] - K_NE_des_n[s]
-#gel  
- #gel @over K_des_n[s] := K_NE_des_n[s] + K_E_des_n[s]
-#gel  
- #gel @over K_NE_des_n[ster] := K_n[ster] * 0.98 
-#gel  
- #gel @over K_NE_des_n[trsp] := K_n[trsp] * 0.5
-#gel 
- #gel ##### RECALAGE DES INVESTISSEMENTS EN EFFICACITE ENERGETIQUE DANS LES SECTEURS AGRICOLE, INDUSTRIELS ET DE LA CONSTRUCTION #####
-#gel ##### LE RECALAGE EST REALISE A PARTIR DES CHIFFRAGES DES BESOINS SUPPLEMENTAIRES D'INVESTISSEMENTS EN DECARBONATION #####
-#gel 
-#gel @over K_NE_des_n_01 := K_n_01 * (1 - 0.07)
-#gel @over K_NE_des_n_02 := K_n_02 * (1 - 0.07)
-#gel @over K_NE_des_n_03 := K_n_03 * (1 - 0.07)
-#gel @over K_NE_des_n_04 := K_n_04 * (1 - 0.07)
-#gel @over K_NE_des_n_05 := K_n_05 * (1 - 0.07)
-#gel @over K_NE_des_n_06 := K_n_06 * (1 - 0.07)
-#gel @over K_NE_des_n_07 := K_n_07 * (1 - 0.07)
-#gel @over K_NE_des_n_08 := K_n_08 * (1 - 0.07)
-#gel @over K_NE_des_n_09 := K_n_09 * (1 - 0.07)
-#gel @over K_NE_des_n_10 := K_n_10 * (1 - 0.07)
-#gel @over K_NE_des_n_11 := K_n_11 * (1 - 0.07)
-#gel @over K_NE_des_n_12 := K_n_12 * (1 - 0.07)
-#gel @over K_NE_des_n_13 := K_n_13 * (1 - 0.07)
-#gel 
-#gel 
-#gel @over IA_notionnel_noshock[s]:=I_NE_n[s]
-#gel  
-#gel @over IA_notionnel[s]:=IA_notionnel_noshock[s]
-#gel   
-#gel @over IA_n_noshock[s]:=I_NE_n[s] 
-#gel 
-#gel @over IA_n_des[s] := I_NE_n[s] 
-#gel 
-#gel @over I_MDE_notionnel[s] := I_MDE[s] 
-#gel 
-#gel IA_n_des_notionnel_noshock[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
-#gel 
-#gel IA_n_des_noshock[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
-#gel 
-#gel I_NE_notionnel[s] := @elem(K[s] -K[s]{-1}*(1-Tdec[s]),%baseyear)*REAL_GDP_INDEX_DGT
-#gel 
- #gel Choc_NE_niv[s] := 0
-#gel  
- #gel Choc_E_niv[s] := 0
-#gel  
- #gel Choc_niv[s] := 0
-#gel  
- #gel Choc_DACCS_niv[sne] := 0
-#gel  
- #gel @over Choc_DACCS_niv_20  := DACCS_cost * EMS_DACCS #ajout car variable non initialisee jusqu a present
-#gel  
- #gel I_MDE_des[s] :=  K_E_des_n[s] - K_E_des_n[s]{-1}*(1-tdec[s])
-#gel  
- #gel I_NE_des[s] :=  K_NE_des_n[s] - K_NE_des_n[s]{-1}*(1-tdec[s]) 
-#gel   
- #gel I_NE_n_bis[s] := I_NE_des[s]
-#gel  
- #gel verif_K_des_n[s] := K_des_n[s]- K_NE_des_n[s] - K_E_des_n[s]
-#gel  
- #gel @over I_MDE[road] := @elem(sum( I_MDE[ce,road] where ce in %list_com_E \ 21 22  on ce ) + I_MDE_spe[road], %baseyear) * REAL_GDP_INDEX_DGT
-#gel 
-#gel  
-#gel I_MDE_spe[road] :=  @elem(K_E_spe[road]-K_E_spe[road]{-1}*(1-tdec[road]), %baseyear) * REAL_GDP_INDEX_DGT
-#gel 
-#gel K_E_spe_15 := @elem((K_15 - PTrucks_cst_15 * Trucks_15)*0.07, %baseyear)* REAL_GDP_INDEX_DGT
-#gel 
-#gel @over K_E_15 := @elem(PTrucks_cst_15 * Trucks_15 + K_E_spe_15, %baseyear)* REAL_GDP_INDEX_DGT   
-#gel 
-#gel #K_E_spe_16 := (K_16 - PTrucks_cst_16 * Trucks_16 - PLUV_cst_16 * LUV_16)*0.07 prb : valeur négative à l'année de base car K_16 sous estimé dans SAM_FRA
-#gel #@over K_E_16 := @elem(PTrucks_cst_16 * Trucks_16 + PLUV_cst_16 * LUV_16 + K_E_spe_16, %baseyear)* REAL_GDP_INDEX_DGT
-#gel 
-#gel K_E_spe_16 := @elem(0.025 * K_16, %baseyear)* REAL_GDP_INDEX_DGT
-#gel 
-#gel I_MDE_spe_notionnel[road] := I_MDE_spe[road]
-#gel     
-#gel SUBST_K_E_spe_n[road] := 0
-#gel    
-#gel SUBST_E_spe_n[road] := 0
-#gel 
-#gel SUBST_K_E_spe[road] := 0
-#gel    
-#gel SUBST_E_spe[road] := 0
-#gel    
-#gel @over Inv_IRVE := IRVE - (1 - tdec_IRVE) * IRVE{-1}
-#gel 
-#gel 
-#gel  
- #gel #-------------- correction CEE
-#gel  
-#gel  
- #gel CEE :=0  
-#gel 
- #gel CEE_VAL :=0
-#gel  
- #gel SUB_CEE_VAL := CEE_VAL * (1 - part_frais_CEE)
-#gel 
- #gel ## CEE versés au résidentiel
-#gel  
- #gel R_SUB_renov[h,ecl,ecl2] := HOUSEHOLD_HYBRID_BUIL(228 + $ecl, $h)
-#gel  
- #gel @over R_SUB[h,ecl,ecl2] := R_SUB_renov[h,ecl,ecl2] + R_SUB_CEE[h,ecl,ecl2]
-#gel  
- #gel RENOV_VAL := (sum( sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2) on ecl))  
-#gel  
- #gel RENOV_VAL[ecl] := sum(PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2] if REHAB_h01[ecl,ecl2] <> 0 on ecl2)   
-#gel    
- #gel R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL :=  SUB_CEE_VAL_resid
-#gel  
- #gel CEE_VAL_resid := CEE_VAL * part_CEE_resid
-#gel  
- #gel CEE_VAL_GD := CEE_VAL * part_CEE_GD
-#gel  
- #gel CEE_VAL_hors_resid := CEE_VAL - CEE_VAL_resid
-#gel  
- #gel SUB_CEE_VAL_resid := SUB_CEE_VAL * part_CEE_resid
-#gel  
- #gel CEE_VAL_resid[se] := CEE_VAL_resid * Phi_CEE[se]
-#gel   
-#gel @over DEP_VAL := CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_val + SUB_AUTO_VAL + REDIS_VAL_H _
-                #gel + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01))) 
-#gel                 
-#gel R_SUB[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)     if  RENOV_VAL[ecl] > 0       
-#gel 
- #gel R_SUB_renov[ecl] * RENOV_VAL[ecl]  := sum(R_SUB_renov_h01[ecl,ecl2] * PREHAB_h01[ecl,ecl2] * REHAB_h01[ecl,ecl2]  if REHAB_h01[ecl,ecl2] <> 0 on ecl2)    if  RENOV_VAL[ecl] > 0     
-#gel  
- #gel Nu_REHAB[h,ecl] :=  Nu_REHABexo[h,ecl]
-#gel  
- #gel Nu_REHABexo[h,ecl] := HOUSEHOLD_HYBRID_BUIL(206 + $ecl, $h)  
-#gel  
- #gel @over SUB_RENOV_val[ecl] := R_SUB_renov[ecl] * RENOV_VAL[ecl]    where ecl in %list_ener_class\ CA
-#gel  
- #gel SUB_RENOV_val := SUB_RENOV_val[CB] + SUB_RENOV_val[CC] + SUB_RENOV_val[CD] + SUB_RENOV_val[CE] + SUB_RENOV_val[CF] + SUB_RENOV_val[CG]
-#gel 
-#gel 
- #gel ########## CEE versés aux secteurs
-#gel   
-#gel part_frais_CEE := 0.20 #hypothèse DGEC 10/03/2025
-#gel part_CEE_resid := (@year<=2023)*1 + (@year>2023) * 0.632 #hypothèse DGEC 11/03/2025 63.2 %
-#gel part_CEE_indus := 0 + (@year>2023) * (0.15+0.03) #hypothèse DGEC 11/03/2025 15% auquel on ajoute les 3% consacré au reseau de chaleur pour faire Un total de 100%
-#gel part_CEE_ter := 0 + (@year>2023) * 0.132 #hypothèse DGEC 11/03/2025 13.2%
-#gel part_CEE_trsp := 0 + (@year>2023) * 0.038 #hypothèse DGEC 11/03/2025 3.8%
-#gel part_CEE_agri := 0 + (@year>2023) * 0.018 #hypothèse DGEC 11/03/2025 1.8%
-#gel # reseaux 3,1%?
-#gel 
-#gel # subventions de CEE recues par les secteurs de production
-#gel 
-#gel part_CEE[sind] := part_CEE_indus * E_oth[sind]/E_Oth_sind_Sum
-#gel E_Oth_sind_Sum := sum(E_oth[sind] on sind)
-#gel part_CEE[ster] :=  part_CEE_ter * E_oth[ster]/E_Ster_Sum 
-#gel E_Ster_Sum := sum(E_oth[ster] on ster) + sum(GD[ce] on ce)
-#gel part_CEE[trsp] :=part_CEE_trsp * E_oth[trsp]/E_oth_trsp_Sum
-#gel E_oth_trsp_Sum := sum(E_oth[trsp] on trsp)
-#gel part_CEE_01 := part_CEE_agri 
-#gel part_CEE_GD := part_CEE_ter * (sum(GD[ce] on ce))/E_Ster_Sum 
-#gel 
-#gel SUB_CEE_VAL[sne] := SUB_CEE_VAL * part_CEE[sne]
-#gel 
-#gel SUB_CEE_VAL_GD := SUB_CEE_VAL * part_CEE_GD 
-#gel 
-#gel SUB_CEE_VAL_hors_resid := SUB_CEE_VAL - SUB_CEE_VAL_resid
-#gel 
-#gel CEE_VAL_sec := CEE_VAL- CEE_VAL_resid - CEE_VAL_GD
-#gel 
-#gel Y_ce[se] := sum(Y[ce,se] on ce)
-#gel Y_ce := sum(Y_ce[se] on se)
-#gel Phi_CEE[se] := Y_ce[se] / Y_ce
-#gel PY_ce[se]*Y_ce[se] := sum(PY[se]*Y[ce,se] on ce) 
-#gel 
-#gel CEE_VAL[se] := CEE_VAL  * Phi_CEE[se]
+##### DECRET TERTIAIRE #####
+
+# PE_signal_reg[ce,ster] := 0
+
+# PED_reg[ce,ster] := PED[ce,ster] 
+
+# PEM_reg[ce,ster] := PEM[ce,ster] 
+
+# PE_reg[ce,ster] := PE[ce,ster] if E[ce,ster] <> 0
+
+# PEner_reg[ster] := PEner[ster] if E[ster] <> 0
+
+# EnergD_reg[ce] := 0
+# EnergM_reg[ce] := 0
+# Ener_reg[ce] := 0
+# Ener_reg := 0
+
+#### Fonds chaleur####
+
+#K_nFC[se] :=K[se]
+#K_n_FC[se24] := K_FC[se24]
+#K_n_nFC[se24]:=  K_nFC[se] 
+#IA_notionnel_nFC[se24] :=IA_notionnel[se24] 
+#IA_n_nFC[se24]:= IA_n[se24]
+#IA_n_des_nFC[se24]:= IA_n_des[se24]
+#IA_notionnel_noshock_nFC[se24] := IA_notionnel_noshock[se24] 
+
+#### TRANSPORT MARCHANDISES ####
+
+# New_trucks_exo[road] := Trucksexo[road]/1000-Trucksexo[road]{-1}/1000*(1-Tdec[road])
+# phi_new_Trucks[ce,road] := phi_Trucks[ce,road]
+
+# New_LUV_exo_16 := LUVexo_16/1000-LUVexo_16{-1}/1000*(1-Tdec_16)
+# phi_new_LUV[ce,16] := phi_LUV[ce,16]
+
+# I_cleantrucks[ce,road] := @elem(PNew_Trucks[ce,road], %baseyear) * New_trucks[ce,road] + @elem(PNew_LUV[ce,road], %baseyear)*New_LUV[ce,road] where ce in %list_com_E \ 21 22 
+# I_cleantrucks[road] := sum( I_cleantrucks[ce,road] where ce in %list_com_E \ 21 22  ) 
+
+# I_fossiltrucks[ce,road] := @elem(PNew_Trucks[ce,road], %baseyear) * New_trucks[ce,road] + @elem(PNew_LUV[ce,road], %baseyear)*New_LUV[ce,road] where ce in %list_com_E \ 23 24 
+# I_fossiltrucks[road] := sum( I_fossiltrucks[ce,road] where ce in %list_com_E \ 23 24  ) 
+
+# IAexo_dgt_15:= 1715.68304 # modifiée dans le fichier de calibrage
+# IAexo_dgt_16:= 14026.76
+
+# @over I_MDE[road] := 0.01*IAexo_dgt[road] * REAL_GDP_INDEX_DGT # hypothèse arbitraire
+#I_MDE_notionnel[road] := I_MDE[road]
+
+# @over IA_n[road] := IAexo_dgt[road] * REAL_GDP_INDEX_DGT # ok
+# pq ne prend pas dès 2006 ??? Pose pb
+
+#@over I_NE_n[road] := IAexo_dgt[road] * REAL_GDP_INDEX_DGT - I_MDE[road] - I_fossiltrucks[road] - I_cleantrucks[road] # bloque en 2015 !!!
+# avant on avait i_ne_n initialisée avec K_ne qui lui même était initialisé à 99%*K_n
+# pas possible ici car on a aussi les trucks!!
+
+# @over IA_notionnel[road]:= IA_notionnel_noshock[road] 
+# @over IA_n_des[road] := I_NE_n[road]
+# @over IA_n_noshock[road]:= I_NE_n[road]
+# @over IA_notionnel_noshock[road]:= I_NE_n[road]
+# @over IA_notionnel[road]:= IA_notionnel_noshock[road]
+# I_NE_notionnel[road] := IA_notionnel[road] - I_MDE_notionnel[road] - I_fossiltrucks[road] - I_cleantrucks[road]
+
+# ne pas activer #@over IA[road] := IAexo_dgt[road]  # ne marche pas
+# ne pas activer #@over IA[c, 16] := INV_MAT($c,16)/SUPPLY_USE_DOM((NELEMSET(3,1)+1)+2+(NELEMSET(11,1)+1)+(NELEMSET(9,1)+1),16) * IA_n_16
+
+# @over I_NE[road] := I_NE_n[road]
+
+# pour changer IA[s] car on a IA[c,s] calculés sur l'ancien IAexo[s]...
+
+# IAexo_dgt[c,16]:= 0
+# @over IAexo_dgt_03_16 := 4486.097985
+# @over IAexo_dgt_05_16 := 0.341309925
+# @over IAexo_dgt_12_16 := 4990.141678
+# @over IAexo_dgt_13_16 := 1810.957633
+# @over IAexo_dgt_19_16 := 2299.432599
+
+# @over IA[c, 16] := IAexo_dgt[c,16] 
+# @over IA[c, 16] := INV_MAT($c,16)/SUPPLY_USE_DOM((NELEMSET(3,1)+1)+2+(NELEMSET(11,1)+1)+(NELEMSET(9,1)+1),16) * IA_n_16
+# @over IA_n[c, 16] := IA[c, 16]
+# @over IAD[c, 16] := ID[c]/(ID[c] + IM[c] +(ID[c] + IM[c]<0.0000000001)*1) * IA[c, 16]
+# @over IAM[c, 16] := IM[c]/(ID[c] + IM[c] +(ID[c] + IM[c]<0.0000000001)*1) * IA[c, 16]
+# @over IA_16 := IA_n_16
+# a aussi répercuter sur IAD, IAM...
+
+#testtest[c,16] := INV_MAT($c,16)/SUPPLY_USE_DOM((NELEMSET(3,1)+1)+2+(NELEMSET(11,1)+1)+(NELEMSET(9,1)+1),16) * IA_n_16  
+
+# tdec_trucks[ce, road] := tdec[road]
+# tdec_LUV[ce, 16] := tdec_16
+# tdec_trucks[road] := tdec[road]
+# tdec_LUV_16 := tdec_16
+# tdec_E[road] := tdec[road]
+
+# @over K_E[road] := 0.01 * K[road]
+# @over K_E_n[road] := 0.01 * K_n[road]
+# K_vehicules[road] := 0.5 * K[road]
+# K_vehicules_n[road] := 0.5 * K_n[road]
+# @over K_NE[road] := 0.49 * K[road]
+# @over K_NE_n[road] := 0.49 * K_n[road]
+
+# phi_n_K_E[sne] := K_E_n[sne] * CK_E[sne] / (K_E_n[sne] * CK_E[sne] + K_NE_n[sne] * CK[sne] + K_vehicules_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * (PE[sne] + PE_CEE_n[sne] + PE_signal_bis[sne]) + MAT_n[sne] * PMAT[sne]) where sne in 15 16
+# phi_n_K_NE[sne] := (K_NE_n[sne] + K_vehicules_n[sne]) * CK[sne] / (K_E_n[sne] * CK_E[sne] + K_NE_n[sne] * CK[sne] + K_vehicules_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * (PE[sne] + PE_CEE_n[sne] + PE_signal_bis[sne]) + MAT_n[sne] * PMAT[sne]) where sne in 15 16
+
+# phi_K_ne_bis[s] := (K_NE[s] + K_vehicules[s]) * CK[s] / ((K_NE[s] + K_vehicules[s])  * CK[s]+ K_E[s]  * CK_e[s]  + L[s] * PROG_L[s] * CL[s] + E[s] * (PE[s] + PE_CEE[s] + PE_signal_bis[s]) + MAT[s] * PMAT[s]) where s in 15 16
+# phi_K_e_bis[s] := K_E[s] * CK_e[s] / ((K_NE[s] + K_vehicules[s])  * CK[s]+ K_E[s]  * CK_e[s]  + L[s] * PROG_L[s] * CL[s] + E[s] * (PE[s] + PE_CEE[s] + PE_signal_bis[s]) + MAT[s] * PMAT[s]) where s in 15 16
+
+
+##### INTRODUCTION COEFFICIENT DANS LES EQUATIONS DE TAUX DE MARGE #####
+
+coeff_TMD_n_01 := 1.1
+coeff_TMD_n[sinc] := 1.1
+coeff_TMD_n_13 := 1.4
+coeff_TMD_n_14 := 1.1
+coeff_TMD_n_15 := 1.1
+coeff_TMD_n_16 := 1.1
+coeff_TMD_n_17 := 1.1
+coeff_TMD_n_18 := 1.1
+coeff_TMD_n_19 := 1.4
+coeff_TMD_n_20 := 1.4
+
+
+##### INTRODUCTION CHOC SUR NU_REHAB #####
+
+# @over Nu_REHAB[h,ecl] :=  Nu_REHABexo[h,ecl]
+# Nu_REHABexo[h,ecl] := 0.046
+
+
+#### Chocs de financement par hausse de la TVA ####
+
+ #gel rvat_base := vat /(ch + ci + g + i - vat) 
+ #gel rvat_shock := rvat_base - (choc_tva / pgdp) / (ch + ci + g + i - vat) 
+ #gel ratio_shock_base := rvat_shock/rvat_base  facteur de recalibrage du taux de TVA
+ #gel tvatd_exo[c] := tvatd[c]
+ #gel tvatdoth_exo[c]:= tvatdoth[c]
+ #gel tvatm_exo[c]:= tvatm[c]
+ #gel tvatmoth_exo[c]:= tvatmoth[c]
+ 
+ choc_tva := 0
+ GREEN_DEP_VAL_20 := TAX_CR_VAL + PIA_20 * I_MDE_20 + SUB_RENOV_val + SUB_AUTO_VAL
+
+##### DIFFERENCIATION COUT DU CAPITAL AVANT/APRES 2019 POUR CALAGE DU MODELE #####
+
+ CK_ante[s] := PK[s] * (  R[s] - d(P)/P{-1} + Tdec[s]) if K[s] > 0
+
+ CK_post[s] := PIA[s] * (  R[s] - d(P)/P{-1} + Tdec[s]) if K[s] > 0
+
+ @over CK[s] := PK[s] * (  R[s] - d(P)/P{-1} + Tdec[s]) if K[s] > 0
+
+ CK_E_ante[s] := PK[s] * (1-CK_subE[sne]) * (  R[s] - d(P)/P{-1} + Tdec[s]) if K[s] > 0
+
+ CK_E_post[s] := PIA[s] * (1-CK_subE[sne]) * (  R[s] - d(P)/P{-1} + Tdec[s]) if K[s] > 0
+
+
+##### MODIFICATION POUR LA REGLE DE TAYLOR - DESACTIVATION DU LIEN ENTRE CK ET PRIX DE PRODUCTION POUR EVITER L'EFFET INFLATIONNISTE #####
+
+ adjust_dir_u := 0
+
+ adjust_dir_inf := 0
+
+ R_DIR_dgt := R_DIR
+
+ R_n_dgt := R_n
+
+ R_dgt[s] := R[s]
+
+ CK_dgt_ante[s] := CK_ante[s]
+
+ CK_dgt_post[s] := CK_post[s]
+
+ CK_dgt[s] := CK[s]
+
+ CK_E_dgt_ante[s] := CK_E_ante[s]
+
+ CK_E_dgt_post[s] := CK_E_post[s]
+
+ CK_E_dgt[s] := CK_E[s]
+
+ R_pub := R_n 
+
+ R_exo_pub := 0
+
+
+#### MODIFICATIONS CEE (subvention privée financée par une taxe privée) #### 
+
+#gel SUB_CEE_VAL_resid  := 0
+
+#gel part_frais_CEE := 0.20 hypothèse DGEC 10/03/2025
+#gel part_CEE_resid := 0.632 hypothèse DGEC 11/03/2025 63.2 %
+#gel part_CEE_indus := 0.15 hypothèse DGEC 11/03/2025 15%
+#gel part_CEE_ter := 0.132 hypothèse DGEC 11/03/2025 13.2%
+#gel part_CEE_trsp := 0.038 hypothèse DGEC 11/03/2025 3.8%
+#gel part_CEE_agri := 0.018 hypothèse DGEC 11/03/2025 1.8%
+#gel # reseaux 3,1% ignoré
+
+#gel SUB_CEE_VAL_indus := SUB_CEE_VAL_resid * part_CEE_indus / part_CEE_resid
+#gel SUB_CEE_VAL_ter := SUB_CEE_VAL_resid * part_CEE_ter / part_CEE_resid
+#gel SUB_CEE_VAL_trsp := SUB_CEE_VAL_resid * part_CEE_trsp / part_CEE_resid
+#gel SUB_CEE_VAL_agri := SUB_CEE_VAL_resid * part_CEE_agri / part_CEE_resid
+#gel SUB_CEE_VAL_hors_resid := SUB_CEE_VAL_indus + SUB_CEE_VAL_ter + SUB_CEE_VAL_trsp + SUB_CEE_VAL_agri
+#gel SUB_CEE_VAL := SUB_CEE_VAL_resid + SUB_CEE_VAL_hors_resid
+
+#gel @over R_SUB_CEE[h,ecl,ecl2] * RENOV_VAL := SUB_CEE_VAL_resid
+#gel R_SUB_CEE[s]:=0
+#gel R_SUB_CEE_indus := 0 
+#gel R_SUB_CEE_ter := 0 
+#gel R_SUB_CEE_trsp:= 0 
+#gel R_SUB_CEE_agri:= 0 
+
+#gel SUB_CEE_VAL[sne] := R_SUB_CEE[sne] * I_MDE[sne]*PIA[sne]
+#gel CEE_VAL_resid := SUB_CEE_VAL_resid/(1-part_frais_CEE)
+#gel CEE_VAL_hors_resid := SUB_CEE_VAL_hors_resid/(1-part_frais_CEE)
+#gel CEE_val := CEE_VAL_resid + CEE_VAL_hors_resid
+
+#gel CEE_VAL_resid[se] := CEE_VAL_resid * Phi_CEE[se]
+#gel CEE_VAL_hors_resid[se] := CEE_VAL_hors_resid * Phi_CEE[se]
+#gel CEE_VAL[se] := CEE_VAL * Phi_CEE[se]
 #gel CEE_VAL[ce,se] := CEE_VAL[se] * (PY[se]*Y[ce,se])/(PY_ce[se]*Y_ce[se]) if Y_ce[se]<>0
 #gel CEE_VAL_ce[ce] := sum(CEE_VAL[ce,se] on se)
-#gel 
-#gel Phi_CEE_ce[ce] := CEE_VAL_ce[ce] / (CEE_VAL + 0.0001)
-#gel 
-#gel @over ED[ce] := sum(ED[ce,s] on s)
-#gel 
-#gel @over EM[ce] := sum(EM[ce,s] on s)
-#gel 
-#gel MAT_comm_CEE[se] := (CEE_VAL[se] * part_frais_CEE)/PY_19
-#gel 
-#gel @over Phi_CEE[21] := 1 * QD[21] / (sum(QD[ce] on ce))   
-#gel @over Phi_CEE[se22] := PhiY_ENER[22,se22] * QD[22] / (sum(QD[ce] on ce))   
-#gel @over Phi_CEE[se23] := PhiY_ENER[23,se23] * QD[23] / (sum(QD[ce] on ce))   
-#gel @over Phi_CEE[se24] := PhiY_ENER[24,se24] * QD[24] /(sum(QD[ce] on ce))   
-#gel 
- #gel @over PE_CEE[s] := 0 #vu la modification des équations de K_E_des_n et E_oth_n, vu la modification des équations de PE, PCHD[ce] PGD[ce], on retranche l'effet CEE des équations Subst et CU
-#gel 
-#gel  
-#gel @over phi_n_K[sne] := K_n[sne] * CK[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
-#gel 
-#gel @over phi_n_L[sne] := L_n[sne] * PROG_L[sne] * CL[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
-#gel 
-#gel @over phi_n_E[sne] := (E_n[sne] * PE[sne] ) / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
-#gel 
-#gel @over phi_n_MAT[sne] := MAT_n[sne] * PMAT[sne] / (K_n[sne] * CK[sne] + L_n[sne] * PROG_L[sne] * CL[sne] + E_n[sne] * PE[sne] + MAT_n[sne] * PMAT[sne])
-#gel 
-#gel @over phi_n_K[se] := K_n[se] * CK[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
-#gel 
-#gel @over phi_n_L[se] := L_n[se] * PROG_L[se] * CL[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
-#gel 
-#gel @over phi_n_E[se] := (E_n[se] * PE[se]) / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
-#gel 
-#gel @over phi_n_MAT[se] := MAT_n[se] * PMAT[se] / (K_n[se] * CK[se] + L_n[se] * PROG_L[se] * CL[se] + E_n[se] * PE[se] + MAT_n[se] * PMAT[se])
-#gel 
-  #gel ################################### option ADEME
-#gel   
- #gel @over NCU_n[se] * Y[se]  := @elem(CU_n[se]  * Y[se]  + PIY[se]  * IY[se]  + PSY[se]  * SY[se]  + PIS[se]  * IS[se] + CEE_VAL[se] * (1-part_frais_CEE), %baseyear)*NOM_GDP_INDEX_DGT if Y[se] <> 0
-#gel 
- #gel @over NCU_n[sne] * Y[sne]  := @elem(CU_n[sne] * Y[sne] + PIY[sne] * IY[sne] + PSY[sne] * SY[sne] + PIS[sne] * IS[sne] - SUB_CEE_VAL[sne],%baseyear)*NOM_GDP_INDEX_DGT if Y[sne] <> 0
-#gel 
-  #gel @over NCU[se] * Y[se]  := @elem(CU[se] * Y[se] + PIY[se] * IY[se] + PSY[se] * SY[se] + PIS[se] * IS[se] + CEE_VAL[se] * (1-part_frais_CEE),%baseyear)*NOM_GDP_INDEX_DGT if Y[se] <> 0
-#gel   
-  #gel @over NCU[sne] * Y[sne]  := @elem(CU[sne] * Y[sne] + PIY[sne] * IY[sne] + PSY[sne] * SY[sne] + PIS[sne] * IS[sne] - SUB_CEE_VAL[sne],%baseyear)*NOM_GDP_INDEX_DGT if Y[sne] <> 0
-#gel  
-  #gel @over EBE[se] := @elem(VA[se] - CL[se]/PEBE[se] * L[se] * PROG_L[se] - IY[se] - SY[se] - CEE_VAL[se] * (1-part_frais_CEE)/PEBE[se],%baseyear)*REAL_GDP_INDEX_DGT
-#gel    
-  #gel @over EBE[sne] := @elem(VA[sne] - ( CL[sne] / PEBE[sne] ) * L[sne] * PROG_L[sne] - IY[sne] - SY[sne] + SUB_CEE_VAL[sne]/PEBE[sne],%baseyear)*REAL_GDP_INDEX_DGT
-#gel   
-   #gel #gel @over PEBE[se] * EBE[se] := @elem(PVA[se] * VA[se] - CL[se] * L[se] * PROG_L[se] - PIY[se] * IY[se] - PSY[se] * SY[se] - CEE_VAL[se] * (1-part_frais_CEE),%baseyear)*NOM_GDP_INDEX_DGT
-#gel #gel     
-   #gel #gel @over PEBE[sne] * EBE[sne] := @elem(PVA[sne] * VA[sne] - CL[sne] * L[sne] * PROG_L[sne] - PIY[sne] * IY[sne] - PSY[sne] * SY[sne] + SUB_CEE_VAL[sne],%baseyear)*NOM_GDP_INDEX_DGT
-#gel      
- #gel Var_K_E_CEE[sne] * PIA[sne] := SUB_CEE_VAL[sne]
-#gel       
- #gel Var_E_oth_n_CEE[sne] := -Var_K_E_CEE[sne]*d(E_oth_n[sne]{-1})/I_MDE_n[sne]{-1} #cette spécification fait buger le modèle en AMS 2040
-#gel    
- #gel Var_E_spe_CEE[road] := -Var_K_E_CEE[sne]*d(E_spe[road]){-1}/I_MDE_spe[road]{-1}
-#gel  
-#gel NCU_ce[ce] * YQ[ce] := (sum(NCU_n[s]*Y[ce,s] if Y[ce,s]<>0 on s )) 
-#gel 
-#gel CEE_VAL_ED[ce,s] := CEE_VAL_ce[ce]*CEE_ED_base[ce,s]/CEE_base[ce]
-#gel 
-#gel CEE_VAL_ED[ce] :=sum(CEE_VAL_ED[ce,s] on s)
-#gel 
-#gel CEE_VAL_CHD[ce] := CEE_VAL_ce[ce]*CHD[ce]/CEE_base[ce]
-#gel 
-#gel CEE_VAL_GD[ce] := CEE_VAL_ce[ce]*GD[ce]/CEE_base[ce] 
-#gel 
-#gel CU_CEE_VAL_ED[ce,s] * YQ[ce] := CEE_VAL_ED[ce,s] 
-#gel 
-#gel CU_CEE_VAL_CHD[ce] * YQ[ce] := CEE_VAL_CHD[ce]
-#gel 
-#gel CU_CEE_VAL_GD[ce] * YQ[ce] := CEE_VAL_GD[ce] 
-#gel 
-#gel CU_CEE_VAL_ce[ce] * YQ[ce] := CEE_VAL_ce[ce]
-#gel 
-#gel CEE_base[ce] := CEE_ED_base[ce] + CHD[ce] + GD[ce]
-#gel 
-#gel CEE_ED_base[ce] := sum(CEE_ED_base[ce,s] on s)
-#gel 
-#gel CEE_ED_base[ce,s] := ED[ce,s] * (1- EXO_CEE_base[ce,s]) 
-#gel 
-#gel EXO_CEE_base[ce,s] := 0
-#gel 
-#gel @over EXO_CEE_base[ce,sind] := 1 
-#gel 
-#gel @over EXO_CEE_base[ce,se] := 1 
-#gel 
+#gel Phi_CEE_ce[ce] := CEE_VAL_ce[ce] / (CEE_VAL + 0.0001) 
 
-#gel 
+#gel MAT_comm_CEE_VOL[se] := (CEE_VAL[se] * part_frais_CEE)/PY_19 
+#gel @over Y_ce := sum(Y_ce[seno21] on seno21)
+ #gel @over Y_ce[se]:=sum(Y[ce,se] on ce)
+#gel PY_ce[se]*Y_ce[se] := sum(PY[se]*Y[ce,se] on ce) 
+#gel @over Phi_CEE[seno21] := Y_ce[seno21] / Y_ce
+#gel @over Phi_CEE_21 := 0
+
+#gel CEE_base[ce] := CEE_ED_base[ce] + CHD[ce] + GD[ce]
+#gel CEE_ED_base[ce] := sum(CEE_ED_base[ce,s] on s)
+#gel CEE_ED_base[ce,s] := ED[ce,s] * (1- EXO_CEE_base[ce,s]) 
+#gel EXO_CEE_base[ce,s] := 0
+#gel @over EXO_CEE_base[ce,sind] := 1 
+#gel @over EXO_CEE_base[ce,se] := 1 
+
+#gel CEE_VAL_ED[ce,s] := CEE_VAL_ce[ce]*CEE_ED_base[ce,s]/CEE_base[ce]
+#gel CEE_VAL_ED[ce] :=sum(CEE_VAL_ED[ce,s] on s)
+#gel CEE_VAL_CHD[ce] := CEE_VAL_ce[ce]*CHD[ce]/CEE_base[ce]
+#gel CEE_VAL_GD[ce] := CEE_VAL_ce[ce]*GD[ce]/CEE_base[ce] 
+
+#gel @over ED[ce] := sum(ED[ce,s] on s)
+#gel @over EM[ce] := sum(EM[ce,s] on s)
+
+#gel taux_CEE_sec[se] := CEE_VAL[se]/(PY_ce[se]*Y_ce[se])  if Y[se] <> 0
+#gel taux_CEE_conso[ce] := CEE_VAL_ce[ce]/(PYQ[ce]*YQ[ce])  if YQ[ce] <> 0
 #gel verif_CEE_cost:= CEE_VAl-CEE_VAL_CHD[ce]-CEE_VAL_GD[ce]-CEE_VAL_ED[ce]
-#gel 
-#gel verif_phi_CEE := sum(Phi_CEE[se] on se) -1 
-#gel 
- #gel VERIF_CEE := sum(CEE_VAL[se] on se) - CEE_VAL
-#gel  
- #gel verif_CEE_ce := sum(CEE_VAL_ce[ce] on ce) - CEE_VAL
+#gel @over verif_phi_CEE := sum(Phi_CEE[se] on se) -1 
+#gel @over VERIF_CEE := sum(CEE_VAL[se] on se) - CEE_VAL
+#gel verif_CEE_ce := sum(CEE_VAL_ce[ce] on ce) - CEE_VAL
+#gel verif_CEE_sub_sec := sum(SUB_CEE_VAL[sne] on sne) - SUB_CEE_VAL_hors_resid
+
+
+#gel @over CEE[s] := 0.00001
+#gel @over CEE := 0.00001
+
+#gel @over phiy_E[ce,se] := PhiY_ener_exo[ce,se]
+
+
+############### correction ADEME
+
+ Inv_IRVE_19 := Inv_IRVE
+ Inv_IRVE_20 := Inv_IRVE - Inv_IRVE_19
+ 
+ New_vehicule_elec := newauto_elec_h01 + New_LUV_23_16 + New_trucks_23_15 + New_trucks_23_16
+ 
+ 
+#### modification du taux de déclassement des véhicules thermiques 
+
+ AUTO_elec_D := AUTO_D
+ 
+ @over AUTO_th_D := AUTO_D
+
+ @over AUTO_elec_D[h, pcl] := AUTO_elec_D
+  
+ @over AUTO_th_D[h,ecl] :=  AUTO_th_D 
+   
+ @over AUTO_D[h,ecl] := AUTO_th_D[h,ecl]
+  
+ @over AUTO_D[h, CA] * AUTO[h,CA] := AUTO_elec_D * AUTO_elec[h] + AUTO_th_D * AUTO_th[h,CA] 
+  
+  delta_AUTO_th[ecl, DES] := 1/AUTO_th_D[h,ecl]
+  
+  delta_AUTO_elec[ecl, DES] := 1/AUTO_elec_D

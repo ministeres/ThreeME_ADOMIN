@@ -26,6 +26,7 @@ include .\src\data\standard_shocks
 
 include .\src\data\load_data_baseline_realist
 include .\src\data\load_data_realist_dgt
+include .\src\data\load_data_calibrage_ame_dgt
 
 'Run model
 include .\src\model\tracker.prg
@@ -101,7 +102,7 @@ For %scen_number {%scen_list}
 		'%rptMPR = "reporting_MPR_"+%scen_number+".xlsx"
 		'%rptLogan = "reporting_Logan_"+%scen_number+".xlsx"
 		'%rptmatmat=""+"reporting_Matmat_"+%scen_number+".csv"
-		'%rptmatmat=@strnow("yyyy-mm-dd-HH-mi-ss")+"-Matmat.csv"
+		%rptmatmat=@strnow("yyyy-mm-dd-HH-mi-ss")+"-Matmat.csv"
 
 	    if %exceptions_PAC = "yes" then
 		%rptPAC = "reporting_PAC_"+%scen_number+".xlsx"
@@ -117,7 +118,7 @@ For %scen_number {%scen_list}
 		'%xlname7 = %scenfolder_path+"\"+%rpt7
 		'%xlnameMPR = %scenfolder_path+"\"+%rptMPR
 		'%xlnameLogan = %scenfolder_path+"\"+%rptLogan
-		'%xlnamematmat = %scenfolder_path+"\"+%rptmatmat
+		%xlnamematmat = %scenfolder_path+"\"+%rptmatmat
 
 	    if %exceptions_PAC = "yes" then
 		%xlnamePAC = %scenfolder_path+"\"+%rptPAC
@@ -154,7 +155,7 @@ For %scen_number {%scen_list}
 		'	wfsave(type=excelxml, mode=update) {%xlname7} range="data!A1"  byrow @keep reporting_finPO @smpl "2004 2050"
 		'	wfsave(type=excelxml, mode=update) {%xlnameMPR} range="data!A1"  byrow @keep reporting_MPR @smpl "2004 2050"
 		'	wfsave(type=excelxml, mode=update) {%xlnameLogan} range="data!A1"  byrow @keep reporting_Logan @smpl "2004 2050"
-		'	wfsave(type=text, mode=update) {%xlnamematmat} @keep export_group_matmat @smpl "2004 2050"
+			wfsave(type=text, mode=update) {%xlnamematmat} @keep export_group_matmat @smpl "2004 2050"
 
 		Endif
 	    if %exceptions_PAC = "yes" then
