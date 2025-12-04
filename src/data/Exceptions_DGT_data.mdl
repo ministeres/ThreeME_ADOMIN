@@ -1356,3 +1356,11 @@ coeff_TMD_n_20 := 1.4
   delta_AUTO_th[ecl, DES] := 1/AUTO_th_D[h,ecl]
   
   delta_AUTO_elec[ecl, DES] := 1/AUTO_elec_D
+  
+EMS_BUIL_22_H01  := (Q_Mtep_H_Buil_22 * IC_HH_22_H01 *3.2)*1000000
+
+ EMS_BUIL_24_H01  := (Q_Mtep_H_Buil_24 * IC_HH_24_H01 *2.394)*1000000
+
+ EMS_AUTO_22_H01  := (Q_Mtep_H_AUTO_22 * IC_HH_22_H01 *3.2)*1000000
+
+ EMS_AUTO_24_H01  :=  (Q_Mtep_H_AUTO_24 * IC_HH_24_H01 *2.394)*1000000

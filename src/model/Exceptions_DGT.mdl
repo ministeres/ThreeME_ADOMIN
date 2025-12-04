@@ -1664,18 +1664,23 @@ share_ems_csc[s] * EMS_SEC_TOT[s] = sum(share_EMS_CSC[ce2, s] * EMS_SEC_TOT[ce2,
 
    # on endogeneise PhiY_ener_24[se24]
                  
-   phiy_E[ce,se] = (phiy_E[ce,se]{-1} + d(PhiY_ener_exo[ce,se]) + d(Q_Mtep_FC[se]) / Q_Mtep_ef_tot_SOU[ce]{-1}>0.013) * _
-                   (phiy_E[ce,se]{-1} + d(PhiY_ener_exo[ce,se]) + d(Q_Mtep_FC[se]) / Q_Mtep_ef_tot_SOU[ce]{-1}) + _
-                   (phiy_E[ce,se]{-1} + d(PhiY_ener_exo[ce,se]) + d(Q_Mtep_FC[se]) / Q_Mtep_ef_tot_SOU[ce]{-1}<=0.013) * 0.013
-
-   #vu les conditionnnalites ajoutees plus bas sur Q_Mtep_FC (le fonds chaleur s'�teint si la part du gaz naturel chute sous la barre des 1.5%), si Q_Mtep_FC ne varie plus, phiy_E[ce,se] �volue comme PhiY_ener_exo (donnees Enerdata). Anisi sp�cifi�e en variation, la baisse de la consommation finale du gaz (au d�nominateur) induite par les CEE ou le cr�dit d'impot n'entra�ne plus une chute artificielle de la part du gaz naturel dans le mix. La part du gaz naturel ne doit pas chuter � terme sous la barre de 1.3% (cible AMS en 2050) 
+  phiy_E[ce,se] = phiy_E[ce,se]{-1} + d(PhiY_ener_exo[ce,se])
+   
+                 
+   @over phiy_E[24,se24] = (phiy_E[24,se24]{-1} + d(PhiY_ener_exo[24,se24]) + d(Q_Mtep_FC[se24]) / Q_Mtep_ef_tot_SOU[24]{-1}>0.013) * _
+                   (phiy_E[24,se24]{-1} + d(PhiY_ener_exo[24,se24]) + d(Q_Mtep_FC[se24]) / Q_Mtep_ef_tot_SOU[24]{-1}) + _
+                   (phiy_E[24,se24]{-1} + d(PhiY_ener_exo[24,se24]) + d(Q_Mtep_FC[se24]) / Q_Mtep_ef_tot_SOU[24]{-1}<=0.013) * 0.013
+#### parts = val n-1 + var exo des parts du sect ener dans le mix + val des Q_Mtep créés par le FC / Mtep_consommés par le sect
+###0.013 > pour que ça ne tombe pas à 0
+ 
+   #vu les conditionnnalites ajoutees plus bas sur Q_Mtep_FC (le fonds chaleur s'�teint si la part du gaz naturel chute sous la barre des 1.5%), si Q_Mtep_FC ne varie plus, phiy_E[24,se] �volue comme PhiY_ener_exo (donnees Enerdata). Anisi sp�cifi�e en variation, la baisse de la consommation finale du gaz (au d�nominateur) induite par les CEE ou le cr�dit d'impot n'entra�ne plus une chute artificielle de la part du gaz naturel dans le mix. La part du gaz naturel ne doit pas chuter � terme sous la barre de 1.3% (cible AMS en 2050)
     # Attention, il faut corriger la part exo donnee par Enerdata qui prend deja en compte le fonds chaleur, sinon double compte.  
-
-   phiy_ener[ce,se] = phiy_E[ce,se] / PhiY_E[ce]
-
-   PhiY_E[ce] = (sum(phiy_E[ce,se] on se))
-
-   verif_PhiY_ener[se] = 1 - (sum(phiy_ener[ce,se]] on se)) 
+ 
+   phiy_ener[24,se24] = phiy_E[24,se24] / PhiY_E_24 #### somme des phiy_ener = 1
+ 
+   PhiY_E[24] = (sum(phiy_E[24,se24] on se24))
+ 
+   verif_PhiY_ener[se24] = 1 - (sum(phiy_ener[24,se24]] on se24))
 
    # avec Q_Mtep_FC le nombre de Mtep produites grace au fonds chaleur cumulees  sur la periode et dQ_Mtep_FC la production de nouvelles Mtep financee dans l'annee: 
    #dQ_Mtep_FC[se24] est la production des reseaux de chaleur et dQ_Mtep_FC[se24,s] est la consommation des secteurs en chaleur renouvelable suite au changement de chaudiere finance  par le FC. 
@@ -2341,3 +2346,10 @@ GREEN_DEP_VAL_20 = TAX_CR_VAL + PIA_20 * I_MDE_20 + SUB_RENOV_val + SUB_AUTO_VAL
 
 @over DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + R_G{-1}*DEBT_G_VAL{-1} + PRESOC_VAL + SUB_RENOV_VAL + SUB_AUTO_VAL + REDIS_VAL_H + value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[sp]) - ((SUB - SUB_01) + (SY - SY_01)))  
 
+ EMS_BUIL_22_H01  = (Q_Mtep_H_Buil_22 * IC_HH_22_H01 *3.2)*1000000
+
+ EMS_BUIL_24_H01  = (Q_Mtep_H_Buil_24 * IC_HH_24_H01 *2.394)*1000000
+
+ EMS_AUTO_22_H01  = (Q_Mtep_H_AUTO_22 * IC_HH_22_H01 *3.2)*1000000
+
+ EMS_AUTO_24_H01  =  (Q_Mtep_H_AUTO_24 * IC_HH_24_H01 *2.394)*1000000
